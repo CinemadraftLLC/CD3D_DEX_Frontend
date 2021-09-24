@@ -1,0 +1,36 @@
+.draftSec {
+  padding-top: 50px;
+  padding-bottom: 50px;
+
+  text-align: center;
+}
+
+.draftSec h4 {
+  color: #2bd67b;
+}
+
+.draftSec h6,
+.draftSec p {
+  color: #ff799d;
+}
+
+.itemGrid {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.draftSec button {
+  width: 100%;
+  max-width: 250px;
+  background-color: #ff0144;
+  padding: 15px 0px;
+  border-radius: 10px;
+  margin-top: 40px;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.draftSec button:hover {
+  background-color: #ff0144;
+}

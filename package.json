@@ -1,0 +1,40 @@
+{
+  "name": "cd3d",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/lab": "^4.0.0-alpha.60",
+    "@material-ui/utils": "^4.11.2",
+    "@mui/icons-material": "^5.0.0",
+    "@mui/material": "^5.0.0",
+    "@mui/styled-engine-sc": "^5.0.0",
+    "@mui/styles": "^5.0.0",
+    "devextreme": "^21.1.5",
+    "devextreme-react": "^21.1.5",
+    "html-entities": "^2.3.2",
+    "next": "11.1.2",
+    "next-images": "^1.8.1",
+    "react": "17.0.2",
+    "react-countdown": "^2.3.2",
+    "react-dom": "17.0.2",
+    "react-mailchimp-subscribe": "^2.1.3",
+    "react-player": "^2.9.0",
+    "react-slick": "^0.28.1",
+    "recharts": "^2.1.4",
+    "slick-carousel": "^1.8.1",
+    "styled-components": "^5.3.1"
+  },
+  "devDependencies": {
+    "eslint": "7.32.0",
+    "eslint-config-next": "11.1.2"
+  }
+}

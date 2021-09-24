@@ -1,0 +1,89 @@
+.buyTokeOuter {
+  background-color: #1d162d;
+  padding: 20px;
+  border-radius: 15px;
+  color: #75e4aa;
+  box-sizing: border-box;
+}
+.downOuter {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 20px 0px;
+}
+.downOuter img {
+  width: 100% !important;
+  max-width: 30px !important;
+}
+
+.bidPriceOuter {
+  margin-top: 25px;
+}
+
+.bidPriceOuter label {
+  font-size: 0.8rem;
+}
+.bidPriceOuter label span {
+  color: #7689b0;
+}
+
+.bidPriceInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1d162d;
+  margin: 10px 0px;
+  padding: 15px;
+  border: 1px solid #26164a;
+  border-radius: 10px;
+}
+.bidPriceInput input {
+  background: none;
+  border: none;
+  color: #fff;
+  outline: none;
+  width: 100%;
+  max-width: 200px;
+}
+.bidPriceInput p {
+  color: #fff;
+  font-size: 1rem;
+  display: flex;
+}
+.bidPriceInput p img {
+  padding-left: 5px !important;
+  width: 100% !important;
+  min-width: 22px !important;
+}
+
+.bidPriceInput input::placeholder {
+  font-size: 1rem;
+  color: #fff;
+}
+
+.bidPriceInput input[type="number"]::-webkit-inner-spin-button,
+.bidPriceInput input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.amountMin {
+  display: flex;
+  color: #7689b0;
+  justify-content: space-between;
+}
+
+.buyTokeOuter button {
+  width: 100%;
+  background-color: #ff0144;
+  padding: 15px 0px;
+  border-radius: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
+
+.buyTokeOuter button:hover {
+  background-color: #ff0144;
+}

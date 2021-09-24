@@ -1,0 +1,15 @@
+.bidChartOuter {
+  margin-top: 20px;
+  background-color: #1d162d00;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px #00000086;
+}
+
+.bidChartInner {
+  color: #eafbf3;
+}
+
+.bidChartInner p {
+  color: #75e4aa;
+}

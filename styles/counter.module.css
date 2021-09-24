@@ -1,0 +1,81 @@
+.countOuter {
+  background-color: #110c1c;
+  color: #ffffff;
+  padding: 80px 0px;
+  text-align: center;
+  border-radius: 100px 100px 0px 0px;
+}
+.topText p {
+  color: #a0edc4;
+}
+
+.bottomText h6 {
+  color: #ffffff;
+}
+
+.subDiv div {
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  -moz-box-pack: center;
+  justify-content: space-between;
+  background: #292238;
+  width: 100%;
+  max-width: 650px;
+  margin: 0 auto;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.subDiv button {
+  padding: 12px;
+  background-color: #ff0144;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 200px;
+  border: none;
+  color: #fff;
+  font-weight: 600;
+}
+.subDiv button:hover {
+  background-color: #ff0144;
+}
+
+.subDiv input {
+  border: none !important;
+  background: none;
+  outline: none !important;
+  width: 100%;
+  max-width: 500px;
+  color: #ffffff;
+  font-size: 16px;
+  padding-left: 10px;
+}
+
+.timeOuter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0px;
+}
+
+.timeOuter h3 {
+  display: flex;
+  flex-direction: column;
+}
+.timeOuter h3 span {
+  color: #4cdc8f;
+  font-size: 5rem;
+}
+.timeMid {
+  font-size: 2rem;
+}
+
+@media (max-width: 600px) {
+  .timeOuter h3 span {
+    font-size: 3rem;
+  }
+  .timeMid {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,13 @@
+.itemSec {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+}
+
+.itemSec h6 {
+  color: #2bd67b;
+}
+
+.itemSec p {
+  color: #ffd7e1;
+}
