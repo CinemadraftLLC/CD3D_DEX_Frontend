@@ -3,7 +3,6 @@ import Image from "next/image";
 import Logo from "../../public/assets/logo.svg";
 import CinemaLogo from "../../public/assets/homepage/CinemaLogo.png";
 
-// import "./navbar.module.css"
 import Container from "@mui/material/Container";
 import styles from "../../styles/navbar.module.css";
 import {
@@ -20,7 +19,9 @@ import Link from "next/link";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
-import { socialData } from "data/data";
+import { marketPlaceData, moreData, socialData } from "data/data";
+import CustomMenu from "../CustomMenu/CustomMenu";
+import CustomMenuItem from "../CustomMenuItem/CustomMenuItem";
 
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -56,32 +57,85 @@ const Header = () => {
             </div>
             {/* ) : ( */}
             <div className={styles.navlinks}>
-              <Button
-                aria-controls="basic-menu"
-                aria-haspopup="true"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClick}
-              >
-                MARKETPLACE <ArrowDropDownIcon />
-              </Button>
+              <CustomMenu
+                anchorEl={anchorEl}
+                handleClose={handleClose}
+                handleClick={handleClick}
+                child1={
+                  <Button
+                    aria-controls="basic-menu"
+                    aria-haspopup="true"
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
+                  >
+                    MARKETPLACE <ArrowDropDownIcon />
+                  </Button>
+                }
+                child2={marketPlaceData.map((item, index) => (
+                  <CustomMenuItem
+                    title={item.title}
+                    subTitle={item.subTitle}
+                    disabled={true}
+                    to={item.link}
+                    handleClose={handleClose}
+                  />
+                ))}
+              />
 
               <Link href="/" className={styles.link}>
                 REFERRAL
               </Link>
-
-              <Button
+              {/* <CustomMenu
+                child1={ */}
+              {/* <Button
                 aria-controls="basic-menu"
                 aria-haspopup="true"
                 aria-expanded={open2 ? "true" : undefined}
                 onClick={handleClick2}
               >
-                COMMUNITY <ArrowDropDownIcon />
-              </Button>
+                COMMUNITY
+                <ArrowDropDownIcon />
+              </Button> */}
               <Link href="/" className={styles.link}>
-                MORE
+                COMMUNITY
               </Link>
+              {/* }
+                child2={socialData.map((elem) => (
+                  <CustomMenuItem
+                    key={elem.id}
+                    title={elem.title}
+                    subTitle={elem.subTitle}
+                    disabled={true}
+                    to={elem.link}
+                  />
+                ))}
+              /> */}
+              <CustomMenu
+                anchorEl={anchorEl}
+                handleClose={handleClose}
+                handleClick={handleClick}
+                child1={
+                  <Button
+                    aria-controls="basic-menu"
+                    aria-haspopup="true"
+                    aria-expanded={open2 ? "true" : undefined}
+                    onClick={handleClick2}
+                  >
+                    MORE <ArrowDropDownIcon />
+                  </Button>
+                }
+                child2={moreData.map((elem) => (
+                  <CustomMenuItem
+                    key={elem.id}
+                    title={elem.title}
+                    subTitle={elem.subTitle}
+                    disabled={true}
+                    to={elem.link}
+                    handleClose={handleClose}
+                  />
+                ))}
+              />
             </div>
-            {/* )} */}
             <div className={styles.rightMenu}>
               <Link href="/" className={styles.playLink}>
                 Play
@@ -95,32 +149,6 @@ const Header = () => {
                 />
               </div>
             </div>
-            <Menu
-              anchorEl={anchorEl}
-              open={open}
-              onClose={handleClose}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              <MenuItem>
-                <Link href="/Token">Token Sales</Link>
-              </MenuItem>
-            </Menu>
-            <Menu
-              anchorEl={anchorEl2}
-              open={open2}
-              onClose={handleClose2}
-              MenuListProps={{
-                "aria-labelledby": "basic-button",
-              }}
-            >
-              {socialData.map((elem) => (
-                <MenuItem key={elem.id}>
-                  <Link href={elem.link}>{elem.title}</Link>
-                </MenuItem>
-              ))}
-            </Menu>
           </Toolbar>
         </Container>
       </AppBar>

@@ -38,6 +38,13 @@
   max-width: 150px;
   margin: 0 auto;
 }
+
+.title1 {
+  color: #ffd7e1 !important;
+  /* text-align: left; */
+  list-style: none;
+  line-height: 20px;
+}
 @media (max-width: 768px) {
   .soonOuter h4 {
     padding-right: 0;

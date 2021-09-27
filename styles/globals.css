@@ -58,3 +58,7 @@ a {
 /* #pie {
   height: 600px;
 } */
+
+.MuiMenu-paper {
+  backdrop-filter: blur(4px) !important;
+}

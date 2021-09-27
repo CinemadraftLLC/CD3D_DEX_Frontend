@@ -1,4 +1,4 @@
-.timelineContainer {
+  .timelineContainer {
   display: flex;
   flex-direction: column;
   position: relative;

@@ -13,7 +13,7 @@ import CustomizedAccordions from "./Accordion/AccordionComponent";
 
 const FaqSec = () => {
   return (
-    <div className={styles.faqOuter}>
+    <div className={styles.faqOuter} id="FAQ">
       <Container fixed>
         <div className={styles.faqHead}>
           <Typography variant="h4" gutterBottom component="h4">
