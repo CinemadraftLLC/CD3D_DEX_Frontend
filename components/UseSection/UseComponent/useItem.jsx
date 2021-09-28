@@ -7,10 +7,20 @@ const UseItem = ({ item }) => {
   return (
     <div className={styles.itemSec}>
       <Image src={item.img} alt={item.title} />
-      <Typography variant="h6" gutterBottom component="h6">
+      <Typography
+        variant="h6"
+        className={styles.titleItem}
+        gutterBottom
+        component="h6"
+      >
         {item.title}
       </Typography>
-      <Typography variant="subtitle2" gutterBottom component="p">
+      <Typography
+        variant="subtitle2"
+        className={styles.subtitleItem}
+        gutterBottom
+        component="p"
+      >
         {item.description}
       </Typography>
     </div>
