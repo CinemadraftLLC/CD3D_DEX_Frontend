@@ -3,6 +3,17 @@
   flex-direction: column;
   position: relative;
   margin: 40px 0;
+  
+}
+.outerTimeLine{
+  text-align: center;
+}
+.outerTimeLine h4 {
+  color: #2bd67b;
+}
+.outerTimeLine h6,
+.outerTimeLine {
+  color: #ff799d;
 }
 
 .timelineContainer::after {

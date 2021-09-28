@@ -6,7 +6,6 @@ import DraftItem from "./DraftComponent/DraftItem";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import { DraftSecData } from "../../public/data/data";
-import Link from "next/link";
 
 const DraftSec = () => {
   return (
