@@ -30,7 +30,7 @@ function CustomMenuItem(props) {
                 <Typography className={styles.title} variant="subtitle1">
                   {props?.title}
                 </Typography>
-                <Typography variant="subtitle2">{props?.subTitle}</Typography>
+                {/* <Typography variant="subtitle2">{props?.subTitle}</Typography> */}
               </div>
               {state && (
                 <div>
