@@ -5,13 +5,6 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Link from "next/link";
 import Image from "next/image";
 
-const style = {
-  largeIcon: {
-    height: 20,
-    width: 30,
-    color: "#75e4aa",
-  },
-};
 function CustomMenuItem(props) {
   const { handleClose } = props;
   const [state, setState] = useState(false);
@@ -57,7 +50,9 @@ function CustomMenuItem(props) {
           <Link href={`${props.to}`}>
             <div className={styles.titleContainer}>
               <div className={styles.titleSubContainer}>
-                <Typography variant="subtitle1">{props?.title}</Typography>
+                <Typography className={styles.title} variant="subtitle1">
+                  {props?.title}
+                </Typography>
                 <Typography variant="subtitle2">{props?.subTitle}</Typography>
               </div>
               {state && (

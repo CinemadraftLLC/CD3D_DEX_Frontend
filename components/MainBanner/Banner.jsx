@@ -18,7 +18,7 @@ const Banner = () => {
         <Grid container spacing={2}>
           <div className={styles.bannerInner}>
             <Grid item xs={12} sm={12} md={7}>
-              <Typography variant="h3" gutterBottom component="h3">
+              <Typography variant="h4" gutterBottom component="h3">
                 Where <span>DeFi</span> and<span> Gaming</span> meet{" "}
                 <i>Play. Trade. Hold. WIN.</i>
               </Typography>
