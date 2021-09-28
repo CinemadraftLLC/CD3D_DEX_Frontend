@@ -10,10 +10,13 @@ import styles from "../../styles/customMenu.module.css";
 const StyledMenu = withStyles({
   paper: {
     width: "20.2rem",
-    // height: "25rem",
-    background: "rgba(8,17,35, 0.7)", // Make sure this color has an opacity of less than 1
+    // background: "rgba(8,17,35, 0.7)", // Make sure this color has an opacity of less than 1
+    // borderRadius: "15px",
+    // color: "white",
     borderRadius: "15px",
-    color: "white",
+    background: "transparent",
+    /* Note: currently only Safari supports backdrop-filter */
+    backgroundColor: "rgba(0, 0, 0, 0.07)",
   },
 })((props) => (
   <Menu

@@ -3,6 +3,7 @@ import { Typography, MenuItem } from "@material-ui/core";
 import styles from "../../styles/customMenu.module.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Link from "next/link";
+import Image from "next/image";
 
 const style = {
   largeIcon: {
@@ -38,7 +39,12 @@ function CustomMenuItem(props) {
               </div>
               {state && (
                 <div>
-                  <ArrowForwardIosIcon sx={style.largeIcon} />
+                  <Image
+                    src={"/assets/homepage/forwardIcon.svg"}
+                    width={10}
+                    height={10}
+                  />
+                  {/* <ArrowForwardIosIcon sx={style.largeIcon} /> */}
                 </div>
               )}
             </div>

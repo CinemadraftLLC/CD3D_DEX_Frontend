@@ -60,5 +60,5 @@ a {
 } */
 
 .MuiMenu-paper {
-  backdrop-filter: blur(4px) !important;
+  backdrop-filter: blur(24px) !important;
 }
