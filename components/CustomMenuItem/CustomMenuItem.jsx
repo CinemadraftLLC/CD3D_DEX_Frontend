@@ -34,7 +34,9 @@ function CustomMenuItem(props) {
               onClick={handleClose}
             >
               <div className={styles.titleSubContainer}>
-                <Typography variant="subtitle1">{props?.title}</Typography>
+                <Typography className={styles.title} variant="subtitle1">
+                  {props?.title}
+                </Typography>
                 <Typography variant="subtitle2">{props?.subTitle}</Typography>
               </div>
               {state && (

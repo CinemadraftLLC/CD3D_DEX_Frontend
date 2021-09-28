@@ -17,6 +17,7 @@
   display: flex;
   align-items: center;
   border-radius: 15px;
+  transition: all 0.5s ease-in-out;
 }
 
 .MenuItemDisabled > * {
@@ -30,6 +31,11 @@
   display: flex;
   align-items: center;
   border-radius: 15px;
+  transition: all 0.5s ease-in-out;
+}
+
+.MenuItem:hover .title {
+  color: #75e4aa !important;
 }
 /* 
 .MenuItem > *:hover {
