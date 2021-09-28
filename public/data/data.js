@@ -416,6 +416,7 @@ export const socialData = [
     subTitle: "Lorem Ipsum is a dummy text",
     img: Twitter,
     link: "https://twitter.com/CD3DApp",
+    external: true,
   },
   {
     id: 2,
@@ -423,6 +424,7 @@ export const socialData = [
     subTitle: "Lorem Ipsum is a dummy text",
     img: Discord,
     link: "https://discord.gg/vRTe2s2sMj",
+    external: true,
   },
   {
     id: 3,
@@ -430,6 +432,7 @@ export const socialData = [
     subTitle: "Lorem Ipsum is a dummy text",
     img: Telegram,
     link: "https://t.me/CD3DToken",
+    external: true,
   },
   {
     id: 4,
@@ -437,6 +440,7 @@ export const socialData = [
     subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     link: "https://cinemadraft.medium.com/",
+    external: true,
   },
 ];
 
@@ -447,6 +451,7 @@ export const moreData = [
     subTitle: "Everything you need to know",
     // img: Twitter,
     link: "https://drive.google.com/file/d/1Ro6mK4MzdSEdwGW05QQW3QPbRFoQwtrN/view?usp=sharing",
+    external: true,
   },
   {
     id: 2,
@@ -454,6 +459,7 @@ export const moreData = [
     subTitle: "Some of what you need to know",
     // img: Twitter,
     link: "https://drive.google.com/file/d/1zdv58QhdR_2sz4q0Ex1S1H8ZuFLhTUZi/view?usp=sharing",
+    external: true,
   },
   {
     id: 3,
@@ -461,6 +467,7 @@ export const moreData = [
     subTitle: "Subscribe for updates",
     // img: Twitter,
     link: "https://docs.google.com/forms/d/e/1FAIpQLSe-Z9tdw_d-sRdnbifvoTvIlcNOFJ6y1MItrR4FJPbaKLLJlQ/viewform",
+    external: true,
   },
   {
     id: 4,
@@ -468,11 +475,14 @@ export const moreData = [
     subTitle: " This is who we are",
     // img: Twitter,
     link: "https://www.cinemadraft.co/team/",
+    external: true,
   },
   {
     id: 5,
     title: "FAQ",
     subTitle: "",
+    external: false,
+
     // link: "/#FAQ",
     // img: Twitter,
     // link: "https://twitter.com/CD3DApp",
@@ -485,34 +495,38 @@ export const marketPlaceData = [
     title: "Trade",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Twitter,
-    // link: "https://twitter.com/CD3DApp",
+    external: false,
+    link: "",
   },
   {
     id: 2,
     title: "Liquidity",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Discord,
-    // link: "https://discord.gg/vRTe2s2sMj",
+    external: false,
+    link: "",
   },
   {
     id: 3,
     title: "Mining",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Telegram,
-    // link: "https://t.me/CD3DToken",
+    external: false,
+    link: "",
   },
   {
     id: 4,
     title: "Token Sales",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
-    link: "/Token",
+    external: false,
+    link: "",
   },
   {
     id: 4,
     title: "Create Token Sales",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
-    // link: "https://cinemadraft.medium.com/",
+    link: "",
   },
 ];

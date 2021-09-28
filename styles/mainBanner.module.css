@@ -73,7 +73,12 @@
   align-items: center;
 }
 .bannerVideo iframe {
-  border-radius: 15px;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+
+  position: absolute;
+  right: 0;
+  width: 40%;
 }
 
 @media (max-width: 991px) {

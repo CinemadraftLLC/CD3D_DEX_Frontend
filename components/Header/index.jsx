@@ -78,6 +78,7 @@ const Header = () => {
                     disabled={true}
                     to={item.link}
                     handleClose={handleClose}
+                    // external={elem.external}
                   />
                 ))}
               />
@@ -85,21 +86,18 @@ const Header = () => {
               <Link href="/" className={styles.link}>
                 REFERRAL
               </Link>
-              {/* <CustomMenu
-                child1={ */}
-              {/* <Button
-                aria-controls="basic-menu"
-                aria-haspopup="true"
-                aria-expanded={open2 ? "true" : undefined}
-                onClick={handleClick2}
-              >
-                COMMUNITY
-                <ArrowDropDownIcon />
-              </Button> */}
-              <Link href="/" className={styles.link}>
-                COMMUNITY
-              </Link>
-              {/* }
+              <CustomMenu
+                child1={
+                  <Button
+                    aria-controls="basic-menu"
+                    aria-haspopup="true"
+                    aria-expanded={open2 ? "true" : undefined}
+                    onClick={handleClick2}
+                  >
+                    COMMUNITY
+                    <ArrowDropDownIcon />
+                  </Button>
+                }
                 child2={socialData.map((elem) => (
                   <CustomMenuItem
                     key={elem.id}
@@ -107,9 +105,10 @@ const Header = () => {
                     subTitle={elem.subTitle}
                     disabled={true}
                     to={elem.link}
+                    external={elem.external}
                   />
                 ))}
-              /> */}
+              />
               <CustomMenu
                 anchorEl={anchorEl}
                 handleClose={handleClose}
@@ -131,6 +130,7 @@ const Header = () => {
                     subTitle={elem.subTitle}
                     disabled={true}
                     to={elem.link}
+                    external={elem.external}
                     handleClose={handleClose}
                   />
                 ))}

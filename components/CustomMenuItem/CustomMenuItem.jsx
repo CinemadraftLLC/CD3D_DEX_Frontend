@@ -17,7 +17,35 @@ function CustomMenuItem(props) {
   };
   return (
     <div className={`${styles.MenuItemContainer}`}>
-      {props.to ? (
+      {props.external ? (
+        <MenuItem className={`${styles.MenuItem}`} onClick={handleClose}>
+          <a href={`${props.to}`} target="_blank">
+            <div
+              className={styles.titleContainer}
+              onMouseOver={handleOnHoverActive}
+              onMouseOut={handleOnHoverDeactive}
+              onClick={handleClose}
+            >
+              <div className={styles.titleSubContainer}>
+                <Typography className={styles.title} variant="subtitle1">
+                  {props?.title}
+                </Typography>
+                <Typography variant="subtitle2">{props?.subTitle}</Typography>
+              </div>
+              {state && (
+                <div>
+                  <Image
+                    src={"/assets/homepage/forwardIcon.svg"}
+                    width={10}
+                    height={10}
+                  />
+                  {/* <ArrowForwardIosIcon sx={style.largeIcon} /> */}
+                </div>
+              )}
+            </div>
+          </a>
+        </MenuItem>
+      ) : props.to ? (
         <MenuItem className={`${styles.MenuItem}`} onClick={handleClose}>
           <Link href={`${props.to}`}>
             <div
@@ -39,7 +67,6 @@ function CustomMenuItem(props) {
                     width={10}
                     height={10}
                   />
-                  {/* <ArrowForwardIosIcon sx={style.largeIcon} /> */}
                 </div>
               )}
             </div>
