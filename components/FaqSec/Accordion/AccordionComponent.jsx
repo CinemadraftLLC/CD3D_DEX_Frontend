@@ -27,9 +27,18 @@ const Accordion = styled((props) => (
   "& .MuiAccordionSummary-content": {
     order: "1",
   },
-
+  "& .MuiAccordionSummary-root": {
+    display: "flex",
+    borderRadius: "15px",
+    background: "#fff",
+    boxShadow: "0px 0px 40px rgba(112, 144, 176, 0.15)",
+    padding: " 0px 10px",
+  },
   "& .MuiAccordionSummary-expandIconWrapper": {
     transform: "rotate(0deg) !important",
+  },
+  "& .MuiAccordionDetails-root": {
+    border: "none",
   },
 }));
 

@@ -4,6 +4,7 @@
   padding: 80px 0px;
   text-align: center;
   border-radius: 100px 100px 0px 0px;
+  height: 90vh;
 }
 .topText p {
   color: #a0edc4;
@@ -66,6 +67,7 @@
 .timeOuter h3 span {
   color: #4cdc8f;
   font-size: 5rem;
+  font-weight: bolder !important;
 }
 .timeMid {
   font-size: 2rem;

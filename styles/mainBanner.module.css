@@ -46,6 +46,13 @@
 .mainBanner .LikeWin:hover {
   background-color: #ff0144;
 }
+.mainBanner .winningBtn {
+  background-color: #ff0144;
+  border-radius: 10px;
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: 1rem;
+}
 
 .mainBanner .LrnMore {
   color: #fff;

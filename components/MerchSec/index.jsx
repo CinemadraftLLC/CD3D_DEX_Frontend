@@ -64,9 +64,9 @@ const MerchSec = () => {
             </Typography>
             <div className={styles.merchButton}>
               <Button variant="contained">
-                <Link href="https://www.cafepress.com/cinemadraft">
+                <a href="https://www.cafepress.com/cinemadraft" target="_blank">
                   See All
-                </Link>
+                </a>
               </Button>
             </div>
           </Grid>

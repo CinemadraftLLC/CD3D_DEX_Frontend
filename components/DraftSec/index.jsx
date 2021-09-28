@@ -29,7 +29,7 @@ const DraftSec = () => {
           ))}
         </Grid>
         <Button variant="contained" className={styles.DraftitemButton}>
-          <Link href="/Token">Marketplace</Link>
+          Marketplace
         </Button>
       </Container>
     </div>

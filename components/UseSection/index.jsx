@@ -30,9 +30,13 @@ const UseSection = () => {
           ))}
         </Grid>
         <Button variant="contained" className={styles.itemButton}>
-          <Link href="https://drive.google.com/file/d/1Ro6mK4MzdSEdwGW05QQW3QPbRFoQwtrN/view?usp=sharing">
+          <a
+            target="_blank"
+            href="https://drive.google.com/file/d/1Ro6mK4MzdSEdwGW05QQW3QPbRFoQwtrN/view?usp=sharing"
+            rel="noopener noreferrer"
+          >
             Whitepaper
-          </Link>
+          </a>
         </Button>
       </Container>
     </div>

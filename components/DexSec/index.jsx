@@ -29,7 +29,14 @@ const DexSec = () => {
           ))}
         </Grid>
         <Button variant="contained" className={styles.DexitemButton}>
-          <Link href="https://cinemadraft.co">Play Now</Link>
+          <a
+            target="_blank"
+            href="https://cinemadraft.co"
+            rel="noopener noreferrer"
+          >
+            Play Now
+          </a>
+
         </Button>
       </Container>
     </div>

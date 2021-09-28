@@ -5,9 +5,9 @@ import { Typography } from "@mui/material";
 function SocialLink({ elem }) {
   return (
     <>
-      <Link href={elem.link}>
+      <a href={elem.link} target="_blank">
         <Image src={elem.img} alt="Picture of the author" />
-      </Link>
+      </a>
       <Typography variant="subtitle2" gutterBottom component="p">
         {elem.title}
       </Typography>

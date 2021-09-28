@@ -126,14 +126,22 @@ const TokeContent = () => {
 
         <div className={styles.tokeButton}>
           <Button variant="contained" className={styles.moreBtn}>
-            <Link href="https://drive.google.com/file/d/1Ro6mK4MzdSEdwGW05QQW3QPbRFoQwtrN/view?usp=sharing">
+            <a
+              target="_blank"
+              href="https://drive.google.com/file/d/1Ro6mK4MzdSEdwGW05QQW3QPbRFoQwtrN/view?usp=sharing"
+              rel="noopener noreferrer"
+            >
               More Details
-            </Link>
+            </a>
           </Button>
           <Button variant="text">
-            <Link href="https://drive.google.com/file/d/1zdv58QhdR_2sz4q0Ex1S1H8ZuFLhTUZi/view?usp=sharing">
+            <a
+              target="_blank"
+              href="https://drive.google.com/file/d/1zdv58QhdR_2sz4q0Ex1S1H8ZuFLhTUZi/view?usp=sharing"
+              rel="noopener noreferrer"
+            >
               Some Details
-            </Link>
+            </a>
           </Button>
         </div>
       </Container>

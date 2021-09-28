@@ -52,7 +52,13 @@ const Cd3dSec = () => {
           <i>Shall. We. Play. A. Game?</i>
         </Typography>
         <Button variant="contained">
-          <Link href="https://cinemadraft.co">Play CinemaDraft</Link>
+          <a
+            target="_blank"
+            href="https://cinemadraft.co"
+            rel="noopener noreferrer"
+          >
+            Play CinemaDraft
+          </a>
         </Button>
       </Container>
     </div>

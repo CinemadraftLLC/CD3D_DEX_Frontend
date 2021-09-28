@@ -26,7 +26,9 @@ const Banner = () => {
                 The official DeFi launchpad & token of the CinemaDraft game
               </Typography>
               <Button variant="contained" className={styles.LikeWin}>
-                I Like Winning
+                <Typography variant="subtitle1" className={styles.winningBtn}>
+                  I Like Winning
+                </Typography>
               </Button>
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
