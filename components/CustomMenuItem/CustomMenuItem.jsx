@@ -74,21 +74,19 @@ function CustomMenuItem(props) {
         </MenuItem>
       ) : (
         <MenuItem className={`${styles.MenuItemDisabled} `}>
-          <Link href={`${props.to}`}>
-            <div className={styles.titleContainer}>
-              <div className={styles.titleSubContainer}>
-                <Typography className={styles.title} variant="subtitle1">
-                  {props?.title}
-                </Typography>
-                <Typography variant="subtitle2">{props?.subTitle}</Typography>
-              </div>
-              {state && (
-                <div>
-                  <ArrowForwardIosIcon sx={style.largeIcon} />
-                </div>
-              )}
+          <div className={styles.titleContainer}>
+            <div className={styles.titleSubContainer}>
+              <Typography className={styles.title} variant="subtitle1">
+                {props?.title}
+              </Typography>
+              <Typography variant="subtitle2">{props?.subTitle}</Typography>
             </div>
-          </Link>
+            {state && (
+              <div>
+                <ArrowForwardIosIcon sx={style.largeIcon} />
+              </div>
+            )}
+          </div>
         </MenuItem>
       )}
     </div>
