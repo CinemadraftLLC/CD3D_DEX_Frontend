@@ -8,7 +8,7 @@ export default function Counter({ hours, minutes, seconds }) {
     <div className={styles.timeOuter}>
       {/* Add text here to display in screen */}
       <Countdown
-        date={new Date("Oct 7, 2021 12:59:59:999").getTime()}
+        date={new Date("Oct 7, 2021 12:59:59:999").toISOString()}
         renderer={renderer}
       />
     </div>

@@ -1,6 +1,7 @@
 import MailchimpSubscribe from "react-mailchimp-subscribe";
 import { useState } from "react";
-import { Input } from "@mui/material";
+import { InputBase, Button } from "@mui/material";
+import styles from "../../styles/simpleForm.module.css";
 const url =
   "https://gmail.us5.list-manage.com/subscribe/post?u=9ca225e5e1195230331603867&amp;id=38c0a7c892";
 
@@ -10,17 +11,21 @@ const SimpleForm = () => {
   const [email, setEmail] = useState("");
 
   return (
-    <form className="mc__form">
-      <Input
-        label="Email"
-        onChangeHandler={setEmail}
-        type="email"
-        value={email}
-        placeholder="your@email.com"
-        isRequired
-      />
+    <form>
+      <div className={styles.formContainer}>
+        <InputBase
+          label="Email"
+          onChange={(E) => setEmail(E.target.value)}
+          type="email"
+          value={email}
+          placeholder="Enter email for CD3D updates from CinemaDraft"
+          isRequired
+        />
 
-      {/* <Input label="subscribe" type="submit" formValues={email} /> */}
+        <Button className={styles.formButton} variant="contained">
+          Subscribe
+        </Button>
+      </div>
     </form>
   );
 };

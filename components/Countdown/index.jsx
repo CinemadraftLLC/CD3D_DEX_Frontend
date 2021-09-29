@@ -19,7 +19,6 @@ const Countdown = () => {
             - Fast Eddie Felson, THE COLOR OF MONEY
           </Typography>
         </div>
-        {/* counter */}
         <div>
           <Counter />
         </div>
@@ -29,12 +28,6 @@ const Countdown = () => {
             Time until Initial CD3D Offering (ICO)
           </Typography>
           <div className={styles.subDiv}>
-            {/* <input
-              type="email"
-              placeholder="Enter email for CD3D updates from CinemaDraft"
-            />
-            <Button variant="contained">Subscribe</Button> */}
-            {/* Cutom for */}
             <CustomForm />
           </div>
         </div>
