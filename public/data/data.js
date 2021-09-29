@@ -508,7 +508,7 @@ export const marketPlaceData = [
   },
   {
     id: 3,
-    title: "Mining",
+    title: "Farming",
     subTitle: "Lorem Ipsum is a dummy text",
     img: Telegram,
     external: false,
