@@ -413,7 +413,7 @@ export const socialData = [
   {
     id: 1,
     title: "TWITTER",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Twitter,
     link: "https://twitter.com/CD3DApp",
     external: true,
@@ -421,7 +421,7 @@ export const socialData = [
   {
     id: 2,
     title: "DISCORD",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Discord,
     link: "https://discord.gg/vRTe2s2sMj",
     external: true,
@@ -429,7 +429,7 @@ export const socialData = [
   {
     id: 3,
     title: "TELEGRAM",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Telegram,
     link: "https://t.me/CD3DToken",
     external: true,
@@ -437,7 +437,7 @@ export const socialData = [
   {
     id: 4,
     title: "BLOG",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     link: "https://cinemadraft.medium.com/",
     external: true,
@@ -493,7 +493,7 @@ export const marketPlaceData = [
   {
     id: 1,
     title: "Trade",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Twitter,
     external: false,
     link: "",
@@ -501,7 +501,7 @@ export const marketPlaceData = [
   {
     id: 2,
     title: "Liquidity",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Discord,
     external: false,
     link: "",
@@ -509,7 +509,7 @@ export const marketPlaceData = [
   {
     id: 3,
     title: "Farming",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Telegram,
     external: false,
     link: "",
@@ -517,7 +517,7 @@ export const marketPlaceData = [
   {
     id: 4,
     title: "Token Sales",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     external: false,
     link: "",
@@ -525,7 +525,7 @@ export const marketPlaceData = [
   {
     id: 4,
     title: "Create Token Sales",
-    subTitle: "Lorem Ipsum is a dummy text",
+    // subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     link: "",
   },
