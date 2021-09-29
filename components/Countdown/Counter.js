@@ -4,13 +4,11 @@ import styles from "../../styles/counter.module.css";
 import { newRenderer } from "./NewCounterRander";
 
 export default function Counter({ hours, minutes, seconds }) {
+  var myDateObj = new Date("Oct 7, 2021 12:00:00:000 GMT");
   return (
     <div className={styles.timeOuter}>
       {/* Add text here to display in screen */}
-      <Countdown
-        date={new Date("Oct 7, 2021 12:59:59:999").toISOString()}
-        renderer={renderer}
-      />
+      <Countdown date={myDateObj.getTime()} renderer={renderer} />
     </div>
   );
 }
