@@ -493,7 +493,7 @@ export const marketPlaceData = [
   {
     id: 1,
     title: "Trade",
-    // subTitle: "Lorem Ipsum is a dummy text",
+    subTitle: "Exchange tokens",
     img: Twitter,
     external: false,
     link: "",
@@ -501,7 +501,7 @@ export const marketPlaceData = [
   {
     id: 2,
     title: "Liquidity",
-    // subTitle: "Lorem Ipsum is a dummy text",
+    subTitle: "Provide tokens",
     img: Discord,
     external: false,
     link: "",
@@ -509,7 +509,7 @@ export const marketPlaceData = [
   {
     id: 3,
     title: "Farming",
-    // subTitle: "Lorem Ipsum is a dummy text",
+    subTitle: "Grow tokens",
     img: Telegram,
     external: false,
     link: "",
@@ -517,7 +517,7 @@ export const marketPlaceData = [
   {
     id: 4,
     title: "Token Sales",
-    // subTitle: "Lorem Ipsum is a dummy text",
+    subTitle: "Buy launch tokens",
     img: Blog,
     external: false,
     link: "",
@@ -525,7 +525,7 @@ export const marketPlaceData = [
   {
     id: 4,
     title: "Create Token Sales",
-    // subTitle: "Lorem Ipsum is a dummy text",
+    subTitle: "Launch your token",
     img: Blog,
     link: "",
   },
