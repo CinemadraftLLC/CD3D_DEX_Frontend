@@ -5,19 +5,10 @@ import CinemaLogo from "../../public/assets/homepage/CinemaLogo.png";
 
 import Container from "@mui/material/Container";
 import styles from "../../styles/navbar.module.css";
-import {
-  AppBar,
-  Toolbar,
-  CssBaseline,
-  Typography,
-  makeStyles,
-  useTheme,
-} from "@material-ui/core";
+import { AppBar, Toolbar, CssBaseline } from "@material-ui/core";
 import DrawerComponent from "./HeaderComponents/DrawerComponent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Link from "next/link";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import { marketPlaceData, moreData, socialData } from "data/data";
 import CustomMenu from "../CustomMenu/CustomMenu";
@@ -26,20 +17,20 @@ import CustomMenuItem from "../CustomMenuItem/CustomMenuItem";
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const [anchorEl2, setAnchorEl2] = React.useState(null);
-  const open2 = Boolean(anchorEl2);
+  // const [anchorEl2, setAnchorEl2] = React.useState(null);
+  // const open2 = Boolean(anchorEl2);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClick2 = (event) => {
-    setAnchorEl2(event.currentTarget);
-  };
+  // const handleClick2 = (event) => {
+  //   setAnchorEl2(event.currentTarget);
+  // };
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handleClose2 = () => {
-    setAnchorEl2(null);
-  };
+  // const handleClose2 = () => {
+  //   setAnchorEl2(null);
+  // };
 
   return (
     <div>
@@ -83,16 +74,14 @@ const Header = () => {
                 ))}
               />
 
-              <Link href="/" className={styles.link}>
-                REFERRAL
-              </Link>
+              <Link href="/">REFERRAL</Link>
               <CustomMenu
                 child1={
                   <Button
                     aria-controls="basic-menu"
                     aria-haspopup="true"
-                    aria-expanded={open2 ? "true" : undefined}
-                    onClick={handleClick2}
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
                   >
                     COMMUNITY
                     <ArrowDropDownIcon />
@@ -106,6 +95,7 @@ const Header = () => {
                     disabled={true}
                     to={elem.link}
                     external={elem.external}
+                    handleClose={handleClose}
                   />
                 ))}
               />
@@ -117,8 +107,8 @@ const Header = () => {
                   <Button
                     aria-controls="basic-menu"
                     aria-haspopup="true"
-                    aria-expanded={open2 ? "true" : undefined}
-                    onClick={handleClick2}
+                    aria-expanded={open ? "true" : undefined}
+                    onClick={handleClick}
                   >
                     MORE <ArrowDropDownIcon />
                   </Button>

@@ -6,7 +6,6 @@ import Link from "next/link";
 import Image from "next/image";
 
 function CustomMenuItem(props) {
-  const { handleClose } = props;
   const [state, setState] = useState(false);
 
   const handleOnHoverActive = () => {
@@ -18,13 +17,12 @@ function CustomMenuItem(props) {
   return (
     <div className={`${styles.MenuItemContainer}`}>
       {props.external ? (
-        <MenuItem className={`${styles.MenuItem}`} onClick={handleClose}>
+        <MenuItem className={`${styles.MenuItem}`}>
           <a href={`${props.to}`} target="_blank">
             <div
               className={styles.titleContainer}
               onMouseOver={handleOnHoverActive}
               onMouseOut={handleOnHoverDeactive}
-              onClick={handleClose}
             >
               <div className={styles.titleSubContainer}>
                 <Typography className={styles.title} variant="subtitle1">
@@ -39,20 +37,18 @@ function CustomMenuItem(props) {
                     width={10}
                     height={10}
                   />
-                  {/* <ArrowForwardIosIcon sx={style.largeIcon} /> */}
                 </div>
               )}
             </div>
           </a>
         </MenuItem>
       ) : props.to ? (
-        <MenuItem className={`${styles.MenuItem}`} onClick={handleClose}>
+        <MenuItem className={`${styles.MenuItem}`}>
           <Link href={`${props.to}`}>
             <div
               className={styles.titleContainer}
               onMouseOver={handleOnHoverActive}
               onMouseOut={handleOnHoverDeactive}
-              onClick={handleClose}
             >
               <div className={styles.titleSubContainer}>
                 <Typography className={styles.title} variant="subtitle1">

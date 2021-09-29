@@ -62,6 +62,7 @@ function CustomMenu(props) {
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        onClick={handleClose}
       >
         {child2}
       </StyledMenu>

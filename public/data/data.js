@@ -482,8 +482,7 @@ export const moreData = [
     title: "FAQ",
     subTitle: "",
     external: false,
-
-    // link: "/#FAQ",
+    link: "/#FAQ",
     // img: Twitter,
     // link: "https://twitter.com/CD3DApp",
   },

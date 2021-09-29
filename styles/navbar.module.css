@@ -10,6 +10,7 @@
 .navlinks {
   margin-left: 30px;
   display: flex;
+  column-gap: 20px;
 }
 
 .navlinks a {
