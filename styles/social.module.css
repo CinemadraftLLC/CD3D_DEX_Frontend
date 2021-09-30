@@ -22,3 +22,10 @@
 .socialIcon {
   justify-content: center;
 }
+
+
+@media (max-width:900px) {
+  .socialOuter{
+    text-align: center;
+  } 
+}

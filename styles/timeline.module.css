@@ -283,7 +283,7 @@
     padding-left: 110px;
   }
   .timelineItem:nth-child(even) .timelineItemContent .arrowPoint {
-    left: -40px;
+    left: -45px;
     right: inherit;
   }
   .timelineItem:nth-child(even) .timelineItemContent .circle {

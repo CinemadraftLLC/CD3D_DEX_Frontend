@@ -50,6 +50,7 @@
 .drawerbg ul {
   background-color: #1d162d !important;
   height: 100vh;
+  width: 70vw;
 }
 
 .drawerbg ul li span,
@@ -86,5 +87,11 @@
   .navbarInner img {
     width: 100% !important;
     max-width: 180px !important;
+  }
+  .dropdown {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

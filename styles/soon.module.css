@@ -46,6 +46,9 @@
   line-height: 20px;
 }
 @media (max-width: 768px) {
+  .soonOuter {
+    text-align: center;
+  }
   .soonOuter h4 {
     padding-right: 0;
   }

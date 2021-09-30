@@ -366,7 +366,7 @@ export const tokeData = [
   {
     id: 5,
     name: "Marketing",
-    desc: "  33% locked for 2 years",
+    desc: "33% locked for 2 years",
   },
   {
     id: 6,

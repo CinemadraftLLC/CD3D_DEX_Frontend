@@ -56,3 +56,12 @@
 .itemSlider button {
   color: #1d9756;
 }
+
+@media (max-width: 900px) {
+  .merchOuter {
+    text-align: center;
+  }
+  .merchButton{
+    margin-bottom: 40px;
+  }
+}
