@@ -21,7 +21,7 @@ const SeenSection = () => {
           <Grid container spacing={2}>
             <Grid item xs={12} md={3}>
               <div className={styles.imgSeenOuter}>
-                <a href="https://bscarmy.com/" target="_blank">
+                <a href="https://bscarmy.com/cinemadraft-cd3d/" target="_blank">
                   <Image src={Logo1} alt="Picture of the logo1" />
                 </a>
               </div>

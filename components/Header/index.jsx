@@ -17,20 +17,14 @@ import CustomMenuItem from "../CustomMenuItem/CustomMenuItem";
 const Header = () => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  // const [anchorEl2, setAnchorEl2] = React.useState(null);
-  // const open2 = Boolean(anchorEl2);
+
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  // const handleClick2 = (event) => {
-  //   setAnchorEl2(event.currentTarget);
-  // };
+
   const handleClose = () => {
     setAnchorEl(null);
   };
-  // const handleClose2 = () => {
-  //   setAnchorEl2(null);
-  // };
 
   return (
     <div>
@@ -43,10 +37,9 @@ const Header = () => {
                 <Image src={Logo} alt="logo" width={300} height={130} />
               </Link>
 
-              {/* {isMobile ? ( */}
               <DrawerComponent />
             </div>
-            {/* ) : ( */}
+
             <div className={styles.navlinks}>
               <CustomMenu
                 anchorEl={anchorEl}
@@ -69,7 +62,6 @@ const Header = () => {
                     disabled={true}
                     to={item.link}
                     handleClose={handleClose}
-                    // external={elem.external}
                   />
                 ))}
               />

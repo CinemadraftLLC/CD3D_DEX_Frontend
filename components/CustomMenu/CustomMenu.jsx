@@ -1,21 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
+import Button from "@material-ui/core/Button";
+import Menu from "@material-ui/core/Menu";
 import { withStyles } from "@material-ui/core/styles";
-import Menu, { MenuProps } from "@material-ui/core/Menu";
-import styles from "../../styles/customMenu.module.css";
-/**
- * Custom Menu for whole application
- * @return {JSX.Element}
- */
+import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const StyledMenu = withStyles({
   paper: {
     width: "20.2rem",
-    // background: "rgba(8,17,35, 0.7)", // Make sure this color has an opacity of less than 1
-    // borderRadius: "15px",
-    // color: "white",
     borderRadius: "15px",
     background: "transparent",
-    /* Note: currently only Safari supports backdrop-filter */
     backgroundColor: "rgba(0, 0, 0, 0.07)",
   },
 })((props) => (
@@ -34,40 +27,65 @@ const StyledMenu = withStyles({
   />
 ));
 
-function CustomMenu(props) {
+const theme = createMuiTheme({});
+const MyMenu = (props) => {
   const { child1, child2 } = props;
+  const [anchorEl, setAnchorEl] = useState(null);
+  const [open, setOpen] = useState(false);
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleClick = (event) => {
+  const handleOpen = (event) => {
     setAnchorEl(event.currentTarget);
+    setOpen(true);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  const handleClose = (e) => {
+    if (e.currentTarget.localName !== "ul") {
+      const menu = document.getElementById("simple-menu").children[2];
+      const menuBoundary = {
+        left: menu.offsetLeft,
+        top: e.currentTarget.offsetTop + e.currentTarget.offsetHeight,
+        right: menu.offsetLeft + menu.offsetHeight,
+        bottom: menu.offsetTop + menu.offsetHeight,
+      };
+      if (
+        e.clientX >= menuBoundary.left &&
+        e.clientX <= menuBoundary.right &&
+        e.clientY <= menuBoundary.bottom &&
+        e.clientY >= menuBoundary.top
+      ) {
+        return;
+      }
+    }
+
+    setOpen(false);
   };
 
+  theme.props = {
+    MuiList: {
+      onMouseLeave: (e) => {
+        handleClose(e);
+      },
+    },
+  };
   return (
     <div>
-      <div
-        aria-controls="customized-menu"
-        aria-haspopup="true"
-        onClick={handleClick}
-      >
-        {child1}
-      </div>
-      <StyledMenu
-        id="customized-menu"
-        anchorEl={anchorEl}
-        keepMounted
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        onClick={handleClose}
-      >
-        {child2}
-      </StyledMenu>
+      <ThemeProvider theme={theme}>
+        <Button
+          id="menubutton1"
+          aria-owns={open ? "simple-menu" : null}
+          aria-haspopup="true"
+          onMouseOver={handleOpen}
+          onMouseLeave={handleClose}
+          style={{ zIndex: 1301 }}
+        >
+          {child1}
+        </Button>
+        <StyledMenu id="simple-menu" anchorEl={anchorEl} open={open}>
+          {child2}
+        </StyledMenu>
+      </ThemeProvider>
     </div>
   );
-}
+};
 
-export default CustomMenu;
+export default MyMenu;
