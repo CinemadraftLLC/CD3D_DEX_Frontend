@@ -29,9 +29,9 @@ const Header = () => {
   return (
     <div>
       <AppBar position="static" className={styles.menuBG}>
-        <Container>
+        <Container style={{padding:0}}>
           <CssBaseline />
-          <Toolbar>
+          <Toolbar style={{padding:0}}>
             <div className={styles.navbarInner}>
               <Link href="/">
                 <Image src={Logo} alt="logo" width={300} height={130} />
