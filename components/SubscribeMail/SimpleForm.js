@@ -3,7 +3,7 @@ import { useState } from "react";
 import { InputBase, Button } from "@mui/material";
 import styles from "../../styles/simpleForm.module.css";
 const url =
-  "https://gmail.us5.list-manage.com/subscribe/post?u=9ca225e5e1195230331603867&amp;id=38c0a7c892";
+  "https://cinemadraft.us14.list-manage.com/subscribe/post?u=fcd503faf1285a57eea370664&amp;id=e3718094a2";
 
 // simplest form (only email)
 // const SimpleForm = () => <MailchimpSubscribe url={url} />;
