@@ -30,18 +30,18 @@ export default function Home() {
         <Navbar />
         <MainBanner className={styles.mainBanner} />
         <CounterSection />
-        {/* <CD3DSection />
-        <UseSection />
-        <SoonSection />
-        <TokeContent />
-        <DraftSection />
-        <Timeline />
-        <DexSection />
-        <SocialSection />
-        <MerchSection />
-        <FaqSection />
-        <SeenSection />
-        <footer className={styles.footer}>
+        <CD3DSection />
+        {/* <UseSection /> */}
+        {/* <SoonSection /> */}
+        {/* <TokeContent /> */}
+        {/* <DraftSection /> */}
+        {/* <Timeline /> */}
+        {/* <DexSection /> */}
+        {/* <SocialSection /> */}
+        {/* <MerchSection /> */}
+        {/* <FaqSection /> */}
+        {/* <SeenSection /> */}
+        {/* <footer className={styles.footer}>
           <Typography variant="subtitle2" gutterBottom component="p">
             © CinemaDraft, LLC. All rights reserved.
           </Typography>
