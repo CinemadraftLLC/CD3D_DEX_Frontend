@@ -29,7 +29,7 @@ export default function Home() {
         </Head>
         <Navbar />
         <MainBanner className={styles.mainBanner} />
-        {/* <CounterSection /> */}
+        <CounterSection />
         {/* <CD3DSection />
         <UseSection />
         <SoonSection />
