@@ -33,7 +33,7 @@ export default function Home() {
         <CD3DSection />
         <UseSection />
         <SoonSection />
-        {/* <TokeContent /> */}
+        <TokeContent />
         <DraftSection />
         <Timeline />
         <DexSection />
