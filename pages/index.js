@@ -31,7 +31,7 @@ export default function Home() {
         <MainBanner className={styles.mainBanner} />
         <CounterSection />
         <CD3DSection />
-        {/* <UseSection /> */}
+        <UseSection />
         {/* <SoonSection /> */}
         {/* <TokeContent /> */}
         {/* <DraftSection /> */}
