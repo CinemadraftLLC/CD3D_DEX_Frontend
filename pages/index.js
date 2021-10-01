@@ -32,7 +32,7 @@ export default function Home() {
         <CounterSection />
         <CD3DSection />
         <UseSection />
-        {/* <SoonSection /> */}
+        <SoonSection />
         {/* <TokeContent /> */}
         {/* <DraftSection /> */}
         {/* <Timeline /> */}
