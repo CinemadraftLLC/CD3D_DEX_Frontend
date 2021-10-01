@@ -34,7 +34,7 @@ export default function Home() {
         <UseSection />
         <SoonSection />
         <TokeContent />
-        <DraftSection />
+        {/* <DraftSection /> */}
         {/* <Timeline /> */}
         {/* <DexSection /> */}
         {/* <SocialSection /> */}
