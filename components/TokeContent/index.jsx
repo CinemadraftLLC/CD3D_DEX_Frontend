@@ -64,7 +64,7 @@ const TokeContent = () => {
         <Typography variant="subtitle2" gutterBottom component="p">
           – Walter Abrams, TWO FOR THE MONEY
         </Typography>
-        <PieChart
+        {/* <PieChart
           className={styles.pieChart}
           id="pie"
           palette={customPalette}
@@ -83,7 +83,7 @@ const TokeContent = () => {
             </Label>
           </Series>
           <Legend visible={false} />
-        </PieChart>
+        </PieChart> */}
         <div className={styles.tokeCon}>
           {tokeData.map((elem) => (
             <Grid container key={elem.id} spacing={2}>
