@@ -35,17 +35,17 @@ export default function Home() {
         <SoonSection />
         {/* <TokeContent /> */}
         <DraftSection />
-        {/* <Timeline /> */}
-        {/* <DexSection /> */}
-        {/* <SocialSection /> */}
-        {/* <MerchSection /> */}
-        {/* <FaqSection /> */}
-        {/* <SeenSection /> */}
-        {/* <footer className={styles.footer}>
+        <Timeline />
+        <DexSection />
+        <SocialSection />
+        <MerchSection />
+        <FaqSection />
+        <SeenSection />
+        <footer className={styles.footer}>
           <Typography variant="subtitle2" gutterBottom component="p">
             © CinemaDraft, LLC. All rights reserved.
           </Typography>
-        </footer> */}
+        </footer>
       </div>
     </ErrorBoundary>
   );
