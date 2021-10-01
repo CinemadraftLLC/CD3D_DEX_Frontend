@@ -28,7 +28,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <Navbar />
-        {/* <MainBanner className={styles.mainBanner} /> */}
+        <MainBanner className={styles.mainBanner} />
         {/* <CounterSection /> */}
         {/* <CD3DSection />
         <UseSection />
