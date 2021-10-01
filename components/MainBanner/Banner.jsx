@@ -32,12 +32,12 @@ const Banner = () => {
               </Button>
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
-              {/* <div className={styles.bannerVideo}>
+              <div className={styles.bannerVideo}>
                 <ReactPlayer
                   url="https://youtu.be/ColLJVtLm6E"
                   playIcon={<PlayCircleOutlineIcon />}
                 />
-              </div> */}
+              </div>
             </Grid>
           </div>
         </Grid>

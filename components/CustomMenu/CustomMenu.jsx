@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Menu from "@material-ui/core/Menu";
 import { withStyles } from "@material-ui/core/styles";
-import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { createTheme, ThemeProvider } from "@material-ui/core/styles";
 
 const StyledMenu = withStyles({
   paper: {
@@ -27,7 +27,7 @@ const StyledMenu = withStyles({
   />
 ));
 
-const theme = createMuiTheme({});
+const theme = createTheme({});
 const MyMenu = (props) => {
   const { child1, child2 } = props;
   const [anchorEl, setAnchorEl] = useState(null);
