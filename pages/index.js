@@ -28,9 +28,9 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         {/* <Navbar /> */}
-        <MainBanner className={styles.mainBanner} />
+        {/* <MainBanner className={styles.mainBanner} /> */}
         {/* <CounterSection /> */}
-        <CD3DSection />
+        {/* <CD3DSection />
         <UseSection />
         <SoonSection />
         <TokeContent />
@@ -45,7 +45,7 @@ export default function Home() {
           <Typography variant="subtitle2" gutterBottom component="p">
             © CinemaDraft, LLC. All rights reserved.
           </Typography>
-        </footer>
+        </footer> */}
       </div>
     </ErrorBoundary>
   );
