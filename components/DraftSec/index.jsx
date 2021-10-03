@@ -37,8 +37,9 @@ const DraftSec = () => {
           <ReactPlayer
             url="https://youtu.be/8mwvUl28eQM"
             playIcon={<PlayCircleOutlineIcon />}
-            height={472}
-            width={850}
+            height={452}
+            width={820}
+            
           />
         </div>
 
