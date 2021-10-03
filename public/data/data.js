@@ -527,7 +527,7 @@ export const marketPlaceData = [
     subTitle: "Buy launch tokens",
     img: Blog,
     external: false,
-    link: "/token",
+    link: "/Token",
   },
   {
     id: 4,
