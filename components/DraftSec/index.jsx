@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import DraftItem from "./DraftComponent/DraftItem";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { DexSecData } from "../../public/data/data";
+import { DraftSecData } from "../../public/data/data";
 import ReactPlayer from "react-player";
 import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { styled } from "@mui/material/styles";
@@ -39,32 +39,27 @@ const DraftSec = () => {
             playIcon={<PlayCircleOutlineIcon />}
             height={452}
             width={820}
+            
           />
         </div>
 
-        {/* <Grid className={styles.itemGrid} container spacing={2}> */}
-        <div className={styles.grid}>
-          {DexSecData.map((item, index) => (
-            <>
-              <div
-                style={{
-                  maxWidth: 300,
-                }}
-              >
-                <Typography variant="h5" gutterBottom component="h5">
-                  {item.title}
-                </Typography>
-                <Typography variant="subtitle" gutterBottom component="p">
-                  {item.description}
-                </Typography>
+        <Grid className={styles.itemGrid} container spacing={2}>
+          {DraftSecData.map((item, index) => (
+            <Grid item xs={12} sm={6} md={3} key={item.id}>
+              <div style={{ display: "flex", alignItems: "center", maxWidth:300,height:200 }}>
+                <div style={{marginRight:"20px"}}>
+                  <Typography variant="h5" gutterBottom component="h5">
+                    {item.title}
+                  </Typography>
+                  <Typography variant="subtitle" gutterBottom component="p">
+                    {item.description}
+                  </Typography>
+                </div>
+                {index !== 3 && <CustomDivider orientation="vertical" />}
               </div>
-              <div className={styles.divider}>
-                {index !== 2 && <CustomDivider orientation="vertical" />}
-              </div>
-            </>
+            </Grid>
           ))}
-        </div>
-        {/* </Grid> */}
+        </Grid>
         <Button variant="contained" className={styles.DraftitemButton}>
           Marketplace
         </Button>

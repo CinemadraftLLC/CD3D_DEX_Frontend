@@ -23,7 +23,7 @@ const DexSec = () => {
         </Typography>
         <Grid className={styles.itemGrid} container spacing={2}>
           {DraftSecData.map((i) => (
-            <Grid item xs={12} sm={6} md={4} key={i.id}>
+            <Grid item xs={12} sm={6} md={3} key={i.id}>
               <DraftItem item={i} />
             </Grid>
           ))}
