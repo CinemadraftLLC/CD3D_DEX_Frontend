@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import DraftItem from "../DraftSec/DraftComponent/DraftItem";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import { DexSecData } from "../../public/data/data";
+import { DexSecData, DraftSecData } from "../../public/data/data";
 import Link from "next/link";
 
 const DexSec = () => {
@@ -22,7 +22,7 @@ const DexSec = () => {
           – Lawrence Garfield, OTHER PEOPLE’S MONEY
         </Typography>
         <Grid className={styles.itemGrid} container spacing={2}>
-          {DexSecData.map((i) => (
+          {DraftSecData.map((i) => (
             <Grid item xs={12} sm={6} md={4} key={i.id}>
               <DraftItem item={i} />
             </Grid>

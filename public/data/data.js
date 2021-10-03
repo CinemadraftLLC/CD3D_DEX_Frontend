@@ -78,28 +78,28 @@ export const DraftSecData = [
     id: 1,
     title: "Trade",
     description: "Exchange CD3D for other BEP-20 tokens",
-    // img: TradeIcon,
+    img: TradeIcon,
   },
   {
     id: 2,
     title: "Earn",
     description:
       "Be bold while you hold: Provide liquidity to earn while you wait.",
-    // img: EarnIcon,
+    img: EarnIcon,
   },
   {
     id: 3,
     title: "Join",
     description:
       "Join token sales from a variety of formats, including Batch (Dutch) Auction, English Auction, and more.",
-    // img: JoinIcon,
+    img: JoinIcon,
   },
   {
     id: 4,
     title: "Launch",
     description:
       "Use CD3D to create your own ICO autonomously. No human interference necessary.",
-    // img: LaunchIcon,
+    img: LaunchIcon,
   },
 ];
 
