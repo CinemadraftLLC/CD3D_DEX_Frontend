@@ -12,10 +12,12 @@
   width: 100% !important;
   max-width: 200px !important;
   filter: grayscale(100%);
+  opacity: 0.7;
 }
 
 .seenOuter img:hover {
   filter: grayscale(0);
+  opacity: 1;
 }
 
 .imgSeenOuter {

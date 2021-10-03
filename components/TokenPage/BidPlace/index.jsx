@@ -4,10 +4,10 @@ import BidChart from "./components/BidChart";
 
 const BidPlace = () => {
   return (
-    <>
+    <React.Fragment>
       <BidGrid />
       <BidChart />
-    </>
+    </React.Fragment>
   );
 };
 

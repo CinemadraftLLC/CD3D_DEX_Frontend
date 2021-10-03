@@ -5,10 +5,10 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Image from "next/image";
 import Link from "next/link";
-import Logo1 from "../../public/assets/homepage/BSCArmy@2x.png";
-import Logo2 from "../../public/assets/homepage/YahooFinance@2x.png";
-import Logo3 from "../../public/assets/homepage/Marketwatch@2x.png";
-import Logo4 from "../../public/assets/homepage/Coinspeaker@2x.png";
+import Logo1 from "../../public/assets/homepage/BSCArmy.svg";
+import Logo2 from "../../public/assets/homepage/YahooFinance.svg";
+import Logo3 from "../../public/assets/homepage/Marketwatch.svg";
+import Logo4 from "../../public/assets/homepage/Coinspeaker.svg";
 
 const SeenSection = () => {
   return (

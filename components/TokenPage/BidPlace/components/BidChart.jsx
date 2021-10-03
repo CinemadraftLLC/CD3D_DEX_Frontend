@@ -2,6 +2,7 @@ import React from "react";
 import Grid from "@mui/material/Grid";
 import styles from "../../../../styles/bidChart.module.css";
 import Typography from "@mui/material/Typography";
+import Demo from "./Chart";
 import {
   AreaChart,
   Area,
@@ -59,7 +60,7 @@ const data = [
 const BidChart = () => {
   return (
     <div className={styles.bidChartOuter}>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={12}>
           <div className={styles.bidChartInner}>
             <Typography variant="h5" gutterBottom component="h5">
@@ -83,9 +84,7 @@ const BidChart = () => {
               bottom: 0,
             }}
           >
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
             <XAxis dataKey="name" width={600} />
-            {/* <YAxis /> */}
             <Tooltip />
             <Area
               type="monotone"
@@ -96,6 +95,7 @@ const BidChart = () => {
               strokeWidth={3}
             />
           </AreaChart>
+          {/* <Demo /> */}
         </Grid>
       </Grid>
     </div>

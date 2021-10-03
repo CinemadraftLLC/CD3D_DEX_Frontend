@@ -1,9 +1,21 @@
 .bidGridItem {
-  background-color: #1d162d00;
+  /* background-color: #1d162d00;
   text-align: center;
   padding: 15px 30px;
   border-radius: 10px;
-  box-shadow: 0px 0px 5px #00000081;
+  box-shadow: 0px 0px 5px #00000081; */
+
+  width: 250px;
+  height: 92px;
+  background: transparent;
+  
+  /* border: 1px solid #1b162c; */
+  text-align: center;
+  padding: 15px 30px;
+  border-radius: 15px;
+  backdrop-filter: blur(30.056800842285156px);
+  --webkit-backdrop-filter: blur(30.056800842285156px);
+  background-color: rgba(255, 255, 255, 0.01);
 }
 .bidGridItem p {
   color: #ffd7e1;

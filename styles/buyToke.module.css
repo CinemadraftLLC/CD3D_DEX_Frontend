@@ -1,8 +1,13 @@
 .buyTokeOuter {
-  background-color: #1d162d;
+  width: 400px;
+  background: #1d162d;
   padding: 20px;
   border-radius: 15px;
   color: #75e4aa;
+  backdrop-filter: blur(30.056800842285156px);
+  --webkit-backdrop-filter: blur(30.056800842285156px);
+  background-color: rgba(0, 0, 0, 0.03);
+
   box-sizing: border-box;
 }
 .downOuter {
@@ -28,14 +33,27 @@
 }
 
 .bidPriceInput {
-  display: flex;
+  /* display: flex;
   justify-content: space-between;
   align-items: center;
   background: #1d162d;
   margin: 10px 0px;
   padding: 15px;
   border: 1px solid #26164a;
+  border-radius: 10px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   border-radius: 10px;
+  margin: 10px 0px;
+
+  padding: 15px;
+  background: transparent;
+  border: 1px solid #26164a;
+  /* Note: currently only Safari supports backdrop-filter */
+  backdrop-filter: blur(30.056800842285156px);
+  --webkit-backdrop-filter: blur(30.056800842285156px);
+  background-color: rgba(0, 0, 0, 0.03);
 }
 .bidPriceInput input {
   background: none;
