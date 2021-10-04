@@ -61,7 +61,7 @@ export default class TokonomicsChartMB extends PureComponent {
                 />
               ))}
             </Pie>
-            <Legend layout="horizontal" verticalAlign="bottom" align="left" />
+            <Legend layout="vertical" verticalAlign="bottom" align="center" />
           </PieChart>
         </ResponsiveContainer>
       </div>
