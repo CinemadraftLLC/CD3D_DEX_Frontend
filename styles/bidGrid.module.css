@@ -40,6 +40,7 @@
 }
 .bidGridItem h6 {
   color: #ff0144;
+  font-weight: 600;
 }
 
 @media (max-width: 900px) {
