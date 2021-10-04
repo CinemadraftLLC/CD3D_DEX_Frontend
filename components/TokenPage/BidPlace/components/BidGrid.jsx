@@ -1,5 +1,4 @@
 import React from "react";
-import Grid from "@mui/material/Grid";
 import styles from "../../../../styles/bidGrid.module.css";
 import Typography from "@mui/material/Typography";
 
