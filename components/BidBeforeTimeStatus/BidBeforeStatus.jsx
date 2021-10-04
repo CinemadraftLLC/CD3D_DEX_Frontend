@@ -16,7 +16,7 @@ function BidBeforeStatus() {
       </div>
       <div className={styles.typographyContainer}>
         <Typography variant="h4" gutterBottom component="h4">
-          Time to Cutain
+          Time to Curtain
         </Typography>
       </div>
     </div>
