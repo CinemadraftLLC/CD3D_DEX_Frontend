@@ -73,6 +73,7 @@
   height: 600px;
 }
 
+
 @media (max-width: 900px) {
   .tokeOuter p {
     padding-top: 0px;
@@ -81,7 +82,8 @@
   .tokeOuter h5 {
     padding-bottom: 0;
   }
-  /* .pieChart {
+  .pieChart {
     display: none;
-  } */
+  }
+
 }

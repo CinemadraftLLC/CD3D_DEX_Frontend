@@ -1,7 +1,7 @@
-
 import { dataSource } from "data/data";
 import React, { PureComponent } from "react";
 import { ResponsiveContainer, PieChart, Pie, Legend, Cell } from "recharts";
+import styles from "../../styles/tokonomicsMB.module.css";
 
 const COLORS = [
   "#CC0336",
@@ -42,8 +42,11 @@ const renderCustomizedLabel = ({
 export default class TokonomicsChartMB extends PureComponent {
   render() {
     return (
-      <div style={{ width: "100%", height: 500 }}>
-        <ResponsiveContainer>
+      <div
+        className={styles.tokenMBContainer}
+        // style={{ width: "100%", height: 500 }}
+      >
+        <ResponsiveContainer height={500} width="100%">
           <PieChart>
             <Pie
               dataKey="value"
