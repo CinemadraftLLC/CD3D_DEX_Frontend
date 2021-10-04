@@ -12,7 +12,7 @@ const BuyTokens = () => {
   return (
     <div className={styles.buyTokeOuter}>
       <Typography variant="h5" gutterBottom component="h5">
-        Buy Tokens
+        Buy Tokens  
       </Typography>
       <BidPrice />
       <BidBUSD />

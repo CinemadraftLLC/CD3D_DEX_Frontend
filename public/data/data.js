@@ -48,27 +48,38 @@ export const userSection = [
 export const dataSource = [
   {
     title: "Dead",
+    name: "Dead",
     value: 40000000,
   },
   {
     title: "Marketing",
+    name: "Marketing",
+
     value: 10000000,
   },
   {
     title: "Community Jackpot Fund",
+    name: "Community Jackpot Fund",
+
     value: 8000000,
   },
 
   {
     title: "Liquidity",
+    name: "Liquidity",
+
     value: 20000000,
   },
   {
     title: "ICO",
+    name: "ICO",
+
     value: 20000000,
   },
   {
     title: "Team",
+    name: "Team",
+
     value: 2000000,
   },
 ];

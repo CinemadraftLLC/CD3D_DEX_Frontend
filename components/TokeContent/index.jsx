@@ -5,8 +5,8 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { dataSource, tokeData, tokeData2 } from "../../public/data/data";
-import { BrowserView } from 'react-device-detect';
-
+import { BrowserView, MobileView } from "react-device-detect";
+import TokonomicsChartMB from "../TokonomicsChartMB/TokonomicsChartMB";
 import PieChart, {
   Series,
   Label,
@@ -15,7 +15,7 @@ import PieChart, {
   Legend,
   Title,
 } from "devextreme-react/pie-chart";
-// function for , separator
+
 const addCommas = (nStr) => {
   nStr += "";
   let x = nStr.split(".");
@@ -65,27 +65,30 @@ const TokeContent = () => {
           – Walter Abrams, TWO FOR THE MONEY
         </Typography>
         <BrowserView>
-        <PieChart
-          className={styles.pieChart}
-          id="pie"
-          palette={customPalette}
-          dataSource={dataSource}
-        >
-          <Series argumentField="title" valueField="value" position={"12px"}>
-            <Label
-              visible={true}
-              position="columns"
-              customizeText={textShown}
-              backgroundColor="none"
-              className={styles.pieLabel}
-            >
-              <Font size={12} color="white" />
-              <Connector visible={true} width={1.5} />
-            </Label>
-          </Series>
-          <Legend visible={false} />
-        </PieChart>
+          <PieChart
+            className={styles.pieChart}
+            id="pie"
+            palette={customPalette}
+            dataSource={dataSource}
+          >
+            <Series argumentField="title" valueField="value" position={"12px"}>
+              <Label
+                visible={true}
+                position="columns"
+                customizeText={textShown}
+                backgroundColor="none"
+                className={styles.pieLabel}
+              >
+                <Font size={12} color="white" />
+                <Connector visible={true} width={1.5} />
+              </Label>
+            </Series>
+            <Legend visible={false} />
+          </PieChart>
         </BrowserView>
+        <MobileView>
+          <TokonomicsChartMB />
+        </MobileView>
         <div className={styles.tokeCon}>
           {tokeData.map((elem) => (
             <Grid container key={elem.id} spacing={2}>
