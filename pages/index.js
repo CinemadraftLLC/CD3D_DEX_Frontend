@@ -18,7 +18,7 @@ import Typography from "@mui/material/Typography";
 import Timeline from "../components/Timeline/Timeline";
 import ErrorBoundary from "../components/ErrorBound/ErrorBound";
 
-export default function Home(props) {
+export default function Home() {
   return (
     <ErrorBoundary>
       <div className={styles.container}>
@@ -33,7 +33,7 @@ export default function Home(props) {
         <CD3DSection />
         <UseSection />
         <SoonSection />
-        <TokeContent {...props} />
+        <TokeContent />
         <DraftSection />
         <Timeline />
         <DexSection />
@@ -49,16 +49,4 @@ export default function Home(props) {
       </div>
     </ErrorBoundary>
   );
-}
-
-export async function getServerSideProps(context) {
-  let isIOS = (
-    context.req ? context.req.headers["user-agent"] : navigator.userAgent
-  ).match(/iPhone|iPad|iPod/i);
-  // console.log(Boolean(isIOS));
-  return {
-    props: {
-      isIOS: Boolean(isIOS),
-    },
-  };
 }

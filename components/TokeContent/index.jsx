@@ -7,6 +7,8 @@ import Button from "@mui/material/Button";
 import { dataSource, tokeData, tokeData2 } from "../../public/data/data";
 // import { BrowserView, isMobile, MobileView } from "react-device-detect";
 import TokonomicsChartMB from "../TokonomicsChartMB/TokonomicsChartMB";
+import { isIOS } from "mobile-device-detect";
+
 import PieChart, {
   Series,
   Label,
@@ -38,7 +40,7 @@ const textShown = (arg) => {
   </div>`;
 };
 
-const TokeContent = (props) => {
+const TokeContent = () => {
   const customPalette = [
     "#CC0336",
     "#FFAFC4",
@@ -64,7 +66,7 @@ const TokeContent = (props) => {
         <Typography variant="subtitle2" gutterBottom component="p">
           – Walter Abrams, TWO FOR THE MONEY
         </Typography>
-        {!props.isIOS && (
+        {!isIOS && (
           <React.Fragment>
             <TokonomicsChartMB />
             <PieChart
@@ -93,6 +95,7 @@ const TokeContent = (props) => {
             </PieChart>
           </React.Fragment>
         )}
+
         <div className={styles.tokeCon}>
           {tokeData.map((elem) => (
             <Grid container key={elem.id} spacing={2}>
