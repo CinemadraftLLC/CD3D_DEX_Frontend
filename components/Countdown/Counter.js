@@ -7,7 +7,6 @@ export default function Counter({ hours, minutes, seconds }) {
   var myDateObj = new Date("Oct 7, 2021 12:00:00:000 GMT");
   return (
     <div className={styles.timeOuter}>
-      {/* Add text here to display in screen */}
       <Countdown date={myDateObj.getTime()} renderer={renderer} />
     </div>
   );

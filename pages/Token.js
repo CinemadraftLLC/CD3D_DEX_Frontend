@@ -7,15 +7,12 @@ import BuyTokens from "../components/TokenPage/BuyTokens";
 import Header from "../components/Header";
 import { styled } from "@mui/material/styles";
 
-const CustomContainer = styled(Container)(({ theme }) => ({
-  width: 1400,
-}));
 const Token = () => {
   return (
     <>
       <Header />
       <div className={styles.tokenOuter}>
-        <CustomContainer fixed>
+        <Container fixed>
           <Grid container spacing={4}>
             <Grid item xs={12} md={8}>
               <div className={styles.bidOuter}>
@@ -28,7 +25,7 @@ const Token = () => {
               </div>
             </Grid>
           </Grid>
-        </CustomContainer>
+        </Container>
       </div>
     </>
   );

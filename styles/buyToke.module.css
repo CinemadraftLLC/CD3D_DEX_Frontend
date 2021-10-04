@@ -105,3 +105,9 @@
 .buyTokeOuter button:hover {
   background-color: #ff0144;
 }
+
+@media (max-width: 900px) {
+  .buyTokeOuter {
+    width: 100%;
+  }
+}
