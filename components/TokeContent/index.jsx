@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { dataSource, tokeData, tokeData2 } from "../../public/data/data";
-import { BrowserView, isMobile, MobileView } from "react-device-detect";
+// import { BrowserView, isMobile, MobileView } from "react-device-detect";
 import TokonomicsChartMB from "../TokonomicsChartMB/TokonomicsChartMB";
 import PieChart, {
   Series,
@@ -38,7 +38,7 @@ const textShown = (arg) => {
   </div>`;
 };
 
-const TokeContent = () => {
+const TokeContent = (props) => {
   const customPalette = [
     "#CC0336",
     "#FFAFC4",
@@ -64,28 +64,35 @@ const TokeContent = () => {
         <Typography variant="subtitle2" gutterBottom component="p">
           – Walter Abrams, TWO FOR THE MONEY
         </Typography>
-        <TokonomicsChartMB />
-        <PieChart
-          className={styles.pieChart}
-          id="pie"
-          palette={customPalette}
-          dataSource={dataSource}
-        >
-          <Series argumentField="title" valueField="value" position={"12px"}>
-            <Label
-              visible={true}
-              position="columns"
-              customizeText={textShown}
-              backgroundColor="none"
-              className={styles.pieLabel}
+        {!props.isIOS && (
+          <React.Fragment>
+            <TokonomicsChartMB />
+            <PieChart
+              className={styles.pieChart}
+              id="pie"
+              palette={customPalette}
+              dataSource={dataSource}
             >
-              <Font size={12} color="white" />
-              <Connector visible={true} width={1.5} />
-            </Label>
-          </Series>
-          <Legend visible={false} />
-        </PieChart>
-
+              <Series
+                argumentField="title"
+                valueField="value"
+                position={"12px"}
+              >
+                <Label
+                  visible={true}
+                  position="columns"
+                  customizeText={textShown}
+                  backgroundColor="none"
+                  className={styles.pieLabel}
+                >
+                  <Font size={12} color="white" />
+                  <Connector visible={true} width={1.5} />
+                </Label>
+              </Series>
+              <Legend visible={false} />
+            </PieChart>
+          </React.Fragment>
+        )}
         <div className={styles.tokeCon}>
           {tokeData.map((elem) => (
             <Grid container key={elem.id} spacing={2}>
