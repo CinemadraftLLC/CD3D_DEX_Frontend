@@ -32,6 +32,8 @@
 }
 .bidGridItemSkeleton h6 {
   color: #ff0144;
+  font-weight: 600;
+  /* font-size: 18px; */
 }
 .bidGridItem p {
   color: #ffd7e1;
