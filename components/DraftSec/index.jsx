@@ -11,6 +11,7 @@ import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import { styled } from "@mui/material/styles";
 import { Divider } from "@mui/material";
 import { Box } from "@mui/system";
+import Link from "next/link";
 
 const CustomDivider = styled(Divider)(({ theme }) => ({
   width: "0px",
@@ -63,9 +64,11 @@ const DraftSec = () => {
             </>
           ))}
         </div>
-        <Button variant="contained" className={styles.DraftitemButton}>
-          Marketplace
-        </Button>
+        <Link href="/Token">
+          <Button variant="contained" className={styles.DraftitemButton}>
+            Marketplace
+          </Button>
+        </Link>
       </Container>
     </div>
   );
