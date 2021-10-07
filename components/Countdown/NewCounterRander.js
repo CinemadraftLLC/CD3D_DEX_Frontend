@@ -24,7 +24,6 @@ export const newRenderer = ({ hours, minutes, seconds, completed }) => {
         <h3>
           Seconds <span className={styles.time}>{seconds}</span>
         </h3>
-        <div className={styles.bottomText}></div>
       </>
     );
   }
