@@ -53,13 +53,13 @@ const BuyTokens = () => {
       <Typography variant="h5" gutterBottom component="h5">
         Buy Tokens
       </Typography>
-      <BidPrice bidPrice={bidPrice} />
+
       <BidBUSD handleChangeOnBusd={handleChangeOnBusd} errMsg={errMsg} />
       <div className={styles.downOuter}>
         <Image src={DownA} alt="Picture of DownArrow" />
       </div>
       <BidCD3D handleChangeOnCd3d={handleChangeOnCd3d} />
-
+      <BidPrice bidPrice={bidPrice} />
       {active ? (
         <Button
           variant="contained"
