@@ -17,7 +17,6 @@ const BidPlace = () => {
   const seconds = getDifferenceInSeconds(today, saleStartDate);
   const [timeLeft, setTimeLeft] = useState(seconds);
   const [timeLeft2, setTimeLeft2] = useState(center);
-  console.log(timeLeft2, timeLeft);
 
   useEffect(() => {
     if (timeLeft < 0 && timeLeft2 > 0) {

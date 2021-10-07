@@ -547,4 +547,12 @@ export const marketPlaceData = [
     img: Blog,
     link: "",
   },
+  {
+    id: 5,
+    title: "Claim Test Token",
+    subTitle: "Play Around with Tokens",
+    img: Twitter,
+    external: false,
+    link: "/claim-token",
+  },
 ];

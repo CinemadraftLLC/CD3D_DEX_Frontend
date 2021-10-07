@@ -29,9 +29,9 @@ const Header = () => {
   return (
     <div>
       <AppBar position="static" className={styles.menuBG}>
-        <Container style={{padding:0}}>
+        <Container style={{ padding: 0 }}>
           <CssBaseline />
-          <Toolbar style={{padding:0}}>
+          <Toolbar style={{ padding: 0 }}>
             <div className={styles.navbarInner}>
               <Link href="/">
                 <Image src={Logo} alt="logo" width={300} height={130} />
@@ -118,6 +118,7 @@ const Header = () => {
                 ))}
               />
             </div>
+
             <div className={styles.rightMenu}>
               <Link href="/" className={styles.playLink}>
                 Play

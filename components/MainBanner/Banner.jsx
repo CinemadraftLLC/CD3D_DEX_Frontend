@@ -3,13 +3,10 @@ import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import styles from "../../styles/mainBanner.module.css";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import Link from "next/link";
+
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ReactPlayer from "react-player";
-import { style } from "@mui/system";
-// import MainBanner from './bannerSection.style';
 
 const Banner = () => {
   return (
