@@ -129,7 +129,7 @@ const BidChart = (props) => {
           height={300 || size.height}
         >
           <AreaChart
-            data={chart_data}
+            data={[]}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <defs>

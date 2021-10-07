@@ -7,8 +7,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ReactPlayer from "react-player";
-
+import { useRouter } from "next/dist/client/router";
 const Banner = () => {
+  const router = useRouter();
+  const handleOnClick = () => {
+    router.push("/Token");
+  };
   return (
     <div className={styles.mainBanner}>
       <Container fixed>
@@ -22,7 +26,7 @@ const Banner = () => {
               <Typography variant="subtitle1" gutterBottom component="p">
                 The official DeFi launchpad & token of the CinemaDraft game
               </Typography>
-              <Button variant="contained" className={styles.LikeWin}>
+              <Button variant="contained" className={styles.LikeWin} onClick={handleOnClick}>
                 <Typography variant="subtitle1" className={styles.winningBtn}>
                   Join Auction
                 </Typography>
