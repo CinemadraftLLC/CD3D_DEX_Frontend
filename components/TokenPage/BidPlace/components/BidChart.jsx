@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Demo from "./Chart";
 import Image from "next/image";
 import useResizeObserver from "@react-hook/resize-observer";
-import { NewCounter } from "../../../Countdown/Counter";
+import { SecondCounter } from "../../../Countdown/Counter";
 import useCD3D from "../../../../hooks/useCD3D";
 import {
   ResponsiveContainer,
@@ -17,68 +17,68 @@ import {
   Tooltip,
 } from "recharts";
 
-const chart_data = [
-  {
-    name: "Page A",
-    uv: 0,
-    pv: 0,
-    amt: 1400,
-  },
-  {
-    name: "Page b",
-    uv: 0,
-    pv: 23,
-    amt: 1400,
-  },
-  {
-    name: "Page c",
-    uv: 0,
-    pv: 232,
-    amt: 1400,
-  },
-  {
-    name: "Page d",
-    uv: 0,
-    pv: 442,
-    amt: 1400,
-  },
-  {
-    name: "Page e",
-    uv: 300,
-    pv: 1500,
-    amt: 2210,
-  },
-  {
-    name: "Page f",
-    uv: 600,
-    pv: 2500,
-    amt: 2290,
-  },
-  {
-    name: "Page g",
-    uv: 978,
-    pv: 3508,
-    amt: 2000,
-  },
-  {
-    name: "Page h",
-    uv: 1289,
-    pv: 4500,
-    amt: 2181,
-  },
-  {
-    name: "Page i",
-    uv: 1539,
-    pv: 5500,
-    amt: 2500,
-  },
-  {
-    name: "Page j",
-    uv: 590,
-    pv: 6500,
-    amt: 2100,
-  },
-];
+// const chart_data = [
+//   {
+//     name: "Page A",
+//     uv: 0,
+//     pv: 0,
+//     amt: 1400,
+//   },
+//   {
+//     name: "Page b",
+//     uv: 0,
+//     pv: 23,
+//     amt: 1400,
+//   },
+//   {
+//     name: "Page c",
+//     uv: 0,
+//     pv: 232,
+//     amt: 1400,
+//   },
+//   {
+//     name: "Page d",
+//     uv: 0,
+//     pv: 442,
+//     amt: 1400,
+//   },
+//   {
+//     name: "Page e",
+//     uv: 300,
+//     pv: 1500,
+//     amt: 2210,
+//   },
+//   {
+//     name: "Page f",
+//     uv: 600,
+//     pv: 2500,
+//     amt: 2290,
+//   },
+//   {
+//     name: "Page g",
+//     uv: 978,
+//     pv: 3508,
+//     amt: 2000,
+//   },
+//   {
+//     name: "Page h",
+//     uv: 1289,
+//     pv: 4500,
+//     amt: 2181,
+//   },
+//   {
+//     name: "Page i",
+//     uv: 1539,
+//     pv: 5500,
+//     amt: 2500,
+//   },
+//   {
+//     name: "Page j",
+//     uv: 590,
+//     pv: 6500,
+//     amt: 2100,
+//   },
+// ];
 
 const useSize = (target) => {
   const [size, setSize] = React.useState();
@@ -114,7 +114,7 @@ const BidChart = (props) => {
           Sale Ends in
         </Typography>
         <Typography variant="h6" gutterBottom component="h6">
-          <NewCounter />
+          <SecondCounter />
         </Typography>
       </div>
       <div className={styles.leftCurtain}>
@@ -129,7 +129,7 @@ const BidChart = (props) => {
           height={300 || size.height}
         >
           <AreaChart
-            data={[]}
+            data={data?.cd3d || []}
             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           >
             <defs>
@@ -156,7 +156,7 @@ const BidChart = (props) => {
               type="monotone"
               dataKey="pv"
               stroke="#82ca9d"
-              fillOpacity={0.4}
+              fillOpacity={1}
               fill="#4CDC8F"
             />
           </AreaChart>
