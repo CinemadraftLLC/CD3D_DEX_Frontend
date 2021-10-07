@@ -7,6 +7,9 @@ import Image from "next/image";
 import useResizeObserver from "@react-hook/resize-observer";
 import { SecondCounter } from "../../../Countdown/Counter";
 import useCD3D from "../../../../hooks/useCD3D";
+import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
+import ReactPlayer from "react-player";
+
 import {
   ResponsiveContainer,
   AreaChart,
@@ -26,9 +29,8 @@ const useSize = (target) => {
   //   setSize(target.current.getBoundingClientRect());
   // }, [target]);
 
-  // Where the magic happens
   // useResizeObserver(target, (entry) => setSize(entry.contentRect));
-  return size;
+  // return size;
 };
 function numberWithCommas(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -52,14 +54,14 @@ const BidChart = (props) => {
         </div>
       ) : (
         <>
-          <div className={styles.bidChartInnerLeft}>
+          {/* <div className={styles.bidChartInnerLeft}>
             <Typography variant="h5" gutterBottom component="h5">
               Bids Placed
             </Typography>
             <Typography variant="h6" gutterBottom component="h6">
               {numberWithCommas(data?.bids || 0)}
             </Typography>
-          </div>
+          </div> */}
           <div className={styles.bidChartInnerRight}>
             <Typography variant="h5" gutterBottom component="h5">
               Sale Ends in
@@ -82,8 +84,17 @@ const BidChart = (props) => {
               height={600}
             />
           </div>
-          <div ref={target} className={styles.areaChart}>
-            <ResponsiveContainer
+          <div className={styles.bidChartSecVideo}>
+            <ReactPlayer
+              url="https://youtu.be/Yu8C1dJT-iU"
+              playIcon={<PlayCircleOutlineIcon />}
+              width="100%"
+              height="100%"
+            />
+          </div>
+          {/* <div ref={target} className={styles.areaChart}> */}
+
+          {/* <ResponsiveContainer
               width={680 || size?.width}
               height={300 || size.height}
             >
@@ -119,8 +130,8 @@ const BidChart = (props) => {
                   fill="#4CDC8F"
                 />
               </AreaChart>
-            </ResponsiveContainer>
-          </div>
+            </ResponsiveContainer> */}
+          {/* </div> */}
         </>
       )}
     </div>

@@ -26,9 +26,9 @@ const Busd = (props) => {
       {errMsg && <FormHelperText error>{errMsg}</FormHelperText>}
 
       <div className={styles.amountMin}>
-        <Typography variant="subtitle2" gutterBottom component="p">
+        {/* <Typography variant="subtitle2" gutterBottom component="p">
           Approx. $5.00
-        </Typography>
+        </Typography> */}
         <Typography variant="subtitle2" gutterBottom component="p">
           Min. Buy $10.00
         </Typography>

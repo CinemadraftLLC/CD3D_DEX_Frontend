@@ -19,11 +19,28 @@
   left: 12%;
 }
 
+.bidChartSecVideo {
+  position: absolute;
+  bottom: 0px;
+  height: 80%;
+  width: 100%;
+}
+
+.bidChartSecVideo iframe {
+  border-radius: 30px;
+}
+
+.bidChartSecVideo h5 {
+  color: #ff0144;
+}
+
 .bidChartInnerRight {
   color: #eafbf3;
   position: absolute;
   top: 2%;
-  right: 12%;
+  right: 42%;
+  z-index: 10;
+  text-align: center;
 }
 
 .bidChartInnerLeft h6 {
@@ -44,14 +61,14 @@
   position: absolute;
   right: 0px;
   top: 0px;
-  z-index: -10;
+  z-index: 10;
 }
 
 .leftCurtain {
   position: absolute;
   left: 0px;
   top: 0px;
-  z-index: -10;
+  z-index: 10;
 }
 
 .areaChart {

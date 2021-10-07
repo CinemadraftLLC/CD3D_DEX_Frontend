@@ -87,7 +87,7 @@
 .amountMin {
   display: flex;
   color: #7689b0;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .buyTokeOuter button {
