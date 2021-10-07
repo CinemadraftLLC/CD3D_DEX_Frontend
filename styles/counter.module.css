@@ -57,7 +57,14 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0px;
+  /* margin: 20px 0px; */
+}
+.time {
+  font-family: Poppins;
+  font-weight: 600;
+  font-size: 28px;
+  text-align: right;
+  color: #ff0144;
 }
 
 .timeOuter h3 {
@@ -70,7 +77,7 @@
   font-weight: bolder !important;
 }
 .timeMid {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 @media (max-width: 600px) {

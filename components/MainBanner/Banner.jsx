@@ -24,7 +24,7 @@ const Banner = () => {
               </Typography>
               <Button variant="contained" className={styles.LikeWin}>
                 <Typography variant="subtitle1" className={styles.winningBtn}>
-                  I Like Winning
+                  Join Auction
                 </Typography>
               </Button>
             </Grid>

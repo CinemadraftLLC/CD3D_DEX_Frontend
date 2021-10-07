@@ -9,17 +9,17 @@ export const newRenderer = ({ hours, minutes, seconds, completed }) => {
     // Render a countdown
     return (
       <>
-        <h3>
-          Hours <span className={styles.time}>{hours}</span>
-        </h3>
+        
+         <span className={styles.time}>{hours}</span>
+  
         <span className={styles.timeMid}>:</span>
-        <h3>
-          Minutes <span className={styles.time}>{minutes}</span>
-        </h3>
+      
+         <span className={styles.time}>{minutes}</span>
+      
         <span className={styles.timeMid}>:</span>
-        <h3>
-          Seconds <span className={styles.time}>{seconds}</span>
-        </h3>
+      
+         <span className={styles.time}>{seconds}</span>
+        
         <div className={styles.bottomText}></div>
       </>
     );

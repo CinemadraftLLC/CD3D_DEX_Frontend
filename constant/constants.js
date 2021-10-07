@@ -6,11 +6,17 @@ export const connectorsByName = {
 
 export const Addresses = {
   presale: {
-    97: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB",
+    56: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB",
   },
+  // presale: {
+  //   56: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB",
+  // },
   busd: {
-    97: "0x414FA976F7E0AD63e80B93cee4CF7E6cE6Aa8704",
+    56: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
   },
+  // busd: {
+  //   56: "0x414FA976F7E0AD63e80B93cee4CF7E6cE6Aa8704",
+  // },
 };
 
 export const TokenToBeAuctioned = 20000000;

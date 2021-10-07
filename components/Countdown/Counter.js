@@ -13,12 +13,11 @@ export default function Counter({ hours, minutes, seconds }) {
 }
 
 export const NewCounter = ({ hours, minutes, seconds }) => {
+  let myDateObj = new Date("Oct 8, 2021 12:00:00:000 GMT");
+
   return (
     <div className={styles.timeOuter}>
-      <Countdown
-        date={Date.now() + 1000 * 60 * 60 * 24}
-        renderer={newRenderer}
-      />
+      <Countdown date={myDateObj} renderer={newRenderer} />
     </div>
   );
 };

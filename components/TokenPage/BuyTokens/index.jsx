@@ -13,13 +13,12 @@ import { Injected } from "../../../constant/constants";
 import { getBidPrice } from "../../../utils/utils";
 import useCd3d from "../../../hooks/useCD3D";
 import { toWei, toGwei } from "../../../utils/utils";
-import toast from "react-hot-toast";
-
+// import toast from "react-hot-toast";
+// import { toast } from "react-toastify";
 const BuyTokens = () => {
   const { active } = useWeb3React();
   const { login } = useAuth();
-  const { placeSellOrders, getSampleToken, approveAuctionContract, approved } =
-    useCd3d();
+  const { placeSellOrders, getSampleToken } = useCd3d();
   const [busd, setBusd] = useState(0);
   const [cd3d, setcd3d] = useState(0);
   const [bidPrice, setBidPrice] = useState(0);
@@ -61,7 +60,7 @@ const BuyTokens = () => {
       </div>
       <BidCD3D handleChangeOnCd3d={handleChangeOnCd3d} />
 
-      {active && approved ? (
+      {active ? (
         <Button
           variant="contained"
           onClick={() => {
@@ -69,15 +68,6 @@ const BuyTokens = () => {
           }}
         >
           Submit Bid
-        </Button>
-      ) : active && !approved ? (
-        <Button
-          variant="contained"
-          onClick={() => {
-            approveAuctionContract(busd);
-          }}
-        >
-          Approve Token
         </Button>
       ) : (
         <Button
