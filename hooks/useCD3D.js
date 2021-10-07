@@ -56,7 +56,7 @@ function useCD3D() {
         }, 100);
       } catch (err) {
         toast.error(
-          "Amount of Busd's in your wallet should be greater or equal to amount of BNB's you are submitting !",
+          "Amount of BUSD's in your wallet should be greater or equal to amount of BUSD's you are submitting !",
           { toastId: 1 }
         );
       }
