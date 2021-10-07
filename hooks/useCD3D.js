@@ -57,19 +57,10 @@ function useCD3D() {
     ).toNumber();
   };
 
-  const placeSellOrders = useCallback(async (sellTokenAmount, busdAmount) => {
-    // console.log({
-    //   auctionId: 5,
-    //   _minBuyAmounts: [sellTokenAmount],
-    //   _sellAmounts: [busdAmount],
-    //   _prevSellOrders: [
-    //     0x0000000000000000000000000000000000000000000000000000000000000001,
-    //   ],
-    //   allowListCallData: "0x",
-    // });
-    try {
-      const placeOrder = await pres_contract.functions
-        .placeSellOrders(
+  const placeSellOrders = useCallback(
+    async (sellTokenAmount, busdAmount) => {
+      try {
+        const placeOrder = await pres_contract.functions.placeSellOrders(
           6,
           [`${sellTokenAmount}`],
           [`${busdAmount}`],
@@ -77,25 +68,26 @@ function useCD3D() {
             "0x0000000000000000000000000000000000000000000000000000000000000001",
           ],
           "0x"
-        )
-        
-
-      var interval = setInterval(async () => {
-        const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(
-          placeOrder.hash
         );
-        if (receipt) {
-          toast.success("Transaction Successful");
-          clearInterval(interval);
-        }
-      }, 100);
-    } catch (err) {
-      console.log(err);
-      toast.error(
-        "Amount of Busd's in your wallet should be greater or equal to amount of BNB's you are submitting !"
-      );
-    }
-  }, []);
+
+        var interval = setInterval(async () => {
+          const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(
+            placeOrder.hash
+          );
+          if (receipt) {
+            toast.success("Transaction Successful");
+            clearInterval(interval);
+          }
+        }, 100);
+      } catch (err) {
+        console.log(err);
+        toast.error(
+          "Amount of Busd's in your wallet should be greater or equal to amount of BNB's you are submitting !"
+        );
+      }
+    },
+    [account, library]
+  );
 
   useEffect(() => {
     // console.log(getAuctionCounter());

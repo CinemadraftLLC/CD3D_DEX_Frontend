@@ -7,17 +7,55 @@
   margin-top: 20px;
   border-radius: 15px;
   background: transparent;
+  position: relative;
+  min-height: 500px;
   /* border: 1px solid #1b162c; */
   /* Note: currently only Safari supports backdrop-filter */
   backdrop-filter: blur(30.056800842285156px);
   --webkit-backdrop-filter: blur(30.056800842285156px);
   background-color: rgba(255, 255, 255, 0.01);
 }
-
-.bidChartInner {
+.bidContainer {
+  display: flex;
+  /* justify-content: space-between; */
+}
+.bidChartInnerLeft {
   color: #eafbf3;
+  position: absolute;
+  top: 2%;
+  left: 12%;
 }
 
-.bidChartInner p {
+.bidChartInnerRight {
+  color: #eafbf3;
+  position: absolute;
+  top: 2%;
+  right: 12%;
+}
+
+.bidChartInnerLeft h6 {
+  color: #ff0144;
+  font-weight: 600;
+}
+
+.bidChartInnerRight h6 {
+  color: #ff0144;
+  font-weight: 600;
+}
+.bidChartInnerRight p {
   color: #75e4aa;
+}
+
+.rightCurtain {
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  z-index: -10;
+}
+
+.leftCurtain {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: -10;
 }

@@ -3,6 +3,7 @@ import Grid from "@mui/material/Grid";
 import styles from "../../../../styles/bidChart.module.css";
 import Typography from "@mui/material/Typography";
 import Demo from "./Chart";
+import Image from "next/image";
 import {
   AreaChart,
   Area,
@@ -60,44 +61,54 @@ const data = [
 const BidChart = () => {
   return (
     <div className={styles.bidChartOuter}>
-      <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <div className={styles.bidChartInner}>
-            <Typography variant="h5" gutterBottom component="h5">
-              Bids Placed
-            </Typography>
-            <Typography variant="h4" gutterBottom component="h4">
-              $0.2319 BUSD/CD3D
-            </Typography>
-            <Typography variant="subtitle2" gutterBottom component="p">
-              + $0.0027 BUSD/CD3D
-            </Typography>
-          </div>
-          <AreaChart
-            width={750}
-            height={400}
-            data={data}
-            margin={{
-              top: 10,
-              right: 30,
-              left: 0,
-              bottom: 0,
-            }}
-          >
-            <XAxis dataKey="name" width={600} />
-            <Tooltip />
-            <Area
-              type="monotone"
-              dataKey="uv"
-              stroke="#41AF78"
-              fill="#4D8971"
-              fillOpacity={0.5}
-              strokeWidth={3}
-            />
-          </AreaChart>
-          {/* <Demo /> */}
-        </Grid>
-      </Grid>
+      <div className={styles.bidChartInnerLeft}>
+        <Typography variant="h5" gutterBottom component="h5">
+          Bids Placed
+        </Typography>
+        <Typography variant="h6" gutterBottom component="h6">
+          $0.01 BUSD/CD3D
+        </Typography>
+      </div>
+      <div className={styles.bidChartInnerRight}>
+        <Typography variant="h5" gutterBottom component="h5">
+          Time Left
+        </Typography>
+        <Typography variant="h6" gutterBottom component="h6">
+          $0.01 BUSD/CD3D
+        </Typography>
+      </div>
+      {/* </div> */}
+      <div className={styles.leftCurtain}>
+        <Image src={"/assets/homepage/curtain1.png"} width={600} height={600} />
+      </div>
+      <div className={styles.rightCurtain}>
+        <Image src={"/assets/homepage/curtain2.png"} width={600} height={600} />
+      </div>
+
+      <AreaChart
+        width={750}
+        height={400}
+        data={data}
+        margin={{
+          top: 10,
+          right: 30,
+          left: 0,
+          bottom: 0,
+        }}
+      >
+        <XAxis dataKey="name" width={600} />
+        {/* <YAxis dataKey="token"  /> */}
+
+        <Tooltip />
+        <Area
+          type="monotone"
+          dataKey="uv"
+          stroke="#41AF78"
+          fill="#4D8971"
+          fillOpacity={0.9}
+          strokeWidth={3}
+        />
+      </AreaChart>
     </div>
   );
 };
