@@ -15,6 +15,8 @@ function useCD3D() {
   const pres_contract = usePresale(library, account);
   const busdContract = useBusd(library, account);
   const [data, setData] = useState();
+  const [counter, setCounter] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const getSampleToken = async () => {
     const token = await busdContract.functions.sendMeUSDToken();
@@ -64,24 +66,33 @@ function useCD3D() {
     [account, library]
   );
 
-  const fetchData = async () => {
+  const fetchData = async (loading = null) => {
+    loading && loading(true);
     const req = await getData();
     setData(req.data);
+    loading && loading(false);
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
       fetchData();
     }, 5000);
+    setCounter(counter + 1);
+
     return () => {
       clearInterval(interval);
     };
   }, [active, library]);
 
+  useEffect(() => {
+    fetchData(setLoading);
+  }, []);
+
   return {
     placeSellOrders,
     getSampleToken,
     data,
+    loading,
   };
 }
 
