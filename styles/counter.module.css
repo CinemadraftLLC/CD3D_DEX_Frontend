@@ -54,12 +54,18 @@
 }
 
 .timeOuter {
-  /* display: flex;
-  justify-content: space-between;
-  align-items: center; */
-  margin: 50px 0px;
-  text-align: center;
-  /* margin: 20px 0px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 50px 0px;
+  text-align: center; */
+  margin: 20px 0px;
+}
+.timeOuterNew {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  align-items: center;
 }
 .time {
   font-family: Poppins;

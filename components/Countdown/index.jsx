@@ -25,7 +25,7 @@ const Countdown = () => {
 
         <div className={styles.bottomText}>
           <Typography variant="h6" gutterBottom component="h6">
-            Time until Initial CD3D Offering (ICO)
+            Time until Initial CD3D Offering (ICO) Ends
           </Typography>
           <div className={styles.subDiv}>
             <CustomForm />

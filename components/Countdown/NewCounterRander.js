@@ -5,9 +5,7 @@ export const newRenderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     // Render a completed state
     return (
-      <div
-       
-      >
+      <div>
         <h1>"Time until Initial CD3D Offering token sale ends" </h1>
       </div>
     );
