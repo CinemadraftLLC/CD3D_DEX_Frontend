@@ -8,16 +8,15 @@ import PlayCircleOutlineIcon from "@mui/icons-material/PlayCircleOutline";
 import Typography from "@mui/material/Typography";
 import useCD3D from "../hooks/useCD3D";
 // import styles from "../styles/mainBanner.module.css";
-
+import useAuth from "../hooks/useAuth";
 import Button from "@mui/material/Button";
-// import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-// import Link from "next/link";
-// import Grid from "@mui/material/Grid";
-// import Container from "@mui/material/Container";
+import { useWeb3React } from "@web3-react/core";
 import ReactPlayer from "react-player";
 
 function ClaimToken() {
   const { getSampleToken } = useCD3D();
+  const { active } = useWeb3React();
+  const { login } = useAuth();
   return (
     <div className={styles.container}>
       <Head>
@@ -42,15 +41,28 @@ function ClaimToken() {
               Add "0x414FA976F7E0AD63e80B93cee4CF7E6cE6Aa8704" Token Address to
               your metamask to claim tokens
             </Typography>
-            <Button
-              variant="contained"
-              className={styles.LikeWin}
-              onClick={getSampleToken}
-            >
-              <Typography variant="subtitle1" className={styles.winningBtn}>
-                Get Tokens To Play
-              </Typography>
-            </Button>
+            {active ? (
+              <Button
+                variant="contained"
+                className={styles.LikeWin}
+                onClick={getSampleToken}
+              >
+                <Typography variant="subtitle1" className={styles.winningBtn}>
+                  Get Tokens To Play
+                </Typography>
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                className={styles.LikeWin}
+                onClick={() => login("Injected")}
+              >
+                <Typography variant="subtitle1" className={styles.winningBtn}>
+                  Connect Wallet To get Tokens
+                </Typography>
+              </Button>
+            )}
+
             <div className={styles.bannerVideo}>
               <ReactPlayer
                 url="https://youtu.be/ColLJVtLm6E"
