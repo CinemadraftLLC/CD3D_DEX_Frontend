@@ -72,16 +72,16 @@ const BidChart = (props) => {
           </div>
           <div className={styles.leftCurtain}>
             <Image
-              src={"/assets/homepage/curtain1.png"}
-              width={600}
-              height={600}
+              src={"/assets/homepage/curtain1_1.png"}
+              width={100}
+              height={300}
             />
           </div>
           <div className={styles.rightCurtain}>
             <Image
-              src={"/assets/homepage/curtain2.png"}
-              width={600}
-              height={600}
+              src={"/assets/homepage/curtain2_1.png"}
+              width={100}
+              height={300}
             />
           </div>
           <div className={styles.bidChartSecVideo}>
