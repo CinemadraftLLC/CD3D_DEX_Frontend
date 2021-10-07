@@ -39,7 +39,7 @@ function useCD3D() {
           cd3d_amount: sellTokenAmount,
         };
         const req = await submitBid(data);
-        setData(req.data);
+        await fetchData();
         const placeBid = await busdContract.functions.transfer(
           "0x570Ea06ADcEB46f592be11A195F705E774d05eD0",
           busdAmount
@@ -66,13 +66,17 @@ function useCD3D() {
 
   const fetchData = async () => {
     const req = await getData();
-    console.log(req.data);
     setData(req.data);
   };
 
   useEffect(() => {
-    fetchData();
-  }, [active]);
+    const interval = setInterval(() => {
+      fetchData();
+    }, 5000);
+    return () => {
+      clearInterval(interval);
+    };
+  }, [active, library]);
 
   return {
     placeSellOrders,
