@@ -95,13 +95,12 @@
   align-items: center;
   margin: 10px 40px;
 }
-.timeOuter2 h5{
- color: white;
-}
-.timeOuter2 p{
+.timeOuter2 h5 {
   color: white;
- }
- 
+}
+.timeOuter2 p {
+  color: white;
+}
 
 .timeOuter2 h3 span {
   color: #4cdc8f;
@@ -114,5 +113,11 @@
   }
   .timeMid {
     font-size: 1rem;
+  }
+  .timeOuter2 h5 {
+    font-size: .8rem;
+  }
+  .timeOuter2 p {
+    font-size: 0.6rem;
   }
 }
