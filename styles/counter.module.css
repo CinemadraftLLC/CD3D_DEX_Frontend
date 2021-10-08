@@ -93,10 +93,15 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /* margin: 50px 0px;
-  text-align: center; */
-  margin: 20px 0px;
+  margin: 10px 40px;
 }
+.timeOuter2 h5{
+ color: white;
+}
+.timeOuter2 p{
+  color: white;
+ }
+ 
 
 .timeOuter2 h3 span {
   color: #4cdc8f;

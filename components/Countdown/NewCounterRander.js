@@ -55,16 +55,36 @@ export const newOneRenderer = ({ hours, minutes, seconds, completed }) => {
 
 export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
-    // Render a completed state
     return (
       <div>
-        <h1>"Time until Initial CD3D Offering token sale ends" </h1>
+        <Typography variant="h5">CD3D CONTRACT DETAILS</Typography>
+        <Typography variant="body2">Network: Binance Smart Chain</Typography>
+        <Typography variant="body2">
+          Contract:{" "}
+          <a
+            href={
+              "https://bscscan.com/address/0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979"
+            }
+            target="_blank"
+          >
+            0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979
+          </a>
+        </Typography>
+        <Typography variant="body2">Symbol: CD3D</Typography>
+        <Typography variant="body2">Decimals: 9</Typography>
       </div>
     );
   } else {
     // Render a countdown
     return (
-      <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" ,width:"80%" }}>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          width: "80%",
+        }}
+      >
         <h3>
           Hours <span className={styles.time}>{hours}</span>
         </h3>
