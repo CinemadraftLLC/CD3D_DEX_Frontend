@@ -64,7 +64,7 @@ const BuyTokens = () => {
         <Button
           variant="contained"
           onClick={() => {
-            !validateBusd(busd) && placeSellOrders(toGwei(cd3d), toWei(busd));
+            // !validateBusd(busd) && placeSellOrders(toGwei(cd3d), toWei(busd));
           }}
         >
           Submit Bid
