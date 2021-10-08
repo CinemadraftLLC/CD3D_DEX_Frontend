@@ -76,3 +76,9 @@
   bottom: 0%;
   left: 7%;
 }
+
+@media (max-width: 900px) {
+  .bidChartInnerRight {
+    right: 30%;
+  }
+}
