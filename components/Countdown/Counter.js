@@ -1,7 +1,7 @@
 import Countdown from "react-countdown";
 import { renderer } from "./CounterRander";
 import styles from "../../styles/counter.module.css";
-import { newRenderer, newOneRenderer } from "./NewCounterRander";
+import { newRenderer, newOneRenderer ,newSecondRenderer} from "./NewCounterRander";
 
 export default function Counter({ hours, minutes, seconds }) {
   var myDateObj = new Date("Oct 7, 2021 12:00:00:000 GMT");
@@ -28,6 +28,16 @@ export const SecondCounter = ({ hours, minutes, seconds }) => {
   return (
     <div className={styles.timeOuter1}>
       <Countdown date={myDateObj} renderer={newOneRenderer} />
+    </div>
+  );
+};
+
+export const ThirdCounter = ({ hours, minutes, seconds }) => {
+  let myDateObj = new Date("Oct 8, 2021 15:00:00:000 GMT");
+
+  return (
+    <div className={styles.timeOuter}>
+      <Countdown date={myDateObj} renderer={newSecondRenderer} />
     </div>
   );
 };

@@ -4,6 +4,7 @@ import Curtain from "../../public/assets/curtain.svg";
 import Image from "next/image";
 import styles from "../../styles/bidBeforeStatus.module.css";
 import { Typography } from "@mui/material";
+import { ThirdCounter } from "../Countdown/Counter";
 
 function AfterBidTimeStatus() {
   return (
@@ -12,7 +13,8 @@ function AfterBidTimeStatus() {
         <Image src={Curtain} />
       </div>
       <div className={styles.counterContainer}>
-        <CompoundTimer />
+        {/* <CompoundTimer /> */}
+        <ThirdCounter />
       </div>
       <div className={styles.typographyContainer}>
         <Typography variant="h4" gutterBottom component="h4">

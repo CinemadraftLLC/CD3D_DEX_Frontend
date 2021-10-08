@@ -10,7 +10,7 @@ function getDifferenceInSeconds(date1, date2) {
 
 function CompoundTimer() {
   let startDate = new Date("Oct 8, 2021 12:00:00:000 GMT");
-  let endDate = new Date();
+  let endDate = new Date("Oct 8, 2021 15:00:00:000 GMT");
 
   return (
     <Timer

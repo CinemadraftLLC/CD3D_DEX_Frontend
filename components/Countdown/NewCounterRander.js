@@ -52,3 +52,31 @@ export const newOneRenderer = ({ hours, minutes, seconds, completed }) => {
     );
   }
 };
+
+export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
+  if (completed) {
+    // Render a completed state
+    return (
+      <div>
+        <h1>"Time until Initial CD3D Offering token sale ends" </h1>
+      </div>
+    );
+  } else {
+    // Render a countdown
+    return (
+      <div style={{ display: "flex", justifyContent: "space-between",alignItems:"center" ,width:"80%" }}>
+        <h3>
+          Hours <span className={styles.time}>{hours}</span>
+        </h3>
+        <span className={styles.timeMid}>:</span>
+        <h3>
+          Minutes <span className={styles.time}>{minutes}</span>
+        </h3>
+        <span className={styles.timeMid}>:</span>
+        <h3>
+          Seconds <span className={styles.time}>{seconds}</span>
+        </h3>
+      </div>
+    );
+  }
+};
