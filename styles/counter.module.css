@@ -13,7 +13,9 @@
 .bottomText h6 {
   color: #ffffff;
 }
-
+.subDiv {
+  margin-top: 5%;
+}
 .subDiv div {
   display: flex;
   -moz-box-align: center;

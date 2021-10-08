@@ -20,13 +20,13 @@ const Countdown = () => {
           </Typography>
         </div>
         <div>
-          <Counter />
+          {/* <Counter /> */}
         </div>
 
         <div className={styles.bottomText}>
-          <Typography variant="h6" gutterBottom component="h6">
+          {/* <Typography variant="h6" gutterBottom component="h6">
             Time until Initial CD3D Offering (ICO) Ends
-          </Typography>
+          </Typography> */}
           <div className={styles.subDiv}>
             <CustomForm />
           </div>
