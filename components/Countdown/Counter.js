@@ -36,7 +36,7 @@ export const ThirdCounter = ({ hours, minutes, seconds }) => {
   let myDateObj = new Date("Oct 8, 2021 15:00:00:000 GMT");
 
   return (
-    <div className={styles.timeOuter}>
+    <div className={styles.timeOuter2}>
       <Countdown date={myDateObj} renderer={newSecondRenderer} />
     </div>
   );

@@ -87,7 +87,20 @@
 .timeMid {
   font-size: 1.3rem;
 }
+.timeOuter2 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* margin: 50px 0px;
+  text-align: center; */
+  margin: 20px 0px;
+}
 
+.timeOuter2 h3 span {
+  color: #4cdc8f;
+  font-size: 5rem;
+  font-weight: bolder !important;
+}
 @media (max-width: 600px) {
   .timeOuter h3 span {
     font-size: 2rem;

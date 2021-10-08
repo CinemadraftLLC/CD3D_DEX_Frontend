@@ -39,13 +39,13 @@ const BidPlace = () => {
   return (
     <React.Fragment>
       <BidGrid />
-      {timeLeft > 0 ? (
+      {/* {timeLeft > 0 ? (
         <BidBeforeStatus />
       ) : timeLeft2 > 0 ? (
         <BidChart time={timeLeft2} />
-      ) : (
+      ) : ( */}
         <AfterBidTimeStatus />
-      )}
+      {/* )} */}
     </React.Fragment>
   );
 };
