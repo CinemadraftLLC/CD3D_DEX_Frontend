@@ -11,7 +11,9 @@ import { useRouter } from "next/dist/client/router";
 const Banner = () => {
   const router = useRouter();
   const handleOnClick = () => {
-    router.push("/Token");
+    // window.open(
+    //   "https://app.apeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x9108c36DC1DCbf08187D4f4D4579D72e6A35d979"
+    // );
   };
   return (
     <div className={styles.mainBanner}>
@@ -26,9 +28,13 @@ const Banner = () => {
               <Typography variant="subtitle1" gutterBottom component="p">
                 The official DeFi launchpad & token of the CinemaDraft game
               </Typography>
-              <Button variant="contained" className={styles.LikeWin} onClick={handleOnClick}>
+              <Button
+                variant="contained"
+                className={styles.LikeWin}
+                onClick={handleOnClick}
+              >
                 <Typography variant="subtitle1" className={styles.winningBtn}>
-                  Join Auction
+                  I Like Winning
                 </Typography>
               </Button>
             </Grid>

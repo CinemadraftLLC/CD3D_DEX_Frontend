@@ -64,11 +64,11 @@ const DraftSec = () => {
             </>
           ))}
         </div>
-        <Link href="/Token">
+        <a >
           <Button variant="contained" className={styles.DraftitemButton}>
             Marketplace
           </Button>
-        </Link>
+        </a>
       </Container>
     </div>
   );
