@@ -521,7 +521,7 @@ export const marketPlaceData = [
     subTitle: "Exchange tokens",
     img: Twitter,
     external: true,
-    link: "",
+    link: "https://app.apeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x9108c36DC1DCbf08187D4f4D4579D72e6A35d979",
   },
   {
     id: 2,
@@ -554,12 +554,12 @@ export const marketPlaceData = [
     img: Blog,
     link: "",
   },
-  {
-    id: 5,
-    title: "Claim Test Token",
-    subTitle: "Play Around with Tokens",
-    img: Twitter,
-    external: false,
-    link: "/claim-token",
-  },
+  // {
+  //   id: 5,
+  //   title: "Claim Test Token",
+  //   subTitle: "Play Around with Tokens",
+  //   img: Twitter,
+  //   external: false,
+  //   link: "/claim-token",
+  // },
 ];

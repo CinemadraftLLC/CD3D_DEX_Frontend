@@ -7,13 +7,12 @@ import Button from "@mui/material/Button";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import ReactPlayer from "react-player";
-import { useRouter } from "next/dist/client/router";
+
 const Banner = () => {
-  const router = useRouter();
   const handleOnClick = () => {
-    // window.open(
-    //   "https://app.apeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x9108c36DC1DCbf08187D4f4D4579D72e6A35d979"
-    // );
+    window.open(
+      "https://app.apeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x9108c36DC1DCbf08187D4f4D4579D72e6A35d979"
+    );
   };
   return (
     <div className={styles.mainBanner}>

@@ -64,7 +64,10 @@ const DraftSec = () => {
             </>
           ))}
         </div>
-        <a >
+        <a
+          href="https://app.apeswap.finance/swap?inputCurrency=0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56&outputCurrency=0x9108c36DC1DCbf08187D4f4D4579D72e6A35d979"
+          target="_blank"
+        >
           <Button variant="contained" className={styles.DraftitemButton}>
             Marketplace
           </Button>

@@ -57,11 +57,12 @@ const Header = () => {
                 }
                 child2={marketPlaceData.map((item, index) => (
                   <CustomMenuItem
+                    key={item.id}
                     title={item.title}
                     subTitle={item.subTitle}
                     disabled={true}
                     to={item.link}
-                    handleClose={handleClose}
+                    external={item.external}
                   />
                 ))}
               />
