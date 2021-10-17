@@ -336,11 +336,11 @@ export const commingSoonData = [
     name: " FOR SALE ",
     time: "4,275,000 CD3D",
   },
-  // {
-  //   id: 4,
-  //   name: " MINIMUM BID",
-  //   time: "$0.01 BUSD/CD3D",
-  // },
+  {
+    id: 4,
+    name: "Sale Rate",
+    time: "1 BNB = 9500 CD3D",
+  },
   {
     id: 5,
     name: " MINIMUM BUY",
