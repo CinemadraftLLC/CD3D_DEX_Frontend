@@ -33,6 +33,11 @@
   line-height: 20px;
 }
 
+.soonGrid2 li  a{
+  color: #ff0144;
+  text-decoration: underline;
+}
+
 .soonItem {
   width: 100%;
   max-width: 150px;

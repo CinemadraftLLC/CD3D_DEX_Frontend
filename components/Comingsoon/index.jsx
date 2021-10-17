@@ -33,17 +33,22 @@ const Comingsoon = () => {
                   FORMAT
                 </Typography>
                 <Typography variant="h5" gutterBottom component="h5">
-                  Batch/Dutch Auction
+                  Fixed-Swap Sale
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
                 <ul>
-                  <li>- Enter your bid price per token</li>
-                  <li>- Enter amount you want to spend</li>
-                  <li>- Submit your bid & pay small gas fee</li>
+                  <li>- ApeSwap Listing Rate: 1 BNB = 6000 CD3D</li>
+                  <li>- Liquidity: 51%</li>
+                  <li>- Liquidity Lockup Time: 9999 days</li>
                   <li>
-                    - Once auction ends, token orders will be filled from
-                    highest price bid to lowest until supply is gone
+                    - Visit token sale page{" "}
+                    <a
+                      href=" https://www.pinksale.finance/#/launchpad/0xBCA3aA6De4b51C65818c6EE8F14F4606FA7E4f22?chain=BSC"
+                      target="_blank"
+                    >
+                      here
+                    </a>
                   </li>
                 </ul>
               </Grid>
