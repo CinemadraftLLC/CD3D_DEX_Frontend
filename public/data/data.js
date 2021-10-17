@@ -344,12 +344,12 @@ export const commingSoonData = [
   {
     id: 5,
     name: " MINIMUM BUY",
-    time: "$0.1 BNB",
+    time: "0.1 BNB",
   },
   {
     id: 6,
     name: " MAXIMUM BUY",
-    time: "$5 BNB",
+    time: "5 BNB",
   },
 ];
 
