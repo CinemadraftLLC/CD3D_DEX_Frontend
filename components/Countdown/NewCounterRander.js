@@ -100,3 +100,53 @@ export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
     );
   }
 };
+
+export const newThirdRenderer = ({
+  days,
+  hours,
+  minutes,
+  seconds,
+  completed,
+}) => {
+  if (completed) {
+    return (
+      <div className={styles.presaleCounterOver}>
+        <Typography variant="h6">Join our PinkSale IDO Token sale</Typography>
+        <a
+          href={
+            "https://www.pinksale.finance/#/launchpad/0xBCA3aA6De4b51C65818c6EE8F14F4606FA7E4f22?chain=BSC"
+          }
+          target="_blank"
+        >
+          <Typography variant="h5">here</Typography>
+        </a>
+      </div>
+    );
+  } else {
+    // Render a countdown
+    return (
+      <div className={styles.presaleBannerCounter}>
+        <Typography variant="h5">
+          Our PinkSale IDO token sale begins in
+        </Typography>
+        <div>
+          <span className={styles.time}>{days}</span>
+
+          <span className={styles.timeMid}>:</span>
+
+          <span className={styles.time}>{hours}</span>
+
+          <span className={styles.timeMid}>:</span>
+
+          <span className={styles.time}>{minutes}</span>
+
+          <span className={styles.timeMid}>:</span>
+
+          <span className={styles.time}>{seconds}</span>
+
+          <div className={styles.bottomText}></div>
+        </div>
+      </div>
+    );
+  }
+};

@@ -107,6 +107,37 @@
   font-size: 5rem;
   font-weight: bolder !important;
 }
+
+.presaleBannerCounter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 10px;
+}
+
+.presaleBannerCounter h5 {
+  font-size: 18px;
+  font-weight: 900;
+  color: #000;
+}
+.presaleCounterOver{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 5px;
+}
+.presaleCounterOver h6 {
+  font-size: 18px;
+  font-weight: 900;
+  color: #000;
+}
+
+.presaleCounterOver h5 {
+  font-size: 18px;
+  font-weight: 900;
+  color: #ff0144;
+   text-decoration: underline;
+}
 @media (max-width: 600px) {
   .timeOuter h3 span {
     font-size: 2rem;
@@ -115,7 +146,7 @@
     font-size: 1rem;
   }
   .timeOuter2 h5 {
-    font-size: .6rem;
+    font-size: 0.6rem;
   }
   .timeOuter2 p {
     font-size: 0.4rem;

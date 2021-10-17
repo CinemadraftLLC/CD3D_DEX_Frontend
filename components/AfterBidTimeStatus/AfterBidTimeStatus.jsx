@@ -1,5 +1,4 @@
 import React from "react";
-import CompoundTimer from "../CompoundTimer/CompoundTimer";
 import Curtain from "../../public/assets/curtain.svg";
 import Image from "next/image";
 import styles from "../../styles/bidBeforeStatus.module.css";

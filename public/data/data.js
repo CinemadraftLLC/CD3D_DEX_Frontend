@@ -323,33 +323,33 @@ export const commingSoonData = [
   {
     id: 1,
     name: " STARTS",
-    time: "12PM GMT 10.7.21",
+    time: "12PM GMT 10.22.21",
   },
   {
     id: 2,
 
     name: " ENDS",
-    time: "12PM GMT 10.8.21",
+    time: "12PM GMT 10.24.21",
   },
   {
     id: 3,
     name: " FOR SALE ",
-    time: "20,000,000 CD3D",
+    time: "4,275,000 CD3D",
   },
-  {
-    id: 4,
-    name: " MINIMUM BID",
-    time: "$0.01 BUSD/CD3D",
-  },
+  // {
+  //   id: 4,
+  //   name: " MINIMUM BID",
+  //   time: "$0.01 BUSD/CD3D",
+  // },
   {
     id: 5,
     name: " MINIMUM BUY",
-    time: "$10.00  BUSD",
+    time: "$0.1 BNB",
   },
   {
     id: 6,
     name: " MAXIMUM BUY",
-    time: "$200,000 BUSD",
+    time: "$5 BNB",
   },
 ];
 
