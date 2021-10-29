@@ -43,12 +43,10 @@ const SimpleForm = ({ status, message, onSubmitted }) => {
           type="email"
           value={email}
           placeholder="Enter email for CD3D updates from CinemaDraft"
-          isRequired
         />
 
         <Button
           className={styles.formButton}
-          formValues={email}
           type={"submit"}
           variant="contained"
         >
