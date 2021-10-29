@@ -38,13 +38,22 @@ const Comingsoon = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
                 <ul>
-                  <li>- ApeSwap Listing Rate: 1 BNB = 6000 CD3D</li>
+                  <li>- ApeSwap Listing Rate: 1 BNB = 4000 CD3D</li>
                   <li>- Liquidity: 51%</li>
                   <li>- Liquidity Lockup Time: 9999 days</li>
                   <li>
                     - Visit token sale page{" "}
                     <a
-                      href=" https://www.pinksale.finance/#/launchpad/0xBCA3aA6De4b51C65818c6EE8F14F4606FA7E4f22?chain=BSC"
+                      href=" https://www.pinksale.finance/#/launchpad/0x2fA7df6b30aa514cae49cA51EFa4739c16b9F605?chain=BSC"
+                      target="_blank"
+                    >
+                      here
+                    </a>
+                  </li>
+                  <li>
+                    - Sign up on the whitelist{" "}
+                    <a
+                      href=" https://forms.gle/NeQBvrzV5hR2Z59z5"
                       target="_blank"
                     >
                       here
