@@ -323,13 +323,13 @@ export const commingSoonData = [
   {
     id: 1,
     name: " STARTS",
-    time: "05AM GMT 11.5.21",
+    time: "5AM GMT 11.5.21",
   },
   {
     id: 2,
 
     name: " ENDS",
-    time: "12PM GMT 11.6.21",
+    time: "5AM GMT 11.6.21",
   },
   {
     id: 3,
