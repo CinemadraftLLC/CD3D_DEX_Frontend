@@ -382,11 +382,11 @@ export const tokeData = [
   {
     id: 6,
     name: " Liquidity",
-    desc: " Locked, released monthly in 500K CD3D tranches for 40 months:70% to CD3D DEX, 30% to others",
+    desc: " Locked, released monthly in 500K CD3D tranches for 40 months: 70% to CD3D DEX, 30% to others",
   },
   {
     id: 7,
-    name: "   Commodity Jackpot Fund",
+    name: "   Community Jackpot Fund",
     desc: "  Locked with 500K CD3D every 90 days for 4 years to active CinemaDraft players meeting minimum play requirements",
   },
   {
