@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
-import styles from "../../styles/counter.module.css";
+import { Typography } from '@mui/material';
+import styles from '../../styles/counter.module.css';
 
 export const newRenderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
@@ -57,21 +57,16 @@ export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
   if (completed) {
     return (
       <div>
-        <Typography variant="h5">CD3D CONTRACT DETAILS</Typography>
-        <Typography variant="body2">Network: Binance Smart Chain</Typography>
-        <Typography variant="body2">
-          Contract:{" "}
-          <a
-            href={
-              "https://bscscan.com/address/0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979"
-            }
-            target="_blank"
-          >
+        <Typography variant='h5'>CD3D CONTRACT DETAILS</Typography>
+        <Typography variant='body2'>Network: Binance Smart Chain</Typography>
+        <Typography variant='body2'>
+          Contract:{' '}
+          <a href={'https://bscscan.com/address/0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979'} target='_blank'>
             0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979
           </a>
         </Typography>
-        <Typography variant="body2">Symbol: CD3D</Typography>
-        <Typography variant="body2">Decimals: 9</Typography>
+        <Typography variant='body2'>Symbol: CD3D</Typography>
+        <Typography variant='body2'>Decimals: 9</Typography>
       </div>
     );
   } else {
@@ -79,12 +74,11 @@ export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
     return (
       <div
         style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: "80%",
-        }}
-      >
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          width: '80%',
+        }}>
         <h3>
           Hours <span className={styles.time}>{hours}</span>
         </h3>
@@ -101,24 +95,13 @@ export const newSecondRenderer = ({ hours, minutes, seconds, completed }) => {
   }
 };
 
-export const newThirdRenderer = ({
-  days,
-  hours,
-  minutes,
-  seconds,
-  completed,
-}) => {
+export const newThirdRenderer = ({ days, hours, minutes, seconds, completed }) => {
   if (completed) {
     return (
       <div className={styles.presaleCounterOver}>
-        <Typography variant="h6">Join our PinkSale IDO Token sale</Typography>
-        <a
-          href={
-            "https://www.pinksale.finance/#/launchpad/0xBCA3aA6De4b51C65818c6EE8F14F4606FA7E4f22?chain=BSC"
-          }
-          target="_blank"
-        >
-          <Typography variant="h5">here</Typography>
+        <Typography variant='h6'>Join our PinkSale IDO Token sale</Typography>
+        <a href={'https://www.pinksale.finance/#/launchpad/0xe64d0865c5705549F42067f62a5037836d096a10?chain=BSC'} target='_blank'>
+          <Typography variant='h5'>here</Typography>
         </a>
       </div>
     );
@@ -126,9 +109,7 @@ export const newThirdRenderer = ({
     // Render a countdown
     return (
       <div className={styles.presaleBannerCounter}>
-        <Typography variant="h5">
-          Our PinkSale IDO token sale begins in
-        </Typography>
+        <Typography variant='h5'>Our PinkSale IDO token sale begins in</Typography>
         <div>
           <span className={styles.time}>{days}</span>
 
