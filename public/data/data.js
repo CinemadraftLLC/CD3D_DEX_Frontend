@@ -334,7 +334,7 @@ export const commingSoonData = [
   {
     id: 3,
     name: ' FOR SALE ',
-    time: '390,000 CD3D',
+    time: '1,600,000 CD3D',
   },
   {
     id: 4,

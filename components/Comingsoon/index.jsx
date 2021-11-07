@@ -36,11 +36,11 @@ const Comingsoon = () => {
                 </Typography>
               </Grid>
               <Grid item xs={12} sm={12} md={8}>
-                <ul >
+                <ul>
                   <li>- ApeSwap Listing Rate: 1 BNB = 3000 CD3D</li>
                   <li>- Liquidity: 51%</li>
                   <li>- Liquidity Lockup Time: 9999 days</li>
-                  <li>- All 1 BNB+ buyers entered into 100K CD3D giveaway   (5 winners!) </li>
+                  <li>- All 1 BNB+ buyers entered into 100K CD3D giveaway (5 winners!) </li>
                   <li>
                     - Visit token sale page{' '}
                     <a href=' https://www.pinksale.finance/#/launchpad/0xe64d0865c5705549F42067f62a5037836d096a10?chain=BSC' target='_blank'>
@@ -54,6 +54,14 @@ const Comingsoon = () => {
                     </a>
                   </li>
                   <li>- 10 minutes Whitelist Exclusive, then PUBLIC SALE</li>
+                  <li>
+                    - Please review token sale FAQ{' '}
+                    <a
+                      href=' https://cinemadraft.medium.com/frequently-asked-questions-answered-of-the-cd3d-token-project-ca10158c837'
+                      target='_blank'>
+                      here
+                    </a>
+                  </li>
                 </ul>
               </Grid>
             </Grid>
