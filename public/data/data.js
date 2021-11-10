@@ -456,7 +456,7 @@ export const socialData = [
 
   {
     id: 5,
-    title: 'Youtube',
+    title: 'YOUTUBE',
     // subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     link: 'https://www.youtube.com/channel/UCVWe8ieGq3K_OWP_H7C-69w',
