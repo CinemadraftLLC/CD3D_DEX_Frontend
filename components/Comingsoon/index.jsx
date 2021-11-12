@@ -43,13 +43,13 @@ const Comingsoon = () => {
                   <li>- All 1 BNB+ buyers entered into 100K CD3D giveaway (5 winners!) </li>
                   <li>
                     - Visit token sale page{' '}
-                    <a href=' https://www.pinksale.finance/#/launchpad/0xe64d0865c5705549F42067f62a5037836d096a10?chain=BSC' target='_blank'>
+                    <a href='https://www.pinksale.finance/#/launchpad/0xAbb63f6E1407187e541Af758E05b8aeA80Fe6033?chain=BSC' target='_blank'>
                       here
                     </a>
                   </li>
                   <li>
                     - Sign up on the whitelist{' '}
-                    <a href=' https://docs.google.com/forms/d/e/1FAIpQLScfaiSucKJGrCImJ0jWQhh7Vvi3F14neSzZp5bUiMVAYMgSJQ/viewform' target='_blank'>
+                    <a href=' https://docs.google.com/forms/d/e/1FAIpQLSf-d6l2RdfcWqFN2Epx4JbAJ9YXxeK7lg29LjYqv76AJnOSmQ/viewform' target='_blank'>
                       here
                     </a>
                   </li>

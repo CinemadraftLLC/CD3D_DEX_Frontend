@@ -323,18 +323,18 @@ export const commingSoonData = [
   {
     id: 1,
     name: ' STARTS',
-    time: '12PM GMT, 11.9.21',
+    time: '5PM UTC, 11.15.21',
   },
   {
     id: 2,
-
-    name: ' ENDS',
-    time: '12PM GMT, 11.10.21',
+    name: 'ENDS',
+    time: '5PM UTC, 11.16.21'
+,
   },
   {
     id: 3,
     name: ' FOR SALE ',
-    time: '1,600,000 CD3D',
+    time: '1,000,000 CD3D',
   },
   {
     id: 4,
@@ -343,11 +343,17 @@ export const commingSoonData = [
   },
   {
     id: 5,
+    name: 'Soft/Hard Cap',
+    time: '125/250 BNB',
+  },
+ 
+  {
+    id: 6,
     name: ' MINIMUM BUY',
     time: '0.05 BNB',
   },
   {
-    id: 6,
+    id: 7,
     name: ' MAXIMUM BUY',
     time: '3 BNB',
   },
