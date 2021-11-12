@@ -48,7 +48,7 @@ export const ThirdCounter = ({ hours, minutes, seconds }) => {
 };
 
 export const FourthCounter = ({ hours, minutes, seconds }) => {
-  let myDateObj = new Date("Nov 9, 2021 12:00:00:000 GMT");
+  let myDateObj = new Date("Nov 15, 2021 17:00:00:000 GMT");
 
   return (
     <div className={styles.timeOuter2}>
