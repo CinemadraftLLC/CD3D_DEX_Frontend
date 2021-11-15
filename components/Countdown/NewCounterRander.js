@@ -100,7 +100,7 @@ export const newThirdRenderer = ({ days, hours, minutes, seconds, completed }) =
     return (
       <div className={styles.presaleCounterOver}>
         <Typography variant='h6'>Join our PinkSale IDO Token sale</Typography>
-        <a href={'https://www.pinksale.finance/#/launchpad/0xe64d0865c5705549F42067f62a5037836d096a10?chain=BSC'} target='_blank'>
+        <a href={'https://www.pinksale.finance/#/launchpad/0xAbb63f6E1407187e541Af758E05b8aeA80Fe6033?chain=BSC'} target='_blank'>
           <Typography variant='h5'>here</Typography>
         </a>
       </div>
