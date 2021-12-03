@@ -1,10 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
   padding: 0;
   margin: 0;
-  font-family: "Poppins", sans-serif !important;
+  font-family: 'Poppins', sans-serif !important;
 }
 
 a {
@@ -32,6 +31,12 @@ a {
 .slick-prev:before,
 .slick-next:before {
   color: #cc0136;
+}
+
+body {
+  background-color: #1d162d;
+  background-image: url('../public/assets/background.png');
+  background-size: cover;
 }
 
 /* .slick-slide {

@@ -8,6 +8,9 @@
     "start": "next start ",
     "lint": "next lint"
   },
+  "transformIgnorePatterns": [
+    "node_modules/(?!(lightweight-charts|fancy-canvas)/)"
+  ],
   "dependencies": {
     "@devexpress/dx-core": "^2.7.6",
     "@devexpress/dx-react-chart": "^2.7.6",
@@ -37,6 +40,7 @@
     "devextreme": "^21.1.5",
     "devextreme-react": "^21.1.5",
     "html-entities": "^2.3.2",
+    "lightweight-charts": "^3.7.0",
     "lodash": "^4.17.21",
     "mobile-device-detect": "^0.4.3",
     "next": "11.1.2",

@@ -1,0 +1,38 @@
+.container {
+  min-height: 100vh;
+  background-color: #1d162d;
+  background-image: url('../public/assets/background.png');
+  background-size: cover;
+}
+
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  column-gap: 40px;
+  height: 100vh;
+  align-items: center;
+}
+.outerSubContainer {
+  width: 90%;
+  display: flex;
+  column-gap: 30px;
+}
+
+.leftContainer {
+  width: 60vw;
+  /* height: 70vh; */
+  /* background-color: yellow; */
+}
+
+.rightContainer {
+}
+
+.tabContainer {
+  background: #1d162d;
+  padding: 20px;
+  border-radius: 15px 15px 0px 0px;
+  color: #75e4aa;
+  backdrop-filter: blur(30.056800842285156px);
+  --webkit-backdrop-filter: blur(30.056800842285156px);
+  background-color: rgba(0, 0, 0, 0.03);
+}

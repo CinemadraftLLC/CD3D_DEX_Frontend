@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 import BidPlace from "../components/TokenPage/BidPlace";
 import BuyTokens from "../components/TokenPage/BuyTokens";
 import Header from "../components/Header";
-import { styled } from "@mui/material/styles";
+
 
 const Token = () => {
   return (

@@ -2,7 +2,7 @@
   width: 400px;
   background: #1d162d;
   padding: 20px;
-  border-radius: 15px;
+  border-radius: 0px 0px 0px 0px;
   color: #75e4aa;
   backdrop-filter: blur(30.056800842285156px);
   --webkit-backdrop-filter: blur(30.056800842285156px);
@@ -79,15 +79,23 @@
   color: #fff;
 }
 
-.bidPriceInput input[type="number"]::-webkit-inner-spin-button,
-.bidPriceInput input[type="number"]::-webkit-outer-spin-button {
+.bidPriceInput input[type='number']::-webkit-inner-spin-button,
+.bidPriceInput input[type='number']::-webkit-outer-spin-button {
   -webkit-appearance: none;
 }
 
 .amountMin {
   display: flex;
   color: #7689b0;
-  justify-content: flex-start;
+  justify-content: space-between;
+}
+.tokenPriceContainer {
+  text-align: center;
+  color: #7689b0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 10px;
 }
 
 .buyTokeOuter button {

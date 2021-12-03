@@ -1,18 +1,13 @@
-import React, { useEffect, useCallback, useState } from "react";
-import { usePresale, useBusd } from "./useContract";
-import { useWeb3React } from "@web3-react/core";
-import { getWeb3NoAccount } from "../utils/web3";
-import BigNumber from "bignumber.js";
-import { getBidPrice, toHex } from "../utils/utils";
-// import toast from "react-hot-toast"
-import { toast } from "react-toastify";
-import { getPreSaleAddress } from "../helpers/addressHelper";
-import { toWei } from "../utils/utils";
-import { getData, submitBid } from "../services/services";
+import React, { useEffect, useCallback, useState } from 'react';
+import { useBusd } from './useContract';
+import { useWeb3React } from '@web3-react/core';
+import { getWeb3NoAccount } from '../utils/web3';
+import { toast } from 'react-toastify';
+import { getData, submitBid } from '../services/services';
 
 function useCD3D() {
   const { active, library, account, error } = useWeb3React();
-  const pres_contract = usePresale(library, account);
+
   const busdContract = useBusd(library, account);
   const [data, setData] = useState();
   const [counter, setCounter] = useState(1);
@@ -21,11 +16,9 @@ function useCD3D() {
   const getSampleToken = async () => {
     const token = await busdContract.functions.sendMeUSDToken();
     var interval = setInterval(async () => {
-      const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(
-        token.hash
-      );
+      const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(token.hash);
       if (receipt) {
-        toast.success("Transaction Successful", { toastId: 1 });
+        toast.success('Transaction Successful', { toastId: 1 });
         clearInterval(interval);
       }
     }, 100);
@@ -36,31 +29,23 @@ function useCD3D() {
       try {
         const data = {
           address: account,
-          environment: "mainnet",
+          environment: 'mainnet',
           busd_amount: busdAmount,
           cd3d_amount: sellTokenAmount,
         };
         const req = await submitBid(data);
         await fetchData();
-        const placeBid = await busdContract.functions.transfer(
-          "0x570Ea06ADcEB46f592be11A195F705E774d05eD0",
-          busdAmount
-        );
+        const placeBid = await busdContract.functions.transfer('0x570Ea06ADcEB46f592be11A195F705E774d05eD0', busdAmount);
 
         var interval = setInterval(async () => {
-          const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(
-            placeBid.hash
-          );
+          const receipt = await getWeb3NoAccount().eth.getTransactionReceipt(placeBid.hash);
           if (receipt) {
-            toast.success("Transaction Successful", { toastId: 1 });
+            toast.success('Transaction Successful', { toastId: 1 });
             clearInterval(interval);
           }
         }, 100);
       } catch (err) {
-        toast.error(
-          "Amount of BUSD's in your wallet should be greater or equal to amount of BUSD's you are submitting !",
-          { toastId: 1 }
-        );
+        toast.error("Amount of BUSD's in your wallet should be greater or equal to amount of BUSD's you are submitting !", { toastId: 1 });
       }
     },
     [account, library]
