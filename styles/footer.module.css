@@ -1,0 +1,12 @@
+.container {
+  height: 63px;
+  background: #800022 0% 0% no-repeat padding-box;
+  opacity: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}

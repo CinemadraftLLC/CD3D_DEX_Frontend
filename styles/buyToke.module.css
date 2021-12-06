@@ -113,6 +113,17 @@
 .buyTokeOuter button:hover {
   background-color: #ff0144;
 }
+.maxButton {
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 900;
+  letter-spacing: 0px;
+  color: #ff0144;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-right: 20px;
+  cursor: pointer;
+}
 
 @media (max-width: 900px) {
   .buyTokeOuter {

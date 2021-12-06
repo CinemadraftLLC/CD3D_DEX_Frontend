@@ -535,7 +535,7 @@ export const marketPlaceData = [
     subTitle: 'Provide tokens',
     img: Discord,
     external: false,
-    link: '',
+    link: '/liquidity',
   },
   {
     id: 3,

@@ -18,7 +18,7 @@ import CinemaLogo from "../../../public/assets/homepage/CinemaLogo.png";
 import { marketPlaceData, moreData, socialData } from "data/data";
 
 const DrawerComponent = () => {
-  // const classes = useStyles();
+
   const [open, setOpen] = React.useState(false);
   const [open2, setOpen2] = React.useState(false);
   const [open3, setOpen3] = React.useState(false);
