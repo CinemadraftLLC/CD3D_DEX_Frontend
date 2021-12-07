@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1d162d;
+  background-image: url('../public/assets/background.png');
+  background-size: cover;
+}
+
+.subContainer {
+  background: #1d162d 0% 0% no-repeat padding-box;
+  border-radius: 15px;
+  opacity: 1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  height: 65%;
+  width: 30vw;
+  padding: 30px;
+}
+.miniContainer {
+  background: #1d162d 0% 0% no-repeat padding-box;
+  padding: 30px;
+  border-radius: 15px;
+  opacity: 1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  height: 15%;
+  width: 30vw;
+}
+
+.titleContainer {
+}
+
+.title {
+  color: #75e4aa;
+  text-align: left;
+  font: normal normal 300 24px Poppins;
+  letter-spacing: 0px;
+
+  opacity: 1;
+}
+.subTitle {
+  text-align: left;
+  font: normal normal normal 14px Poppins;
+  letter-spacing: 0px;
+  color: #bac4d7;
+  opacity: 1;
+}
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.932367149758454vh;
+  justify-content: center;
+}
+
+.tokenInputContainer {
+  display: flex;
+  flex-direction: column;
+}
+.tokenInputTextContainer {
+  color: #7689b0;
+}
+.downOuter {
+  text-align: center;
+}
+.statsContainer {
+  color: #fff;
+  margin-top: 10px;
+}
+.statsHeading {
+}
+.statsSubContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.stats {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.miniContainer {
+  text-align: center;
+  font: normal normal normal 14px Poppins;
+  letter-spacing: 0px;
+  color: #bac4d7;
+  opacity: 1;
+}
+
+.popover {
+  position: absolute;
+  bottom: 0px;
+  right: 0;
+  z-index: 10;
+}

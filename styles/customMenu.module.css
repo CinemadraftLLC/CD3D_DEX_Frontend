@@ -21,7 +21,7 @@
 }
 
 .MenuItemDisabled > * {
-  color: white !important;
+  color: white !important;     
   flex: 1;
   font: normal normal medium Poppins;
   max-width: 25rem;
