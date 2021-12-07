@@ -46,6 +46,10 @@ const BuyTokens = () => {
     setcd3d(event.target.value);
   };
 
+  const onBuy = () => {
+    console.log('buy');
+  }
+
   return (
     <div className={styles.buyTokeOuter}>
       <BidBUSD handleChangeOnBusd={handleChangeOnBusd} errMsg={errMsg} />
@@ -53,7 +57,7 @@ const BuyTokens = () => {
         <Image src={DownA} alt='Picture of DownArrow' />
       </div>
       <BidCD3D handleChangeOnCd3d={handleChangeOnCd3d} />
-      <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} />
+      <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} onClick={onBuy}/>
     </div>
   );
 };
