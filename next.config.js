@@ -2,10 +2,10 @@ const withImages = require("next-images");
 
 module.exports = {
   withImages,
-  images: {
+  /*images: {
     loader: "imgix",
-    path: "/",
-  },
+    path: "",
+  },*/
   env: {
     REACT_APP_NETWORK_URL: process.env.REACT_APP_NETWORK_URL,
     REACT_APP_CHAIN_ID: process.env.REACT_APP_CHAIN_ID

@@ -1,0 +1,80 @@
+.DialogContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+}
+
+.DialogContainer .DialogClose {
+    position: absolute;
+    right: 30px;
+    top: 20px;
+}
+
+.DialogContainer .DialogTitle {
+    color: #166C3D;
+    text-align: left;
+    font-size: 18px;
+}
+
+.DialogContainer .DialogDescription {
+    color: #0B4124;
+    text-align: left;
+    font-size: 12px;
+}
+
+.DialogContainer .DialogItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.DialogContainer .DialogItem .DialogLabel{
+    color: #0B4124;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.DialogContainer .DialogSubmit {
+    background-color: #1D9756;
+    border-radius: 12px;
+    padding: 10px 0;
+}
+
+.DialogContainer .DialogInfoContainer{
+    display: flex;
+}
+
+.DialogContainer .DialogInfoContainer .Info{
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.DialogContainer .DialogInfoContainer .Info .title {
+    color: #CC0136;
+    font-size: 28px;
+    line-height: 1;
+}
+
+.DialogContainer .DialogInfoContainer .Info .description{
+    color: #CC0136;
+    font-size: 15px;
+}
+
+.DialogContainer .DialogSubTitle{
+    color: #166C3D;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.DialogContainer .DialogBinance{
+    color: #CC0136;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
