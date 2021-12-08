@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3001",
-    "build": "next build",
-    "start": "next start ",
+    "build": "next build --openssl-legacy-provider",
+    "start": "next start --openssl-legacy-provider",
     "lint": "next lint"
   },
   "transformIgnorePatterns": [
