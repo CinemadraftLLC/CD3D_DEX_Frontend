@@ -1,26 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/buyToke.module.css';
-import Typography from '@mui/material/Typography';
-import BidPrice from './components/bidPri';
 import BidBUSD from './components/Busd';
 import BidCD3D from './components/Amount3D';
-import Button from '@mui/material/Button';
 import Image from 'next/image';
 import DownA from '../../../public/assets/homepage/down-arrow.svg';
-import { useWeb3React } from '@web3-react/core';
 import useAuth from '../../../hooks/useAuth';
-import { Injected } from '../../../constant/constants';
-import { getBidPrice } from '../../../utils/utils';
-import useCd3d from '../../../hooks/useCD3D';
+import { getBidPrice } from '../../../utils';
 import CustomContainedButton from '../../CustomContainedButton';
+import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
+import ConnectButton from "../../ConnectWalletButton";
+import {useCurrencyBalance} from "../../../state/wallet/hooks";
+import {useCurrency} from "../../../hooks/Tokens";
+import {BUSD, CD3D} from "../../../constants";
+import {NETWORK_CHAIN_ID} from "../../../connectors";
 
 const BuyTokens = () => {
-  const { active } = useWeb3React();
+  const { account } = useActiveWeb3React()
   const { login } = useAuth();
   const [busd, setBusd] = useState(0);
   const [cd3d, setcd3d] = useState(0);
   const [bidPrice, setBidPrice] = useState(0);
   const [errMsg, setErrMsg] = useState('');
+
+  const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
+  const cd3dBalance = useCurrencyBalance(account ?? undefined, currencyCD3D ?? undefined);
+  console.log(`cd3d Balance: ${cd3dBalance?.toSignificant(6)}`);
+
+  const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
+  const busdBalance = useCurrencyBalance(account ?? undefined, currencyBUSD ?? undefined);
+  console.log(`busd balance: ${busdBalance?.toSignificant(6)}`);
 
   const validateBusd = (busd) => {
     if (busd < 10 || !busd) {
@@ -46,6 +54,11 @@ const BuyTokens = () => {
     setcd3d(event.target.value);
   };
 
+
+  /**
+   * Hosokawa 2021/12/7
+   * Swap BUSD -> CD3D
+   */
   const onBuy = () => {
     console.log('buy');
   }
@@ -57,7 +70,12 @@ const BuyTokens = () => {
         <Image src={DownA} alt='Picture of DownArrow' />
       </div>
       <BidCD3D handleChangeOnCd3d={handleChangeOnCd3d} />
-      <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} onClick={onBuy}/>
+      {
+        !account?
+            <ConnectButton />
+            :
+            <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} onClick={onBuy}/>
+      }
     </div>
   );
 };

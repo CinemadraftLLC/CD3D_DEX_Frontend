@@ -21,7 +21,6 @@ const AntTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }) =
   minWidth: 0,
   fontFamily: 'Poppins',
   fontWeight: '500',
-  fontSize: '16px',
   lineHeight: ' 90px',
   color: '#fff !important',
   display: 'flex',

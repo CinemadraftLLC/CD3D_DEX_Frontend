@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import styles from '../../../styles/buyToke.module.css';
-import Typography from '@mui/material/Typography';
-import BidPrice from '../BuyTokens/components/bidPri';
 import BidBUSD from '../BuyTokens/components/Busd';
 import BidCD3D from '../BuyTokens/components/Amount3D';
-import Button from '@mui/material/Button';
 import Image from 'next/image';
 import DownA from '../../../public/assets/homepage/down-arrow.svg';
-import { useWeb3React } from '@web3-react/core';
 import useAuth from '../../../hooks/useAuth';
-import { Injected } from '../../../constant/constants';
-import { getBidPrice } from '../../../utils/utils';
-import useCd3d from '../../../hooks/useCD3D';
+import { getBidPrice } from '../../../utils';
 import CustomContainedButton from '../../CustomContainedButton';
+import ConnectButton from "../../ConnectWalletButton";
+import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
 
 const SellTokens = () => {
-  const { active } = useWeb3React();
+  const { account } = useActiveWeb3React()
   const { login } = useAuth();
-  const { placeSellOrders, getSampleToken } = useCd3d();
   const [busd, setBusd] = useState(0);
   const [cd3d, setcd3d] = useState(0);
   const [bidPrice, setBidPrice] = useState(0);
@@ -47,6 +42,14 @@ const SellTokens = () => {
     setcd3d(event.target.value);
   };
 
+  /**
+   * Hosokawa 2021/12/7
+   * Swap BUSD -> CD3D
+   */
+  const onSell = () => {
+    console.log('sell');
+  }
+
   return (
     <div className={styles.buyTokeOuter}>
       <BidCD3D handleChangeOnCd3d={handleChangeOnCd3d} />
@@ -54,7 +57,12 @@ const SellTokens = () => {
         <Image src={DownA} alt='Picture of DownArrow' />
       </div>
       <BidBUSD handleChangeOnBusd={handleChangeOnBusd} errMsg={errMsg} />
-      <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} />
+      {
+        !account?
+            <ConnectButton />
+            :
+            <CustomContainedButton btnTitle={'Sell CD3D'} customStyles={{ color: 'white' }} onClick={onSell}/>
+      }
     </div>
   );
 };

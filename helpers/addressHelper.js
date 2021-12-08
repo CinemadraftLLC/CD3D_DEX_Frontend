@@ -1,4 +1,4 @@
-import { Addresses } from "../constant/constants";
+import { Addresses } from "../constants/constants";
 export const getAddress = (address) => {
   // const chainId = 97;
   const chainId = 56;

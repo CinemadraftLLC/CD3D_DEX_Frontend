@@ -1,6 +1,6 @@
-import PresaleAbi from "../constant/abis/Presale.json";
-import BUSDAbi from "../constant/abis/BUSD.json";
-import { getPreSaleAddress, getBUSDAddress } from "../helpers/addressHelper";
+import PresaleAbi from "../constants/abis/Presale.json";
+import BUSDAbi from "../constants/abis/BUSD.json";
+import { getPreSaleAddress, getBUSDAddress } from "./addressHelper";
 import { Contract } from "@ethersproject/contracts";
 
 export function getContract(address, ABI, library, account) {

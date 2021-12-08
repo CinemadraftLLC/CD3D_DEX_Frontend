@@ -1,5 +1,5 @@
-import { injected } from "../connector/connector";
-import { toWei, toGwei } from "../utils/utils";
+import { injected } from "../connectors";
+import { toWei, toGwei } from "../utils";
 export const connectorsByName = {
   Injected: injected,
 };
