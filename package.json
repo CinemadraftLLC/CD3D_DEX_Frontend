@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "next dev --port 3001",
     "build": "next build",
-    "start": "next start -p 8000",
-    "lint": "next lint"
+    "start": "next start",
+    "lint": "next lint",
+    "export" : "next export"
   },
   "transformIgnorePatterns": [
     "node_modules/(?!(lightweight-charts|fancy-canvas)/)"
