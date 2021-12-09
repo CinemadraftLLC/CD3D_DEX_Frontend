@@ -45,6 +45,7 @@
     "chalk": "^4.1.2",
     "devextreme": "^21.1.5",
     "devextreme-react": "^21.1.5",
+    "ethers": "^5.5.2",
     "html-entities": "^2.3.2",
     "lightweight-charts": "^3.7.0",
     "lodash": "^4.17.21",
