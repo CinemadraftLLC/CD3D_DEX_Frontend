@@ -35,8 +35,8 @@ const LiquiditySupplyDialog = (props) => {
                 <div className={`${styles.DialogInfoContainer}`}>
                     <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={50} />
                     <div className={`${styles.Info}`} >
-                        <Typography className={`${styles.title}`} variant="subtitle2">{cd3d_rate}</Typography>
-                        <Typography className={`${styles.description}`} variant="subtitle2">BUSD/CD3D Pool Tokens</Typography>
+                        <Typography className={`${styles.title_danger}`} variant="subtitle2">{cd3d_rate}</Typography>
+                        <Typography className={`${styles.description_danger}`} variant="subtitle2">BUSD/CD3D Pool Tokens</Typography>
                     </div>
                 </div>
                 <Typography className={`${styles.DialogDescription}`} variant="subtitle2">Output is estimated. If the price changes by more than 0.5% your transaction will revert.</Typography>
@@ -62,7 +62,7 @@ const LiquiditySupplyDialog = (props) => {
                         <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{pool}%</Typography>
                     </div>
                 </div>
-                <Button variant="contained" className={`${styles.DialogSubmit}`} onClick={() => onSubmit()}>
+                <Button variant="contained" className={`${styles.DialogSubmit}`} onClick={() => onSubmit()} fullWidth={true}>
                     Confirm Supply
                 </Button>
             </div>
