@@ -3,7 +3,9 @@ import { save, load } from 'redux-localstorage-simple'
 import application from './application/reducer'
 import user from './user/reducer'
 import lists from './lists/reducer'
+import mint from './mint/reducer'
 import multicall from './multicall/reducer'
+import transactions from './transactions/reducer';
 
 const PERSISTED_KEYS = ['user', 'transactions']
 const loadedState = load({ states: PERSISTED_KEYS })
@@ -13,7 +15,8 @@ const store = configureStore({
         application,
         user,
         lists,
-        // swap,
+        mint,
+        transactions,
         multicall,
     },
     middleware: [...getDefaultMiddleware({ thunk: false }), save({ states: PERSISTED_KEYS })],

@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 
 const LiquiditySupplyDialog = (props) => {
-    const {show, onClose, onSubmit, busd, cd3d, busd_rate, cd3d_rate, pool} = props;
+    const {show, onClose, onSubmit, lpToken, busd, cd3d, busd_rate, cd3d_rate, pool} = props;
 
     return (
         <Modal
@@ -35,7 +35,7 @@ const LiquiditySupplyDialog = (props) => {
                 <div className={`${styles.DialogInfoContainer}`}>
                     <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={50} />
                     <div className={`${styles.Info}`} >
-                        <Typography className={`${styles.title}`} variant="subtitle2">{cd3d_rate}</Typography>
+                        <Typography className={`${styles.title}`} variant="subtitle2">{lpToken}</Typography>
                         <Typography className={`${styles.description}`} variant="subtitle2">BUSD/CD3D Pool Tokens</Typography>
                     </div>
                 </div>

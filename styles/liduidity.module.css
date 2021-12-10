@@ -4,7 +4,6 @@
   row-gap: 30px;
   justify-content: center;
   align-items: center;
-  height: 100vh;
   background-color: #1d162d;
   background-image: url('../public/assets/background.png');
   background-size: cover;
@@ -16,7 +15,6 @@
   opacity: 1;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  height: 65%;
   width: 30vw;
   padding: 30px;
 }

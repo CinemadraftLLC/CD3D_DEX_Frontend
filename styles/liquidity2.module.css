@@ -21,7 +21,6 @@
   opacity: 1;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  height: 15%;
   width: 30vw;
 }
 .title {

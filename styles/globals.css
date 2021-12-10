@@ -67,3 +67,7 @@ body {
 .MuiMenu-paper {
   backdrop-filter: blur(24px) !important;
 }
+
+.ReactModal__Overlay {
+  z-index: 999;
+}

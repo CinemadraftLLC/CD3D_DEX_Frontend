@@ -8,13 +8,16 @@ import {getBidPrice, getUnitPrice, tryParseAmount} from '../../../utils';
 import CustomContainedButton from '../../CustomContainedButton';
 import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
 import ConnectButton from "../../ConnectWalletButton";
-import {useCurrencyBalance} from "../../../state/wallet/hooks";
+import {useCurrencyBalance, useCurrencyBalances} from "../../../state/wallet/hooks";
 import {useCurrency} from "../../../hooks/Tokens";
 import {BUSD, CD3D} from "../../../constants";
 import {NETWORK_CHAIN_ID} from "../../../connectors";
 import useSwapCallback from "../../../hooks/useSwapCallback";
 import {useTradeExactIn, useTradeExactOut} from "../../../hooks/Trades";
 import {useUserDeadline, useUserSlippageTolerance} from "../../../state/user/hooks";
+import {JSBI} from 'cd3d-dex-libs-sdk';
+import {computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity} from "../../../utils/prices";
+import confirmPriceImpactWithoutFee from "../../Swap/confirmPriceImpactWithoutFee";
 
 export const Field = {
   INPUT: 1,
@@ -27,6 +30,7 @@ const BuyTokens = () => {
   const [busd, setBusd] = useState(0)
   const [cd3d, setcd3d] = useState(0)
   const [errMsg, setErrMsg] = useState('')
+
   const [{ showConfirm, tradeToConfirm, swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState({
     showConfirm: false,
     tradeToConfirm: undefined,
@@ -50,7 +54,6 @@ const BuyTokens = () => {
   const handleChangeOnBusd = useCallback((event) => {
     setBusd(event.target.value);
     setIndependentField(Field.INPUT);
-    validateBusd(event.target.value);
   }, []);
 
   const handleChangeOnCd3d = useCallback((event) => {
@@ -58,27 +61,54 @@ const BuyTokens = () => {
     setIndependentField(Field.OUTPUT);
   }, []);
 
-  const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
-  const cd3dBalance = useCurrencyBalance(account ?? undefined, currencyCD3D ?? undefined);
-  console.log(`cd3d Balance: ${cd3dBalance?.toSignificant(6)}`);
-
+  // Input: BUSD, Output: CD3D
   const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
-  const busdBalance = useCurrencyBalance(account ?? undefined, currencyBUSD ?? undefined);
-  console.log(`busd balance: ${busdBalance?.toSignificant(6)}`);
+  const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
+
+  const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [currencyBUSD, currencyCD3D]);
+  const currencyBalances = {
+    [Field.INPUT]: relevantTokenBalances[0],      // BUSD
+    [Field.OUTPUT]: relevantTokenBalances[1],     // CD3D
+  }
 
   const isExactIn = independentField === Field.INPUT;
-  console.log('input', isExactIn);
+
   const parsedAmount = isExactIn?tryParseAmount(busd, currencyBUSD) : tryParseAmount(cd3d, currencyCD3D);
   const trade = isExactIn?useTradeExactIn( parsedAmount, currencyCD3D):useTradeExactOut(currencyBUSD, parsedAmount);
-  const [deadline] = useUserDeadline();
-  const [allowedSlippage] = useUserSlippageTolerance();
 
   const formattedAmounts = {
     [Field.INPUT]: trade?.inputAmount?.toSignificant(6) ?? '',
     [Field.OUTPUT]: trade?.outputAmount?.toSignificant(6) ?? '',
   }
 
-  console.log('amount', formattedAmounts, allowedSlippage);
+  useEffect(() => {
+    validateBusd(formattedAmounts[Field.INPUT]);
+  }, [formattedAmounts]);
+
+  const userHasSpecifiedInputOutput = Boolean(
+      parsedAmount?.greaterThan(JSBI.BigInt(0))
+  )
+
+  const [deadline] = useUserDeadline();
+  const [allowedSlippage] = useUserSlippageTolerance();
+
+  let inputError;
+
+  if (!parsedAmount) {
+    inputError = inputError ?? 'Enter an amount'
+  }
+
+  const slippageAdjustedAmounts = trade && allowedSlippage && computeSlippageAdjustedAmounts(trade, allowedSlippage)
+
+  // compare input balance to max input based on version
+  const [balanceIn, amountIn] = [
+    currencyBalances[Field.INPUT],
+    slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null,
+  ]
+
+  if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
+    inputError = `Insufficient ${amountIn.currency.symbol} balance`
+  }
 
   // the callback to execute the swap
   const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
@@ -86,11 +116,17 @@ const BuyTokens = () => {
       allowedSlippage,
       deadline);
 
+  const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
+
   /**
    * Hosokawa 2021/12/7
    * Swap BUSD -> CD3D
    */
   const onBuy = useCallback(() => {
+    if (priceImpactWithoutFee && !confirmPriceImpactWithoutFee(priceImpactWithoutFee)) {
+      return
+    }
+
     if (!swapCallback) {
       return
     }
@@ -112,7 +148,10 @@ const BuyTokens = () => {
             txHash: undefined,
           }))
         })
-  }, [swapCallback, setSwapState]);
+  }, [priceImpactWithoutFee, swapCallback, setSwapState]);
+
+  // warnings on slippage
+  const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
 
   return (
     <div className={styles.buyTokeOuter}>
@@ -124,8 +163,21 @@ const BuyTokens = () => {
       {
         !account?
             <ConnectButton />
+            : !trade?.route && userHasSpecifiedInputOutput ?
+              <CustomContainedButton
+                  btnTitle={'Insufficient liquidity for this trade.'}
+                  customStyles={{ color: 'white' }}
+                  disabled={true}
+                  onClick={() => {}}
+              />
+            // TODO Approve tokens
             :
-            <CustomContainedButton btnTitle={'Buy CD3D'} customStyles={{ color: 'white' }} onClick={onBuy}/>
+            <CustomContainedButton
+                btnTitle={inputError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : 'Buy CD3D')}
+                customStyles={{ color: 'white' }}
+                disabled={!inputError || priceImpactSeverity > 3 || !!swapCallbackError}
+                onClick={onBuy}
+            />
       }
     </div>
   );

@@ -9,7 +9,7 @@ function Liquidity() {
     <>
       <Header />
       <div className={styles.container}>
-        <LiquiditySwap disabled={true} btnTitle={'Enter Amount'} />
+        <LiquiditySwap/>
         <div className={styles.miniContainer}>
           Add liquidity to earn 0.17% of all trades on this trading pair, relative to your portion of the pool. You may claim your real-time accrued
           fees added to the pool by withdrawing your liquidity.
