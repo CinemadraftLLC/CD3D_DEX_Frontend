@@ -39,6 +39,40 @@
   margin-right: 15px;
 }
 
+.rightMenu .walletContainer {
+  display: flex;
+}
+
+.rightMenu .walletContainer .item{
+  cursor: pointer;
+  height: 35px;
+  min-width: 105px;
+  padding: 0 12px;
+  background-color: #110c1c;
+  border-radius: 35px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+}
+
+.rightMenu .walletContainer .item .itemLabel{
+  margin-left: 10px;
+  font-size: 12px;
+  color: #FFF1F5;
+}
+
+.rightMenu .walletContainer .item:hover{
+  background-color: #110c1c80;
+}
+
+.rightMenu .walletContainer .item:first-child{
+  margin-right: 10px;
+}
+
+.rightMenu .walletContainer .item:last-child{
+  margin-left: 10px;
+}
+
 .cinemaLog img {
   height: auto !important;
 }

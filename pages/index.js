@@ -31,7 +31,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <PresaleBanner />
-        <Navbar />
+        <Navbar type={true} />
         <MainBanner className={styles.mainBanner} />
         <CounterSection />
         <CD3DSection />

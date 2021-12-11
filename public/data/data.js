@@ -543,7 +543,7 @@ export const marketPlaceData = [
     subTitle: 'Grow tokens',
     img: Telegram,
     external: false,
-    link: '',
+    link: '/farming',
   },
   {
     id: 4,

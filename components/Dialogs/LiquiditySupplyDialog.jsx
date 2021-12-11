@@ -62,7 +62,7 @@ const LiquiditySupplyDialog = (props) => {
                         <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{pool}%</Typography>
                     </div>
                 </div>
-                <Button variant="contained" className={`${styles.DialogSubmit}`} onClick={() => onSubmit()}>
+                <Button variant="contained" className={`${styles.DialogSubmit}`} onClick={() => onSubmit()} fullWidth={true}>
                     Confirm Supply
                 </Button>
             </div>
