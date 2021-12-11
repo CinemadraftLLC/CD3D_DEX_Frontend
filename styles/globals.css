@@ -34,7 +34,7 @@ a {
 }
 
 body {
-  background-color: #1d162d;
+  background-color: #1d162d !important;
   background-image: url('../public/assets/background.png');
   background-size: cover;
 }

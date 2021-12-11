@@ -527,7 +527,8 @@ export const marketPlaceData = [
     subTitle: 'Exchange tokens',
     img: Twitter,
     external: false,
-    link: '/swap/buy',
+    //link: '/swap/buy',
+    link: '/swap',
   },
   {
     id: 2,

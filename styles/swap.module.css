@@ -5,6 +5,12 @@
   background-size: cover;
 }
 
+.container .container_wrapper{
+  width: 100%;
+  max-width: 1024px;
+  text-align: center !important;
+}
+
 .outerContainer {
   display: flex;
   justify-content: center;
