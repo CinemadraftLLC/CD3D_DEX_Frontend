@@ -34,8 +34,9 @@ a {
 }
 
 body {
-  background-color: #1d162d !important;
+  background-color: rgba(0, 0, 0, 0.87) !important;
   background-image: url('../public/assets/background.png');
+  /*background-image: url('../public/assets/test_background.png');*/
   background-size: cover;
 }
 

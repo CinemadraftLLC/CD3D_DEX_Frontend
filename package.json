@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --port 3001",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider; next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "export": "next export"
@@ -54,7 +54,7 @@
     "lightweight-charts": "^3.7.0",
     "lodash": "^4.17.21",
     "mobile-device-detect": "^0.4.3",
-    "next": "11.1.2",
+    "next": "12.0.7",
     "next-images": "^1.8.1",
     "react": "17.0.2",
     "react-compound-timer": "^1.2.0",
@@ -78,6 +78,7 @@
     "web3-core-helpers": "^1.6.0"
   },
   "devDependencies": {
+    "babel-plugin-styled-components": "^2.0.2",
     "eslint": "7.32.0",
     "eslint-config-next": "11.1.2",
     "lodash.flatmap": "^4.5.0"
