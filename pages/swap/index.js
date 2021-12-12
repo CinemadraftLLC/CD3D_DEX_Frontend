@@ -3,10 +3,10 @@ import ChartContainer from "../../components/CustomChart";
 import {Container, Grid, Stack, Box, FormControl, InputLabel, InputAdornment, IconButton, Slide, TextField, Button,} from "@mui/material";
 import {Typography} from "@material-ui/core";
 import LoopIcon from '@mui/icons-material/Loop';
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import Image from 'next/image';
 import DownA from '../../public/assets/homepage/down-arrow.svg';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import styles from "../../styles/swap.module.css";
 import FormSubmitBtn from "../../components/Form/FormSubmitBtn";
 import FormLabel from "../../components/Form/FormLabel";
 import FormAdvancedTextField from "../../components/Form/FormAdvancedTextField";
@@ -216,7 +216,7 @@ const Swap = () => {
                                         InputProps={{
                                             disableUnderline: true,
                                             endAdornment: <InputAdornment position="end">
-                                                <IconButton aria-label="Refresh" size={"small"} sx={{padding: "7px", borderRadius: "12px", backgroundColor: "#800022"}}>
+                                                <IconButton className={`${styles.swapSearchIcon}`} aria-label="Refresh" size={"small"}>
                                                     <SearchIcon fontSize={"small"} style={{color: "white"}}/>
                                                 </IconButton>
                                             </InputAdornment>,

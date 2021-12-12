@@ -36,7 +36,7 @@ function MyApp({Component, pageProps}) {
                         <CssBaseline/>
                         <Container maxWidth={"xl"}>
                             <Box sx={{height: '100vh'}}>
-                                {/*<Header type={false}/>*/}
+                                <Header type={false}/>
                                 <Component {...pageProps} />
                             </Box>
                         </Container>
