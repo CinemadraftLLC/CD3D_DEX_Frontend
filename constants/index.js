@@ -1,15 +1,15 @@
-import { ChainId, JSBI, Percent, Token, WETH } from 'cd3d-dex-libs-sdk'
+import {ChainId, Currency, JSBI, Percent, Token, WETH} from 'cd3d-dex-libs-sdk'
 
 export const ROUTER_ADDRESS = '0xDD01D7d8302fdef0537FCbCbD1eb6d136b7E6e97'
 
 export const CD3D = {
-    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979', 9, 'CD3D', 'CinemaDraft Token'),
-    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0xFd4C59960Ba11F34a978a737E63ff6ECa9aB4979', 9, 'CD3D', 'CinemaDraft Token'),
+    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979', 9, 'CD3D', 'CD3D'),
+    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0xFd4C59960Ba11F34a978a737E63ff6ECa9aB4979', 9, 'CD3D', 'CD3D'),
 }
 
 export const BUSD = {
-    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56', 18, 'BUSD', 'Binance USD'),
-    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7', 9, 'CD3D', 'CinemaDraft Token')
+    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xe9e7cea3dedca5984780bafc599bd69add087d56', 18, 'BUSD', 'Binance USD'),
+    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7', 18, 'BUSD', 'Binance USD')
 }
 
 export const CAKE = new Token(
@@ -104,3 +104,12 @@ export const BLOCKED_PRICE_IMPACT_NON_EXPERT = new Percent(JSBI.BigInt(1500), BI
 
 // used to ensure the user doesn't send so much ETH so they end up with <.01
 export const MIN_ETH = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 ETH
+
+/////////////////////////////////////////////////////////////////////////////////////////////
+///
+/// Swap
+
+export const SWAP_TOKEN_LIST = {
+    [ChainId.BSCTESTNET]: [Currency.ETHER, CD3D[ChainId.BSCTESTNET], BUSD[ChainId.BSCTESTNET]],
+    [ChainId.MAINNET]: [Currency.ETHER, CD3D[ChainId.MAINNET], BUSD[ChainId.MAINNET]],
+}

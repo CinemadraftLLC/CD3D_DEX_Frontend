@@ -14,11 +14,21 @@ import {marketPlaceData, moreData, socialData} from "data/data";
 import CustomMenu from "../CustomMenu/CustomMenu";
 import CustomMenuItem from "../CustomMenuItem/CustomMenuItem";
 import WalletHeaderComponent from "./HeaderComponents/WalletHeaderComponent";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import {useCurrency} from "../../hooks/Tokens";
+import {BUSD, CD3D} from "../../constants";
+import {NETWORK_CHAIN_ID} from "../../connectors";
+import {useCurrencyBalances} from "../../state/wallet/hooks";
 
 const Header = (props) => {
-    const {type} = props;
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
+    const { account } = useActiveWeb3React()
+
+    const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
+    const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
+
+    const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [currencyCD3D, currencyBUSD]);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -122,7 +132,7 @@ const Header = (props) => {
                     </div>
 
                     {
-                        type ? (<div className={styles.rightMenu}>
+                        !account ? (<div className={styles.rightMenu}>
                             <Link href="/" className={styles.playLink}>
                                 Play
                             </Link>
@@ -135,7 +145,7 @@ const Header = (props) => {
                                 />
                             </div>
                         </div>) : (<div className={styles.rightMenu}>
-                            <WalletHeaderComponent wallet={"0x148d8238e828318d818182d8181828d211"} busd={"1902.04"} cd3d={"49200.12"}/>
+                            <WalletHeaderComponent wallet={account} busd={relevantTokenBalances[1]?.toSignificant(6)??'-'} cd3d={relevantTokenBalances[0]?.toSignificant(6)??'-'}/>
                         </div>)
                     }
                 </Toolbar>

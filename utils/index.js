@@ -1,6 +1,5 @@
 import {getAddress} from '@ethersproject/address'
 import {AddressZero} from '@ethersproject/constants'
-import {Web3Provider} from "@ethersproject/providers";
 import {Contract} from "@ethersproject/contracts";
 import {BigNumber} from "@ethersproject/bignumber";
 import {abi as IUniswapV2Router02ABI} from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'

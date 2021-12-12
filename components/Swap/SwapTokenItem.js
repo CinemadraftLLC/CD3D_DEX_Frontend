@@ -7,13 +7,12 @@ const SwapTokenItem = (props) => {
     const {value, onChange, disabled} = props;
 
     const onClickHandle = useCallback(() => {
-
         onChange(value);
     });
 
     const getImage = (val) => {
-        let result = "assets/images/cd3d.png";
-        switch (val.toLowerCase()) {
+        let result = "/assets/images/cd3d.png";
+        switch (val?.symbol?.toLowerCase()) {
             case "bnb":
                 result = "/assets/images/bnb.png";
                 break;
@@ -29,7 +28,7 @@ const SwapTokenItem = (props) => {
 
     const getDescription = (val) => {
         let result = "CD3D";
-        switch (val.toLowerCase()) {
+        switch (val?.symbol?.toLowerCase()) {
             case "bnb":
                 result = "Binance";
                 break;
@@ -46,9 +45,9 @@ const SwapTokenItem = (props) => {
         <Stack className={`${styles.tokenItem} ${disabled ? styles.deactive : styles.active}`} direction={"row"} alignItems={"center"} justifyContent={"space-between"} onClick={() => onClickHandle()}>
             <Stack direction={"row"} alignItems={"center"} justifyContent={"start"}>
                 <Image src={getImage(value)} width={25} height={25} objectFit={"contain"}/>
-                <Typography className={styles.typography1} component={"span"}>{value.toUpperCase()}</Typography>
+                <Typography className={styles.typography1} component={"span"}>{value?.symbol}</Typography>
             </Stack>
-            <Typography className={styles.typography2} component={"span"}>{getDescription(value)}</Typography>
+            <Typography className={styles.typography2} component={"span"}>{value?.name}</Typography>
         </Stack>
     );
 }

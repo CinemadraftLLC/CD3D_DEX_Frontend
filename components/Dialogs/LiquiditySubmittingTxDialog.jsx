@@ -11,7 +11,7 @@ import {getBscScanLink} from "../../utils";
 import {NETWORK_CHAIN_ID} from "../../connectors";
 
 const LiquiditySubmittingTxDialog = (props) => {
-    const {show, onClose, txHash, swapErrorMessage, onBinance} = props;
+    const {show, onClose, txHash, swapErrorMessage} = props;
 
     return (
         <Modal

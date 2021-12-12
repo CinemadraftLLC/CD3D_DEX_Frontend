@@ -3,12 +3,6 @@ server {
     access_log /var/www/logs/access.log;
     error_log /var/www/logs/error.log error;
 
-    location /_next/ {
-        alias /var/www/html/cd3d/.next/;
-        expires 30d;
-        access_log on;
-    }
-
     location / {
         # reverse proxy for next server
         proxy_pass http://localhost:3000;

@@ -3,11 +3,9 @@ import styles from '../../styles/liduidity.module.css';
 import Image from 'next/image';
 import Footer from '../../components/footer';
 import LiquiditySwap from '../../components/LiquiditySwap';
-import Header from '../../components/Header';
 function Liquidity() {
   return (
     <>
-      <Header />
       <div className={styles.container}>
         <LiquiditySwap/>
         <div className={styles.miniContainer}>

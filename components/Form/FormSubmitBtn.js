@@ -3,10 +3,10 @@ import {Button} from "@mui/material";
 import styles from "../../styles/form.module.css";
 
 const FormSubmitBtn = (props) => {
-    const {label, loading, onSubmit} = props;
+    const {label, loading, disabled, onSubmit} = props;
     return (
         <div className={styles.customFormButton}>
-            <Button variant="contained" className={loading ? `${styles.loading}` : ''} onClick={() => onSubmit()} fullWidth={true}>
+            <Button variant="contained" className={loading ? `${styles.loading}` : ''} disabled={disabled} onClick={() => onSubmit()} fullWidth={true}>
                 {label}
             </Button>
         </div>
