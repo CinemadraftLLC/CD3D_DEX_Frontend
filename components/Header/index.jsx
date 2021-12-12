@@ -19,11 +19,12 @@ import {useCurrency} from "../../hooks/Tokens";
 import {BUSD, CD3D} from "../../constants";
 import {NETWORK_CHAIN_ID} from "../../connectors";
 import {useCurrencyBalances} from "../../state/wallet/hooks";
+import {Stack, Typography} from "@mui/material";
 
 const Header = (props) => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
-    const { account } = useActiveWeb3React()
+    const {account} = useActiveWeb3React()
 
     const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
     const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
@@ -78,7 +79,11 @@ const Header = (props) => {
                             ))}
                         />
 
-                        <Link href="/">REFERRAL</Link>
+                        <Link href="/">
+                            <Stack justifyContent={"center"} alignItems={"center"}>
+                                <span style={{color: 'white'}}>REFERRAL</span>
+                            </Stack>
+                        </Link>
                         <CustomMenu
                             child1={
                                 <Button
@@ -145,7 +150,7 @@ const Header = (props) => {
                                 />
                             </div>
                         </div>) : (<div className={styles.rightMenu}>
-                            <WalletHeaderComponent wallet={account} busd={relevantTokenBalances[1]?.toSignificant(6)??'-'} cd3d={relevantTokenBalances[0]?.toSignificant(6)??'-'}/>
+                            <WalletHeaderComponent wallet={account} busd={relevantTokenBalances[1]?.toSignificant(6) ?? '-'} cd3d={relevantTokenBalances[0]?.toSignificant(6) ?? '-'}/>
                         </div>)
                     }
                 </Toolbar>

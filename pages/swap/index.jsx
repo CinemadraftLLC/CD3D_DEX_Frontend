@@ -38,7 +38,7 @@ const SwapContainer = styled(Container)({
 
 const Swap = () => {
     const [independentField, setIndependentField] = useState(Field.INPUT)
-    const { account } = useActiveWeb3React()
+    const {account} = useActiveWeb3React()
 
     const [tokenSelect, setTokenSelect] = useState(0);
     const swapContainerRef = React.useRef(null);
@@ -47,20 +47,20 @@ const Swap = () => {
     const [receiveToken, setReceiveToken] = useState(CD3D[NETWORK_CHAIN_ID]);
     const [typedValue, setTypeValue] = useState('');
 
-    const [{ swapErrorMessage, attemptingTxn, txHash }, setSwapState] = useState({
+    const [{swapErrorMessage, attemptingTxn, txHash}, setSwapState] = useState({
         attemptingTxn: false,
         swapErrorMessage: undefined,
         txHash: undefined,
     })
 
     const tokenChangeHandler = (val) => {
-        if(tokenSelect === Field.INPUT){
-            if(payToken !== val){
+        if (tokenSelect === Field.INPUT) {
+            if (payToken !== val) {
                 setTypeValue('');
                 setPayToken(val);
             }
         } else {
-            if(receiveToken !== val){
+            if (receiveToken !== val) {
                 setTypeValue('');
                 setReceiveToken(val);
             }
@@ -81,11 +81,11 @@ const Swap = () => {
     const isExactIn = independentField === Field.INPUT;
     const dependentField = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT;
 
-    const payCurrency = useCurrency( payToken === ETHER ? 'BNB': payToken.address);
-    const receiveCurrency = useCurrency( receiveToken === ETHER ? 'BNB': receiveToken.address);
+    const payCurrency = useCurrency(payToken === ETHER ? 'BNB' : payToken.address);
+    const receiveCurrency = useCurrency(receiveToken === ETHER ? 'BNB' : receiveToken.address);
 
-    const parsedAmount = isExactIn?tryParseAmount(typedValue, payCurrency): tryParseAmount(typedValue, receiveCurrency);
-    const trade = isExactIn?useTradeExactIn( parsedAmount, receiveCurrency):useTradeExactOut(payCurrency, parsedAmount);
+    const parsedAmount = isExactIn ? tryParseAmount(typedValue, payCurrency) : tryParseAmount(typedValue, receiveCurrency);
+    const trade = isExactIn ? useTradeExactIn(parsedAmount, receiveCurrency) : useTradeExactOut(payCurrency, parsedAmount);
     const parsedAmounts = {
         [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
         [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
@@ -130,12 +130,12 @@ const Swap = () => {
     }
 
     // the callback to execute the swap
-    const { callback: swapCallback, error: swapCallbackError } = useSwapCallback(
+    const {callback: swapCallback, error: swapCallbackError} = useSwapCallback(
         trade,
         allowedSlippage,
         deadline);
 
-    const { priceImpactWithoutFee } = computeTradePriceBreakdown(trade)
+    const {priceImpactWithoutFee} = computeTradePriceBreakdown(trade)
 
     /**
      * Hosokawa 2021/12/7
@@ -149,7 +149,7 @@ const Swap = () => {
         if (!swapCallback) {
             return
         }
-        setSwapState((prevState) => ({ ...prevState, attemptingTxn: true, swapErrorMessage: undefined, txHash: undefined }))
+        setSwapState((prevState) => ({...prevState, attemptingTxn: true, swapErrorMessage: undefined, txHash: undefined}))
         swapCallback()
             .then((hash) => {
                 setSwapState((prevState) => ({
@@ -172,121 +172,125 @@ const Swap = () => {
 
     // warnings on slippage
     const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
-    const swapPrice = trade?new Price(receiveCurrency, payCurrency,  trade.outputAmount.raw, trade.inputAmount.raw):undefined;
+    const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
 
     return (
-        <Stack mt={{xs: 2, sm: 2, md: 3, lg: 5}}>
-            <Grid container spacing={{xs: 2, md: 3}}>
-                <Grid item xs={12} sm={12} md={12} xl={8}>
-                    <ChartContainer/>
-                </Grid>
-                <Grid item xs={12} sm={12} md={12} xl={4}>
-                    <SwapContainer ref={swapContainerRef}>
-                        <Box component={"form"} autoComplete={"off"} noValidate>
-                            <FormControl variant={"standard"} fullWidth={true}>
-                                <InputLabel shrink htmlFor={"swap_pay"}>
-                                    <FormLabel title={"Pay"} description={"(Currency you send)"} required={false}/>
-                                </InputLabel>
-                                <FormAdvancedTextField
-                                    id={"swap_pay"}
-                                    helperText={
-                                        <Stack component={"span"} direction={"row"} justifyContent={"space-between"}>
-                                            <Typography component={'span'} variant={"body2"}>Approx. $5.00</Typography>
-                                            <Typography component={'span'} variant={"body2"}>Min. Buy $10.00</Typography>
-                                        </Stack>
-                                    }
-                                    InputProps={{
-                                        type:'number',
-                                        placeholder: '0',
-                                        min: '0',
-                                        onChange: handleChangeInput,
-                                        disableUnderline: true,
-                                        value:formattedAmounts[Field.INPUT],
-                                        endAdornment: <InputAdornment position="end">
-                                            <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.INPUT)}/>
-                                        </InputAdornment>,
-                                    }}
-                                />
-                            </FormControl>
-                            <Box sx={{
-                                height: "120px",
-                            }}>
-                                <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{
-                                    height: "100%"
+        <Container maxWidth={"xl"}>
+            <Stack mt={{xs: 2, sm: 2, md: 3, lg: 5}}>
+                <Grid container spacing={{xs: 2, md: 3}}>
+                    <Grid item xs={12} sm={12} md={12} xl={8}>
+                        <ChartContainer/>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={12} xl={4}>
+                        <SwapContainer ref={swapContainerRef}>
+                            <Box component={"form"} autoComplete={"off"} noValidate>
+                                <FormControl variant={"standard"} fullWidth={true}>
+                                    <InputLabel shrink htmlFor={"swap_pay"}>
+                                        <FormLabel title={"Pay"} description={"(Currency you send)"} required={false}/>
+                                    </InputLabel>
+                                    <FormAdvancedTextField
+                                        id={"swap_pay"}
+                                        helperText={
+                                            <Stack component={"span"} direction={"row"} justifyContent={"space-between"}>
+                                                <Typography component={'span'} variant={"body2"}>Approx. $5.00</Typography>
+                                                <Typography component={'span'} variant={"body2"}>Min. Buy $10.00</Typography>
+                                            </Stack>
+                                        }
+                                        InputProps={{
+                                            type: 'number',
+                                            placeholder: '0',
+                                            min: '0',
+                                            onChange: handleChangeInput,
+                                            disableUnderline: true,
+                                            value: formattedAmounts[Field.INPUT],
+                                            endAdornment: <InputAdornment position="end">
+                                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.INPUT)}/>
+                                            </InputAdornment>,
+                                        }}
+                                    />
+                                </FormControl>
+                                <Box sx={{
+                                    height: "120px",
                                 }}>
-                                    <Image src={DownA} alt='Picture of DownArrow' width={"30px"} height={"30px"}/>
-                                </Stack>
+                                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{
+                                        height: "100%"
+                                    }}>
+                                        <Image src={DownA} alt='Picture of DownArrow' width={"30px"} height={"30px"}/>
+                                    </Stack>
+                                </Box>
+                                <FormControl variant={"standard"} fullWidth={true}>
+                                    <InputLabel shrink htmlFor={"swap_receive"}>
+                                        <FormLabel title={"Receive"} description={"(Currency you get)"} required={false}/>
+                                    </InputLabel>
+                                    <FormAdvancedTextField
+                                        id={"swap_receive"}
+                                        helperText={
+                                            <Stack component={"span"} direction={"row"} justifyContent={"center"}>
+                                                <Typography component={'span'} variant={"body2"}>1 {receiveToken?.symbol} = {swapPrice?.toSignificant(6) ?? 0} {payToken?.symbol}</Typography>
+                                                <IconButton color="primary" aria-label="Refresh" size={"small"}>
+                                                    <LoopIcon fontSize={"small"}/>
+                                                </IconButton>
+                                            </Stack>
+                                        }
+                                        InputProps={{
+                                            type: 'number',
+                                            placeholder: '0',
+                                            min: '0',
+                                            onChange: handleChangeOutput,
+                                            disableUnderline: true,
+                                            value: formattedAmounts[Field.OUTPUT],
+                                            endAdornment: <InputAdornment position="end">
+                                                <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.OUTPUT)}/>
+                                            </InputAdornment>,
+                                        }}
+                                    />
+                                </FormControl>
+                                <Box sx={{height: "80px"}}/>
+                                {
+                                    !account ?
+                                        <ConnectButton/>
+                                        : !trade?.route && userHasSpecifiedInputOutput ?
+                                        <FormSubmitBtn
+                                            label={'Insufficient liquidity for this trade.'}
+                                            disabled={true}
+                                            loading={false}
+                                            onSubmit={() => {
+                                            }}
+                                        />
+                                        // TODO Approve tokens
+                                        :
+                                        <FormSubmitBtn
+                                            label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : 'Sell CD3D')}
+                                            disabled={inputError || priceImpactSeverity > 3 || swapCallbackError}
+                                            loading={attemptingTxn}
+                                            onSubmit={onSwap}
+                                        />
+                                }
                             </Box>
-                            <FormControl variant={"standard"} fullWidth={true}>
-                                <InputLabel shrink htmlFor={"swap_receive"}>
-                                    <FormLabel title={"Receive"} description={"(Currency you get)"} required={false}/>
-                                </InputLabel>
-                                <FormAdvancedTextField
-                                    id={"swap_receive"}
-                                    helperText={
-                                        <Stack component={"span"} direction={"row"} justifyContent={"center"}>
-                                            <Typography component={'span'} variant={"body2"}>1 {receiveToken?.symbol} = {swapPrice?.toSignificant(6) ?? 0} {payToken?.symbol}</Typography>
-                                            <IconButton color="primary" aria-label="Refresh" size={"small"}>
-                                                <LoopIcon fontSize={"small"}/>
-                                            </IconButton>
-                                        </Stack>
-                                    }
-                                    InputProps={{
-                                        type:'number',
-                                        placeholder: '0',
-                                        min: '0',
-                                        onChange: handleChangeOutput,
-                                        disableUnderline: true,
-                                        value:formattedAmounts[Field.OUTPUT],
-                                        endAdornment: <InputAdornment position="end">
-                                            <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.OUTPUT)}/>
-                                        </InputAdornment>,
-                                    }}
-                                />
-                            </FormControl>
-                            <Box sx={{height: "80px"}}/>
-                            {
-                                !account?
-                                    <ConnectButton />
-                                    : !trade?.route && userHasSpecifiedInputOutput ?
-                                    <FormSubmitBtn
-                                        label={'Insufficient liquidity for this trade.'}
-                                        disabled={true}
-                                        loading={false}
-                                        onSubmit={() => {}}
-                                    />
-                                    // TODO Approve tokens
-                                    :
-                                    <FormSubmitBtn
-                                        label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : 'Sell CD3D')}
-                                        disabled={inputError || priceImpactSeverity > 3 || swapCallbackError}
-                                        loading={attemptingTxn}
-                                        onSubmit={onSwap}
-                                    />
-                            }
-                        </Box>
-                        <TokenSelect
-                            label={tokenSelect === Field.INPUT?'Pay Token':'Receive Token'}
-                            container={swapContainerRef.current}
-                            show={tokenSelect !== 0}
-                            onClose={() => setTokenSelect(0)}
-                            onSelect={tokenChangeHandler}
-                            tokenList={SWAP_TOKEN_LIST}
-                            disabledTokens={tokenSelect === Field.INPUT?[receiveToken]:[payToken]}
-                        />
-                        <LiquiditySubmittingTxDialog
-                            show={attemptingTxn}
-                            txHash={txHash}
-                            swapErrorMessage={swapErrorMessage}
-                            onClose={() => setSwapState(prevState => ({
-                                ...prevState,
-                                attemptingTxn: false
-                            }))}
-                        />
-                    </SwapContainer>
+                            <TokenSelect
+                                label={tokenSelect === Field.INPUT ? 'Pay Token' : 'Receive Token'}
+                                container={swapContainerRef.current}
+                                show={tokenSelect !== 0}
+                                onClose={() => setTokenSelect(0)}
+                                onSelect={tokenChangeHandler}
+                                tokenList={SWAP_TOKEN_LIST}
+                                disabledTokens={tokenSelect === Field.INPUT ? [receiveToken] : [payToken]}
+                            />
+                            <LiquiditySubmittingTxDialog
+                                show={attemptingTxn}
+                                txHash={txHash}
+                                swapErrorMessage={swapErrorMessage}
+                                onClose={() => setSwapState(prevState => ({
+                                    ...prevState,
+                                    attemptingTxn: false
+                                }))}
+                            />
+                        </SwapContainer>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </Stack>
+            </Stack>
+        </Container>
+
     );
 }
 export default Swap;

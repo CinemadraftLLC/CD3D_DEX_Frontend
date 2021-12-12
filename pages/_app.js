@@ -34,12 +34,11 @@ function MyApp({Component, pageProps}) {
                     </>
                     <ThemeProvider theme={theme}>
                         <CssBaseline/>
-                        <Container maxWidth={"xl"}>
-                            <Box sx={{height: '100vh'}}>
-                                <Header type={false}/>
-                                <Component {...pageProps} />
-                            </Box>
-                        </Container>
+                        <Box sx={{height: '100vh'}}>
+                            <Header type={false}/>
+                            <Component {...pageProps} />
+                        </Box>
+
                     </ThemeProvider>
                 </Provider>
             </Web3ReactManager>

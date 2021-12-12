@@ -3,9 +3,10 @@ import styles from '../../styles/liduidity.module.css';
 import Image from 'next/image';
 import Footer from '../../components/footer';
 import LiquiditySwap from '../../components/LiquiditySwap';
+import {Container} from "@mui/material";
 function Liquidity() {
   return (
-    <>
+    <Container maxWidth={"xl"}>
       <div className={styles.container}>
         <LiquiditySwap/>
         <div className={styles.miniContainer}>
@@ -17,7 +18,7 @@ function Liquidity() {
         </div>
         <Footer />
       </div>
-    </>
+    </Container>
   );
 }
 
