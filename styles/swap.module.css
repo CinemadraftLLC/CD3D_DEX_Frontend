@@ -1,44 +1,81 @@
 .container {
-  min-height: 100vh;
-  background-color: #1d162d;
-  background-image: url('../public/assets/background.png');
-  background-size: cover;
+    min-height: 100vh;
+    background-color: #1d162d;
+    background-image: url('../public/assets/background.png');
+    background-size: cover;
 }
 
-.container .container_wrapper{
-  width: 100%;
-  max-width: 1024px;
-  text-align: center !important;
+.container .container_wrapper {
+    width: 100%;
+    max-width: 1024px;
+    text-align: center !important;
 }
 
 .outerContainer {
-  display: flex;
-  justify-content: center;
-  column-gap: 40px;
-  height: 100vh;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    column-gap: 40px;
+    height: 100vh;
+    align-items: center;
 }
+
 .outerSubContainer {
-  width: 90%;
-  display: flex;
-  column-gap: 30px;
+    width: 90%;
+    display: flex;
+    column-gap: 30px;
 }
 
 .leftContainer {
-  width: 60vw;
-  /* height: 70vh; */
-  /* background-color: yellow; */
+    width: 60vw;
+    /* height: 70vh; */
+    /* background-color: yellow; */
 }
 
 .rightContainer {
 }
 
 .tabContainer {
-  background: #1d162d;
-  padding: 20px;
-  border-radius: 15px 15px 0px 0px;
-  color: #75e4aa;
-  backdrop-filter: blur(30.056800842285156px);
-  --webkit-backdrop-filter: blur(30.056800842285156px);
-  background-color: rgba(0, 0, 0, 0.03);
+    background: #1d162d;
+    padding: 20px;
+    border-radius: 15px 15px 0px 0px;
+    color: #75e4aa;
+    backdrop-filter: blur(30.056800842285156px);
+    --webkit-backdrop-filter: blur(30.056800842285156px);
+    background-color: rgba(0, 0, 0, 0.03);
 }
+
+
+.tokenItem {
+    padding: 10px 20px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+}
+
+.tokenItem .typography1 {
+    font-size: 18px;
+    margin-left: 10px;
+    color: #FFF1F5;
+}
+
+.tokenItem .typography2 {
+    font-size: 14px;
+    margin-left: 10px;
+    color: #BAC4D7;
+}
+
+.tokenItem.active:hover {
+    background-color: #231e3d;
+}
+
+.tokenItem.active {
+    cursor: pointer;
+}
+
+.tokenItem.deactive {
+    cursor: not-allowed;
+    opacity: 0.3;
+
+}
+
+
+
