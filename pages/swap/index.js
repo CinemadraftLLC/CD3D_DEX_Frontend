@@ -188,7 +188,7 @@ const Swap = () => {
                                         InputProps={{
                                             disableUnderline: true,
                                             endAdornment: <InputAdornment position="end">
-                                                <IconButton aria-label="Refresh" size={"small"} sx={{padding: "7px", borderRadius: "12px", backgroundColor: "#800022"}}>
+                                                <IconButton className={styles.swapSearchIcon} aria-label="Refresh" size={"small"}>
                                                     <SearchIcon fontSize={"small"} style={{color: "white"}}/>
                                                 </IconButton>
                                             </InputAdornment>,
@@ -216,7 +216,7 @@ const Swap = () => {
                                         InputProps={{
                                             disableUnderline: true,
                                             endAdornment: <InputAdornment position="end">
-                                                <IconButton className={`${styles.swapSearchIcon}`} aria-label="Refresh" size={"small"}>
+                                                <IconButton className={styles.swapSearchIcon} aria-label="Refresh" size={"small"}>
                                                     <SearchIcon fontSize={"small"} style={{color: "white"}}/>
                                                 </IconButton>
                                             </InputAdornment>,
