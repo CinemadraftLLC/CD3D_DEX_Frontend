@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import styles from "../../styles/farming.module.css";
 import Image from "next/image";
-import Footer from "../../components/footer";
 import FarmingBanner from "../../components/Farming/Pages/FarmingBanner";
 import FarmingForm from "../../components/Farming/Pages/FarmingForm";
 import ClearFix from "../../components/ClearFix/ClearFix";
@@ -21,11 +20,8 @@ const Farming = () => {
                 <FarmingForm
                     onStack={() => setShowModal(true)}/>
                 <ClearFix height={100}/>
-                <div className={styles.popover}>
-                    <Image src={'/assets/homepage/popoverimg.png'} alt={''} height={'250px'} width={'250px'}/>
-                </div>
+
                 <FarmingDialog show={showModal} onClose={() => setShowModal(false)} onSubmit={() => setShowModal(false)}/>
-                <Footer/>
             </div>
         </Container>
     );

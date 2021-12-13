@@ -11,8 +11,10 @@ import {ToastContainer} from "react-toastify";
 import store from '../state'
 import "../styles/globals.css";
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {Container, CssBaseline, Box} from "@mui/material";
+import {styled, Stack, CssBaseline, Box} from "@mui/material";
 import Header from "../components/Header";
+import Footer from "../components/footer";
+import React from "react";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -22,6 +24,7 @@ function getLibrary(provider) {
 
 function MyApp({Component, pageProps}) {
     const theme = createTheme();
+    const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
             <ToastContainer/>
@@ -35,10 +38,15 @@ function MyApp({Component, pageProps}) {
                     <ThemeProvider theme={theme}>
                         <CssBaseline/>
                         <Box sx={{height: '100vh'}}>
-                            <Container maxWidth={"xl"}>
-                                <Header type={false}/>
-                            </Container>
-                            <Component {...pageProps} />
+                            <Stack direction={"column"} sx={{width: "100%", height: "100%"}}>
+                                <Header/>
+                                <Offset/>
+                                <Box component={"div"} className={"main-container"}>
+                                    <Component {...pageProps} />
+                                </Box>
+                                <Box sx={{height: "63px"}}/>
+                                <Footer/>
+                            </Stack>
                         </Box>
                     </ThemeProvider>
                 </Provider>

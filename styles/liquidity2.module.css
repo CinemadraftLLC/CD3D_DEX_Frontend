@@ -7,9 +7,6 @@
   row-gap: 30px;
   justify-content: center;
   align-items: center;
-  background-color: #1d162d;
-  background-image: url('../public/assets/background.png');
-  background-size: cover;
   height: 100%;
 }
 

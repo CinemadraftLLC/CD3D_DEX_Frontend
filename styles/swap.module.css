@@ -1,8 +1,5 @@
 .container {
-    min-height: 100vh;
     background-color: #1d162d;
-    background-image: url('../public/assets/background.png');
-    background-size: cover;
 }
 
 .container .container_wrapper {
