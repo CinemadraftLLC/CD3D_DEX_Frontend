@@ -4,11 +4,11 @@ import {
     ALLOWED_PRICE_IMPACT_HIGH,
     ALLOWED_PRICE_IMPACT_LOW,
     ALLOWED_PRICE_IMPACT_MEDIUM,
+    Field
 } from '../constants'
 
 
 import { basisPointsToPercent } from './index'
-import {Field} from "../components/TokenPage/BuyTokens";
 
 const BASE_FEE = new Percent(JSBI.BigInt(20), JSBI.BigInt(10000))
 const ONE_HUNDRED_PERCENT = new Percent(JSBI.BigInt(10000), JSBI.BigInt(10000))

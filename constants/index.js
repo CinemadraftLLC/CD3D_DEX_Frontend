@@ -109,6 +109,11 @@ export const MIN_ETH = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .0
 ///
 /// Swap
 
+export const Field = {
+    INPUT: 1,
+    OUTPUT: 2
+}
+
 export const SWAP_TOKEN_LIST = {
     [ChainId.BSCTESTNET]: [Currency.ETHER, CD3D[ChainId.BSCTESTNET], BUSD[ChainId.BSCTESTNET]],
     [ChainId.MAINNET]: [Currency.ETHER, CD3D[ChainId.MAINNET], BUSD[ChainId.MAINNET]],

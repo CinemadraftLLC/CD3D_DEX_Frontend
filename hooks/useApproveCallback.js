@@ -1,14 +1,13 @@
 import { MaxUint256 } from '@ethersproject/constants'
 import { TokenAmount, ETHER } from 'cd3d-dex-libs-sdk'
 import { useCallback, useMemo } from 'react'
-import { ROUTER_ADDRESS } from '../constants'
+import { ROUTER_ADDRESS, Field } from '../constants'
 import { useTokenAllowance } from '../data/Allowances'
 import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks'
 import { computeSlippageAdjustedAmounts } from '../utils/prices'
 import { calculateGasMargin } from '../utils'
 import { useTokenContract } from './useContract'
 import useActiveWeb3React from "./useActiveWeb3React";
-import {Field} from "../components/TokenPage/BuyTokens";
 
 export const ApprovalState = {
     UNKNOWN: 0,

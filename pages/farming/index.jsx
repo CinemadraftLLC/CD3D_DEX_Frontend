@@ -9,7 +9,6 @@ import ClearFix from "../../components/ClearFix/ClearFix";
 import FarmingDialog from "../../components/Dialogs/FarmingDialog";
 
 const Farming = () => {
-    const [view, setView] = useState("mounted"); //init, loading, mounted
     const [showModal, setShowModal] = useState(false);
 
     return (
@@ -24,10 +23,6 @@ const Farming = () => {
             </div>
             <FarmingBanner total={1373674833.06}/>
             <FarmingForm
-                view={view}
-                onChange={(val) => setView(val)}
-                onClaim={() => {
-                }}
                 onStack={() => setShowModal(true)}/>
             <ClearFix height={100}/>
             <div className={styles.popover}>
