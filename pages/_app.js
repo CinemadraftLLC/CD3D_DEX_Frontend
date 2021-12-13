@@ -35,10 +35,11 @@ function MyApp({Component, pageProps}) {
                     <ThemeProvider theme={theme}>
                         <CssBaseline/>
                         <Box sx={{height: '100vh'}}>
-                            <Header type={false}/>
+                            <Container maxWidth={"xl"}>
+                                <Header type={false}/>
+                            </Container>
                             <Component {...pageProps} />
                         </Box>
-
                     </ThemeProvider>
                 </Provider>
             </Web3ReactManager>
