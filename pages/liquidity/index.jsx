@@ -9,7 +9,7 @@ function Liquidity() {
     <Container maxWidth={"xl"}>
       <div className={styles.container}>
         <LiquiditySwap/>
-        <div className={styles.miniContainer}>
+        <div className={styles.miniBottomContainer}>
           Add liquidity to earn 0.17% of all trades on this trading pair, relative to your portion of the pool. You may claim your real-time accrued
           fees added to the pool by withdrawing your liquidity.
         </div>

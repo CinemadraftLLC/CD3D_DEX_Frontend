@@ -29,7 +29,7 @@ const Header = (props) => {
     const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
     const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
 
-    const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [currencyCD3D, currencyBUSD]);
+    const currencyBalances = useCurrencyBalances(account ?? undefined, [currencyCD3D, currencyBUSD]);
 
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -150,7 +150,7 @@ const Header = (props) => {
                                 />
                             </div>
                         </div>) : (<div className={styles.rightMenu}>
-                            <WalletHeaderComponent wallet={account} busd={relevantTokenBalances[1]?.toSignificant(6) ?? '-'} cd3d={relevantTokenBalances[0]?.toSignificant(6) ?? '-'}/>
+                            <WalletHeaderComponent wallet={account} busd={currencyBalances[1]?.toSignificant(6) ?? '-'} cd3d={currencyBalances[0]?.toSignificant(12) ?? '-'}/>
                         </div>)
                     }
                 </Toolbar>

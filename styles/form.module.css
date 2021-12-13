@@ -17,3 +17,8 @@
     box-shadow: none;
 }
 
+.customFormButton button.disabled{
+    background-color: #1D162D;
+    color: #FFFFFF55;
+}
+

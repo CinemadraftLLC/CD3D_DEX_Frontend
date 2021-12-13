@@ -26,8 +26,9 @@
   opacity: 1;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  height: 15%;
   width: 30vw;
+  color: #bac4d7;
+  letter-spacing: 0;
 }
 
 .titleContainer {
@@ -82,17 +83,22 @@
   text-align: center;
 }
 
-.miniContainer {
-  text-align: center;
-  font: normal normal normal 14px Poppins;
-  letter-spacing: 0px;
-  color: #bac4d7;
-  opacity: 1;
-}
-
 .popover {
-  position: absolute;
-  bottom: 0px;
+  position: fixed;
+  bottom: 0;
   right: 0;
   z-index: 10;
+}
+
+.miniBottomContainer {
+  background: #1d162d 0% 0% no-repeat padding-box;
+  padding: 30px;
+  border-radius: 15px;
+  opacity: 1;
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  width: 30vw;
+  color: #bac4d7;
+  letter-spacing: 0;
+  margin-bottom: 80px;
 }

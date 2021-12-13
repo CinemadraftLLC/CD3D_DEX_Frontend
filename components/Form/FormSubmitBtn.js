@@ -6,7 +6,7 @@ const FormSubmitBtn = (props) => {
     const {label, loading, disabled, onSubmit} = props;
     return (
         <div className={styles.customFormButton}>
-            <Button variant="contained" className={loading ? `${styles.loading}` : ''} disabled={disabled} onClick={() => onSubmit()} fullWidth={true}>
+            <Button variant="contained" className={loading ? `${styles.loading}` : (disabled? `${styles.disabled}`: '')} disabled={disabled} onClick={() => onSubmit()} fullWidth={true}>
                 {label}
             </Button>
         </div>

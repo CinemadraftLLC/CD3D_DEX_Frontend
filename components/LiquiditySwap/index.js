@@ -44,7 +44,7 @@ function LiquiditySwap(props) {
 
     const balances = {
         [Field.CURRENCY_A]: busdBalance?.toSignificant(6),
-        [Field.CURRENCY_B]: cd3dBalance?.toSignificant(6)
+        [Field.CURRENCY_B]: cd3dBalance?.toSignificant(12)
     }
 
     // mint state

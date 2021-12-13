@@ -280,6 +280,7 @@ const Swap = () => {
                                 show={attemptingTxn}
                                 txHash={txHash}
                                 swapErrorMessage={swapErrorMessage}
+                                onRetry={onSwap}
                                 onClose={() => setSwapState(prevState => ({
                                     ...prevState,
                                     attemptingTxn: false

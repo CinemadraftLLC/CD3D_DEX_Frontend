@@ -4,14 +4,15 @@ import styles from "../../styles/Dialog.module.css";
 import {Link, Typography} from "@material-ui/core";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Transaction_check from "../../public/assets/Transaction_check.svg";
-import {faTimes} from "@fortawesome/free-solid-svg-icons";
+import Transaction_error from "../../public/assets/Transaction_error.svg";
+import {faArrowUp, faTimes} from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import {getBscScanLink} from "../../utils";
 import {NETWORK_CHAIN_ID} from "../../connectors";
 
 const LiquiditySubmittingTxDialog = (props) => {
-    const {show, onClose, txHash, swapErrorMessage} = props;
+    const {show, onClose, txHash, onRetry, swapErrorMessage} = props;
 
     return (
         <Modal
@@ -28,29 +29,37 @@ const LiquiditySubmittingTxDialog = (props) => {
                     margin: 'auto',
                     borderRadius: '15px',
                     padding: '20px',
-                    backgroundColor: "#EAFBF3",
+                    backgroundColor: swapErrorMessage?"#FFF1F5":"#EAFBF3",
                 }
             }}
         >
             {
                 swapErrorMessage?
                     <div className={`${styles.DialogContainer}`}>
-                        <Typography className={`${styles.DialogTitle}`} variant="subtitle2">Transaction Failed</Typography>
+                        <Typography className={`${styles.DialogErrorTitle}`} variant="subtitle2">Transaction Error</Typography>
                         {/* TODO  Change Icon*/}
-                        <FontAwesomeIcon icon={faTimes} className={`${styles.DialogClose}`} onClick={() => onClose()}/>
-                        <Image src={Transaction_check} alt={''} height={60} width={60} />
+                        <FontAwesomeIcon icon={faTimes} className={`${styles.DialogErrorClose}`} onClick={() => onClose()}/>
+                        <Image src={Transaction_error} alt={''} height={60} width={60} />
                         <div>
-                            <Typography className={`${styles.DialogSubTitle}`} variant="subtitle2">swapErrorMessage</Typography>
+                            <Typography className={`${styles.DialogErrorSubTitle}`} variant="subtitle2">Oops! Transaction Failed</Typography>
+                            <Typography className={`${styles.DialogErrorCaption}`} variant="subtitle2">Please retry to confirm the transaction</Typography>
                         </div>
-                        <Button variant="contained" className={`${styles.DialogSubmit}`} onClick={() => onClose()}>
-                            Close
+                        <Button variant="contained" className={`${styles.DialogRetry}`} onClick={() => onRetry()}>
+                            Retry
                         </Button>
                     </div>
                     :
                     <div className={`${styles.DialogContainer}`}>
-                        <Typography className={`${styles.DialogTitle}`} variant="subtitle2">You will receive</Typography>
+                        <Typography className={`${styles.DialogTitle}`} variant="subtitle2">{!txHash ? "Submitting Transaction" : "Transaction Success"}</Typography>
                         <FontAwesomeIcon icon={faTimes} className={`${styles.DialogClose}`} onClick={() => onClose()}/>
-                        <Image src={Transaction_check} alt={''} height={60} width={60} />
+                        {
+                            txHash?
+                            <Image src={Transaction_check} alt={''} height={60} width={60} />
+                                :
+                            <div style={{textAlign: 'center'}}>
+                                <FontAwesomeIcon icon={faArrowUp} className={styles.Submitting} onClick={() => onClose()}/>
+                            </div>
+                        }
                         <div>
                             <Typography className={`${styles.DialogSubTitle}`} variant="subtitle2">{!txHash ? "Submitting Transaction" : "Transaction Submitted"}</Typography>
                             {
