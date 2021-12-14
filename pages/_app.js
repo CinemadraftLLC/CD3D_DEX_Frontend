@@ -15,6 +15,7 @@ import {styled, Stack, CssBaseline, Box} from "@mui/material";
 import Header from "../components/Header";
 import Footer from "../components/footer";
 import React from "react";
+import {RefreshContextProvider} from "../contexts/RefreshContext";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -36,18 +37,20 @@ function MyApp({Component, pageProps}) {
                         <MulticallUpdater/>
                     </>
                     <ThemeProvider theme={theme}>
-                        <CssBaseline/>
-                        <Box sx={{height: '100vh'}}>
-                            <Stack direction={"column"} sx={{width: "100%", height: "100%"}}>
-                                <Header/>
-                                <Offset/>
-                                <Box component={"div"} className={"main-container"}>
-                                    <Component {...pageProps} />
-                                </Box>
-                                <Box sx={{height: "63px"}}/>
-                                <Footer/>
-                            </Stack>
-                        </Box>
+                        <RefreshContextProvider>
+                            <CssBaseline/>
+                            <Box sx={{height: '100vh'}}>
+                                <Stack direction={"column"} sx={{width: "100%", height: "100%"}}>
+                                    <Header/>
+                                    <Offset/>
+                                    <Box component={"div"} className={"main-container"}>
+                                        <Component {...pageProps} />
+                                    </Box>
+                                    <Box sx={{height: "63px"}}/>
+                                    <Footer/>
+                                </Stack>
+                            </Box>
+                        </RefreshContextProvider>
                     </ThemeProvider>
                 </Provider>
             </Web3ReactManager>

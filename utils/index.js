@@ -8,6 +8,7 @@ import {ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, TokenAmo
 import {getWeb3NoAccount} from "./web3";
 import {ROUTER_ADDRESS} from "../constants";
 import {parseUnits} from "@ethersproject/units";
+import {NETWORK_CHAIN_ID} from "../connectors";
 
 export const toHex = (amount) => {
     return getWeb3NoAccount().utils.toHex(amount);
@@ -46,7 +47,7 @@ const BSCSCAN_PREFIXES = {
     97: 'testnet.'
 }
 
-export function getBscScanLink(chainId, data, type) {
+export function getBscScanLink(data, type, chainId = NETWORK_CHAIN_ID) {
     const prefix = `https://${BSCSCAN_PREFIXES[chainId] || BSCSCAN_PREFIXES[ChainId.MAINNET]}bscscan.com`
 
     switch (type) {

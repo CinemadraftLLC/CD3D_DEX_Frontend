@@ -1,7 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import "devextreme/dist/css/dx.light.css";
-import Navbar from "../components/Header";
 import MainBanner from "../components/MainBanner/Banner.jsx";
 import CounterSection from "../components/Countdown";
 import CD3DSection from "../components/Cd3dSec";
@@ -14,7 +13,6 @@ import SocialSection from "../components/SocialSec";
 import MerchSection from "../components/MerchSec";
 import FaqSection from "../components/FaqSec";
 import SeenSection from "../components/SeenSection";
-import Typography from "@mui/material/Typography";
 import Timeline from "../components/Timeline/Timeline";
 import ErrorBoundary from "../components/ErrorBound/ErrorBound";
 import PresaleBanner from "../components/presaleBanner/PresaleBanner";

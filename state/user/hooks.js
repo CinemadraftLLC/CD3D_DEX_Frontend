@@ -19,6 +19,8 @@ import {
     unmuteAudio,
 } from './actions'
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import {GAS_PRICE_GWEI} from "../../utils/tokenHelpers";
+import {NETWORK_CHAIN_ID} from "../../connectors";
 
 
 function serializeToken(token) {
@@ -195,4 +197,10 @@ export function useTrackedTokenPairs() {
 
         return Object.keys(keyed).map((key) => keyed[key])
     }, [combinedList])
+}
+
+
+export function useGasPrice() {
+    const userGas = useSelector((state) => state.user.gasPrice)
+    return NETWORK_CHAIN_ID === ChainId.MAINNET.toString() ? userGas : GAS_PRICE_GWEI.testnet
 }

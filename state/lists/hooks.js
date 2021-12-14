@@ -27,7 +27,7 @@ export class WrappedTokenInfo extends Token {
  */
 const EMPTY_LIST = {
     [ChainId.MAINNET]: {},
-    [ChainId.BSCTESTNET]: {}
+    [ChainId.TESTNET]: {}
 }
 
 const listCache =

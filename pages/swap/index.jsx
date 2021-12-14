@@ -25,6 +25,7 @@ import ConnectButton from "../../components/ConnectWalletButton";
 import {useCurrencyBalances} from "../../state/wallet/hooks";
 import {useCurrency} from "../../hooks/Tokens";
 import LiquiditySubmittingTxDialog from "../../components/Dialogs/LiquiditySubmittingTxDialog";
+import {serializeToken} from "../../utils/tokenHelpers";
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -42,8 +43,8 @@ const Swap = () => {
     const [tokenSelect, setTokenSelect] = useState(0);
     const swapContainerRef = React.useRef(null);
 
-    const [payToken, setPayToken] = useState(BUSD[NETWORK_CHAIN_ID]);
-    const [receiveToken, setReceiveToken] = useState(CD3D[NETWORK_CHAIN_ID]);
+    const [payToken, setPayToken] = useState(serializeToken.busd);
+    const [receiveToken, setReceiveToken] = useState(serializeToken.cd3d);
     const [typedValue, setTypeValue] = useState('');
 
     const [{swapErrorMessage, attemptingTxn, txHash}, setSwapState] = useState({

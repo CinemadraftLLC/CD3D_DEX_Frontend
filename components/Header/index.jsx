@@ -2,23 +2,20 @@ import React from "react";
 import Image from "next/image";
 import Logo from "../../public/assets/logo.svg";
 import styles from "../../styles/navbar.module.css";
-import {AppBar, Toolbar, CssBaseline} from "@material-ui/core";
+import {AppBar, Toolbar} from "@material-ui/core";
 import DrawerComponent from "./HeaderComponents/DrawerComponent";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Button from "@mui/material/Button";
-import {marketPlaceData, moreData, socialData} from "data/data";
-import CustomMenu from "../CustomMenu/CustomMenu";
-import CustomMenuItem from "../CustomMenuItem/CustomMenuItem";
+import {marketPlaceData, moreData} from "data/data";
 import WalletHeaderComponent from "./HeaderComponents/WalletHeaderComponent";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import {useCurrency} from "../../hooks/Tokens";
-import {BUSD, CD3D} from "../../constants";
-import {NETWORK_CHAIN_ID} from "../../connectors";
 import {useCurrencyBalances} from "../../state/wallet/hooks";
 import {Stack, Box, Typography, IconButton, Menu, MenuItem} from "@mui/material";
 import HeaderClient from "./HeaderComponents/HeaderClient";
 import {styled} from "@mui/material/styles";
 import Link from "next/link";
+import tokens, {serializeTokens} from "../../constants/tokens";
 
 const HeaderMenuLink = styled(Button)({
     color: "#EAFBF3",
@@ -90,8 +87,8 @@ const Header = (props) => {
     const [moreMenu, setMoreMenu] = React.useState(null);
     const {account} = useActiveWeb3React()
 
-    const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
-    const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
+    const currencyCD3D = useCurrency(tokens.cd3d.address);
+    const currencyBUSD = useCurrency(tokens.busd.address);
 
     const currencyBalances = useCurrencyBalances(account ?? undefined, [currencyCD3D, currencyBUSD]);
 

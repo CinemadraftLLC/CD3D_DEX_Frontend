@@ -5,8 +5,8 @@ import { checkedTransaction, finalizeTransaction } from './actions'
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 
 export function shouldCheck(
-    lastBlockNumber: number,
-    tx: { addedTime: number; receipt?: any; lastCheckedBlockNumber?: number }
+    lastBlockNumber,
+    tx
 ): boolean {
     if (tx.receipt) return false
     if (!tx.lastCheckedBlockNumber) return true

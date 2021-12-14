@@ -13,6 +13,7 @@ const LiquiditySupplyDialog = (props) => {
     return (
         <Modal
             isOpen={show}
+            ariaHideApp={false}
             onRequestClose={() => onClose()}
             centered
             style={{

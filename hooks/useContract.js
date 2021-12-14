@@ -11,6 +11,7 @@ import WETH_ABI from '../constants/abis/weth.json'
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
 
 import useActiveWeb3React from "./useActiveWeb3React";
+import {getBep20Contract, getMasterchefContract} from "../utils/contractHelpers";
 
 export const usePresale = (library, account) => {
   const web3 = new Web3(library);
@@ -52,7 +53,7 @@ export function useENSRegistrarContract(withSignerIfPossible) {
   if (chainId) {
     switch (chainId) {
       case ChainId.MAINNET:
-      case ChainId.BSCTESTNET:
+      case ChainId.TESTNET:
     }
   }
   return useContract(address, ENS_ABI, withSignerIfPossible)
@@ -73,4 +74,14 @@ export function usePairContract(pairAddress, withSignerIfPossible) {
 export function useMulticallContract() {
   const { chainId } = useActiveWeb3React()
   return useContract(chainId && MULTICALL_NETWORKS[chainId], MULTICALL_ABI, false)
+}
+
+export const useERC20 = (address) => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getBep20Contract(address, library.getSigner()), [address, library])
+}
+
+export const useMasterchef = () => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getMasterchefContract(library.getSigner()), [library])
 }

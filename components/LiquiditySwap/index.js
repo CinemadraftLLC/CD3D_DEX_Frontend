@@ -24,9 +24,15 @@ import {MinimalPositionCard} from "../PositionCard";
 import {PairState} from "../../data/Reserves";
 import LiquiditySupplyDialog from "../Dialogs/LiquiditySupplyDialog";
 import LiquiditySubmittingTxDialog from "../Dialogs/LiquiditySubmittingTxDialog";
+import tokens, {serializeTokens} from "../../constants/tokens";
+import {useRouter} from "next/router";
 
-function LiquiditySwap(props) {
+function LiquiditySwap() {
     const {account, chainId, library} = useActiveWeb3React()
+    const router = useRouter()
+    const {addresses} = router.query;
+    console.log('history', addresses);
+
 
     // Add Liquidity States
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -36,10 +42,10 @@ function LiquiditySwap(props) {
         txHash: undefined,
     })
 
-    const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
+    const currencyCD3D = useCurrency(tokens.cd3d.address);
     const cd3dBalance = useCurrencyBalance(account ?? undefined, currencyCD3D ?? undefined);
 
-    const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
+    const currencyBUSD = useCurrency(tokens.busd.address);
     const busdBalance = useCurrencyBalance(account ?? undefined, currencyBUSD ?? undefined);
 
     const balances = {

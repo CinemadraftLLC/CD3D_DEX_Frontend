@@ -18,6 +18,7 @@ import {useUserDeadline, useUserSlippageTolerance} from "../../../state/user/hoo
 import {JSBI} from 'cd3d-dex-libs-sdk';
 import {computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity} from "../../../utils/prices";
 import confirmPriceImpactWithoutFee from "../../Swap/confirmPriceImpactWithoutFee";
+import tokens, {serializeTokens} from "../../../constants/tokens";
 
 export const Field = {
   INPUT: 1,
@@ -62,8 +63,8 @@ const BuyTokens = () => {
   }, []);
 
   // Input: BUSD, Output: CD3D
-  const currencyBUSD = useCurrency(BUSD[NETWORK_CHAIN_ID].address);
-  const currencyCD3D = useCurrency(CD3D[NETWORK_CHAIN_ID].address);
+  const currencyCD3D = useCurrency(tokens.cd3d.address);
+  const currencyBUSD = useCurrency(tokens.busd.address);
 
   const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [currencyBUSD, currencyCD3D]);
   const currencyBalances = {

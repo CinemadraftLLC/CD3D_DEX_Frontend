@@ -1,9 +1,8 @@
 import { Addresses } from "../constants/constants";
-export const getAddress = (address) => {
-  // const chainId = 97;
-  const chainId = 56;
+import {NETWORK_CHAIN_ID} from "../connectors";
 
-  return address[chainId];
+export const getAddress = (address) => {
+  return address[NETWORK_CHAIN_ID];
 };
 
 export const getPreSaleAddress = () => {

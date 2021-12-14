@@ -1,16 +1,10 @@
 import {ChainId, Currency, JSBI, Percent, Token, WETH} from 'cd3d-dex-libs-sdk'
+import {mainnetTokens, testnetTokens} from "./tokens";
+import {BIG_TEN} from "../utils/bigNumber";
 
 export const ROUTER_ADDRESS = '0xDD01D7d8302fdef0537FCbCbD1eb6d136b7E6e97'
 
-export const CD3D = {
-    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0x9108c36dc1dcbf08187d4f4d4579d72e6a35d979', 9, 'CD3D', 'CD3D'),
-    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0xFd4C59960Ba11F34a978a737E63ff6ECa9aB4979', 9, 'CD3D', 'CD3D'),
-}
-
-export const BUSD = {
-    [ChainId.MAINNET]: new Token(ChainId.MAINNET, '0xe9e7cea3dedca5984780bafc599bd69add087d56', 18, 'BUSD', 'Binance USD'),
-    [ChainId.BSCTESTNET]: new Token(ChainId.BSCTESTNET, '0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7', 18, 'BUSD', 'Binance USD')
-}
+export const BSC_BLOCK_TIME = 3
 
 export const CAKE = new Token(
     ChainId.MAINNET,
@@ -43,13 +37,13 @@ export const ETH = new Token(
 
 const WETH_ONLY = {
     [ChainId.MAINNET]: [WETH[ChainId.MAINNET]],
-    [ChainId.BSCTESTNET]: [WETH[ChainId.BSCTESTNET]],
+    [ChainId.TESTNET]: [WETH[ChainId.TESTNET]],
 }
 
 // used to construct intermediary pairs for trading
 export const BASES_TO_CHECK_TRADES_AGAINST = {
     ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, BUSD, BTCB, USDT, UST, ETH],
+    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, BTCB, USDT, UST, ETH],
 }
 
 /**
@@ -63,20 +57,20 @@ export const CUSTOM_BASES = {
 // used for display in the default lists when adding liquidity
 export const SUGGESTED_BASES = {
     ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, BUSD, USDT],
+    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, USDT],
 }
 
 // used to construct the lists of all pairs we consider by default in the frontend
 export const BASES_TO_TRACK_LIQUIDITY_FOR = {
     ...WETH_ONLY,
-    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, BUSD, BTCB, USDT],
+    [ChainId.MAINNET]: [...WETH_ONLY[ChainId.MAINNET], DAI, BTCB, USDT],
 }
 
 export const PINNED_PAIRS = {
     [ChainId.MAINNET]: [
-        [CAKE, WBNB],
-        [BUSD, USDT],
-        [DAI, USDT],
+        [mainnetTokens.cd3d, mainnetTokens.wbnb],
+        [mainnetTokens.busd, mainnetTokens.wbnb],
+        [mainnetTokens.cd3d, mainnetTokens.busd],
     ],
 }
 
@@ -115,6 +109,21 @@ export const Field = {
 }
 
 export const SWAP_TOKEN_LIST = {
-    [ChainId.BSCTESTNET]: [Currency.ETHER, CD3D[ChainId.BSCTESTNET], BUSD[ChainId.BSCTESTNET]],
-    [ChainId.MAINNET]: [Currency.ETHER, CD3D[ChainId.MAINNET], BUSD[ChainId.MAINNET]],
+    [ChainId.MAINNET]: [Currency.ETHER, mainnetTokens.cd3d, mainnetTokens.busd],
+    [ChainId.TESTNET]: [Currency.ETHER, testnetTokens.cd3d, testnetTokens.busd],
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////
+///
+///
+
+export const CAKE_PER_BLOCK = 40
+export const BLOCKS_PER_YEAR = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365 // 10512000
+export const CAKE_PER_YEAR = CAKE_PER_BLOCK * BLOCKS_PER_YEAR
+export const BASE_URL = process.env.NODE_ENV === 'production' ? 'http://18.116.235.55' : 'http://localhost:3001'
+export const BASE_ADD_LIQUIDITY_URL = `${BASE_URL}/liquidity`
+export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)
+export const DEFAULT_GAS_LIMIT = 200000
+
+export { default as farmsConfig } from './farms'
+export { pools as poolsConfig, PoolCategory } from './pools'
