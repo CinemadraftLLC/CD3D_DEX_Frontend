@@ -14,7 +14,7 @@ const PlayLink = styled(Typography)({
 
 const HeaderClient = (props) => {
     return (
-        <Link href={"/"}>
+        <Link href={"/"} sx={{display: {xs: 'none', sm: 'none', md: 'flex'}}}>
             <IconButton>
                 <PlayLink component={"span"}>Play</PlayLink>
                 <Image

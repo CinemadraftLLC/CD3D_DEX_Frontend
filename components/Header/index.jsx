@@ -21,7 +21,6 @@ const HeaderMenuLink = styled(Button)({
     color: "#EAFBF3",
     fontSize: "13px",
     letterSpacing: "2.21px",
-    marginRight: "30px",
     '&:hover': {
         backgroundColor: "transparent",
         color: "#A0EDC4",
@@ -95,8 +94,10 @@ const Header = (props) => {
     return (
         <AppBar position="fixed" className={styles.menuBG}>
             <Toolbar>
-                <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"}/>
-                <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} spacing={3} sx={{flexGrow: 1, marginLeft: "60px"}}>
+                <Link href={"/"}>
+                    <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"}/>
+                </Link>
+                <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{flexGrow: 1, marginLeft: "50px", display: {xs: 'none', sm: 'none', md: 'flex'}}}>
                     <Box sx={{flexGrow: 1}}>
                         <HeaderMenuLink
                             aria-controls="basic-menu"
@@ -156,7 +157,7 @@ const Header = (props) => {
                                 <MenuItem key={item.id} onClick={() => {
                                     setMarketMenu(null);
                                 }}>
-                                    <Link href={item.link} >
+                                    <Link href={item.link}>
                                         <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{width: "100%"}}>
                                             <Stack>
                                                 <Typography component={"span"} variant={"subtitle1"}>{item.title}</Typography>
@@ -219,89 +220,6 @@ const Header = (props) => {
                         cd3d={currencyBalances[0]?.toSignificant(12) ?? '-'}/> : <HeaderClient/>
                     }
                 </Stack>
-                {/*<div className={styles.navlinks}>
-                    <CustomMenu
-                        anchorEl={anchorEl}
-                        handleClose={handleClose}
-                        handleClick={handleClick}
-                        child1={
-                            <Button
-                                aria-controls="basic-menu"
-                                aria-haspopup="true"
-                                aria-expanded={open ? "true" : undefined}
-                                onClick={handleClick}
-                            >
-                                MARKETPLACE <ArrowDropDownIcon/>
-                            </Button>
-                        }
-                        child2={marketPlaceData.map((item, index) => (
-                            <CustomMenuItem
-                                key={item.id}
-                                title={item.title}
-                                subTitle={item.subTitle}
-                                disabled={true}
-                                to={item.link}
-                                external={item.external}
-                            />
-                        ))}
-                    />
-
-                    <Link href="/">
-                        <Stack justifyContent={"center"} alignItems={"center"}>
-                            <span style={{color: 'white'}}>REFERRAL</span>
-                        </Stack>
-                    </Link>
-                    <CustomMenu
-                        child1={
-                            <Button
-                                aria-controls="basic-menu"
-                                aria-haspopup="true"
-                                aria-expanded={open ? "true" : undefined}
-                                onClick={handleClick}
-                            >
-                                COMMUNITY
-                                <ArrowDropDownIcon/>
-                            </Button>
-                        }
-                        child2={socialData.map((elem) => (
-                            <CustomMenuItem
-                                key={elem.id}
-                                title={elem.title}
-                                subTitle={elem.subTitle}
-                                disabled={true}
-                                to={elem.link}
-                                external={elem.external}
-                                handleClose={handleClose}
-                            />
-                        ))}
-                    />
-                    <CustomMenu
-                        anchorEl={anchorEl}
-                        handleClose={handleClose}
-                        handleClick={handleClick}
-                        child1={
-                            <Button
-                                aria-controls="basic-menu"
-                                aria-haspopup="true"
-                                aria-expanded={open ? "true" : undefined}
-                                onClick={handleClick}
-                            >
-                                MORE <ArrowDropDownIcon/>
-                            </Button>
-                        }
-                        child2={moreData.map((elem) => (
-                            <CustomMenuItem
-                                key={elem.id}
-                                title={elem.title}
-                                subTitle={elem.subTitle}
-                                disabled={true}
-                                to={elem.link}
-                                external={elem.external}
-                                handleClose={handleClose}
-                            />
-                        ))}
-                    />
-                </div>*/}
                 <DrawerComponent/>
             </Toolbar>
         </AppBar>
