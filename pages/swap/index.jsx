@@ -25,7 +25,7 @@ import ConnectButton from "../../components/ConnectWalletButton";
 import {useCurrencyBalances} from "../../state/wallet/hooks";
 import {useCurrency} from "../../hooks/Tokens";
 import LiquiditySubmittingTxDialog from "../../components/Dialogs/LiquiditySubmittingTxDialog";
-import {serializeToken} from "../../utils/tokenHelpers";
+import tokens from "../../constants/tokens";
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -43,8 +43,8 @@ const Swap = () => {
     const [tokenSelect, setTokenSelect] = useState(0);
     const swapContainerRef = React.useRef(null);
 
-    const [payToken, setPayToken] = useState(serializeToken.busd);
-    const [receiveToken, setReceiveToken] = useState(serializeToken.cd3d);
+    const [payToken, setPayToken] = useState(tokens.busd);
+    const [receiveToken, setReceiveToken] = useState(tokens.cd3d);
     const [typedValue, setTypeValue] = useState('');
 
     const [{swapErrorMessage, attemptingTxn, txHash}, setSwapState] = useState({
@@ -77,6 +77,12 @@ const Swap = () => {
         setTypeValue(event.target.value);
         setIndependentField(Field.OUTPUT);
     };
+
+    const handleExchangeToken = () => {
+        const oldPaytoken = payToken;
+        setPayToken(receiveToken);
+        setReceiveToken(oldPaytoken);
+    }
 
     const isExactIn = independentField === Field.INPUT;
     const dependentField = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT;
@@ -212,10 +218,8 @@ const Swap = () => {
                                 <Box sx={{
                                     height: "120px",
                                 }}>
-                                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{
-                                        height: "100%"
-                                    }}>
-                                        <Image src={DownA} alt='Picture of DownArrow' width={"30px"} height={"30px"}/>
+                                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
+                                        <Image src={DownA} onClick={() => handleExchangeToken()} alt='Picture of DownArrow' width={"30px"} height={"30px"}/>
                                     </Stack>
                                 </Box>
                                 <FormControl variant={"standard"} fullWidth={true}>
