@@ -11,8 +11,7 @@
 }
 
 .miniContainer {
-  background: #1d162d 0% 0% no-repeat padding-box;
-  /* background: red 0% 0% no-repeat padding-box; */
+  background: radial-gradient(#1d1039, #150e25) no-repeat;
   padding: 20px;
   border-radius: 15px;
   opacity: 1;
