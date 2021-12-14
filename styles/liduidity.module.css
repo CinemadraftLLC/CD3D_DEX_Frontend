@@ -7,7 +7,8 @@
 }
 
 .subContainer {
-  background: radial-gradient(#1d1039, #150e25) no-repeat;
+
+  background-color: rgba(0, 0, 0, 0.15);
   border-radius: 15px;
   opacity: 1;
   backdrop-filter: blur(30px);
@@ -80,7 +81,7 @@
 }
 
 .miniBottomContainer {
-  background: radial-gradient(#1d1039, #150e25) no-repeat;
+  background-color: rgba(0, 0, 0, 0.15);
   padding: 30px;
   border-radius: 15px;
   opacity: 1;

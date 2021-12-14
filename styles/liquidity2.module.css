@@ -11,13 +11,13 @@
 }
 
 .miniContainer {
-  background: radial-gradient(#1d1039, #150e25) no-repeat;
+  background-color: rgba(0, 0, 0, 0.15);
   padding: 20px;
   border-radius: 15px;
   opacity: 1;
   backdrop-filter: blur(30px);
   -webkit-backdrop-filter: blur(30px);
-  width: 30vw;
+  width: 100%;
 }
 .title {
   text-align: left;

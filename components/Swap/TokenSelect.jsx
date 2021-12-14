@@ -17,7 +17,7 @@ const TokenSelectContainer = styled(Box)({
     bottom: 0,
     padding: "20px",
     borderRadius: '15px',
-    backgroundColor: '#1D162D',
+    backgroundColor: '#1A1020',
     backdropFilter: "blur(30px)",
 })
 

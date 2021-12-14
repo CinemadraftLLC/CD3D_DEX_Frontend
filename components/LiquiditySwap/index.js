@@ -13,7 +13,7 @@ import {useDerivedMintInfo, useMintActionHandlers, useMintState} from "../../sta
 import PlusIcon from '../../public/assets/plusIcon.svg';
 import CD3Dlogo from '../../public/assets/homepage/CD3D-icon.svg';
 import BUSDlogo from "../../public/assets/homepage/BUSD-icon.svg";
-import {BUSD, CD3D, ONE_BIPS, ROUTER_ADDRESS} from "../../constants";
+import {BUSD, CD3D, Field as SwapField, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../constants";
 import {useUserDeadline, useUserSlippageTolerance} from "../../state/user/hooks";
 import {calculateGasMargin, calculateSlippageAmount, getRouterContract} from "../../utils";
 import {Field} from "../../state/mint/actions";
@@ -26,9 +26,31 @@ import LiquiditySupplyDialog from "../Dialogs/LiquiditySupplyDialog";
 import LiquiditySubmittingTxDialog from "../Dialogs/LiquiditySubmittingTxDialog";
 import tokens, {serializeTokens} from "../../constants/tokens";
 import {useRouter} from "next/router";
+import {styled} from "@mui/material/styles";
+import {Box, Container, InputAdornment, Stack} from "@mui/material";
+import {TokenSelect} from "../Swap/TokenSelect";
+import DownA from "../../public/assets/homepage/down-arrow.svg";
+import FormAdvancedTextField from "../Form/FormAdvancedTextField";
+import SwapEndAdornment from "../Swap/SwapEndAdornment";
+import ClearFix from "../ClearFix/ClearFix";
+
+const LiquidityContainer = styled(Container)({
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    borderRadius: '15px',
+    padding: '50px 10px',
+    backdropFilter: "blur(30px)",
+    position: "relative",
+    overflow: "hidden",
+})
 
 function LiquiditySwap() {
-    const {account, chainId, library} = useActiveWeb3React()
+    const {account, chainId, library} = useActiveWeb3React();
+
+    const liquidityContainerRef = React.useRef(null);
+    const [tokenSelect, setTokenSelect] = useState(0);
+    const [payToken, setPayToken] = useState(tokens.busd);
+    const [receiveToken, setReceiveToken] = useState(tokens.cd3d);
+
     const router = useRouter()
     const {addresses} = router.query;
     console.log('history', addresses);
@@ -54,7 +76,7 @@ function LiquiditySwap() {
     }
 
     // mint state
-    const { independentField, typedValue, otherTypedValue } = useMintState();
+    const {independentField, typedValue, otherTypedValue} = useMintState();
     const {
         dependentField,
         currencies,
@@ -130,10 +152,10 @@ function LiquiditySwap() {
         setLiquidityState(prevState => ({...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined}));
         // const aa = await estimate(...args, value ? { value } : {})
         console.log('args', args);
-        await estimate(...args, value ? { value } : {})
+        await estimate(...args, value ? {value} : {})
             .then((estimatedGasLimit) =>
                 method(...args, {
-                    ...(value ? { value } : {}),
+                    ...(value ? {value} : {}),
                     gasLimit: calculateGasMargin(estimatedGasLimit),
                 }).then((response) => {
                     console.log('response', response);
@@ -159,13 +181,38 @@ function LiquiditySwap() {
 
     const poolShare = (noLiquidity && price) ? 100 : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? 0;
 
+    const handleChangeInput = (event) => {
+        //setTypeValue(event.target.value);
+        //setIndependentField(SwapField.INPUT);
+    };
+
+    const handleChangeOutput = (event) => {
+        //setTypeValue(event.target.value);
+        //setIndependentField(SwapField.OUTPUT);
+    };
+
+    const tokenChangeHandler = (val) => {
+        if (tokenSelect === SwapField.INPUT) {
+            if (payToken !== val) {
+                //setTypeValue('');
+                setPayToken(val);
+            }
+        } else {
+            if (receiveToken !== val) {
+                //setTypeValue('');
+                setReceiveToken(val);
+            }
+        }
+        setTokenSelect(0);
+    }
+
     return (
         <>
-            <div className={styles.subContainer}>
+            <LiquidityContainer ref={liquidityContainerRef}>
                 <div className={styles.titleContainer}>
                     <div className={styles.title}>Create Liquidity</div>
-                        {
-                            noLiquidity?
+                    {
+                        noLiquidity ?
                             <>
                                 <div className={styles.subTitle}>
                                     You are the first liquidity provider.
@@ -181,12 +228,12 @@ function LiquiditySwap() {
                             <div className={styles.subTitle}>
                                 Provide to receive trading fees
                             </div>
-                        }
+                    }
                 </div>
 
                 <div className={styles.inputContainer}>
 
-                    <div className={styles.tokenInputContainer}>
+                    {/*<div className={styles.tokenInputContainer}>
                         <CustomTokenInput
                             value={formattedAmounts[Field.CURRENCY_A]}
                             handleChange={onFieldAInput}
@@ -201,13 +248,56 @@ function LiquiditySwap() {
                                 Balance : {balances[Field.CURRENCY_A]}
                             </Typography>
                         </div>
-                    </div>
+                    </div>*/}
+                    <ClearFix height={15}/>
+                    <FormAdvancedTextField
+                        id={"liquidity_pay"}
+                        helperText={
+                            <Typography variant='subtitle2' gutterBottom component='div'>
+                                Balance : {balances[Field.CURRENCY_A]}
+                            </Typography>
+                        }
+                        InputProps={{
+                            type: 'number',
+                            placeholder: '0',
+                            min: '0',
+                            onChange: handleChangeInput,
+                            disableUnderline: true,
+                            value: formattedAmounts[SwapField.INPUT],
+                            endAdornment: <InputAdornment position="end">
+                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(SwapField.INPUT)}/>
+                            </InputAdornment>,
+                        }}
+                    />
 
-                    <div className={styles.downOuter}>
-                        <Image src={PlusIcon} alt='Picture of DownArrow'/>
-                    </div>
-
-                    <div className={styles.tokenInputContainer}>
+                    <Box sx={{
+                        height: "20px",
+                    }}>
+                        <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
+                            <Image src={PlusIcon} alt='Picture of DownArrow'/>
+                        </Stack>
+                    </Box>
+                    <ClearFix height={15}/>
+                    <FormAdvancedTextField
+                        id={"liquidity_receive"}
+                        helperText={
+                            <Typography variant='subtitle2' gutterBottom component='div'>
+                                Balance : {balances[Field.CURRENCY_B]}
+                            </Typography>
+                        }
+                        InputProps={{
+                            type: 'number',
+                            placeholder: '0',
+                            min: '0',
+                            onChange: handleChangeInput,
+                            disableUnderline: true,
+                            value: formattedAmounts[SwapField.OUTPUT],
+                            endAdornment: <InputAdornment position="end">
+                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(SwapField.OUTPUT)}/>
+                            </InputAdornment>,
+                        }}
+                    />
+                    {/*<div className={styles.tokenInputContainer}>
                         <CustomTokenInput
                             value={formattedAmounts[Field.CURRENCY_B]}
                             handleChange={onFieldBInput}
@@ -222,15 +312,14 @@ function LiquiditySwap() {
                                 Balance : {balances[Field.CURRENCY_B]}
                             </Typography>
                         </div>
-                    </div>
-
+                    </div>*/}
                 </div>
 
                 <div className={styles.statsContainer}>
 
                     <Typography variant='h6' gutterBottom component='div' className={styles.statsHeading}>
                         {
-                            noLiquidity? 'Initial prices and pool share' : 'Prices and pool share'
+                            noLiquidity ? 'Initial prices and pool share' : 'Prices and pool share'
                         }
                     </Typography>
 
@@ -276,9 +365,18 @@ function LiquiditySwap() {
                             onClick={() => setShowConfirmModal(true)}
                         />
                 }
-            </div>
-            { pair && !noLiquidity && pairState !== PairState.INVALID ?
-                <MinimalPositionCard pair={pair} /> : null
+                <TokenSelect
+                    label={tokenSelect === SwapField.INPUT ? 'Pay Token' : 'Receive Token'}
+                    container={liquidityContainerRef.current}
+                    show={tokenSelect !== 0}
+                    onClose={() => setTokenSelect(0)}
+                    onSelect={tokenChangeHandler}
+                    tokenList={SWAP_TOKEN_LIST}
+                    disabledTokens={tokenSelect === SwapField.INPUT ? [receiveToken] : [payToken]}
+                />
+            </LiquidityContainer>
+            {pair && !noLiquidity && pairState !== PairState.INVALID ?
+                <MinimalPositionCard pair={pair}/> : null
             }
             <LiquiditySupplyDialog
                 show={showConfirmModal}
@@ -287,8 +385,8 @@ function LiquiditySwap() {
                 lpToken={'-'}
                 busd={formattedAmounts[Field.CURRENCY_A]}
                 cd3d={formattedAmounts[Field.CURRENCY_B]}
-                cd3d_rate={price?.toSignificant(6)??0}
-                busd_rate={price?.invert()?.toSignificant(6)??0}
+                cd3d_rate={price?.toSignificant(6) ?? 0}
+                busd_rate={price?.invert()?.toSignificant(6) ?? 0}
                 pool={poolShare}
             />
             <LiquiditySubmittingTxDialog
