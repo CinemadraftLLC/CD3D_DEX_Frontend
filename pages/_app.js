@@ -16,6 +16,7 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 import React from "react";
 import {RefreshContextProvider} from "../contexts/RefreshContext";
+import {SnackbarProvider} from "notistack";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -23,12 +24,33 @@ function getLibrary(provider) {
     return library;
 }
 
+const StyledToastContainer = styled(ToastContainer)({
+    '& .Toastify__close-button': {
+        color: "#000000",
+        opacity: 1,
+    },
+    '& .Toastify__toast-icon': {
+        width: "32px",
+        marginInlineEnd: "15px",
+    }
+})
+
 function MyApp({Component, pageProps}) {
     const theme = createTheme();
     const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
-            <ToastContainer/>
+            <StyledToastContainer
+                position={"bottom-left"}
+                autoClose={5000}
+                limit={5}
+                hideProgressBar={true}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnHover
+                pauseOnFocusLoss
+            />
             <Web3ReactManager>
                 <Provider store={store}>
                     <>
