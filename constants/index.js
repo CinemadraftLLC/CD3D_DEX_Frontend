@@ -99,15 +99,18 @@ export const BLOCKED_PRICE_IMPACT_NON_EXPERT = new Percent(JSBI.BigInt(1500), BI
 // used to ensure the user doesn't send so much ETH so they end up with <.01
 export const MIN_ETH = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .01 ETH
 
+
+export const Field = {
+    CURRENCY_A: 1,
+    CURRENCY_B: 2
+}
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 ///
 /// Swap
 
-export const Field = {
-    INPUT: 1,
-    OUTPUT: 2
-}
-
+export const MIN_SWAP_PRICE = 10;
 export const SWAP_TOKEN_LIST = {
     [ChainId.MAINNET]: [Currency.ETHER, mainnetTokens.cd3d, mainnetTokens.busd],
     [ChainId.TESTNET]: [Currency.ETHER, testnetTokens.cd3d, testnetTokens.busd],
@@ -115,11 +118,11 @@ export const SWAP_TOKEN_LIST = {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///
-///
+/// Farming
 
-export const CAKE_PER_BLOCK = 40
+export const CD3D_PER_BLOCK = 40
 export const BLOCKS_PER_YEAR = (60 / BSC_BLOCK_TIME) * 60 * 24 * 365 // 10512000
-export const CAKE_PER_YEAR = CAKE_PER_BLOCK * BLOCKS_PER_YEAR
+export const CD3D_PER_YEAR = CD3D_PER_BLOCK * BLOCKS_PER_YEAR
 export const BASE_URL = process.env.NODE_ENV === 'production' ? 'http://18.116.235.55' : 'http://localhost:3001'
 export const BASE_ADD_LIQUIDITY_URL = `${BASE_URL}/liquidity`
 export const DEFAULT_TOKEN_DECIMAL = BIG_TEN.pow(18)

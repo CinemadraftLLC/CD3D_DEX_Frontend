@@ -8,7 +8,7 @@ import Button from "@mui/material/Button";
 import Image from "next/image";
 
 const LiquiditySupplyDialog = (props) => {
-    const {show, onClose, onSubmit, lpToken, busd, cd3d, busd_rate, cd3d_rate, pool} = props;
+    const {show, onClose, onSubmit, lpToken, currencyA, currencyB, currencyAAmount, currencyBAmount, currencya_rate, currencyb_rate, pool} = props;
 
     return (
         <Modal
@@ -37,26 +37,26 @@ const LiquiditySupplyDialog = (props) => {
                     <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={50} />
                     <div className={`${styles.Info}`} >
                         <Typography className={`${styles.title}`} variant="subtitle2">{lpToken}</Typography>
-                        <Typography className={`${styles.description}`} variant="subtitle2">BUSD/CD3D Pool Tokens</Typography>
+                        <Typography className={`${styles.description}`} variant="subtitle2">{currencyA.symbol}/{currencyB.symbol} Pool Tokens</Typography>
                     </div>
                 </div>
                 <Typography className={`${styles.DialogDescription}`} variant="subtitle2">Output is estimated. If the price changes by more than 0.5% your transaction will revert.</Typography>
                 <div>
                     <div className={`${styles.DialogItem}`}>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">BUSD Deposited</Typography>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{busd}</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{currencyA.symbol} Deposited</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{currencyAAmount}</Typography>
                     </div>
                     <div className={`${styles.DialogItem}`}>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">CD3D Deposited</Typography>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{cd3d}</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{currencyB.symbol} Deposited</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">{currencyBAmount}</Typography>
                     </div>
                     <div className={`${styles.DialogItem}`}>
                         <Typography className={`${styles.DialogLabel}`} variant="subtitle2">Rates</Typography>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">1 BUSD = {busd_rate} CD3D</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">1 {currencyA.symbol} = {currencya_rate} {currencyB.symbol}</Typography>
                     </div>
                     <div className={`${styles.DialogItem}`}>
                         <div></div>
-                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">1 CD3D = {cd3d_rate} BUSD</Typography>
+                        <Typography className={`${styles.DialogLabel}`} variant="subtitle2">1 {currencyB.symbol} = {currencyb_rate} {currencyA.symbol}</Typography>
                     </div>
                     <div className={`${styles.DialogItem}`}>
                         <Typography className={`${styles.DialogLabel}`} variant="subtitle2">Share of Pool</Typography>

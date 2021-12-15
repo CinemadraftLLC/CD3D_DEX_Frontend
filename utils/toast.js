@@ -1,5 +1,5 @@
 import {toast} from "react-toastify";
-import {Box, Stack, Typography} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import Image from 'next/image';
 import ClearFix from "../components/ClearFix/ClearFix";
 import SuccessIcon from '../public/assets/Transaction_check.svg';

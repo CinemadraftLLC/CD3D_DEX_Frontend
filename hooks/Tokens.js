@@ -108,3 +108,11 @@ export function useCurrency(currencyId) {
     const token = useToken(isBNB ? undefined : currencyId)
     return isBNB ? ETHER : token
 }
+
+export function currencyId(currency) {
+    if (currency === ETHER) return 'BNB'
+    if (currency instanceof Token) return currency.address
+    throw new Error('invalid currency')
+}
+
+export default currencyId

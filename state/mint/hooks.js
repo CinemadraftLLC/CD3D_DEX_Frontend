@@ -1,14 +1,15 @@
-import { Currency, CurrencyAmount, ETHER, JSBI, Pair, Percent, Price, TokenAmount } from 'cd3d-dex-libs-sdk'
-import {useCallback, useMemo, useRef} from 'react'
+import { CurrencyAmount, ETHER, JSBI, Percent, Price } from 'cd3d-dex-libs-sdk'
+import {useCallback, useMemo} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { PairState, usePair } from '../../data/Reserves'
 import { useTotalSupply } from '../../data/TotalSupply'
 
 import { wrappedCurrency, wrappedCurrencyAmount } from '../../utils/wrappedCurrency'
 import { useCurrencyBalances } from '../wallet/hooks'
-import { Field, typeInput } from './actions'
+import { typeInput } from './actions'
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import {tryParseAmount} from "../../utils";
+import {Field} from "../../constants";
 
 const ZERO = JSBI.BigInt(0)
 

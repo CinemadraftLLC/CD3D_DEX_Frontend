@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { BLOCKS_PER_YEAR, CAKE_PER_YEAR } from '../constants'
+import { BLOCKS_PER_YEAR, CD3D_PER_YEAR } from '../constants'
 import lpAprs from '../constants/lpAprs.json'
 
 /**
@@ -36,7 +36,7 @@ export const getFarmApr = (
     poolLiquidityUsd,
     farmAddress
 ) => {
-    const yearlyCd3dRewardAllocation = poolWeight ? poolWeight.times(CAKE_PER_YEAR) : new BigNumber(NaN)
+    const yearlyCd3dRewardAllocation = poolWeight ? poolWeight.times(CD3D_PER_YEAR) : new BigNumber(NaN)
     const cd3dRewardsApr = yearlyCd3dRewardAllocation.times(cd3dPriceUsd).div(poolLiquidityUsd).times(100)
     let cd3dRewardsAprAsNumber = null
     console.log('apr', yearlyCd3dRewardAllocation, cd3dPriceUsd, poolLiquidityUsd);

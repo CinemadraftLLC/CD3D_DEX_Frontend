@@ -84,7 +84,7 @@ export const TokenSelect = ({label, container, show, onClose, onSelect, tokenLis
                             </InputAdornment>,
                         }}/>
                     {
-                        tokenList[NETWORK_CHAIN_ID].map((token) => <SwapTokenItem value={token} disabled={disabledTokens.includes(token)} onChange={onSelect}/>)
+                        tokenList[NETWORK_CHAIN_ID].map((token, index) => <SwapTokenItem key={index} value={token} disabled={disabledTokens.includes(token.symbol)} onChange={onSelect}/>)
                     }
                 </Stack>
             </TokenSelectContainer>

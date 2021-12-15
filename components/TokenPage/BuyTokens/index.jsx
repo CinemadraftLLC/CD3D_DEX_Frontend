@@ -4,29 +4,23 @@ import BidBUSD from './components/Busd';
 import BidCD3D from './components/Amount3D';
 import Image from 'next/image';
 import DownA from '../../../public/assets/homepage/down-arrow.svg';
-import {getBidPrice, getUnitPrice, tryParseAmount} from '../../../utils';
+import {getUnitPrice, tryParseAmount} from '../../../utils';
 import CustomContainedButton from '../../CustomContainedButton';
 import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
 import ConnectButton from "../../ConnectWalletButton";
-import {useCurrencyBalance, useCurrencyBalances} from "../../../state/wallet/hooks";
+import {useCurrencyBalances} from "../../../state/wallet/hooks";
 import {useCurrency} from "../../../hooks/Tokens";
-import {BUSD, CD3D} from "../../../constants";
-import {NETWORK_CHAIN_ID} from "../../../connectors";
+import {Field} from "../../../constants";
 import useSwapCallback from "../../../hooks/useSwapCallback";
 import {useTradeExactIn, useTradeExactOut} from "../../../hooks/Trades";
 import {useUserDeadline, useUserSlippageTolerance} from "../../../state/user/hooks";
 import {JSBI} from 'cd3d-dex-libs-sdk';
 import {computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity} from "../../../utils/prices";
 import confirmPriceImpactWithoutFee from "../../Swap/confirmPriceImpactWithoutFee";
-import tokens, {serializeTokens} from "../../../constants/tokens";
-
-export const Field = {
-  INPUT: 1,
-  OUTPUT: 2
-}
+import tokens from "../../../constants/tokens";
 
 const BuyTokens = () => {
-  const [independentField, setIndependentField] = useState(Field.INPUT)
+  const [independentField, setIndependentField] = useState(Field.CURRENCY_A)
   const { account } = useActiveWeb3React()
   const [busd, setBusd] = useState(0)
   const [cd3d, setcd3d] = useState(0)
@@ -54,12 +48,12 @@ const BuyTokens = () => {
 
   const handleChangeOnBusd = useCallback((event) => {
     setBusd(event.target.value);
-    setIndependentField(Field.INPUT);
+    setIndependentField(Field.CURRENCY_A);
   }, []);
 
   const handleChangeOnCd3d = useCallback((event) => {
     setcd3d(event.target.value);
-    setIndependentField(Field.OUTPUT);
+    setIndependentField(Field.CURRENCY_B);
   }, []);
 
   // Input: BUSD, Output: CD3D
@@ -68,22 +62,22 @@ const BuyTokens = () => {
 
   const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [currencyBUSD, currencyCD3D]);
   const currencyBalances = {
-    [Field.INPUT]: relevantTokenBalances[0],      // BUSD
-    [Field.OUTPUT]: relevantTokenBalances[1],     // CD3D
+    [Field.CURRENCY_A]: relevantTokenBalances[0],      // BUSD
+    [Field.CURRENCY_B]: relevantTokenBalances[1],     // CD3D
   }
 
-  const isExactIn = independentField === Field.INPUT;
+  const isExactIn = independentField === Field.CURRENCY_A;
 
   const parsedAmount = isExactIn?tryParseAmount(busd, currencyBUSD) : tryParseAmount(cd3d, currencyCD3D);
   const trade = isExactIn?useTradeExactIn( parsedAmount, currencyCD3D):useTradeExactOut(currencyBUSD, parsedAmount);
 
   const formattedAmounts = {
-    [Field.INPUT]: trade?.inputAmount?.toSignificant(6) ?? '',
-    [Field.OUTPUT]: trade?.outputAmount?.toSignificant(6) ?? '',
+    [Field.CURRENCY_A]: trade?.inputAmount?.toSignificant(6) ?? '',
+    [Field.CURRENCY_B]: trade?.outputAmount?.toSignificant(6) ?? '',
   }
 
   useEffect(() => {
-    validateBusd(formattedAmounts[Field.INPUT]);
+    validateBusd(formattedAmounts[Field.CURRENCY_A]);
   }, [formattedAmounts]);
 
   const userHasSpecifiedInputOutput = Boolean(
@@ -101,10 +95,10 @@ const BuyTokens = () => {
 
   const slippageAdjustedAmounts = trade && allowedSlippage && computeSlippageAdjustedAmounts(trade, allowedSlippage)
 
-  // compare input balance to max input based on version
+  // compare CURRENCY_A balance to max input based on version
   const [balanceIn, amountIn] = [
-    currencyBalances[Field.INPUT],
-    slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null,
+    currencyBalances[Field.CURRENCY_A],
+    slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.CURRENCY_A] : null,
   ]
 
   if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
@@ -156,11 +150,11 @@ const BuyTokens = () => {
 
   return (
     <div className={styles.buyTokeOuter}>
-      <BidBUSD value={formattedAmounts[Field.INPUT]} handleChangeOnBusd={handleChangeOnBusd} errMsg={errMsg} />
+      <BidBUSD value={formattedAmounts[Field.CURRENCY_A]} handleChangeOnBusd={handleChangeOnBusd} errMsg={errMsg} />
       <div className={styles.downOuter}>
         <Image src={DownA} alt='Picture of DownArrow' />
       </div>
-      <BidCD3D value={formattedAmounts[Field.OUTPUT]} handleChangeOnCd3d={handleChangeOnCd3d} rate={ getUnitPrice(formattedAmounts[Field.INPUT], formattedAmounts[Field.OUTPUT])}/>
+      <BidCD3D value={formattedAmounts[Field.CURRENCY_B]} handleChangeOnCd3d={handleChangeOnCd3d} rate={ getUnitPrice(formattedAmounts[Field.CURRENCY_A], formattedAmounts[Field.CURRENCY_B])}/>
       {
         !account?
             <ConnectButton />

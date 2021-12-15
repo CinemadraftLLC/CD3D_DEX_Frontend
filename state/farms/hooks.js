@@ -107,6 +107,13 @@ export const useFarmFromLpSymbol = (lpSymbol) => {
     return deserializeFarm(farm)
 }
 
+export const useFarmFromTokenSymbols = (symbol1, symbol2) => {
+    const farm = useSelector((state) =>
+        state.farms.data.find((f) => (f.token.symbol === symbol1 && f.quoteToken.symbol === symbol2) || (f.token.symbol === symbol2 && f.quoteToken.symbol === symbol1)))
+    if(!farm) return undefined;
+    return deserializeFarm(farm)
+}
+
 export const useFarmUser = (pid) => {
     const { userData } = useFarmFromPid(pid)
     const { allowance, tokenBalance, stakedBalance, earnings } = userData
@@ -145,13 +152,13 @@ export const useLpTokenPrice = (symbol) => {
 // /!\ Deprecated , use the BUSD hook in /hooks
 
 export const usePriceCd3dBusd = () => {
-    const cakeBnbFarm = useFarmFromPid(1)
+    const cd3dBnbFarm = useFarmFromPid(1)
 
-    const cakePriceBusdAsString = cakeBnbFarm.tokenPriceBusd
+    const cd3dPriceBusdAsString = cd3dBnbFarm.tokenPriceBusd
 
-    const cakePriceBusd = useMemo(() => {
-        return new BigNumber(cakePriceBusdAsString)
-    }, [cakePriceBusdAsString])
+    const cd3dPriceBusd = useMemo(() => {
+        return new BigNumber(cd3dPriceBusdAsString)
+    }, [cd3dPriceBusdAsString])
 
-    return cakePriceBusd
+    return cd3dPriceBusd
 }

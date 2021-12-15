@@ -1,21 +1,22 @@
-import {styled} from '@mui/material/styles';
-import ChartContainer from "../../components/CustomChart";
-import {Container, Grid, Stack, Box, FormControl, InputLabel, InputAdornment, IconButton} from "@mui/material";
-import {Typography} from "@material-ui/core";
-import LoopIcon from '@mui/icons-material/Loop';
 import React, {useCallback, useState} from "react";
 import Image from 'next/image';
+import {styled} from '@mui/material/styles';
+import {Link, Typography} from "@material-ui/core";
+import LoopIcon from '@mui/icons-material/Loop';
+import {ETHER, JSBI, Price} from "cd3d-dex-libs-sdk";
+import BigNumber from 'bignumber.js'
+
+import {Container, Grid, Stack, Box, FormControl, InputLabel, InputAdornment, IconButton} from "@mui/material";
+import ChartContainer from "../../components/CustomChart";
 import DownA from '../../public/assets/homepage/down-arrow.svg';
 import FormLabel from "../../components/Form/FormLabel";
 import FormAdvancedTextField from "../../components/Form/FormAdvancedTextField";
 import SwapEndAdornment from "../../components/Swap/SwapEndAdornment";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
-import {NETWORK_CHAIN_ID} from "../../connectors";
-import {BUSD, CD3D, Field, SWAP_TOKEN_LIST} from "../../constants";
+import {Field, MIN_SWAP_PRICE, SWAP_TOKEN_LIST} from "../../constants";
 import {TokenSelect} from "../../components/Swap/TokenSelect";
-import {tryParseAmount} from "../../utils";
+import {getBscScanLink, tryParseAmount} from "../../utils";
 import {useTradeExactIn, useTradeExactOut} from "../../hooks/Trades";
-import {ETHER, JSBI, Price} from "cd3d-dex-libs-sdk";
 import {useUserDeadline, useUserSlippageTolerance} from "../../state/user/hooks";
 import {computeSlippageAdjustedAmounts, computeTradePriceBreakdown, warningSeverity} from "../../utils/prices";
 import useSwapCallback from "../../hooks/useSwapCallback";
@@ -26,6 +27,10 @@ import {useCurrencyBalances} from "../../state/wallet/hooks";
 import {useCurrency} from "../../hooks/Tokens";
 import LiquiditySubmittingTxDialog from "../../components/Dialogs/LiquiditySubmittingTxDialog";
 import tokens from "../../constants/tokens";
+import {useFarmFromTokenSymbols, usePollFarmsPublicData} from "../../state/farms/hooks";
+import {BIG_ZERO} from "../../utils/bigNumber";
+import {showToast} from "../../utils/toast";
+import styles from "../../styles/Dialog.module.css";
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -37,7 +42,7 @@ const SwapContainer = styled(Container)({
 })
 
 const Swap = () => {
-    const [independentField, setIndependentField] = useState(Field.INPUT)
+    const [independentField, setIndependentField] = useState(Field.CURRENCY_A)
     const {account} = useActiveWeb3React()
 
     const [tokenSelect, setTokenSelect] = useState(0);
@@ -46,6 +51,7 @@ const Swap = () => {
     const [payToken, setPayToken] = useState(tokens.busd);
     const [receiveToken, setReceiveToken] = useState(tokens.cd3d);
     const [typedValue, setTypeValue] = useState('');
+    const [isInvertPrice, setIsInvertPrice] = useState(false);
 
     const [{swapErrorMessage, attemptingTxn, txHash}, setSwapState] = useState({
         attemptingTxn: false,
@@ -53,8 +59,10 @@ const Swap = () => {
         txHash: undefined,
     })
 
+    usePollFarmsPublicData();
+
     const tokenChangeHandler = (val) => {
-        if (tokenSelect === Field.INPUT) {
+        if (tokenSelect === Field.CURRENCY_A) {
             if (payToken !== val) {
                 setTypeValue('');
                 setPayToken(val);
@@ -70,12 +78,12 @@ const Swap = () => {
 
     const handleChangeInput = (event) => {
         setTypeValue(event.target.value);
-        setIndependentField(Field.INPUT);
+        setIndependentField(Field.CURRENCY_A);
     };
 
     const handleChangeOutput = (event) => {
         setTypeValue(event.target.value);
-        setIndependentField(Field.OUTPUT);
+        setIndependentField(Field.CURRENCY_B);
     };
 
     const handleExchangeToken = () => {
@@ -84,8 +92,8 @@ const Swap = () => {
         setReceiveToken(oldPaytoken);
     }
 
-    const isExactIn = independentField === Field.INPUT;
-    const dependentField = independentField === Field.INPUT ? Field.OUTPUT : Field.INPUT;
+    const isExactIn = independentField === Field.CURRENCY_A;
+    const dependentField = independentField === Field.CURRENCY_A ? Field.CURRENCY_B : Field.CURRENCY_A;
 
     const payCurrency = useCurrency(payToken === ETHER ? 'BNB' : payToken.address);
     const receiveCurrency = useCurrency(receiveToken === ETHER ? 'BNB' : receiveToken.address);
@@ -93,14 +101,14 @@ const Swap = () => {
     const parsedAmount = isExactIn ? tryParseAmount(typedValue, payCurrency) : tryParseAmount(typedValue, receiveCurrency);
     const trade = isExactIn ? useTradeExactIn(parsedAmount, receiveCurrency) : useTradeExactOut(payCurrency, parsedAmount);
     const parsedAmounts = {
-        [Field.INPUT]: independentField === Field.INPUT ? parsedAmount : trade?.inputAmount,
-        [Field.OUTPUT]: independentField === Field.OUTPUT ? parsedAmount : trade?.outputAmount,
+        [Field.CURRENCY_A]: independentField === Field.CURRENCY_A ? parsedAmount : trade?.inputAmount,
+        [Field.CURRENCY_B]: independentField === Field.CURRENCY_B ? parsedAmount : trade?.outputAmount,
     }
 
     const relevantTokenBalances = useCurrencyBalances(account ?? undefined, [payCurrency, receiveCurrency]);
     const currencyBalances = {
-        [Field.INPUT]: relevantTokenBalances[0],
-        [Field.OUTPUT]: relevantTokenBalances[1],
+        [Field.CURRENCY_A]: relevantTokenBalances[0],
+        [Field.CURRENCY_B]: relevantTokenBalances[1],
     }
 
     console.log('balances', currencyBalances);
@@ -117,6 +125,14 @@ const Swap = () => {
     const [deadline] = useUserDeadline();
     const [allowedSlippage] = useUserSlippageTolerance();
 
+    // Token Price
+    const farm = useFarmFromTokenSymbols(payToken.symbol, receiveToken.symbol);
+    const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payToken.symbol?farm.tokenPriceBusd:farm.quoteTokenPriceBusd) : BIG_ZERO;
+    const payAmount = formattedAmounts[Field.CURRENCY_A] > 0? (payTokenPrice.times(new BigNumber(formattedAmounts[Field.CURRENCY_A]))).toNumber() : 0;
+
+    console.log('farm', farm, payTokenPrice);
+
+
     let inputError;
 
     if (!parsedAmount) {
@@ -127,13 +143,18 @@ const Swap = () => {
 
     // compare input balance to max input based on version
     const [balanceIn, amountIn] = [
-        currencyBalances[Field.INPUT],
-        slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.INPUT] : null,
+        currencyBalances[Field.CURRENCY_A],
+        slippageAdjustedAmounts ? slippageAdjustedAmounts[Field.CURRENCY_A] : null,
     ]
 
     if (balanceIn && amountIn && balanceIn.lessThan(amountIn)) {
         inputError = `Insufficient ${amountIn.currency.symbol} balance`
     }
+
+    // if(!inputError && payAmount < MIN_SWAP_PRICE){
+    //     inputError = `Not enough ${payToken.symbol} amount`
+    // }
+
 
     // the callback to execute the swap
     const {callback: swapCallback, error: swapCallbackError} = useSwapCallback(
@@ -142,6 +163,7 @@ const Swap = () => {
         deadline);
 
     const {priceImpactWithoutFee} = computeTradePriceBreakdown(trade)
+
 
     /**
      * Hosokawa 2021/12/7
@@ -155,6 +177,8 @@ const Swap = () => {
         if (!swapCallback) {
             return
         }
+
+
         setSwapState((prevState) => ({...prevState, attemptingTxn: true, swapErrorMessage: undefined, txHash: undefined}))
         swapCallback()
             .then((hash) => {
@@ -164,9 +188,18 @@ const Swap = () => {
                     swapErrorMessage: undefined,
                     txHash: hash,
                 }))
+
+                console.log('hash', hash);
                 setTypeValue('');
+                showToast("success", "Transaction Receipt", "Your transaction was succeed.",
+                            (<Link target={"_blank"} href={getBscScanLink(hash, 'transaction')}>
+                                <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
+                                    View on Binance
+                                </Typography>
+                        </Link>));
             })
             .catch((error) => {
+                showToast("error", "Transaction Failed", error.message);
                 setSwapState((prevState) => ({
                     ...prevState,
                     attemptingTxn: false,
@@ -198,8 +231,8 @@ const Swap = () => {
                                         id={"swap_pay"}
                                         helperText={
                                             <Stack component={"span"} direction={"row"} justifyContent={"space-between"}>
-                                                <Typography component={'span'} variant={"body2"}>Approx. $5.00</Typography>
-                                                <Typography component={'span'} variant={"body2"}>Min. Buy $10.00</Typography>
+                                                <Typography component={'span'} variant={"body2"}>Approx. ${payAmount.toFixed(2)}</Typography>
+                                                <Typography component={'span'} variant={"body2"}>Min. Buy ${MIN_SWAP_PRICE.toFixed(2)}</Typography>
                                             </Stack>
                                         }
                                         InputProps={{
@@ -208,9 +241,9 @@ const Swap = () => {
                                             min: '0',
                                             onChange: handleChangeInput,
                                             disableUnderline: true,
-                                            value: formattedAmounts[Field.INPUT],
+                                            value: formattedAmounts[Field.CURRENCY_A],
                                             endAdornment: <InputAdornment position="end">
-                                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.INPUT)}/>
+                                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.CURRENCY_A)}/>
                                             </InputAdornment>,
                                         }}
                                     />
@@ -230,8 +263,15 @@ const Swap = () => {
                                         id={"swap_receive"}
                                         helperText={
                                             <Stack component={"span"} direction={"row"} justifyContent={"center"}>
-                                                <Typography component={'span'} variant={"body2"}>1 {receiveToken?.symbol} = {swapPrice?.toSignificant(6) ?? 0} {payToken?.symbol}</Typography>
-                                                <IconButton color="primary" aria-label="Refresh" size={"small"}>
+                                                <Typography component={'span'} variant={"body2"} style={{padding: 4}}>
+                                                    {
+                                                        !isInvertPrice?
+                                                        `1 ${receiveToken?.symbol} = ${swapPrice?.toSignificant(6) ?? 0} ${payToken?.symbol}`
+                                                        :
+                                                        `1 ${payToken?.symbol} = ${swapPrice?.invert()?.toSignificant(6) ?? 0} ${receiveToken?.symbol}`
+                                                    }
+                                                </Typography>
+                                                <IconButton color="primary" aria-label="Refresh" size={"small"} onClick={() => setIsInvertPrice(!isInvertPrice)}>
                                                     <LoopIcon fontSize={"small"}/>
                                                 </IconButton>
                                             </Stack>
@@ -242,9 +282,9 @@ const Swap = () => {
                                             min: '0',
                                             onChange: handleChangeOutput,
                                             disableUnderline: true,
-                                            value: formattedAmounts[Field.OUTPUT],
+                                            value: formattedAmounts[Field.CURRENCY_B],
                                             endAdornment: <InputAdornment position="end">
-                                                <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.OUTPUT)}/>
+                                                <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.CURRENCY_B)}/>
                                             </InputAdornment>,
                                         }}
                                     />
@@ -265,29 +305,31 @@ const Swap = () => {
                                         :
                                         <FormSubmitBtn
                                             label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : 'Sell CD3D')}
-                                            disabled={inputError || priceImpactSeverity > 3 || swapCallbackError}
+                                            disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError}
                                             loading={attemptingTxn}
                                             onSubmit={onSwap}
                                         />
                                 }
                             </Box>
                             <TokenSelect
-                                label={tokenSelect === Field.INPUT ? 'Pay Token' : 'Receive Token'}
+                                label={tokenSelect === Field.CURRENCY_A ? 'Pay Token' : 'Receive Token'}
                                 container={swapContainerRef.current}
                                 show={tokenSelect !== 0}
                                 onClose={() => setTokenSelect(0)}
                                 onSelect={tokenChangeHandler}
                                 tokenList={SWAP_TOKEN_LIST}
-                                disabledTokens={tokenSelect === Field.INPUT ? [receiveToken] : [payToken]}
+                                disabledTokens={tokenSelect === Field.CURRENCY_A ? [receiveToken] : [payToken]}
                             />
                             <LiquiditySubmittingTxDialog
-                                show={attemptingTxn}
+                                show={attemptingTxn || !!txHash || !!swapErrorMessage}
                                 txHash={txHash}
                                 swapErrorMessage={swapErrorMessage}
                                 onRetry={onSwap}
                                 onClose={() => setSwapState(prevState => ({
                                     ...prevState,
-                                    attemptingTxn: false
+                                    attemptingTxn: false,
+                                    swapErrorMessage: undefined,
+                                    txHash: undefined
                                 }))}
                             />
                         </SwapContainer>

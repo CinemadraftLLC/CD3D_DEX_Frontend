@@ -137,7 +137,7 @@ const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack}) => {
                 </div>
                 <div className={styles.form_row}>
                     <Typography className={styles.row_label} variant="subtitle2">{farm.lpSymbol?.toUpperCase()??'-'} Staked</Typography>
-                    <Typography className={styles.row_label} variant="subtitle2">${getBalanceNumber(stakedBalance.times(lpPrice.toNumber())).toFixed(2)}</Typography>
+                    <Typography className={styles.row_label} variant="subtitle2">${stakedBalance > 0? getBalanceNumber(stakedBalance.times(lpPrice.toNumber())).toFixed(2): '0'}</Typography>
                 </div>
                 {actionWidget}
                 <div className={styles.form_row}>

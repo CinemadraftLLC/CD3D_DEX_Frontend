@@ -1,4 +1,4 @@
-import { CurrencyAmount, Fraction, JSBI, Percent, TokenAmount, Trade } from 'cd3d-dex-libs-sdk'
+import { CurrencyAmount, JSBI, Percent, TokenAmount } from 'cd3d-dex-libs-sdk'
 import {
     BLOCKED_PRICE_IMPACT_NON_EXPERT,
     ALLOWED_PRICE_IMPACT_HIGH,
@@ -55,8 +55,8 @@ export function computeSlippageAdjustedAmounts(
 ) {
     const pct = basisPointsToPercent(allowedSlippage)
     return {
-        [Field.INPUT]: trade?.maximumAmountIn(pct),
-        [Field.OUTPUT]: trade?.minimumAmountOut(pct),
+        [Field.CURRENCY_A]: trade?.maximumAmountIn(pct),
+        [Field.CURRENCY_B]: trade?.minimumAmountOut(pct),
     }
 }
 

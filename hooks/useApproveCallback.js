@@ -99,7 +99,7 @@ export function useApproveCallback(
 // wraps useApproveCallback in the context of a swap
 export function useApproveCallbackFromTrade(trade, allowedSlippage = 0) {
     const amountToApprove = useMemo(
-        () => (trade ? computeSlippageAdjustedAmounts(trade, allowedSlippage)[Field.INPUT] : undefined),
+        () => (trade ? computeSlippageAdjustedAmounts(trade, allowedSlippage)[Field.CURRENCY_A] : undefined),
         [trade, allowedSlippage]
     )
     return useApproveCallback(amountToApprove, ROUTER_ADDRESS)

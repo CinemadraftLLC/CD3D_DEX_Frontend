@@ -8,9 +8,7 @@ const FarmingBanner = (props) => {
     const [search, setSearch] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        search && onSearch({
-            search: search
-        });
+        search && onSearch(search);
     }
     return (
         <div className={styles.bannerContainer}>
@@ -22,15 +20,15 @@ const FarmingBanner = (props) => {
                 <div className={styles.subDiv}>
                     <form onSubmit={handleSubmit}>
                         <div>
-                            {status === "sending" && (
+                            {status === "searching" && (
                                 <div style={{color: "blue", margin: 0, width: "200px"}}>
-                                    sending...
+                                    searching...
                                 </div>
                             )}
                             <InputBase
                                 label="Email"
                                 onChange={(e) => setSearch(e.target.value)}
-                                type="email"
+                                type="text"
                                 value={search}
                                 placeholder="Search by pool address"
                             />

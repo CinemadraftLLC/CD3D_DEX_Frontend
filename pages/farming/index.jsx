@@ -7,6 +7,7 @@ import ClearFix from "../../components/ClearFix/ClearFix";
 import {Container} from "@mui/material";
 
 const Farming = () => {
+    const {queryAddress, setQueryAddress} = useState('');
 
     return (
         <Container maxWidth={"xl"}>
@@ -14,8 +15,13 @@ const Farming = () => {
                 <div className={styles.bannerImg}>
                     <Image src={'/assets/images/tech.png'} alt={''} height={'450px'} width={'550px'} objectFit={"contain"}/>
                 </div>
-                <FarmingBanner total={1373674833.06}/>
-                <FarmingForm />
+                <FarmingBanner
+                    total={1373674833.06}
+                    onSearch={(address) => setQueryAddress(address)}
+                />
+                <FarmingForm
+                    queryAddress={queryAddress}
+                />
                 <ClearFix height={100}/>
             </div>
         </Container>

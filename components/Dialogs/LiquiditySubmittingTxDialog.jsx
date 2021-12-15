@@ -9,7 +9,6 @@ import {faArrowUp, faTimes} from "@fortawesome/free-solid-svg-icons";
 import Button from "@mui/material/Button";
 import Image from "next/image";
 import {getBscScanLink} from "../../utils";
-import {NETWORK_CHAIN_ID} from "../../connectors";
 
 const LiquiditySubmittingTxDialog = (props) => {
     const {show, onClose, txHash, onRetry, swapErrorMessage} = props;
@@ -43,6 +42,7 @@ const LiquiditySubmittingTxDialog = (props) => {
                         <Image src={Transaction_error} alt={''} height={60} width={60} />
                         <div>
                             <Typography className={`${styles.DialogErrorSubTitle}`} variant="subtitle2">Oops! Transaction Failed</Typography>
+                            <Typography className={`${styles.DialogErrorCaption}`} variant="subtitle2">{swapErrorMessage}</Typography>
                             <Typography className={`${styles.DialogErrorCaption}`} variant="subtitle2">Please retry to confirm the transaction</Typography>
                         </div>
                         <Button variant="contained" className={`${styles.DialogRetry}`} onClick={() => onRetry()}>
@@ -65,7 +65,7 @@ const LiquiditySubmittingTxDialog = (props) => {
                             <Typography className={`${styles.DialogSubTitle}`} variant="subtitle2">{!txHash ? "Submitting Transaction" : "Transaction Submitted"}</Typography>
                             {
                                 txHash &&
-                                <Link target={"_blank"} href={getBscScanLink(NETWORK_CHAIN_ID, txHash, 'transaction')}>
+                                <Link target={"_blank"} href={getBscScanLink(txHash, 'transaction')}>
                                     <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
                                         View on Binance
                                     </Typography>

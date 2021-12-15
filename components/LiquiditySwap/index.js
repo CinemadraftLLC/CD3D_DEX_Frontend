@@ -1,22 +1,21 @@
-import React, {useRef, useState} from 'react';
-import CustomContainedButton from '../../components/CustomContainedButton';
-import CustomTokenInput from '../../components/CustomTokenInput';
-import {Typography} from '@material-ui/core';
-import styles from '../../styles/liduidity.module.css';
+import React, {useCallback, useState} from 'react';
+import {Box, Container, InputAdornment, Stack} from "@mui/material";
 import Image from 'next/image';
+import {useRouter} from "next/router";
+import {Link, Typography} from '@material-ui/core';
+import {styled} from "@mui/material/styles";
+
+import styles from '../../styles/liduidity.module.css';
+import CustomContainedButton from '../../components/CustomContainedButton';
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import ConnectButton from "../ConnectWalletButton";
-import {useCurrency} from "../../hooks/Tokens";
-import {NETWORK_CHAIN_ID} from "../../connectors";
+import currencyId, {useCurrency} from "../../hooks/Tokens";
 import {useCurrencyBalance} from "../../state/wallet/hooks";
 import {useDerivedMintInfo, useMintActionHandlers, useMintState} from "../../state/mint/hooks";
 import PlusIcon from '../../public/assets/plusIcon.svg';
-import CD3Dlogo from '../../public/assets/homepage/CD3D-icon.svg';
-import BUSDlogo from "../../public/assets/homepage/BUSD-icon.svg";
-import {BUSD, CD3D, Field as SwapField, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../constants";
+import {Field, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../constants";
 import {useUserDeadline, useUserSlippageTolerance} from "../../state/user/hooks";
-import {calculateGasMargin, calculateSlippageAmount, getRouterContract} from "../../utils";
-import {Field} from "../../state/mint/actions";
+import {calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract} from "../../utils";
 import {ApprovalState, useApproveCallback} from "../../hooks/useApproveCallback";
 import {useTransactionAdder} from "../../state/transactions/hooks";
 import {wrappedCurrency} from "../../utils/wrappedCurrency";
@@ -24,15 +23,12 @@ import {MinimalPositionCard} from "../PositionCard";
 import {PairState} from "../../data/Reserves";
 import LiquiditySupplyDialog from "../Dialogs/LiquiditySupplyDialog";
 import LiquiditySubmittingTxDialog from "../Dialogs/LiquiditySubmittingTxDialog";
-import tokens, {serializeTokens} from "../../constants/tokens";
-import {useRouter} from "next/router";
-import {styled} from "@mui/material/styles";
-import {Box, Container, InputAdornment, Stack} from "@mui/material";
+import tokens from "../../constants/tokens";
 import {TokenSelect} from "../Swap/TokenSelect";
-import DownA from "../../public/assets/homepage/down-arrow.svg";
 import FormAdvancedTextField from "../Form/FormAdvancedTextField";
 import SwapEndAdornment from "../Swap/SwapEndAdornment";
 import ClearFix from "../ClearFix/ClearFix";
+import {showToast} from "../../utils/toast";
 
 const LiquidityContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -44,17 +40,13 @@ const LiquidityContainer = styled(Container)({
 })
 
 function LiquiditySwap() {
+    const router = useRouter()
+    const {addresses} = router.query;
+
     const {account, chainId, library} = useActiveWeb3React();
 
     const liquidityContainerRef = React.useRef(null);
     const [tokenSelect, setTokenSelect] = useState(0);
-    const [payToken, setPayToken] = useState(tokens.busd);
-    const [receiveToken, setReceiveToken] = useState(tokens.cd3d);
-
-    const router = useRouter()
-    const {addresses} = router.query;
-    console.log('history', addresses);
-
 
     // Add Liquidity States
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -64,15 +56,18 @@ function LiquiditySwap() {
         txHash: undefined,
     })
 
-    const currencyCD3D = useCurrency(tokens.cd3d.address);
-    const cd3dBalance = useCurrencyBalance(account ?? undefined, currencyCD3D ?? undefined);
+    const currencyIdA = (addresses && addresses[0])?addresses[0]:'BNB';
+    const currencyIdB = (addresses && addresses[1])?addresses[1]:tokens.cd3d.address;
 
-    const currencyBUSD = useCurrency(tokens.busd.address);
-    const busdBalance = useCurrencyBalance(account ?? undefined, currencyBUSD ?? undefined);
+    const currencyA = useCurrency(currencyIdA);
+    const currencyB = useCurrency(currencyIdB);
+
+    const currencyABalance = useCurrencyBalance(account ?? undefined, currencyA ?? undefined);
+    const currencyBBalance = useCurrencyBalance(account ?? undefined, currencyB ?? undefined);
 
     const balances = {
-        [Field.CURRENCY_A]: busdBalance?.toSignificant(6),
-        [Field.CURRENCY_B]: cd3dBalance?.toSignificant(12)
+        [Field.CURRENCY_A]: currencyABalance?.toSignificant(6),
+        [Field.CURRENCY_B]: currencyBBalance?.toSignificant(6)
     }
 
     // mint state
@@ -89,7 +84,7 @@ function LiquiditySwap() {
         liquidityMinted,
         poolTokenPercentage,
         error,
-    } = useDerivedMintInfo(currencyBUSD, currencyCD3D);
+    } = useDerivedMintInfo(currencyA, currencyB);
 
     const {onFieldAInput, onFieldBInput} = useMintActionHandlers(noLiquidity);
 
@@ -139,8 +134,8 @@ function LiquiditySwap() {
         estimate = router.estimateGas.addLiquidity
         method = router.addLiquidity
         args = [
-            wrappedCurrency(currencyBUSD, chainId)?.address ?? '',
-            wrappedCurrency(currencyCD3D, chainId)?.address ?? '',
+            wrappedCurrency(currencyA, chainId)?.address ?? '',
+            wrappedCurrency(currencyB, chainId)?.address ?? '',
             parsedAmountA.raw.toString(),
             parsedAmountB.raw.toString(),
             amountsMin[Field.CURRENCY_A].toString(),
@@ -161,16 +156,24 @@ function LiquiditySwap() {
                     console.log('response', response);
                     setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash}));
 
+                    onFieldAInput('');
                     addTransaction(response, {
                         summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
                             currencies[Field.CURRENCY_A]?.symbol
                         } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
-                    })
+                    });
 
+                    showToast("success", "Transaction Receipt", "Your transaction was succeed.",
+                        (<Link target={"_blank"} href={getBscScanLink(response.hash, 'transaction')}>
+                            <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
+                                View on Binance
+                            </Typography>
+                        </Link>));
                 })
             )
             .catch((e) => {
                 setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined}));
+                showToast("error", "Transaction Failed", e?.message??'');
 
                 // we only care if the error is something _other_ than the user rejected the tx
                 if (e?.code !== 4001) {
@@ -181,30 +184,20 @@ function LiquiditySwap() {
 
     const poolShare = (noLiquidity && price) ? 100 : (poolTokenPercentage?.lessThan(ONE_BIPS) ? '<0.01' : poolTokenPercentage?.toFixed(2)) ?? 0;
 
-    const handleChangeInput = (event) => {
-        //setTypeValue(event.target.value);
-        //setIndependentField(SwapField.INPUT);
-    };
-
-    const handleChangeOutput = (event) => {
-        //setTypeValue(event.target.value);
-        //setIndependentField(SwapField.OUTPUT);
-    };
-
-    const tokenChangeHandler = (val) => {
-        if (tokenSelect === SwapField.INPUT) {
-            if (payToken !== val) {
-                //setTypeValue('');
-                setPayToken(val);
+    const tokenChangeHandler = useCallback((val) => {
+        if (tokenSelect === Field.CURRENCY_A) {
+            if(currencyA !== val){
+                const newCurrencyIdA = currencyId(val);
+                router.push(`/liquidity/${newCurrencyIdA}/${currencyIdB}`);
             }
         } else {
-            if (receiveToken !== val) {
-                //setTypeValue('');
-                setReceiveToken(val);
+            if(currencyB !== val){
+                const newCurrencyIdB = currencyId(val);
+                router.push(`/liquidity/${currencyIdA}/${newCurrencyIdB}`);
             }
         }
         setTokenSelect(0);
-    }
+    }, [tokenSelect, currencyIdA, currencyIdB, setTokenSelect]);
 
     return (
         <>
@@ -232,23 +225,6 @@ function LiquiditySwap() {
                 </div>
 
                 <div className={styles.inputContainer}>
-
-                    {/*<div className={styles.tokenInputContainer}>
-                        <CustomTokenInput
-                            value={formattedAmounts[Field.CURRENCY_A]}
-                            handleChange={onFieldAInput}
-                            errMsg={''}
-                            tokenName={'BUSD'}
-                            tokenImage={BUSDlogo}
-                            maxValue={balances[Field.CURRENCY_A]}
-                            maxButton={true}
-                        />
-                        <div className={styles.tokenInputTextContainer}>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                Balance : {balances[Field.CURRENCY_A]}
-                            </Typography>
-                        </div>
-                    </div>*/}
                     <ClearFix height={15}/>
                     <FormAdvancedTextField
                         id={"liquidity_pay"}
@@ -261,11 +237,11 @@ function LiquiditySwap() {
                             type: 'number',
                             placeholder: '0',
                             min: '0',
-                            onChange: handleChangeInput,
+                            onChange: onFieldAInput,
                             disableUnderline: true,
-                            value: formattedAmounts[SwapField.INPUT],
+                            value: formattedAmounts[Field.CURRENCY_A],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(SwapField.INPUT)}/>
+                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)}/>
                             </InputAdornment>,
                         }}
                     />
@@ -289,30 +265,14 @@ function LiquiditySwap() {
                             type: 'number',
                             placeholder: '0',
                             min: '0',
-                            onChange: handleChangeInput,
+                            onChange: onFieldBInput,
                             disableUnderline: true,
-                            value: formattedAmounts[SwapField.OUTPUT],
+                            value: formattedAmounts[Field.CURRENCY_B],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(SwapField.OUTPUT)}/>
+                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)}/>
                             </InputAdornment>,
                         }}
                     />
-                    {/*<div className={styles.tokenInputContainer}>
-                        <CustomTokenInput
-                            value={formattedAmounts[Field.CURRENCY_B]}
-                            handleChange={onFieldBInput}
-                            errMsg={''}
-                            tokenName={'CD3D'}
-                            tokenImage={CD3Dlogo}
-                            maxValue={balances[Field.CURRENCY_B]}
-                            maxButton={true}
-                        />
-                        <div className={styles.tokenInputTextContainer}>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                Balance : {balances[Field.CURRENCY_B]}
-                            </Typography>
-                        </div>
-                    </div>*/}
                 </div>
 
                 <div className={styles.statsContainer}>
@@ -329,7 +289,7 @@ function LiquiditySwap() {
                                 {price?.toSignificant(6) ?? '-'}
                             </Typography>
                             <Typography variant='subtitle2' gutterBottom component='div'>
-                                BUSD per CD3D
+                                {currencyA.symbol} per {currencyB.symbol}
                             </Typography>
                         </div>
                         <div className={styles.stats}>
@@ -337,7 +297,7 @@ function LiquiditySwap() {
                                 {price?.invert()?.toSignificant(6) ?? '-'}
                             </Typography>
                             <Typography variant='subtitle2' gutterBottom component='div'>
-                                CD3D per BUSD
+                                {currencyB.symbol} per {currencyA.symbol}
                             </Typography>
                         </div>
                         <div className={styles.stats}>
@@ -365,15 +325,15 @@ function LiquiditySwap() {
                             onClick={() => setShowConfirmModal(true)}
                         />
                 }
-                <TokenSelect
-                    label={tokenSelect === SwapField.INPUT ? 'Pay Token' : 'Receive Token'}
-                    container={liquidityContainerRef.current}
-                    show={tokenSelect !== 0}
-                    onClose={() => setTokenSelect(0)}
-                    onSelect={tokenChangeHandler}
-                    tokenList={SWAP_TOKEN_LIST}
-                    disabledTokens={tokenSelect === SwapField.INPUT ? [receiveToken] : [payToken]}
-                />
+            <TokenSelect
+                label={tokenSelect === Field.CURRENCY_A ? 'Token A' : 'Token B'}
+                container={liquidityContainerRef.current}
+                show={tokenSelect !== 0}
+                onClose={() => setTokenSelect(0)}
+                onSelect={tokenChangeHandler}
+                tokenList={SWAP_TOKEN_LIST}
+                disabledTokens={tokenSelect === Field.CURRENCY_A ? [currencyB.symbol] : [currencyA.symbol]}
+            />
             </LiquidityContainer>
             {pair && !noLiquidity && pairState !== PairState.INVALID ?
                 <MinimalPositionCard pair={pair}/> : null
@@ -383,20 +343,33 @@ function LiquiditySwap() {
                 onClose={() => setShowConfirmModal(false)}
                 onSubmit={onAdd}
                 lpToken={'-'}
-                busd={formattedAmounts[Field.CURRENCY_A]}
-                cd3d={formattedAmounts[Field.CURRENCY_B]}
-                cd3d_rate={price?.toSignificant(6) ?? 0}
-                busd_rate={price?.invert()?.toSignificant(6) ?? 0}
+                currencyA={currencyA}
+                currencyB={currencyB}
+                currencyAAmount={formattedAmounts[Field.CURRENCY_A]}
+                currencyBAmount={formattedAmounts[Field.CURRENCY_B]}
+                currencya_rate={price?.toSignificant(6) ?? 0}
+                currencyb_rate={price?.invert()?.toSignificant(6) ?? 0}
                 pool={poolShare}
             />
             <LiquiditySubmittingTxDialog
-                show={attemptingTxn}
+                show={attemptingTxn || !!txHash || !!txErrorMessage}
                 txHash={txHash}
                 swapErrorMessage={txErrorMessage}
                 onClose={() => setLiquidityState(prevState => ({
                     ...prevState,
+                    txHash: undefined,
+                    txErrorMessage: undefined,
                     attemptingTxn: false
                 }))}
+                onRetry={() => {
+                    setLiquidityState(prevState => ({
+                        ...prevState,
+                        txHash: undefined,
+                        txErrorMessage: undefined,
+                        attemptingTxn: false
+                    }));
+                    onAdd();
+                }}
             />
         </>
     );

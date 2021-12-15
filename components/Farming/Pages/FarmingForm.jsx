@@ -21,7 +21,7 @@ const getDisplayApr = (cd3dRewardsApr, lpRewardsApr) => {
     return null
 }
 
-const FarmingForm = () => {
+const FarmingForm = ({queryAddress}) => {
     const [{ showModal, stakeParams }, setFarmingState] = useState({
         showModal: false,
         stakeParams: {}

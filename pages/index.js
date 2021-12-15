@@ -1,3 +1,4 @@
+import React from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import "devextreme/dist/css/dx.light.css";
@@ -17,9 +18,6 @@ import Timeline from "../components/Timeline/Timeline";
 import ErrorBoundary from "../components/ErrorBound/ErrorBound";
 import PresaleBanner from "../components/presaleBanner/PresaleBanner";
 
-import React, { useState } from "react";
-import {Button} from "@mui/material";
-import {showToast} from "../utils/toast";
 
 export default function Home() {
   return (

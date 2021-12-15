@@ -44,7 +44,7 @@ const farms = [
             97: '0xc17379f562afb17c61102d1733dc2f86f88d5ee2',
         },
         token: serializedTokens.busd,
-        quoteToken: serializedTokens.wbnb,
+        quoteToken: serializedTokens.cd3d,
     }
 ]
 
