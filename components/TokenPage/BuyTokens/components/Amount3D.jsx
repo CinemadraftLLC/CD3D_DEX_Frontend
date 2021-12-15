@@ -6,18 +6,18 @@ import CD3Dlogo from '../../../../public/assets/homepage/CD3D-icon.svg';
 import InvertIcon from '../../../invertIcon';
 
 const Amount3D = (props) => {
-  const { value, handleChangeOnCd3d, rate } = props;
+  const { handleChangeOnCd3d } = props;
   return (
     <div className={styles.bidPriceOuter}>
       <div className={styles.bidPriceInput}>
-        <input value={value} type='number' placeholder='0' min='0' onChange={handleChangeOnCd3d} />
-        <Typography variant='subtitle2' gutterBottom component='div'>
+        <input type='number' placeholder='0' min='0' onChange={handleChangeOnCd3d} />
+        <Typography variant='subtitle2' gutterBottom component='p'>
           CD3D <Image src={CD3Dlogo} alt='Picture of CD3D' />
         </Typography>
       </div>
       <div className={styles.tokenPriceContainer}>
-        <Typography variant='subtitle2' gutterBottom component='div'>
-          1 CD3D = {rate} BUSD
+        <Typography variant='subtitle2' gutterBottom component='p'>
+          1 CD3D = 0.00127 BUSD
         </Typography>
         <InvertIcon />
       </div>

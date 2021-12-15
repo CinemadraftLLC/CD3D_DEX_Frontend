@@ -6,22 +6,22 @@ import BUSD from "../../../../public/assets/homepage/BUSD-icon.svg";
 import { FormHelperText } from "@mui/material";
 
 const Busd = (props) => {
-  const { value, handleChangeOnBusd, errMsg } = props;
+  const { handleChangeOnBusd, errMsg } = props;
   return (
     <div className={styles.bidPriceOuter}>
       <div className={styles.bidPriceInput}>
-        <input type='number' value={value} placeholder='0' min='0' onChange={handleChangeOnBusd} />
-        <Typography variant='subtitle2' gutterBottom component='div'>
+        <input type='number' placeholder='0' min='0' onChange={handleChangeOnBusd} />
+        <Typography variant='subtitle2' gutterBottom component='p'>
           BUSD <Image src={BUSD} alt='Picture of BUSD' />
         </Typography>
       </div>
       {errMsg && <FormHelperText error>{errMsg}</FormHelperText>}
 
       <div className={styles.amountMin}>
-        <Typography variant='subtitle2' gutterBottom component='div'>
+        <Typography variant='subtitle2' gutterBottom component='p'>
           Approx $5.00
         </Typography>
-        <Typography variant='subtitle2' gutterBottom component='div'>
+        <Typography variant='subtitle2' gutterBottom component='p'>
           Min. Buy $10.00
         </Typography>
       </div>

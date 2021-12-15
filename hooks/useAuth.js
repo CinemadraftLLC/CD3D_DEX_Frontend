@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useWeb3React } from "@web3-react/core";
-import { connectorsByName } from "../constants/constants";
+import { connectorsByName } from "../constant/constants";
 import getErrorMessage from "../utils/errorHelper";
 // import toast from "react-hot-toast";
 import { toast } from "react-toastify";

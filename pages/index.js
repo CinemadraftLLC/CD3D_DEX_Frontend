@@ -1,7 +1,7 @@
-import React from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import "devextreme/dist/css/dx.light.css";
+import Navbar from "../components/Header";
 import MainBanner from "../components/MainBanner/Banner.jsx";
 import CounterSection from "../components/Countdown";
 import CD3DSection from "../components/Cd3dSec";
@@ -14,10 +14,10 @@ import SocialSection from "../components/SocialSec";
 import MerchSection from "../components/MerchSec";
 import FaqSection from "../components/FaqSec";
 import SeenSection from "../components/SeenSection";
+import Typography from "@mui/material/Typography";
 import Timeline from "../components/Timeline/Timeline";
 import ErrorBoundary from "../components/ErrorBound/ErrorBound";
 import PresaleBanner from "../components/presaleBanner/PresaleBanner";
-
 
 export default function Home() {
   return (
@@ -29,6 +29,7 @@ export default function Home() {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <PresaleBanner />
+        <Navbar />
         <MainBanner className={styles.mainBanner} />
         <CounterSection />
         <CD3DSection />
@@ -42,6 +43,11 @@ export default function Home() {
         <MerchSection />
         <FaqSection />
         <SeenSection />
+        <footer className={styles.footer}>
+          <Typography variant="subtitle2" gutterBottom component="p">
+            © CinemaDraft, LLC. All rights reserved.
+          </Typography>
+        </footer>
       </div>
     </ErrorBoundary>
   );

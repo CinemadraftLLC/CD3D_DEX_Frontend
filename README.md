@@ -32,35 +32,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-sudo systemctl start nginx
-sudo systemctl enable nginx
-sudo systemctl status nginx
-sudo systemctl reload nginx
-
-
-ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
-
-
-server {
-    server_name nextjs-example.willandskill.eu;
-    access_log /var/www/logs/access.log;
-    error_log /var/www/logs/error.log error;
-
-    location / {
-        # reverse proxy for next server
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-
-        # we need to remove this 404 handling
-        # because next's _next folder and own handling
-        # try_files $uri $uri/ =404;
-    }
-}
-
-yarn build
-pm2 start "yarn start" --name "cd3dapp"

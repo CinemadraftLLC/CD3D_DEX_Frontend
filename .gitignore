@@ -105,5 +105,4 @@ dist
 
 #phpstorm workspace
 .idea
-/out
 yarn.lock

@@ -1,21 +1,25 @@
-import {useEffect, useRef, useState} from "react";
-import {useWeb3React} from '@web3-react/core'
-import {simpleRpcProvider} from "../utils/providers";
-import {NETWORK_CHAIN_ID} from "../connectors";
+import { useEffect, useState, useRef } from "react";
+import { useWeb3React } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
+import { simpleRpcProvider } from "../utils/web3";
 
 const useActiveWeb3React = () => {
-  const { library, chainId, ...web3React } = useWeb3React()
-  const refEth = useRef(library)
-  const [provider, setProvider] = useState(library || simpleRpcProvider)
+  const { library, chainId, ...web3React } = useWeb3React();
+  const refEth = useRef(library);
+  const [provider, setProvider] = useState(library || simpleRpcProvider);
 
   useEffect(() => {
     if (library !== refEth.current) {
-      setProvider(library || simpleRpcProvider)
-      refEth.current = library
+      setProvider(library || simpleRpcProvider);
+      refEth.current = library;
     }
-  }, [library])
+  }, [library]);
 
-  return { library: provider, chainId: chainId ?? parseInt(NETWORK_CHAIN_ID, 10), ...web3React }
-}
+  return {
+    library: provider,
+    chainId: chainId ?? 56,
+    ...web3React,
+  };
+};
 
-export default useActiveWeb3React
+export default useActiveWeb3React;

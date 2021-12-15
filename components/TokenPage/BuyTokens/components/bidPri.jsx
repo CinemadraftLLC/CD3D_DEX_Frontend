@@ -11,7 +11,7 @@ const BidPri = (props) => {
       </label>
       <div className={styles.bidPriceInput}>
         <input type="number" disabled placeholder="0" value={bidPrice ?? 0} />
-        <Typography variant="subtitle2" gutterBottom component="div">
+        <Typography variant="subtitle2" gutterBottom component="p">
           BUSD/CD3D
         </Typography>
       </div>
