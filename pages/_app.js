@@ -2,7 +2,6 @@ import {Provider} from 'react-redux'
 import {Web3ReactProvider} from "@web3-react/core";
 import {Web3Provider} from "@ethersproject/providers";
 import Web3ReactManager from "../Web3Manager/Web3Manager";
-// import { Toaster } from "react-hot-toast";
 import ApplicationUpdater from '../state/application/updater'
 import ListsUpdater from '../state/lists/updater'
 import MulticallUpdater from '../state/multicall/updater'
@@ -16,7 +15,6 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 import React from "react";
 import {RefreshContextProvider} from "../contexts/RefreshContext";
-import {SnackbarProvider} from "notistack";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
