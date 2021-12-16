@@ -450,13 +450,20 @@ export const socialData = [
     link: 'https://cinemadraft.medium.com/',
     external: true,
   },
-
   {
     id: 5,
     title: 'YOUTUBE',
     // subTitle: "Lorem Ipsum is a dummy text",
     img: Blog,
     link: 'https://www.youtube.com/channel/UCVWe8ieGq3K_OWP_H7C-69w',
+    external: true,
+  },
+  {
+    id: 5,
+    title: 'STORE',
+    // subTitle: "Lorem Ipsum is a dummy text",
+    img: Blog,
+    link: 'https://cinemadraft.myspreadshop.com/cd3d+transparency+white?idea=5f812172f937643293df2058',
     external: true,
   },
 ];
@@ -515,8 +522,8 @@ export const moreData = [
     id: 8,
     title: 'FAQ',
     subTitle: '',
-    external: false,
-    link: '/#FAQ',
+    external: true,
+    link: 'https://cinemadraft.medium.com/frequently-asked-questions-answered-of-the-cd3d-token-project-ca10158c837',
   },
 ];
 
