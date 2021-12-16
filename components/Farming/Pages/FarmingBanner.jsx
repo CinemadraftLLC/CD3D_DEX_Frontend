@@ -8,7 +8,7 @@ const FarmingBanner = (props) => {
     const [search, setSearch] = useState("");
     const handleSubmit = (e) => {
         e.preventDefault();
-        search && onSearch(search);
+        onSearch(search);
     }
     return (
         <div className={styles.bannerContainer}>

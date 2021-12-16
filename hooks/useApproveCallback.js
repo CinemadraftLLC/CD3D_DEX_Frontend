@@ -1,5 +1,5 @@
 import { MaxUint256 } from '@ethersproject/constants'
-import { TokenAmount, ETHER } from 'cd3d-dex-libs-sdk'
+import {TokenAmount, ETHER, ChainId, CurrencyAmount, WETH} from 'cd3d-dex-libs-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESS, Field } from '../constants'
 import { useTokenAllowance } from '../data/Allowances'
@@ -8,6 +8,8 @@ import { computeSlippageAdjustedAmounts } from '../utils/prices'
 import { calculateGasMargin } from '../utils'
 import { useTokenContract } from './useContract'
 import useActiveWeb3React from "./useActiveWeb3React";
+import {NETWORK_CHAIN_ID} from "../connectors";
+import tokens from "../constants/tokens";
 
 export const ApprovalState = {
     UNKNOWN: 0,
@@ -22,14 +24,14 @@ export function useApproveCallback(
     spender
 ) {
     const { account } = useActiveWeb3React()
-    const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : undefined
+    const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : ( amountToApprove instanceof CurrencyAmount && NETWORK_CHAIN_ID === ChainId.TESTNET ? WETH[ChainId.TESTNET]: undefined)
     const currentAllowance = useTokenAllowance(token, account ?? undefined, spender)
     const pendingApproval = useHasPendingApproval(token?.address, spender)
 
     // check the current approval status
     const approvalState = useMemo(() => {
         if (!amountToApprove || !spender) return ApprovalState.UNKNOWN
-        if (amountToApprove.currency === ETHER) return ApprovalState.APPROVED
+        if (amountToApprove.currency === ETHER && NETWORK_CHAIN_ID === ChainId.MAINNET) return ApprovalState.APPROVED
         // we might not have enough data to know whether or not we need to approve
         if (!currentAllowance) return ApprovalState.UNKNOWN
 

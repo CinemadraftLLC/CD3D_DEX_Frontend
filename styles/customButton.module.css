@@ -1,5 +1,6 @@
 .btn {
   margin-top: 10px;
+  width: 100%;
 }
 
 .btn > button {

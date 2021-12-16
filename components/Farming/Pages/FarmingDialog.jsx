@@ -14,6 +14,7 @@ import {getInterestBreakdown} from "../../../utils/compoundApyHelpers";
 import {fetchFarmUserDataAsync} from "../../../state/farms";
 import useStakeFarms from "../hooks/useStakeFarms";
 import FarmingDialogInput from "./FarmingDailogInput";
+import {showToast} from "../../../utils/toast";
 
 const FarmingDialog = (props) => {
     const {show, account, onDismiss, loading, onConfirm, params} = props;
@@ -49,14 +50,15 @@ const FarmingDialog = (props) => {
         setPendingTx(true)
         try {
             await onStake(input)
-            dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }))
-            //toastSuccess(t('Staked!'), t('Your funds have been staked in the farm'))
-            onDismiss()
+            dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
+            showToast("success", "Staked!", "Your funds have been staked in the farm.");
+            onDismiss();
         } catch (e) {
-            // toastError(
-            //     t('Error'),
-            //     t('Please try again. Confirm the transaction and make sure you are paying enough gas!'),
-            // )
+            showToast(
+                "error",
+                "Error",
+                "Please try again. Confirm the transaction and make sure you are paying enough gas!"
+            );
             console.error(e)
         } finally {
             setPendingTx(false)

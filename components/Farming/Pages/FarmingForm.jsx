@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import styles from "../../../styles/farming.module.css";
-import {Box, Grid} from "@mui/material";
+import {Box, Container, Grid} from "@mui/material";
 import FarmingItem from "./FarmingItem";
 import {useWeb3React} from "@web3-react/core";
 import {useFarms, usePollFarmsWithUserData, usePriceCd3dBusd} from "../../../state/farms/hooks";
@@ -9,6 +9,8 @@ import { getFarmApr } from '../../../utils/apr'
 import { latinise } from '../../../utils/latinise'
 import {NETWORK_CHAIN_ID} from "../../../connectors";
 import FarmingDialog from "./FarmingDialog";
+import FarmingBanner from "./FarmingBanner";
+import Image from "next/image";
 
 
 const getDisplayApr = (cd3dRewardsApr, lpRewardsApr) => {
@@ -21,15 +23,15 @@ const getDisplayApr = (cd3dRewardsApr, lpRewardsApr) => {
     return null
 }
 
-const FarmingForm = ({queryAddress}) => {
+const FarmingForm = () => {
     const [{ showModal, stakeParams }, setFarmingState] = useState({
         showModal: false,
         stakeParams: {}
     });
-    const [query, setQuery] = useState('');
 
     const { account } = useWeb3React();
     const cd3dPrice = usePriceCd3dBusd();
+    const [query, setQuery] = useState('');
 
     const isActive = true;
     const isArchived = false;
@@ -53,7 +55,7 @@ const FarmingForm = ({queryAddress}) => {
             if (query) {
                 const lowercaseQuery = latinise(query.toLowerCase())
                 farmsToDisplayWithAPR = farmsToDisplayWithAPR.filter((farm) => {
-                    return latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery)
+                    return latinise(farm.lpSymbol.toLowerCase()).includes(lowercaseQuery) || farm.lpAddresses[NETWORK_CHAIN_ID] === query
                 })
             }
             return farmsToDisplayWithAPR
@@ -62,38 +64,51 @@ const FarmingForm = ({queryAddress}) => {
     )
 
     const { data: farmsLP, userDataLoaded } = useFarms();
-    const farms = farmsList(farmsLP);
+    const archivedFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.multiplier !== '0X');
+    const farms = farmsList(archivedFarms);
 
     const onDismiss = () => {
         setFarmingState(prevState => ({...prevState, showModal: false, stakeParams: {}}));
     }
 
-    console.log('farms', farms, cd3dPrice);
+    let totalLiquidity = new BigNumber(0);
+    farms.forEach(farm => totalLiquidity = totalLiquidity.plus(farm.liquidity));
+
+    console.log('farms', farms, cd3dPrice, totalLiquidity);
 
     return (
-        <Box className={styles.farmingFormContainer}>
-            <Grid container className={styles.form_wrapper}>
-                {
-                    farms.map(farm =>
-                        <Grid key={farm.pid} item xs={12} sm={12} md={6} xl={4} >
-                            <FarmingItem
-                                farm={farm}
-                                displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
-                                onStack={(params) => setFarmingState(prevState => ({...prevState, showModal: true, stakeParams: params}))}
-                                cd3dPrice={cd3dPrice}
-                                account={account}
-                            />
-                        </Grid>
-                    )
-                }
-            </Grid>
-            <FarmingDialog
-                params={stakeParams}
-                account={account}
-                show={showModal}
-                onDismiss={onDismiss}
+        <div className={styles.container}>
+            <div className={styles.bannerImg}>
+                <Image src={'/assets/images/tech.png'} alt={''} height={'450px'} width={'550px'} objectFit={"contain"}/>
+            </div>
+            <FarmingBanner
+                total={totalLiquidity.toNumber()}
+                onSearch={(address) => setQuery(address)}
             />
-        </Box>
+            <Box className={styles.farmingFormContainer}>
+                <Grid container className={styles.form_wrapper}>
+                    {
+                        farms.map(farm =>
+                            <Grid key={farm.pid} item xs={12} sm={12} md={6} xl={4} >
+                                <FarmingItem
+                                    farm={farm}
+                                    displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
+                                    onStack={(params) => setFarmingState(prevState => ({...prevState, showModal: true, stakeParams: params}))}
+                                    cd3dPrice={cd3dPrice}
+                                    account={account}
+                                />
+                            </Grid>
+                        )
+                    }
+                </Grid>
+                <FarmingDialog
+                    params={stakeParams}
+                    account={account}
+                    show={showModal}
+                    onDismiss={onDismiss}
+                />
+            </Box>
+        </div>
     );
 }
 

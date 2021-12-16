@@ -156,7 +156,7 @@ function LiquiditySwap() {
                     console.log('response', response);
                     setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash}));
 
-                    onFieldAInput('');
+                    onFieldAInput({target: {value: ''}});
                     addTransaction(response, {
                         summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
                             currencies[Field.CURRENCY_A]?.symbol
@@ -316,14 +316,43 @@ function LiquiditySwap() {
                         <ConnectButton/>
                         :
                         // TODO Approve tokens
-                        <CustomContainedButton
-                            btnTitle={error ?? 'Supply'}
-                            disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
-                            customStyles={{
-                                color: 'white',
-                            }}
-                            onClick={() => setShowConfirmModal(true)}
-                        />
+                        <>
+                            {
+                                !error && (approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) &&
+                                <div className={styles.btns}>
+                                    {
+                                        (approvalA !== ApprovalState.APPROVED) &&
+                                        <CustomContainedButton
+                                            btnTitle={(approvalA === ApprovalState.PENDING?'Enabling':'Enable ') + currencies[Field.CURRENCY_A]?.symbol}
+                                            disabled={approvalA === ApprovalState.PENDING}
+                                            customStyles={{
+                                                color: 'white',
+                                            }}
+                                            onClick={approveACallback}
+                                        />
+                                    }
+                                    {
+                                        (approvalB !== ApprovalState.APPROVED) &&
+                                        <CustomContainedButton
+                                            btnTitle={(approvalB === ApprovalState.PENDING?'Enabling':'Enable ') + currencies[Field.CURRENCY_B]?.symbol}
+                                            disabled={approvalB === ApprovalState.PENDING}
+                                            customStyles={{
+                                                color: 'white',
+                                            }}
+                                            onClick={approveBCallback}
+                                        />
+                                    }
+                                </div>
+                            }
+                            <CustomContainedButton
+                                btnTitle={error ?? 'Supply'}
+                                disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
+                                customStyles={{
+                                    color: 'white',
+                                }}
+                                onClick={() => setShowConfirmModal(true)}
+                            />
+                        </>
                 }
             <TokenSelect
                 label={tokenSelect === Field.CURRENCY_A ? 'Token A' : 'Token B'}
