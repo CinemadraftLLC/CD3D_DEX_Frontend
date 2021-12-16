@@ -527,7 +527,7 @@ export const marketPlaceData = [
     subTitle: 'Exchange tokens',
     img: Twitter,
     external: false,
-    link: '/swap/buy',
+    link: '',
   },
   {
     id: 2,
@@ -535,7 +535,7 @@ export const marketPlaceData = [
     subTitle: 'Provide tokens',
     img: Discord,
     external: false,
-    link: '/liquidity',
+    link: '',
   },
   {
     id: 3,
@@ -551,7 +551,7 @@ export const marketPlaceData = [
     subTitle: 'Buy launch tokens',
     img: Blog,
     external: false,
-    link: '/Token',
+    link: '',
   },
   {
     id: 4,
