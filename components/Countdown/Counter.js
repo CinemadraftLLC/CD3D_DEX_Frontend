@@ -2,10 +2,10 @@ import Countdown from "react-countdown";
 import { renderer } from "./CounterRander";
 import styles from "../../styles/counter.module.css";
 import {
-  newRenderer,
-  newOneRenderer,
-  newSecondRenderer,
-  newThirdRenderer,
+    newRenderer,
+    newOneRenderer,
+    newSecondRenderer,
+    newThirdRenderer, newFourthRenderer,
 } from "./NewCounterRander";
 
 export default function Counter({ hours, minutes, seconds }) {
@@ -54,5 +54,15 @@ export const FourthCounter = ({ hours, minutes, seconds }) => {
     <div className={styles.timeOuter2}>
       <Countdown date={myDateObj} renderer={newThirdRenderer} />
     </div>
+  );
+};
+
+export const FiveCounter = ({ hours, minutes, seconds }) => {
+  let myDateObj = new Date("Dec 15, 2021 17:00:00:000 GMT");
+
+  return (
+      <div className={styles.timeOuter2}>
+        <Countdown date={myDateObj} renderer={newFourthRenderer} />
+      </div>
   );
 };
