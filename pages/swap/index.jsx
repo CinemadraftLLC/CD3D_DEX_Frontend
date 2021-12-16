@@ -318,7 +318,7 @@ const Swap = () => {
                                 onClose={() => setTokenSelect(0)}
                                 onSelect={tokenChangeHandler}
                                 tokenList={SWAP_TOKEN_LIST}
-                                disabledTokens={tokenSelect === Field.CURRENCY_A ? [receiveToken] : [payToken]}
+                                disabledTokens={tokenSelect === Field.CURRENCY_A ? [receiveToken.symbol] : [payToken.symbol]}
                             />
                             <LiquiditySubmittingTxDialog
                                 show={attemptingTxn || !!txHash || !!swapErrorMessage}
