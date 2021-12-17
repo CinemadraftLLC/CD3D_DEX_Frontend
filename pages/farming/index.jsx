@@ -1,6 +1,4 @@
-import React, {useState} from "react";
-import styles from "../../styles/farming.module.css";
-import Image from "next/image";
+import React from "react";
 import FarmingForm from "../../components/Farming/Pages/FarmingForm";
 import ClearFix from "../../components/ClearFix/ClearFix";
 import {Container} from "@mui/material";

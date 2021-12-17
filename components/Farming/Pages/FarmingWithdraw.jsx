@@ -12,23 +12,23 @@ import BigNumber from "bignumber.js";
 import {useLpTokenPrice} from "../../../state/farms/hooks";
 import {getInterestBreakdown} from "../../../utils/compoundApyHelpers";
 import {fetchFarmUserDataAsync} from "../../../state/farms";
-import useStakeFarms from "../hooks/useStakeFarms";
 import FarmingDialogInput from "./FarmingDailogInput";
 import {showToast} from "../../../utils/toast";
+import useUnstakeFarms from "../hooks/useUnstakeFarms";
 
-const FarmingDialog = (props) => {
+const FarmingWithdraw = (props) => {
     const {show, account, onDismiss, loading, onConfirm, params} = props;
     if(!params.pid){
         return null;
     }
-    const {type, pid, max, stakedBalance, tokenName, multiplier, apr, displayApr, addLiquidityUrl, cd3dPrice} = params;
+    const {pid, max, stakedBalance, tokenName, multiplier, apr, displayApr, addLiquidityUrl, cd3dPrice} = params;
     const [input, setInput] = useState("");
     const [pendingTx, setPendingTx] = useState(false)
     const fullBalance = useMemo(() => {
         return getFullDisplayBalance(max)
     }, [max])
 
-    const { onStake } = useStakeFarms(pid)
+    const { onUnstake } = useUnstakeFarms(pid)
     const lpTokensToStake = new BigNumber(input)
     const fullBalanceNumber = new BigNumber(fullBalance)
     const lpPrice = useLpTokenPrice(tokenName)
@@ -51,7 +51,7 @@ const FarmingDialog = (props) => {
     const onSubmit = async () => {
         setPendingTx(true)
         try {
-            await onStake(input)
+            await onUnstake(input)
             dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
             showToast("success", "Staked!", "Your funds have been staked in the farm.");
             onDismiss();
@@ -88,7 +88,7 @@ const FarmingDialog = (props) => {
             }}
         >
             <div className={styles.DialogContainer}>
-                <Typography className={styles.DialogTitle} variant="subtitle2">{tokenName} Farming</Typography>
+                <Typography className={styles.DialogTitle} variant="subtitle2">Unstake {tokenName}</Typography>
                 <FontAwesomeIcon icon={faTimes} className={styles.DialogClose} onClick={onDismiss}/>
                 <div className={styles.DialogInfoContainer}>
                     <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={50}/>
@@ -136,7 +136,7 @@ const FarmingDialog = (props) => {
                         onClick={onSubmit}
                         fullWidth={true}
                     >
-                        {pendingTx ? 'Stacking' : 'Stack'}
+                        {pendingTx ? 'Confirming' : 'Confirm'}
                     </Button>
                     <Typography className={styles.link} variant="subtitle2">
                         <a href={addLiquidityUrl} target='_blank'>
@@ -148,4 +148,4 @@ const FarmingDialog = (props) => {
         </Modal>
     );
 }
-export default FarmingDialog;
+export default FarmingWithdraw;

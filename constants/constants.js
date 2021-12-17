@@ -13,10 +13,8 @@ export const Addresses = {
   // },
   busd: {
     56: "0xe9e7cea3dedca5984780bafc599bd69add087d56",
-  },
-  // busd: {
-  //   56: "0x414FA976F7E0AD63e80B93cee4CF7E6cE6Aa8704",
-  // },
+    97: "0x78867BbEeF44f2326bF8DDd1941a4439382EF2A7"
+  }
 };
 
 export const TokenToBeAuctioned = 20000000;

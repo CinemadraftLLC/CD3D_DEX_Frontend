@@ -11,6 +11,7 @@ import {NETWORK_CHAIN_ID} from "../../../connectors";
 import FarmingDialog from "./FarmingDialog";
 import FarmingBanner from "./FarmingBanner";
 import Image from "next/image";
+import FarmingWithdraw from "./FarmingWithdraw";
 
 
 const getDisplayApr = (cd3dRewardsApr, lpRewardsApr) => {
@@ -24,9 +25,11 @@ const getDisplayApr = (cd3dRewardsApr, lpRewardsApr) => {
 }
 
 const FarmingForm = () => {
-    const [{ showModal, stakeParams }, setFarmingState] = useState({
+    const [{ showModal, stakeParams, showWithdrawModal, unStakeParams }, setFarmingState] = useState({
         showModal: false,
-        stakeParams: {}
+        showWithdrawModal: false,
+        stakeParams: {},
+        unStakeParams: {}
     });
 
     const { account } = useWeb3React();
@@ -67,10 +70,6 @@ const FarmingForm = () => {
     const archivedFarms = farmsLP.filter((farm) => farm.pid !== 0 && farm.multiplier !== '0X');
     const farms = farmsList(archivedFarms);
 
-    const onDismiss = () => {
-        setFarmingState(prevState => ({...prevState, showModal: false, stakeParams: {}}));
-    }
-
     let totalLiquidity = new BigNumber(0);
     farms.forEach(farm => totalLiquidity = totalLiquidity.plus(farm.liquidity));
 
@@ -94,6 +93,7 @@ const FarmingForm = () => {
                                     farm={farm}
                                     displayApr={getDisplayApr(farm.apr, farm.lpRewardsApr)}
                                     onStack={(params) => setFarmingState(prevState => ({...prevState, showModal: true, stakeParams: params}))}
+                                    onUnstack={(params) => setFarmingState(prevState => ({...prevState, showWithdrawModal: true, unStakeParams: params}))}
                                     cd3dPrice={cd3dPrice}
                                     account={account}
                                 />
@@ -105,7 +105,13 @@ const FarmingForm = () => {
                     params={stakeParams}
                     account={account}
                     show={showModal}
-                    onDismiss={onDismiss}
+                    onDismiss={() =>  setFarmingState(prevState => ({...prevState, showModal: false, stakeParams: {}}))}
+                />
+                <FarmingWithdraw
+                    params={unStakeParams}
+                    account={account}
+                    show={showWithdrawModal}
+                    onDismiss={() =>  setFarmingState(prevState => ({...prevState, showWithdrawModal: false, unStakeParams: {}}))}
                 />
             </Box>
         </div>

@@ -19,7 +19,7 @@ import {BIG_ZERO} from "../../../utils/bigNumber";
 import styles from "../../../styles/farming.module.css";
 
 
-const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack}) => {
+const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack, onUnstack}) => {
     const { pid, lpTokenBalanceMC } = farm
     const { allowance, tokenBalance, stakedBalance, earnings } = farm.userData || {}
     const [requestedApproval, setRequestedApproval] = useState(false)
@@ -62,8 +62,6 @@ const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack}) => {
         }
     }, [onApprove, dispatch, account, pid])
 
-    const onClaim = () => {}
-
     let actionWidget;
     if (!isApproved) {
 
@@ -91,7 +89,7 @@ const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack}) => {
     } else {
         actionWidget = (
             <div className={styles.form_row}>
-                <Button variant="contained" onClick={() => onClaim()} fullWidth={true} size={'large'} className={styles.outlined}>
+                <Button variant="contained" onClick={() => onUnstack({pid, max: stakedBalance, stakedBalance, tokenName: farm.lpSymbol, multiplier: farm.multiplier, apr: farm.apr, displayApr, addLiquidityUrl, cd3dPrice})} fullWidth={true} size={'large'} className={styles.outlined}>
                     Claim CD3D
                 </Button>
                 <div style={{width: "20px"}}/>
