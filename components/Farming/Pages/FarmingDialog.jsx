@@ -15,13 +15,16 @@ import {fetchFarmUserDataAsync} from "../../../state/farms";
 import useStakeFarms from "../hooks/useStakeFarms";
 import FarmingDialogInput from "./FarmingDailogInput";
 import {showToast} from "../../../utils/toast";
+import {useAppDispatch} from "../../../state";
 
 const FarmingDialog = (props) => {
+    const dispatch = useAppDispatch();
     const {show, account, onDismiss, loading, onConfirm, params} = props;
     if(!params.pid){
         return null;
     }
     const {type, pid, max, stakedBalance, tokenName, multiplier, apr, displayApr, addLiquidityUrl, cd3dPrice} = params;
+
     const [input, setInput] = useState("");
     const [pendingTx, setPendingTx] = useState(false)
     const fullBalance = useMemo(() => {
@@ -40,8 +43,8 @@ const FarmingDialog = (props) => {
         earningTokenPrice: cd3dPrice.toNumber(),
     })
 
-    console.log('ROI', cd3dPrice, interestBreakdown, lpTokensToStake, usdToStake, apr);
-    const annualRoi = cd3dPrice.times(interestBreakdown[3])
+    const annualRoi = cd3dPrice.times(isNaN(interestBreakdown[3])?0:interestBreakdown[3])
+    console.log('ROI', interestBreakdown[3], cd3dPrice, interestBreakdown, lpTokensToStake, usdToStake, apr, annualRoi);
     const formattedAnnualRoi = formatNumber(
         annualRoi.toNumber(),
         annualRoi.gt(10000) ? 0 : 2,

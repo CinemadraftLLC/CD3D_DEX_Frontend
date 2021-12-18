@@ -20,9 +20,27 @@
     top: 24px;
 }
 
+.DialogContainer .SubmittingContainer {
+    text-align: center;
+    height: 110px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
 .DialogContainer .Submitting {
     font-size: 64px;
     color: #1D9756;
+    animation: MoveUpDown 1s linear infinite;
+}
+
+@keyframes MoveUpDown {
+    0%, 100% {
+        margin-bottom: 0;
+    }
+    80% {
+        margin-bottom: 48px;
+    }
 }
 
 .DialogContainer .DialogTitle {

@@ -57,7 +57,7 @@ const LiquiditySubmittingTxDialog = (props) => {
                             txHash?
                             <Image src={Transaction_check} alt={''} height={60} width={60} />
                                 :
-                            <div style={{textAlign: 'center'}}>
+                            <div className={`${styles.SubmittingContainer}`}>
                                 <FontAwesomeIcon icon={faArrowUp} className={styles.Submitting} onClick={() => onClose()}/>
                             </div>
                         }

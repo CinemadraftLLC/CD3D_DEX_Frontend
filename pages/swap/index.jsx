@@ -31,6 +31,8 @@ import {useFarmFromTokenSymbols, usePollFarmsPublicData} from "../../state/farms
 import {BIG_ZERO} from "../../utils/bigNumber";
 import {showToast} from "../../utils/toast";
 import styles from "../../styles/Dialog.module.css";
+import {wrappedCurrency} from "../../utils/wrappedCurrency";
+import {NETWORK_CHAIN_ID} from "../../connectors";
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -126,8 +128,8 @@ const Swap = () => {
     const [allowedSlippage] = useUserSlippageTolerance();
 
     // Token Price
-    const farm = useFarmFromTokenSymbols(payToken.symbol, receiveToken.symbol);
-    const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payToken.symbol?farm.tokenPriceBusd:farm.quoteTokenPriceBusd) : BIG_ZERO;
+    const farm = useFarmFromTokenSymbols(wrappedCurrency(payCurrency, NETWORK_CHAIN_ID)?.symbol, wrappedCurrency(receiveCurrency, NETWORK_CHAIN_ID)?.symbol);
+    const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payCurrency.symbol?farm.tokenPriceBusd:farm.quoteTokenPriceBusd) : BIG_ZERO;
     const payAmount = formattedAmounts[Field.CURRENCY_A] > 0? (payTokenPrice.times(new BigNumber(formattedAmounts[Field.CURRENCY_A]))).toNumber() : 0;
 
     console.log('farm', farm, payTokenPrice);
@@ -213,6 +215,8 @@ const Swap = () => {
     const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
     const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
 
+    const submitButtonLabel = (payToken.symbol === 'CD3D')?'Sell CD3D':(receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
+
     return (
         <Container maxWidth={"xl"}>
             <Stack mt={{xs: 2, sm: 2, md: 3, lg: 5}}>
@@ -232,7 +236,7 @@ const Swap = () => {
                                         helperText={
                                             <Stack component={"span"} direction={"row"} justifyContent={"space-between"}>
                                                 <Typography component={'span'} variant={"body2"}>Approx. ${payAmount.toFixed(2)}</Typography>
-                                                <Typography component={'span'} variant={"body2"}>Min. Buy ${MIN_SWAP_PRICE.toFixed(2)}</Typography>
+                                                {/*<Typography component={'span'} variant={"body2"}>Min. Buy ${MIN_SWAP_PRICE.toFixed(2)}</Typography>*/}
                                             </Stack>
                                         }
                                         InputProps={{
@@ -304,7 +308,7 @@ const Swap = () => {
                                         // TODO Approve tokens
                                         :
                                         <FormSubmitBtn
-                                            label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : 'Sell CD3D')}
+                                            label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : submitButtonLabel)}
                                             disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError}
                                             loading={attemptingTxn}
                                             onSubmit={onSwap}

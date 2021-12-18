@@ -29,6 +29,9 @@ import FormAdvancedTextField from "../Form/FormAdvancedTextField";
 import SwapEndAdornment from "../Swap/SwapEndAdornment";
 import ClearFix from "../ClearFix/ClearFix";
 import {showToast} from "../../utils/toast";
+import { BigNumber } from '@ethersproject/bignumber'
+import {ETHER} from "cd3d-dex-libs-sdk";
+import useTransactionDeadline from "../../hooks/useTransactionDeadline";
 
 const LiquidityContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -95,7 +98,7 @@ function LiquiditySwap() {
     const addTransaction = useTransactionAdder()
 
     // txn values
-    const [deadline] = useUserDeadline() // custom from users settings
+    const deadline = useTransactionDeadline() // custom from users settings
     const [allowedSlippage] = useUserSlippageTolerance() // custom from users
 
     // get formatted amounts
@@ -131,18 +134,33 @@ function LiquiditySwap() {
         let args
         let value = null;
 
-        estimate = router.estimateGas.addLiquidity
-        method = router.addLiquidity
-        args = [
-            wrappedCurrency(currencyA, chainId)?.address ?? '',
-            wrappedCurrency(currencyB, chainId)?.address ?? '',
-            parsedAmountA.raw.toString(),
-            parsedAmountB.raw.toString(),
-            amountsMin[Field.CURRENCY_A].toString(),
-            amountsMin[Field.CURRENCY_B].toString(),
-            account,
-            deadlineFromNow,
-        ]
+        if (currencyA === ETHER || currencyB === ETHER) {
+            const tokenBIsETH = currencyB === ETHER
+            estimate = router.estimateGas.addLiquidityETH
+            method = router.addLiquidityETH
+            args = [
+                wrappedCurrency(tokenBIsETH ? currencyA : currencyB, chainId)?.address ?? '', // token
+                (tokenBIsETH ? parsedAmountA : parsedAmountB).raw.toString(), // token desired
+                amountsMin[tokenBIsETH ? Field.CURRENCY_A : Field.CURRENCY_B].toString(), // token min
+                amountsMin[tokenBIsETH ? Field.CURRENCY_B : Field.CURRENCY_A].toString(), // eth min
+                account,
+                deadline.toHexString(),
+            ]
+            value = BigNumber.from((tokenBIsETH ? parsedAmountB : parsedAmountA).raw.toString())
+        } else {
+            estimate = router.estimateGas.addLiquidity
+            method = router.addLiquidity
+            args = [
+                wrappedCurrency(currencyA, chainId)?.address ?? '',
+                wrappedCurrency(currencyB, chainId)?.address ?? '',
+                parsedAmountA.raw.toString(),
+                parsedAmountB.raw.toString(),
+                amountsMin[Field.CURRENCY_A].toString(),
+                amountsMin[Field.CURRENCY_B].toString(),
+                account,
+                deadlineFromNow,
+            ]
+        }
 
         setLiquidityState(prevState => ({...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined}));
         // const aa = await estimate(...args, value ? { value } : {})
@@ -152,8 +170,9 @@ function LiquiditySwap() {
                 method(...args, {
                     ...(value ? {value} : {}),
                     gasLimit: calculateGasMargin(estimatedGasLimit),
-                }).then((response) => {
+                }).then(async (response) => {
                     console.log('response', response);
+                    await response.wait();
                     setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash}));
 
                     onFieldAInput({target: {value: ''}});

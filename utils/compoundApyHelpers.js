@@ -43,8 +43,7 @@ export const getInterestBreakdown = ({
                 interestEarned -= performanceFeeAsAmount
             }
         }
-        const r = parseFloat(interestEarned.toFixed(roundingDecimalsNew))
-        return r;
+        return parseFloat(interestEarned.toFixed(roundingDecimalsNew));
     })
     return results
 }

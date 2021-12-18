@@ -95,6 +95,7 @@ export function useApproveCallback(
             })
     }, [approvalState, token, tokenContract, amountToApprove, spender, addTransaction])
 
+    console.log('approve', token, approvalState);
     return [approvalState, approve]
 }
 

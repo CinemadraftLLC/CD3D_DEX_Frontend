@@ -104,7 +104,7 @@ export function useToken(tokenAddress) {
 }
 
 export function useCurrency(currencyId) {
-    const isBNB = currencyId?.toUpperCase() === 'BNB'
+    const isBNB = currencyId?.toUpperCase() === 'BNB';
     const token = useToken(isBNB ? undefined : currencyId)
     return isBNB ? ETHER : token
 }

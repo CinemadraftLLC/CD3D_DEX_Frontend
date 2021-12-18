@@ -9,6 +9,8 @@ import { farmsConfig } from '../../constants'
 import { fetchFarmsPublicDataAsync, fetchFarmUserDataAsync, nonArchivedFarms } from '.'
 import {deserializeToken} from "../../utils/tokenHelpers";
 import useRefresh from "../../hooks/useRefresh";
+import {NETWORK_CHAIN_ID} from "../../connectors";
+import {ChainId} from "cd3d-dex-libs-sdk";
 
 const deserializeFarmUserData = (farm) => {
     return {
@@ -108,6 +110,7 @@ export const useFarmFromLpSymbol = (lpSymbol) => {
 }
 
 export const useFarmFromTokenSymbols = (symbol1, symbol2) => {
+    console.log('farm', symbol1, symbol2);
     const farm = useSelector((state) =>
         state.farms.data.find((f) => (f.token.symbol === symbol1 && f.quoteToken.symbol === symbol2) || (f.token.symbol === symbol2 && f.quoteToken.symbol === symbol1)))
     if(!farm) return undefined;
