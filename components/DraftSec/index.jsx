@@ -45,7 +45,7 @@ const DraftSec = () => {
 
         <div className={styles.grid}>
           {DexSecData.map((item, index) => (
-            <>
+            <div key={index}>
               <div
                 style={{
                   maxWidth: 300,
@@ -61,7 +61,7 @@ const DraftSec = () => {
               <div className={styles.divider}>
                 {index !== 2 && <CustomDivider orientation="vertical" />}
               </div>
-            </>
+            </div>
           ))}
         </div>
         <a

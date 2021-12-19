@@ -21,6 +21,8 @@ const HeaderMenuLink = styled(Button)({
     color: "#EAFBF3",
     fontSize: "13px",
     letterSpacing: "2.21px",
+    marginRight: "20px",
+    marginLeft: "20px",
     '&:hover': {
         backgroundColor: "transparent",
         color: "#A0EDC4",
@@ -94,9 +96,7 @@ const Header = (props) => {
     return (
         <AppBar position="fixed" className={styles.menuBG}>
             <Toolbar>
-                <Link href={"/"}>
-                    <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"}/>
-                </Link>
+                <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"}/>
                 <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{flexGrow: 1, marginLeft: "50px", display: {xs: 'none', sm: 'none', md: 'flex'}}}>
                     <Box sx={{flexGrow: 1}}>
                         <HeaderMenuLink

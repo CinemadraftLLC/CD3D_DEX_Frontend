@@ -3,9 +3,34 @@ import {Typography} from "@material-ui/core";
 import Image from "next/image";
 import useTotalSupply from "../../data/TotalSupply";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
-import styles from "../../styles/liquidity2.module.css";
 import {JSBI, Percent} from "cd3d-dex-libs-sdk";
 import {useTokenBalance} from "../../state/wallet/hooks";
+import {styled} from "@mui/material/styles";
+import {Stack} from "@mui/material";
+import ClearFix from "../ClearFix/ClearFix";
+
+const LiquidityPositionContainer = styled(Stack)({
+    backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    width: "100%",
+    borderRadius: '15px',
+    padding: '20px',
+    marginTop: "20px",
+    backdropFilter: "blur(30px)",
+    position: "relative",
+    overflow: "hidden",
+
+    '& .MuiTypography-subtitle1': {
+        color: "#2BD67B",
+        textAlign: "left",
+        fontSize: "14px",
+    },
+
+    '& .MuiTypography-subtitle2': {
+        color: "#EAFBF3",
+        textAlign: "left",
+        fontSize: "14px",
+    },
+});
 
 export function MinimalPositionCard ({pair}) {
     const { account } = useActiveWeb3React()
@@ -34,49 +59,46 @@ export function MinimalPositionCard ({pair}) {
             : [undefined, undefined]
 
     return (
-        <div className={styles.miniContainer}>
-            <div className={styles.title}>
-                <Typography variant='subtitle2' component={'p'}>
-                    LP tokens in your wallet
+        <LiquidityPositionContainer direction={"column"} spacing={2}>
+            <Typography variant='subtitle1' component={'span'}>
+                LP tokens in your wallet
+            </Typography>
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} spacing={1}>
+                    <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={40} objectFit={"contain"}/>
+                    <Typography variant='subtitle2' component={'span'}>
+                        {currency0.symbol} - {currency1.symbol} LP
+                    </Typography>
+                </Stack>
+                <Typography variant='subtitle2' component={'span'}>
+                    {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
                 </Typography>
-            </div>
-            <div className={styles.tokenStats}>
-                <div className={styles.statContainer}>
-                    <div className={styles.lpContainer}>
-                        <Image src={'/assets/busd-cd3d.png'} alt={''} height={40} width={50} />
-                        <Typography variant='subtitle2' component={'p'}>
-                            {currency0.symbol} - {currency1.symbol} LP
-                        </Typography>
-                    </div>
-                    <div className={styles.lpValues}>
-                        {userPoolBalance ? userPoolBalance.toSignificant(4) : '-'}
-                    </div>
-                </div>
-                <div className={styles.statContainer}>
-                    <div className={styles.lpContainer}>
-                        <Typography variant='subtitle2' component={'p'}>
-                            Share of Pool
-                        </Typography>
-                    </div>
-                    <div className={styles.lpValues}>{poolTokenPercentage ? `${poolTokenPercentage.toFixed(2)}%` : '-'}</div>
-                </div>
-                <div className={styles.statContainer}>
-                    <div className={styles.lpContainer}>
-                        <Typography variant='subtitle2' component={'p'}>
-                            Pooled {currency1.symbol}
-                        </Typography>
-                    </div>
-                    <div className={styles.lpValues}>{ token1Deposited ? token1Deposited?.toSignificant(6) : '-' }</div>
-                </div>
-                <div className={styles.statContainer}>
-                    <div className={styles.lpContainer}>
-                        <Typography variant='subtitle2' component={'p'}>
-                            Pooled {currency0.symbol}
-                        </Typography>
-                    </div>
-                    <div className={styles.lpValues}>{ token0Deposited ? token0Deposited?.toSignificant(6) : '-' }</div>
-                </div>
-            </div>
-        </div>
+            </Stack>
+
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Typography variant='subtitle2' component={'span'}>
+                    Share of Pool
+                </Typography>
+                <Typography variant='subtitle2' component={'span'}>
+                    {poolTokenPercentage ? `${poolTokenPercentage.toFixed(2)}%` : '-'}
+                </Typography>
+            </Stack>
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Typography variant='subtitle2' component={'span'}>
+                    Pooled {currency1.symbol}
+                </Typography>
+                <Typography variant='subtitle2' component={'span'}>
+                    { token1Deposited ? token1Deposited?.toSignificant(6) : '-' }
+                </Typography>
+            </Stack>
+            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                <Typography variant='subtitle2' component={'span'}>
+                    Pooled {currency0.symbol}
+                </Typography>
+                <Typography variant='subtitle2' component={'span'}>
+                    { token0Deposited ? token0Deposited?.toSignificant(6) : '-' }
+                </Typography>
+            </Stack>
+        </LiquidityPositionContainer>
     )
 }

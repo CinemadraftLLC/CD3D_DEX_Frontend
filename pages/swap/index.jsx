@@ -129,8 +129,8 @@ const Swap = () => {
 
     // Token Price
     const farm = useFarmFromTokenSymbols(wrappedCurrency(payCurrency, NETWORK_CHAIN_ID)?.symbol, wrappedCurrency(receiveCurrency, NETWORK_CHAIN_ID)?.symbol);
-    const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payCurrency.symbol?farm.tokenPriceBusd:farm.quoteTokenPriceBusd) : BIG_ZERO;
-    const payAmount = formattedAmounts[Field.CURRENCY_A] > 0? (payTokenPrice.times(new BigNumber(formattedAmounts[Field.CURRENCY_A]))).toNumber() : 0;
+    const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payCurrency.symbol ? farm.tokenPriceBusd : farm.quoteTokenPriceBusd) : BIG_ZERO;
+    const payAmount = formattedAmounts[Field.CURRENCY_A] > 0 ? (payTokenPrice.times(new BigNumber(formattedAmounts[Field.CURRENCY_A]))).toNumber() : 0;
 
     console.log('farm', farm, payTokenPrice);
 
@@ -194,11 +194,11 @@ const Swap = () => {
                 console.log('hash', hash);
                 setTypeValue('');
                 showToast("success", "Transaction Receipt", "Your transaction was succeed.",
-                            (<Link target={"_blank"} href={getBscScanLink(hash, 'transaction')}>
-                                <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
-                                    View on Binance
-                                </Typography>
-                        </Link>));
+                    (<Link target={"_blank"} href={getBscScanLink(hash, 'transaction')}>
+                        <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
+                            View on Binance
+                        </Typography>
+                    </Link>));
             })
             .catch((error) => {
                 showToast("error", "Transaction Failed", error.message);
@@ -214,17 +214,15 @@ const Swap = () => {
     // warnings on slippage
     const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
     const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
-
-    const submitButtonLabel = (payToken.symbol === 'CD3D')?'Sell CD3D':(receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
-
+    const submitButtonLabel = (payToken.symbol === 'CD3D') ? 'Sell CD3D' : (receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
     return (
         <Container maxWidth={"xl"}>
             <Stack mt={{xs: 2, sm: 2, md: 3, lg: 5}}>
                 <Grid container spacing={{xs: 2, md: 3}}>
-                    <Grid item xs={12} sm={12} md={12} xl={8}>
+                    <Grid item xs={12} sm={12} md={7} xl={8}>
                         <ChartContainer/>
                     </Grid>
-                    <Grid item xs={12} sm={12} md={12} xl={4}>
+                    <Grid item xs={12} sm={12} md={5} xl={4}>
                         <SwapContainer ref={swapContainerRef}>
                             <Box component={"form"} autoComplete={"off"} noValidate>
                                 <FormControl variant={"standard"} fullWidth={true}>
@@ -269,10 +267,10 @@ const Swap = () => {
                                             <Stack component={"span"} direction={"row"} justifyContent={"center"}>
                                                 <Typography component={'span'} variant={"body2"} style={{padding: 4}}>
                                                     {
-                                                        !isInvertPrice?
-                                                        `1 ${receiveToken?.symbol} = ${swapPrice?.toSignificant(6) ?? 0} ${payToken?.symbol}`
-                                                        :
-                                                        `1 ${payToken?.symbol} = ${swapPrice?.invert()?.toSignificant(6) ?? 0} ${receiveToken?.symbol}`
+                                                        !isInvertPrice ?
+                                                            `1 ${receiveToken?.symbol} = ${swapPrice?.toSignificant(6) ?? 0} ${payToken?.symbol}`
+                                                            :
+                                                            `1 ${payToken?.symbol} = ${swapPrice?.invert()?.toSignificant(6) ?? 0} ${receiveToken?.symbol}`
                                                     }
                                                 </Typography>
                                                 <IconButton color="primary" aria-label="Refresh" size={"small"} onClick={() => setIsInvertPrice(!isInvertPrice)}>

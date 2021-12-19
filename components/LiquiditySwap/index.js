@@ -5,8 +5,6 @@ import {useRouter} from "next/router";
 import {Link, Typography} from '@material-ui/core';
 import {styled} from "@mui/material/styles";
 
-import styles from '../../styles/liduidity.module.css';
-import CustomContainedButton from '../../components/CustomContainedButton';
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import ConnectButton from "../ConnectWalletButton";
 import currencyId, {useCurrency} from "../../hooks/Tokens";
@@ -29,18 +27,46 @@ import FormAdvancedTextField from "../Form/FormAdvancedTextField";
 import SwapEndAdornment from "../Swap/SwapEndAdornment";
 import ClearFix from "../ClearFix/ClearFix";
 import {showToast} from "../../utils/toast";
-import { BigNumber } from '@ethersproject/bignumber'
+import {BigNumber} from '@ethersproject/bignumber'
 import {ETHER} from "cd3d-dex-libs-sdk";
 import useTransactionDeadline from "../../hooks/useTransactionDeadline";
+import FormSubmitBtn from "../Form/FormSubmitBtn";
 
 const LiquidityContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
+    width: "100%",
     borderRadius: '15px',
     padding: '50px 10px',
     backdropFilter: "blur(30px)",
     position: "relative",
     overflow: "hidden",
-})
+});
+
+const LiquidityTitleBox = styled(Box)({
+    '& .MuiTypography-subtitle1': {
+        color: "#75E4AA",
+        textAlign: "left",
+        fontSize: "24px",
+    },
+
+    '& .MuiTypography-subtitle2': {
+        textAlign: "left",
+        fontSize: "14px",
+        color: "#BAC4D7",
+    }
+});
+
+const LiquidityInfoBox = styled(Box)({
+    '& .MuiTypography-subtitle1': {
+        color: "#FFFFFF",
+        fontSize: "14px",
+    },
+    '& .MuiTypography-subtitle2': {
+        color: "#BAC4D7",
+        fontSize: "12px",
+    }
+});
+
 
 function LiquiditySwap() {
     const router = useRouter()
@@ -59,8 +85,8 @@ function LiquiditySwap() {
         txHash: undefined,
     })
 
-    const currencyIdA = (addresses && addresses[0])?addresses[0]:'BNB';
-    const currencyIdB = (addresses && addresses[1])?addresses[1]:tokens.cd3d.address;
+    const currencyIdA = (addresses && addresses[0]) ? addresses[0] : 'BNB';
+    const currencyIdB = (addresses && addresses[1]) ? addresses[1] : tokens.cd3d.address;
 
     const currencyA = useCurrency(currencyIdA);
     const currencyB = useCurrency(currencyIdB);
@@ -184,7 +210,7 @@ function LiquiditySwap() {
 
                     showToast("success", "Transaction Receipt", "Your transaction was succeed.",
                         (<Link target={"_blank"} href={getBscScanLink(response.hash, 'transaction')}>
-                            <Typography className={`${styles.DialogBinance}`} variant="subtitle2">
+                            <Typography variant="subtitle2" sx={{color: "#CC0136", fontSize: "14px", fontWeight: "bold", textAlign: "center"}}>
                                 View on Binance
                             </Typography>
                         </Link>));
@@ -192,7 +218,7 @@ function LiquiditySwap() {
             )
             .catch((e) => {
                 setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined}));
-                showToast("error", "Transaction Failed", e?.message??'');
+                showToast("error", "Transaction Failed", e?.message ?? '');
 
                 // we only care if the error is something _other_ than the user rejected the tx
                 if (e?.code !== 4001) {
@@ -205,12 +231,12 @@ function LiquiditySwap() {
 
     const tokenChangeHandler = useCallback((val) => {
         if (tokenSelect === Field.CURRENCY_A) {
-            if(currencyA !== val){
+            if (currencyA !== val) {
                 const newCurrencyIdA = currencyId(val);
                 router.push(`/liquidity/${newCurrencyIdA}/${currencyIdB}`);
             }
         } else {
-            if(currencyB !== val){
+            if (currencyB !== val) {
                 const newCurrencyIdB = currencyId(val);
                 router.push(`/liquidity/${currencyIdA}/${newCurrencyIdB}`);
             }
@@ -219,31 +245,28 @@ function LiquiditySwap() {
     }, [tokenSelect, currencyIdA, currencyIdB, setTokenSelect]);
 
     return (
-        <>
+        <Box sx={{width: "100%"}}>
             <LiquidityContainer ref={liquidityContainerRef}>
-                <div className={styles.titleContainer}>
-                    <div className={styles.title}>Create Liquidity</div>
+                <LiquidityTitleBox>
+                    <Typography component={"span"} variant={"subtitle1"}>Create Liquidity</Typography>
                     {
                         noLiquidity ?
-                            <>
-                                <div className={styles.subTitle}>
-                                    You are the first liquidity provider.
-                                </div>
-                                <div className={styles.subTitle}>
-                                    The ratio of tokens you add will set the price of this pool.
-                                </div>
-                                <div className={styles.subTitle}>
-                                    Once you are happy with the rate click supply to review.
-                                </div>
-                            </>
+                            <Box>
+                                <Typography component={"span"} variant={"subtitle2"}>You are the first liquidity provider.</Typography><br/>
+                                <Typography component={"span"} variant={"subtitle2"}>The ratio of tokens you add will set the price of this pool.</Typography><br/>
+                                <Typography component={"span"} variant={"subtitle2"}>Once you are happy with the rate click supply to review.</Typography>
+                            </Box>
                             :
-                            <div className={styles.subTitle}>
-                                Provide to receive trading fees
-                            </div>
+                            <Box>
+                                <Typography component={"span"} variant={"subtitle2"}>Provide to receive trading fees</Typography>
+                            </Box>
                     }
-                </div>
-
-                <div className={styles.inputContainer}>
+                </LiquidityTitleBox>
+                <Stack
+                    direction={"column"}
+                    justifyContent={"center"}
+                    spacing={1}
+                >
                     <ClearFix height={15}/>
                     <FormAdvancedTextField
                         id={"liquidity_pay"}
@@ -264,15 +287,11 @@ function LiquiditySwap() {
                             </InputAdornment>,
                         }}
                     />
-
-                    <Box sx={{
-                        height: "20px",
-                    }}>
-                        <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                            <Image src={PlusIcon} alt='Picture of DownArrow'/>
-                        </Stack>
-                    </Box>
-                    <ClearFix height={15}/>
+                    <ClearFix height={20}/>
+                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
+                        <Image src={PlusIcon} alt='Picture of DownArrow'/>
+                    </Stack>
+                    <ClearFix height={20}/>
                     <FormAdvancedTextField
                         id={"liquidity_receive"}
                         helperText={
@@ -292,96 +311,87 @@ function LiquiditySwap() {
                             </InputAdornment>,
                         }}
                     />
-                </div>
-
-                <div className={styles.statsContainer}>
-
-                    <Typography variant='h6' gutterBottom component='div' className={styles.statsHeading}>
-                        {
-                            noLiquidity ? 'Initial prices and pool share' : 'Prices and pool share'
-                        }
-                    </Typography>
-
-                    <div className={styles.statsSubContainer}>
-                        <div className={styles.stats}>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                {price?.toSignificant(6) ?? '-'}
-                            </Typography>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                {currencyA.symbol} per {currencyB.symbol}
-                            </Typography>
-                        </div>
-                        <div className={styles.stats}>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                {price?.invert()?.toSignificant(6) ?? '-'}
-                            </Typography>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                {currencyB.symbol} per {currencyA.symbol}
-                            </Typography>
-                        </div>
-                        <div className={styles.stats}>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                {poolShare} %
-                            </Typography>
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                Share of Pool
-                            </Typography>
-                        </div>
-                    </div>
-
-                </div>
-                {
-                    !account ?
-                        <ConnectButton/>
-                        :
-                        // TODO Approve tokens
-                        <>
+                    <ClearFix height={20}/>
+                    <LiquidityInfoBox>
+                        <Typography variant='subtitle1' gutterBottom component='span'>
                             {
-                                !error && (approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) &&
-                                <div className={styles.btns}>
-                                    {
-                                        (approvalA !== ApprovalState.APPROVED) &&
-                                        <CustomContainedButton
-                                            btnTitle={(approvalA === ApprovalState.PENDING?'Enabling':'Enable ') + currencies[Field.CURRENCY_A]?.symbol}
-                                            disabled={approvalA === ApprovalState.PENDING}
-                                            customStyles={{
-                                                color: 'white',
-                                            }}
-                                            onClick={approveACallback}
-                                        />
-                                    }
-                                    {
-                                        (approvalB !== ApprovalState.APPROVED) &&
-                                        <CustomContainedButton
-                                            btnTitle={(approvalB === ApprovalState.PENDING?'Enabling':'Enable ') + currencies[Field.CURRENCY_B]?.symbol}
-                                            disabled={approvalB === ApprovalState.PENDING}
-                                            customStyles={{
-                                                color: 'white',
-                                            }}
-                                            onClick={approveBCallback}
-                                        />
-                                    }
-                                </div>
+                                noLiquidity ? 'Initial prices and pool share' : 'Prices and pool share'
                             }
-                            <CustomContainedButton
-                                btnTitle={error ?? 'Supply'}
-                                disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
-                                customStyles={{
-                                    color: 'white',
-                                }}
-                                onClick={() => setShowConfirmModal(true)}
-                            />
-                        </>
-                }
-            <TokenSelect
-                label={tokenSelect === Field.CURRENCY_A ? 'Token A' : 'Token B'}
-                container={liquidityContainerRef.current}
-                show={tokenSelect !== 0}
-                onClose={() => setTokenSelect(0)}
-                onSelect={tokenChangeHandler}
-                tokenList={SWAP_TOKEN_LIST}
-                disabledTokens={tokenSelect === Field.CURRENCY_A ? [currencyB.symbol] : [currencyA.symbol]}
-            />
+                        </Typography>
+                        <ClearFix height={15}/>
+                        <Stack direction={"row"} justifyContent={"space-between"}>
+                            <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+                                <Typography variant='subtitle2' gutterBottom component='span'>
+                                    {price?.toSignificant(6) ?? '-'}
+                                </Typography>
+                                <Typography variant='subtitle2' gutterBottom component='span'>
+                                    {currencyA.symbol} per {currencyB.symbol}
+                                </Typography>
+                            </Stack>
+                            <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    {price?.invert()?.toSignificant(6) ?? '-'}
+                                </Typography>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    {currencyB.symbol} per {currencyA.symbol}
+                                </Typography>
+                            </Stack>
+                            <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    {poolShare} %
+                                </Typography>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    Share of Pool
+                                </Typography>
+                            </Stack>
+                        </Stack>
+                    </LiquidityInfoBox>
+                    <ClearFix height={20}/>
+                    {
+                        !account ?
+                            <ConnectButton/>
+                            :
+                            // TODO Approve tokens
+                            <>
+                                {
+                                    !error && (approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED) &&
+                                    <Box>
+                                        {
+                                            (approvalA !== ApprovalState.APPROVED) &&
+                                            <FormSubmitBtn
+                                                label={(approvalA === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_A]?.symbol}
+                                                disabled={approvalA === ApprovalState.PENDING}
+                                                onSubmit={approveACallback}
+                                            />
+                                        }
+                                        {
+                                            (approvalB !== ApprovalState.APPROVED) &&
+                                            <FormSubmitBtn
+                                                label={(approvalB === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_B]?.symbol}
+                                                disabled={approvalB === ApprovalState.PENDING}
+                                                onSubmit={approveBCallback}
+                                            />
+
+                                        }
+                                    </Box>
+                                }
+                                <FormSubmitBtn
+                                    label={error ?? 'Supply'}
+                                    disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
+                                    onSubmit={() => setShowConfirmModal(true)}
+                                />
+                            </>
+                    }
+                </Stack>
+                <TokenSelect
+                    label={tokenSelect === Field.CURRENCY_A ? 'Token A' : 'Token B'}
+                    container={liquidityContainerRef.current}
+                    show={tokenSelect !== 0}
+                    onClose={() => setTokenSelect(0)}
+                    onSelect={tokenChangeHandler}
+                    tokenList={SWAP_TOKEN_LIST}
+                    disabledTokens={tokenSelect === Field.CURRENCY_A ? [currencyB.symbol] : [currencyA.symbol]}
+                />
             </LiquidityContainer>
             {pair && !noLiquidity && pairState !== PairState.INVALID ?
                 <MinimalPositionCard pair={pair}/> : null
@@ -419,7 +429,7 @@ function LiquiditySwap() {
                     onAdd();
                 }}
             />
-        </>
+        </Box>
     );
 }
 
