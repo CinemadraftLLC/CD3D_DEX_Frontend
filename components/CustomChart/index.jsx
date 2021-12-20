@@ -5,16 +5,20 @@ import Invert from '../invertIcon';
 import CustomTab from '../CustomTab';
 import { chartTabs } from '../../public/data/data';
 import dynamic from 'next/dynamic';
+import {formatExecutionPrice} from "../../utils/prices";
+import {BIG_ONE} from "../../utils/bigNumber";
 const Chart = dynamic(() => import('./chart'), {
   ssr: false,
 });
 
-function ChartContainer() {
+function ChartContainer({payCurrency, receiveCurrency, farm}) {
   const [activeTab, setActiveTab] = useState('24');
 
   const handleOnChange = (item) => {
     setActiveTab(item);
   };
+
+  const price = (farm.token.symbol === payCurrency.symbol)?farm.tokenPriceVsQuote.toNumber():BIG_ONE.div(farm.tokenPriceVsQuote).toNumber();
 
   return (
     <div className={styles.container}>
@@ -30,16 +34,16 @@ function ChartContainer() {
         <div className={styles.textContainer}>
           <div style={{ display: 'flex', alignItems: 'center' }}>
             <div className={styles.titleContainer}>
-              <div className={styles.titleActive}>BUSD</div>
+              <div className={styles.titleActive}>{payCurrency.symbol}</div>
               <div className={styles.inativeContainer}>
-                <div className={styles.titleInActive}>/CD3D</div>
+                <div className={styles.titleInActive}>/{receiveCurrency.symbol}</div>
               </div>
             </div>
             <div style={{marginTop:"5px"}}>
               <Invert />
             </div>
           </div>
-          <div className={styles.subTextContainer}>0.76154 CD3D</div>
+          <div className={styles.subTextContainer}>{price.toFixed(4)} {receiveCurrency.symbol}</div>
         </div>
         <div className={styles.tabContainer}>
           {chartTabs.map((item, index) => (

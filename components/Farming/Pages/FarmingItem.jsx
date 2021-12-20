@@ -44,7 +44,7 @@ const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack, onUnstack})
     const rawEarningsBalance = account ? getBalanceAmount(earnings) : BIG_ZERO
     const earningsBusd = rawEarningsBalance ? rawEarningsBalance.multipliedBy(cd3dPrice).toNumber() : 0;
 
-    const stakedPercent = (farm.lpTotalInQuoteToken && stakedBalance) ? new Percent(stakedBalance.toNumber(), lpTokenBalanceMC.toNumber()) : undefined;
+    const stakedPercent = (farm.lpTotalInQuoteToken && stakedBalance && lpTokenBalanceMC.isGreaterThan(BIG_ZERO)) ? new Percent(stakedBalance.toNumber(), lpTokenBalanceMC.toNumber()) : undefined;
     console.log('total', stakedPercent);
 
     const lpContract = useERC20(lpAddress)
@@ -127,7 +127,7 @@ const FarmingItem = ({farm, account, displayApr, cd3dPrice, onStack, onUnstack})
                 </div>
                 <div className={styles.form_row}>
                     <Typography className={styles.row_label} variant="subtitle2">My Share</Typography>
-                    <Typography className={styles.row_label} variant="subtitle2">{stakedPercent.greaterThan(0) ? `${stakedPercent.toFixed(6)}%` : '-'}</Typography>
+                    <Typography className={styles.row_label} variant="subtitle2">{stakedPercent && stakedPercent.greaterThan(JSBI.BigInt(0)) ? `${stakedPercent.toFixed(6)}%` : '-'}</Typography>
                 </div>
                 <div className={styles.form_row}>
                     <Typography className={styles.row_label} variant="subtitle2">CD3D Earned</Typography>

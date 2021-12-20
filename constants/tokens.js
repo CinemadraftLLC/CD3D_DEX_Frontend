@@ -82,7 +82,7 @@ export const testnetTokens = {
     ),
     syrup: new Token(
         TESTNET,
-        '0x6fA3445BA41440a299D1E4d50944475CcACBE97b',
+        '0x9da438fAF36A67E3C36CFda7C49D6DBc6A930F94',
         18,
         'SYRUP',
         'SyrupBar Token',

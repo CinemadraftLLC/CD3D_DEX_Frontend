@@ -5,6 +5,7 @@
     padding: 10px 0;
     font-size: 18px;
     text-transform: none;
+    margin-top: 8px;
 }
 
 .customFormButton button:hover {

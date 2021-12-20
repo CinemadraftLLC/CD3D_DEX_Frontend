@@ -215,12 +215,14 @@ const Swap = () => {
     const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
     const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
     const submitButtonLabel = (payToken.symbol === 'CD3D') ? 'Sell CD3D' : (receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
+    console.log('trade', trade);
+
     return (
         <Container maxWidth={"xl"}>
             <Stack mt={{xs: 2, sm: 2, md: 3, lg: 5}}>
                 <Grid container spacing={{xs: 2, md: 3}}>
                     <Grid item xs={12} sm={12} md={7} xl={8}>
-                        <ChartContainer/>
+                        <ChartContainer payCurrency={payCurrency} receiveCurrency={receiveCurrency} farm={farm}/>
                     </Grid>
                     <Grid item xs={12} sm={12} md={5} xl={4}>
                         <SwapContainer ref={swapContainerRef}>

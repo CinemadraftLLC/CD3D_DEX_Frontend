@@ -2,7 +2,7 @@ import {ChainId, Currency, JSBI, Percent, Token, WETH} from 'cd3d-dex-libs-sdk'
 import {mainnetTokens, testnetTokens} from "./tokens";
 import {BIG_TEN} from "../utils/bigNumber";
 
-export const ROUTER_ADDRESS = '0xDD01D7d8302fdef0537FCbCbD1eb6d136b7E6e97'
+export const ROUTER_ADDRESS = '0x98f86FE4b5C782CA7c0Fa012446056ddDce1C313'
 
 export const BSC_BLOCK_TIME = 3
 

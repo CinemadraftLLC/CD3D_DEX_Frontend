@@ -47,7 +47,7 @@
     "axios": "^0.22.0",
     "bignumber": "^1.1.0",
     "bignumber.js": "^9.0.2",
-    "cd3d-dex-libs-sdk": "^2.0.0",
+    "cd3d-dex-libs-sdk": "^2.0.1",
     "chalk": "^4.1.2",
     "devextreme": "^21.1.5",
     "devextreme-react": "^21.1.5",

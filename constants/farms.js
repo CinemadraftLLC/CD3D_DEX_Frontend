@@ -21,7 +21,7 @@ const farms = [
         lpSymbol: 'CD3D-BNB LP',
         lpAddresses: {
             56: '0x0eD7e52944161450477ee417DE9Cd3a859b14fD0',
-            97: '0x087136428c80d44f14bf9af0609c7a33885fd963',
+            97: '0x44a718ca8812dc35cf4f43096b646f72d2bd5a08',
         },
         token: serializedTokens.cd3d,
         quoteToken: serializedTokens.wbnb,
@@ -31,7 +31,7 @@ const farms = [
         lpSymbol: 'BUSD-BNB LP',
         lpAddresses: {
             56: '0x6b4b63fb0b458c14aab4fd0530aa3cb8870cf23d',
-            97: '0x6b4b63fb0b458c14aab4fd0530aa3cb8870cf23d',
+            97: '0x97483cfce39ea7015bd65f02f825561e08b6f614',
         },
         token: serializedTokens.busd,
         quoteToken: serializedTokens.wbnb,
@@ -41,7 +41,7 @@ const farms = [
         lpSymbol: 'CD3D-BUSD LP',
         lpAddresses: {
             56: '0x58F876857a02D6762E0101bb5C46A8c1ED44Dc16',
-            97: '0xc17379f562afb17c61102d1733dc2f86f88d5ee2',
+            97: '0xeffbdfa135a793e721de661e2f696aebceceee72',
         },
         token: serializedTokens.busd,
         quoteToken: serializedTokens.cd3d,
