@@ -16,6 +16,7 @@ import HeaderClient from "./HeaderComponents/HeaderClient";
 import {styled} from "@mui/material/styles";
 import Link from "next/link";
 import tokens, {serializeTokens} from "../../constants/tokens";
+import {useRouter} from "next/router";
 
 const HeaderMenuLink = styled(Button)({
     color: "#EAFBF3",
@@ -84,6 +85,7 @@ const HeaderMenu = styled(Menu)({
 })
 
 const Header = (props) => {
+    const router = useRouter();
     const [marketMenu, setMarketMenu] = React.useState(null);
     const [moreMenu, setMoreMenu] = React.useState(null);
     const {account} = useActiveWeb3React()
@@ -96,7 +98,9 @@ const Header = (props) => {
     return (
         <AppBar position="fixed" className={styles.menuBG}>
             <Toolbar>
-                <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"}/>
+                <Image src={Logo} alt="logo" width={130} height={35} objectFit={"contain"} onClick={() => {
+                    router.push("/");
+                }}/>
                 <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{flexGrow: 1, marginLeft: "50px", display: {xs: 'none', sm: 'none', md: 'flex'}}}>
                     <Box sx={{flexGrow: 1}}>
                         <HeaderMenuLink
@@ -112,7 +116,7 @@ const Header = (props) => {
                             aria-controls="basic-menu"
                             aria-haspopup="true"
                             onClick={(event) => {
-
+                                router.push("/referral");
                             }}
                         >
                             REFERRAL
