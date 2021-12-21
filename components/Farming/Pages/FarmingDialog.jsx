@@ -139,7 +139,7 @@ const FarmingDialog = (props) => {
                         onClick={onSubmit}
                         fullWidth={true}
                     >
-                        {pendingTx ? 'Stacking' : 'Stack'}
+                        {pendingTx ? 'Staking' : 'Stake'}
                     </Button>
                     <Typography className={styles.link} variant="subtitle2">
                         <a href={addLiquidityUrl} target='_blank'>

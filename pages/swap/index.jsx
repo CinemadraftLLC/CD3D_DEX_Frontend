@@ -33,6 +33,7 @@ import {showToast} from "../../utils/toast";
 import styles from "../../styles/Dialog.module.css";
 import {wrappedCurrency} from "../../utils/wrappedCurrency";
 import {NETWORK_CHAIN_ID} from "../../connectors";
+import {ApprovalState, useApproveCallbackFromTrade} from "../../hooks/useApproveCallback";
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -127,13 +128,15 @@ const Swap = () => {
     const [deadline] = useUserDeadline();
     const [allowedSlippage] = useUserSlippageTolerance();
 
+    // check whether the user has approved the router on the input token
+    const [approval, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
+
     // Token Price
     const farm = useFarmFromTokenSymbols(wrappedCurrency(payCurrency, NETWORK_CHAIN_ID)?.symbol, wrappedCurrency(receiveCurrency, NETWORK_CHAIN_ID)?.symbol);
     const payTokenPrice = farm ? new BigNumber(farm.token.symbol === payCurrency.symbol ? farm.tokenPriceBusd : farm.quoteTokenPriceBusd) : BIG_ZERO;
     const payAmount = formattedAmounts[Field.CURRENCY_A] > 0 ? (payTokenPrice.times(new BigNumber(formattedAmounts[Field.CURRENCY_A]))).toNumber() : 0;
 
     console.log('farm', farm, payTokenPrice);
-
 
     let inputError;
 
@@ -215,7 +218,8 @@ const Swap = () => {
     const priceImpactSeverity = warningSeverity(priceImpactWithoutFee)
     const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
     const submitButtonLabel = (payToken.symbol === 'CD3D') ? 'Sell CD3D' : (receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
-    console.log('trade', trade);
+
+    console.log('approval', approval);
 
     return (
         <Container maxWidth={"xl"}>
@@ -305,14 +309,25 @@ const Swap = () => {
                                             onSubmit={() => {
                                             }}
                                         />
-                                        // TODO Approve tokens
                                         :
-                                        <FormSubmitBtn
-                                            label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : submitButtonLabel)}
-                                            disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError}
-                                            loading={attemptingTxn}
-                                            onSubmit={onSwap}
-                                        />
+                                        <>
+                                            {
+                                                !inputError && (approval !== ApprovalState.APPROVED) &&
+                                                    <Box>
+                                                        <FormSubmitBtn
+                                                            label={(approval === ApprovalState.PENDING ? 'Enabling' : 'Enable ')}
+                                                            disabled={approval === ApprovalState.PENDING}
+                                                            onSubmit={approveCallback}
+                                                        />
+                                                    </Box>
+                                            }
+                                            <FormSubmitBtn
+                                                label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : submitButtonLabel)}
+                                                disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError || approval !== ApprovalState.APPROVED}
+                                                loading={attemptingTxn}
+                                                onSubmit={onSwap}
+                                            />
+                                        </>
                                 }
                             </Box>
                             <TokenSelect

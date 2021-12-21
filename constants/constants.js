@@ -1,7 +1,7 @@
 import { injected } from "../connectors";
 import { toWei, toGwei } from "../utils";
 export const connectorsByName = {
-  Injected: injected,
+  Injected: injected
 };
 
 export const Addresses = {
