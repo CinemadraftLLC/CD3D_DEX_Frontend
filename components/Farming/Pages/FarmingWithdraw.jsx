@@ -15,8 +15,10 @@ import {fetchFarmUserDataAsync} from "../../../state/farms";
 import FarmingDialogInput from "./FarmingDailogInput";
 import {showToast} from "../../../utils/toast";
 import useUnstakeFarms from "../hooks/useUnstakeFarms";
+import {useAppDispatch} from "../../../state";
 
 const FarmingWithdraw = (props) => {
+    const dispatch = useAppDispatch();
     const {show, account, onDismiss, loading, onConfirm, params} = props;
     if(!params.pid){
         return null;
@@ -53,7 +55,7 @@ const FarmingWithdraw = (props) => {
         try {
             await onUnstake(input)
             dispatch(fetchFarmUserDataAsync({ account, pids: [pid] }));
-            showToast("success", "Staked!", "Your funds have been staked in the farm.");
+            showToast("success", "Claimed!", "Your funds have been claimed from the farm.");
             onDismiss();
         } catch (e) {
             showToast(
