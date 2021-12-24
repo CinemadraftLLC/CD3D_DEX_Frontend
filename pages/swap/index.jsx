@@ -298,6 +298,7 @@ const Swap = () => {
                                         : !trade?.route && userHasSpecifiedInputOutput ?
                                         <FormSubmitBtn
                                             label={'Insufficient liquidity for this trade.'}
+                                            fullWidth={true}
                                             disabled={true}
                                             loading={false}
                                             onSubmit={() => {
@@ -306,6 +307,7 @@ const Swap = () => {
                                         // TODO Approve tokens
                                         :
                                         <FormSubmitBtn
+                                            fullWidth={true}
                                             label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : submitButtonLabel)}
                                             disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError}
                                             loading={attemptingTxn}

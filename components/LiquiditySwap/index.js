@@ -361,6 +361,7 @@ function LiquiditySwap() {
                                             <FormSubmitBtn
                                                 label={(approvalA === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_A]?.symbol}
                                                 disabled={approvalA === ApprovalState.PENDING}
+                                                fullWidth={true}
                                                 onSubmit={approveACallback}
                                             />
                                         }
@@ -369,6 +370,7 @@ function LiquiditySwap() {
                                             <FormSubmitBtn
                                                 label={(approvalB === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_B]?.symbol}
                                                 disabled={approvalB === ApprovalState.PENDING}
+                                                fullWidth={true}
                                                 onSubmit={approveBCallback}
                                             />
 
@@ -377,6 +379,7 @@ function LiquiditySwap() {
                                 }
                                 <FormSubmitBtn
                                     label={error ?? 'Supply'}
+                                    fullWidth={true}
                                     disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
                                     onSubmit={() => setShowConfirmModal(true)}
                                 />

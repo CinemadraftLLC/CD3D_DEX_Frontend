@@ -11,6 +11,7 @@ const ConnectButton = (props) => {
         <FormSubmitBtn
             label={'Connect Wallet'}
             onSubmit={() => {login(ConnectorName)}}
+            fullWidth={true}
         />
         /*<CustomContainedButton btnTitle={'Connect Wallet'} customStyles={{ color: 'white' }} onClick={() => login(ConnectorName)} {...props}/>*/
     )
