@@ -93,6 +93,7 @@ const Swap = () => {
         const oldPaytoken = payToken;
         setPayToken(receiveToken);
         setReceiveToken(oldPaytoken);
+        setTypeValue('');
     }
 
     const isExactIn = independentField === Field.CURRENCY_A;
@@ -251,7 +252,7 @@ const Swap = () => {
                                             disableUnderline: true,
                                             value: formattedAmounts[Field.CURRENCY_A],
                                             endAdornment: <InputAdornment position="end">
-                                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.CURRENCY_A)}/>
+                                                <SwapEndAdornment value={payToken} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => currencyBalances[Field.CURRENCY_A] && handleChangeInput({target: {value: currencyBalances[Field.CURRENCY_A].toSignificant(12)}})}/>
                                             </InputAdornment>,
                                         }}
                                     />
@@ -292,7 +293,7 @@ const Swap = () => {
                                             disableUnderline: true,
                                             value: formattedAmounts[Field.CURRENCY_B],
                                             endAdornment: <InputAdornment position="end">
-                                                <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.CURRENCY_B)}/>
+                                                <SwapEndAdornment value={receiveToken} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => currencyBalances[Field.CURRENCY_B] && handleChangeOutput({target: {value: currencyBalances[Field.CURRENCY_B].toSignificant(12)}})}/>
                                             </InputAdornment>,
                                         }}
                                     />

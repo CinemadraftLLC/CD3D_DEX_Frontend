@@ -7,6 +7,7 @@ import mint from './mint/reducer'
 import multicall from './multicall/reducer'
 import transactions from './transactions/reducer';
 import farms from './farms'
+import burn from './burn/reducer'
 import {useDispatch} from "react-redux";
 
 const PERSISTED_KEYS = ['user', 'transactions', 'lists']
@@ -20,7 +21,8 @@ const store = configureStore({
         mint,
         transactions,
         multicall,
-        farms
+        farms,
+        burn
     },
     middleware: [...getDefaultMiddleware({ thunk: true }), save({ states: PERSISTED_KEYS })],
     preloadedState: load({ states: PERSISTED_KEYS }),

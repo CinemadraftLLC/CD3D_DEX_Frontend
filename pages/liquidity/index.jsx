@@ -2,7 +2,7 @@ import React from 'react';
 import {buttonUnstyledClasses, Container, Stack, TabPanelUnstyled, TabsListUnstyled, TabsUnstyled, TabUnstyled, tabUnstyledClasses} from "@mui/material";
 import {styled} from "@mui/material/styles";
 import LiquidityRemove from "./pages/LiquidityRemove";
-import LiquiditySwap from "./pages/LIquiditySwap";
+import LiquiditySwap from "./pages/LiquiditySwap";
 
 const blue = {
     50: '#F0F7FF',

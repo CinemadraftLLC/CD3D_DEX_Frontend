@@ -102,7 +102,9 @@ export const MIN_ETH = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(16)) // .0
 
 export const Field = {
     CURRENCY_A: 1,
-    CURRENCY_B: 2
+    CURRENCY_B: 2,
+    LIQUIDITY_PERCENT: 3,
+    LIQUIDITY: 4
 }
 
 

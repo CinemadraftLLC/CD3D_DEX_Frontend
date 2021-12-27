@@ -20,6 +20,7 @@
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
     "@ethersproject/bignumber": "^5.5.0",
+    "@ethersproject/bytes": "^5.5.0",
     "@ethersproject/contracts": "^5.4.1",
     "@ethersproject/experimental": "^5.5.0",
     "@ethersproject/providers": "^5.4.5",

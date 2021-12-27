@@ -72,8 +72,8 @@ function LiquiditySwap() {
     const currencyBBalance = useCurrencyBalance(account ?? undefined, currencyB ?? undefined);
 
     const balances = {
-        [Field.CURRENCY_A]: currencyABalance?.toSignificant(6),
-        [Field.CURRENCY_B]: currencyBBalance?.toSignificant(6)
+        [Field.CURRENCY_A]: currencyABalance?.toSignificant(12),
+        [Field.CURRENCY_B]: currencyBBalance?.toSignificant(12)
     }
 
     // mint state
@@ -260,8 +260,7 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_A],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => {
-                                }}/>
+                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => onFieldAInput({target: {value: balances[Field.CURRENCY_A]}})}/>
                             </InputAdornment>,
                         }}
                     />
@@ -285,8 +284,7 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_B],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => {
-                                }}/>
+                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => onFieldBInput({target: {value: balances[Field.CURRENCY_B]}})}/>
                             </InputAdornment>,
                         }}
                     />
@@ -378,6 +376,7 @@ function LiquiditySwap() {
             {pair && !noLiquidity && pairState !== PairState.INVALID ?
                 <MinimalPositionCard pair={pair}/> : null
             }
+            <ClearFix height={100} />
             <LiquiditySupplyDialog
                 show={showConfirmModal}
                 onClose={() => setShowConfirmModal(false)}

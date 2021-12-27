@@ -10,6 +10,7 @@ import { useTokenContract } from './useContract'
 import useActiveWeb3React from "./useActiveWeb3React";
 import {NETWORK_CHAIN_ID} from "../connectors";
 import tokens from "../constants/tokens";
+import {showToast} from "../utils/toast";
 
 export const ApprovalState = {
     UNKNOWN: 0,
@@ -88,9 +89,11 @@ export function useApproveCallback(
                     summary: `Approve ${amountToApprove.currency.symbol}`,
                     approval: { tokenAddress: token.address, spender },
                 })
+                showToast("success", "Approved!", "Remove Liquidity Approved");
             })
             .catch((error) => {
-                console.error('Failed to approve token', error)
+                console.error('Failed to approve token', error);
+                showToast("error", "Transaction Failed", error?.message ?? '');
                 throw error
             })
     }, [approvalState, token, tokenContract, amountToApprove, spender, addTransaction])
