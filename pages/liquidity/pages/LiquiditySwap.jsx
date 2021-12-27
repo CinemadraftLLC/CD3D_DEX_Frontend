@@ -17,7 +17,6 @@ import {BigNumber} from '@ethersproject/bignumber'
 import {ETHER} from "cd3d-dex-libs-sdk";
 import {wrappedCurrency} from "../../../utils/wrappedCurrency";
 import {showToast} from "../../../utils/toast";
-import {LiquidityContainer, LiquidityTitleBox} from "../widgets/liquidity_widget";
 import SwapEndAdornment from "../../../components/Swap/SwapEndAdornment";
 import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
 import ClearFix from "../../../components/ClearFix/ClearFix";
@@ -32,6 +31,7 @@ import {PairState} from "../../../data/Reserves";
 import useTransactionDeadline from "../../../hooks/useTransactionDeadline";
 import {useTransactionAdder} from "../../../state/transactions/hooks";
 import tokens from "../../../constants/tokens";
+import {LiquidityContainer, LiquidityTitleBox} from "../../../components/Liquidity/liquidity_widget";
 
 const LiquidityInfoBox = styled(Box)({
     '& .MuiTypography-subtitle1': {

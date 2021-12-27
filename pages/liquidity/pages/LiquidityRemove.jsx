@@ -5,8 +5,6 @@ import { splitSignature } from '@ethersproject/bytes'
 import {ETHER, Percent} from "cd3d-dex-libs-sdk";
 import Image from "next/image";
 import {useRouter} from "next/router";
-
-import {LiquidityContainer, LiquidityLabel, LiquidityTitleBox, MaxButton, PercentButton, ReceiveContainer} from "../widgets/liquidity_widget";
 import ClearFix from "../../../components/ClearFix/ClearFix";
 import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
 import ArrowDown from '../../../public/assets/svgs/arrow_down.svg';
@@ -28,6 +26,7 @@ import {addTransaction} from "../../../state/transactions/actions";
 import LiquiditySubmittingTxDialog from "../../../components/Dialogs/LiquiditySubmittingTxDialog";
 import {showToast} from "../../../utils/toast";
 import {Link} from "@material-ui/core";
+import {LiquidityContainer, LiquidityLabel, LiquidityTitleBox, MaxButton, PercentButton, ReceiveContainer} from "../../../components/Liquidity/liquidity_widget";
 
 const LiquidityPost = styled(Box)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
