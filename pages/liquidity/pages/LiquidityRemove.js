@@ -118,14 +118,14 @@ const LiquidityRemove = () => {
                             </Stack>
                         </ReceiveContainer>
                     </Stack>
-                    <ClearFix height={20}/>
+                    <ClearFix height={25}/>
                     <Stack
                         direction={"row"} justifyContent={"space-between"} alignItems={"center"}
                     >
-                        <Typography variant={"subtitle1"} component={"span"} sx={{color: "#FFFFFF", fontSize: "14px"}}>Current Rate</Typography>
-                        <Typography variant={"subtitle1"} component={"span"} sx={{color: "#FFFFFF", fontSize: "14px"}}>6535.435 CD3D/BUSD</Typography>
+                        <Typography variant={"subtitle1"} component={"span"} style={{color: "#FFFFFF", fontSize: "14px", fontWeight: "normal"}}>Current Rate</Typography>
+                        <Typography variant={"subtitle1"} component={"span"} style={{color: "#FFFFFF", fontSize: "14px", fontWeight: "normal"}}>6535.435 CD3D/BUSD</Typography>
                     </Stack>
-                    <ClearFix height={10}/>
+                    <ClearFix height={25}/>
                     <FormSubmitBtn
                         label={"Approve"}
                         disabled={false}
