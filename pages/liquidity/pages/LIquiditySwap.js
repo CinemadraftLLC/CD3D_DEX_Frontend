@@ -1,60 +1,37 @@
 import React, {useCallback, useState} from 'react';
-import {Box, Container, InputAdornment, Stack} from "@mui/material";
+import {Box, InputAdornment, Stack} from "@mui/material";
 import Image from 'next/image';
 import {useRouter} from "next/router";
 import {Link, Typography} from '@material-ui/core';
 import {styled} from "@mui/material/styles";
 
-import useActiveWeb3React from "../../hooks/useActiveWeb3React";
-import ConnectButton from "../ConnectWalletButton";
-import currencyId, {useCurrency} from "../../hooks/Tokens";
-import {useCurrencyBalance} from "../../state/wallet/hooks";
-import {useDerivedMintInfo, useMintActionHandlers, useMintState} from "../../state/mint/hooks";
-import PlusIcon from '../../public/assets/plusIcon.svg';
-import {Field, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../constants";
-import {useUserDeadline, useUserSlippageTolerance} from "../../state/user/hooks";
-import {calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract} from "../../utils";
-import {ApprovalState, useApproveCallback} from "../../hooks/useApproveCallback";
-import {useTransactionAdder} from "../../state/transactions/hooks";
-import {wrappedCurrency} from "../../utils/wrappedCurrency";
-import {MinimalPositionCard} from "../PositionCard";
-import {PairState} from "../../data/Reserves";
-import LiquiditySupplyDialog from "../Dialogs/LiquiditySupplyDialog";
-import LiquiditySubmittingTxDialog from "../Dialogs/LiquiditySubmittingTxDialog";
-import tokens from "../../constants/tokens";
-import {TokenSelect} from "../Swap/TokenSelect";
-import FormAdvancedTextField from "../Form/FormAdvancedTextField";
-import SwapEndAdornment from "../Swap/SwapEndAdornment";
-import ClearFix from "../ClearFix/ClearFix";
-import {showToast} from "../../utils/toast";
+import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
+import currencyId, {useCurrency} from "../../../hooks/Tokens";
+import {useCurrencyBalance} from "../../../state/wallet/hooks";
+import {useDerivedMintInfo, useMintActionHandlers, useMintState} from "../../../state/mint/hooks";
+import PlusIcon from '../../../public/assets/plusIcon.svg';
+import {Field, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../../constants";
+import {useUserDeadline, useUserSlippageTolerance} from "../../../state/user/hooks";
+import {calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract} from "../../../utils";
 import {BigNumber} from '@ethersproject/bignumber'
 import {ETHER} from "cd3d-dex-libs-sdk";
-import useTransactionDeadline from "../../hooks/useTransactionDeadline";
-import FormSubmitBtn from "../Form/FormSubmitBtn";
-
-const LiquidityContainer = styled(Container)({
-    backgroundColor: 'rgba(0, 0, 0, 0.15)',
-    width: "100%",
-    borderRadius: '15px',
-    padding: '50px 10px',
-    backdropFilter: "blur(30px)",
-    position: "relative",
-    overflow: "hidden",
-});
-
-const LiquidityTitleBox = styled(Box)({
-    '& .MuiTypography-subtitle1': {
-        color: "#75E4AA",
-        textAlign: "left",
-        fontSize: "24px",
-    },
-
-    '& .MuiTypography-subtitle2': {
-        textAlign: "left",
-        fontSize: "14px",
-        color: "#BAC4D7",
-    }
-});
+import {wrappedCurrency} from "../../../utils/wrappedCurrency";
+import {showToast} from "../../../utils/toast";
+import {LiquidityContainer, LiquidityTitleBox} from "../widgets/liquidity_widget";
+import SwapEndAdornment from "../../../components/Swap/SwapEndAdornment";
+import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
+import ClearFix from "../../../components/ClearFix/ClearFix";
+import FormSubmitBtn from "../../../components/Form/FormSubmitBtn";
+import ConnectButton from "../../../components/ConnectWalletButton";
+import {TokenSelect} from "../../../components/Swap/TokenSelect";
+import {MinimalPositionCard} from "../../../components/PositionCard";
+import LiquiditySupplyDialog from "../../../components/Dialogs/LiquiditySupplyDialog";
+import LiquiditySubmittingTxDialog from "../../../components/Dialogs/LiquiditySubmittingTxDialog";
+import {ApprovalState, useApproveCallback} from "../../../hooks/useApproveCallback";
+import {PairState} from "../../../data/Reserves";
+import useTransactionDeadline from "../../../hooks/useTransactionDeadline";
+import {useTransactionAdder} from "../../../state/transactions/hooks";
+import tokens from "../../../constants/tokens";
 
 const LiquidityInfoBox = styled(Box)({
     '& .MuiTypography-subtitle1': {
@@ -283,7 +260,8 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_A],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)}/>
+                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => {
+                                }}/>
                             </InputAdornment>,
                         }}
                     />
@@ -307,7 +285,8 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_B],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)}/>
+                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => {
+                                }}/>
                             </InputAdornment>,
                         }}
                     />
@@ -361,6 +340,7 @@ function LiquiditySwap() {
                                             <FormSubmitBtn
                                                 label={(approvalA === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_A]?.symbol}
                                                 disabled={approvalA === ApprovalState.PENDING}
+                                                fullWidth={true}
                                                 onSubmit={approveACallback}
                                             />
                                         }
@@ -369,6 +349,7 @@ function LiquiditySwap() {
                                             <FormSubmitBtn
                                                 label={(approvalB === ApprovalState.PENDING ? 'Enabling' : 'Enable ') + currencies[Field.CURRENCY_B]?.symbol}
                                                 disabled={approvalB === ApprovalState.PENDING}
+                                                fullWidth={true}
                                                 onSubmit={approveBCallback}
                                             />
 
@@ -377,6 +358,7 @@ function LiquiditySwap() {
                                 }
                                 <FormSubmitBtn
                                     label={error ?? 'Supply'}
+                                    fullWidth={true}
                                     disabled={error || approvalA !== ApprovalState.APPROVED || approvalB !== ApprovalState.APPROVED}
                                     onSubmit={() => setShowConfirmModal(true)}
                                 />

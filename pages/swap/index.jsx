@@ -304,6 +304,7 @@ const Swap = () => {
                                         : !trade?.route && userHasSpecifiedInputOutput ?
                                         <FormSubmitBtn
                                             label={'Insufficient liquidity for this trade.'}
+                                            fullWidth={true}
                                             disabled={true}
                                             loading={false}
                                             onSubmit={() => {
@@ -315,6 +316,7 @@ const Swap = () => {
                                                 !inputError && (approval !== ApprovalState.APPROVED) &&
                                                     <Box>
                                                         <FormSubmitBtn
+                                                            fullWidth={true}
                                                             label={(approval === ApprovalState.PENDING ? 'Enabling' : 'Enable ')}
                                                             disabled={approval === ApprovalState.PENDING}
                                                             onSubmit={approveCallback}
@@ -322,6 +324,7 @@ const Swap = () => {
                                                     </Box>
                                             }
                                             <FormSubmitBtn
+                                                fullWidth={true}
                                                 label={inputError || swapCallbackError || (priceImpactSeverity > 3 ? 'Price Impact Too High' : submitButtonLabel)}
                                                 disabled={!!inputError || priceImpactSeverity > 3 || !!swapCallbackError || approval !== ApprovalState.APPROVED}
                                                 loading={attemptingTxn}

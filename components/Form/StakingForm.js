@@ -5,8 +5,8 @@ import {TextField} from "@mui/material";
 const CustomTextField = styled((props) => (
     <TextField
         variant="filled"
-        fullWidth={true}
-        size={"medium"}
+        fullWidth
+        size={"small"}
         {...props}
     />
 ))(({theme}) => ({
@@ -16,9 +16,10 @@ const CustomTextField = styled((props) => (
     '& .MuiFilledInput-root': {
         border: '1px solid #26164A',
         overflow: 'hidden',
-        borderRadius: "12px",
-        color: "white",
-        backgroundColor: 'rgba(29, 22, 45, 0.02)',
+        borderRadius: "15px",
+        color: "#435475",
+        backgroundColor: 'rgba(0, 0, 0, 0.15)',
+        //backgroundColor: "#1D162D",
         backdropFilter: "blur(30px)",
         transition: theme.transitions.create([
             'border-color',
@@ -33,7 +34,7 @@ const CustomTextField = styled((props) => (
         }
     },
     '.MuiFilledInput-input': {
-        padding: "14px",
+        padding: "10px 15px",
     },
     '.MuiFormHelperText-root': {
         color: '#7689B0',
@@ -42,9 +43,9 @@ const CustomTextField = styled((props) => (
     },
 }));
 
-const FormAdvancedTextField = (props) => {
+const StakingForm = (props) => {
     return (
         <CustomTextField {...props} />
     );
 }
-export default FormAdvancedTextField;
+export default StakingForm;

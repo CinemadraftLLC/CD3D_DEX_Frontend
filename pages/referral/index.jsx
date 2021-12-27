@@ -58,7 +58,7 @@ const Referral = () => {
                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                             <Typography component={"span"} variant={"subtitle1"}>0x06947004d71C135800C64dF38D4a11907212A955</Typography>
                             <Box sx={{width: "140px"}}>
-                                <FormSubmitBtn label={"Copy Link"} onSubmit={() => {
+                                <FormSubmitBtn label={"Copy Link"} fullWidth={true} onSubmit={() => {
                                 }}/>
                             </Box>
                         </Stack>
