@@ -5,7 +5,7 @@ import {LiquidityContainer, LiquidityLabel, LiquidityTitleBox, MaxButton, Percen
 import ClearFix from "../../../components/ClearFix/ClearFix";
 import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
 import Image from "next/image";
-import PlusIcon from '../../../public/assets/plusIcon.svg';
+import ArrowDown from '../../../public/assets/svgs/arrow_down.svg';
 import FormSubmitBtn from "../../../components/Form/FormSubmitBtn";
 
 const LiquidityPost = styled(Box)({
@@ -83,7 +83,7 @@ const LiquidityRemove = () => {
                     </Stack>
                     <ClearFix height={30}/>
                     <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                        <Image src={PlusIcon} alt='Picture of DownArrow'/>
+                        <Image src={ArrowDown} alt='Picture of DownArrow'/>
                     </Stack>
                     <ClearFix height={30}/>
                     <LiquidityLabel shrink>
