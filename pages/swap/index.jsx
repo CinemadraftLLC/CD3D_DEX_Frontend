@@ -148,8 +148,8 @@ const Swap = () => {
         parsedAmount?.greaterThan(JSBI.BigInt(0))
     )
 
-    const [deadline] = useUserDeadline();
-    const [allowedSlippage] = useUserSlippageTolerance();
+    const [deadline, setUserDeadline] = useUserDeadline();
+    const [allowedSlippage, setUserSlippageTolerance] = useUserSlippageTolerance();
 
     // check whether the user has approved the router on the input token
     const [approval, approveCallback] = useApproveCallbackFromTrade(trade, allowedSlippage)
@@ -242,7 +242,7 @@ const Swap = () => {
     const swapPrice = trade ? new Price(receiveCurrency, payCurrency, trade.outputAmount.raw, trade.inputAmount.raw) : undefined;
     const submitButtonLabel = (payToken.symbol === 'CD3D') ? 'Sell CD3D' : (receiveToken.symbol === 'CD3D' ? 'Buy CD3D' : 'Swap');
 
-    console.log('approval', approval);
+    console.log('approval', allowedSlippage, deadline);
 
     return (
         <Container maxWidth={"xl"}>
@@ -338,9 +338,9 @@ const Swap = () => {
                                 <Grid container spacing={2} justifyContent={"center"} alignItems={"center"}>
                                     <Grid item xs={12} sm={6} md={12} lg={6}>
                                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} spacing={1}>
-                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>0.1%</LowPercentButton>
-                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>0.5%</LowPercentButton>
-                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>1%</LowPercentButton>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {setUserSlippageTolerance(10)}}>0.1%</LowPercentButton>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {setUserSlippageTolerance(50)}}>0.5%</LowPercentButton>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {setUserSlippageTolerance(100)}}>1%</LowPercentButton>
                                         </Stack>
                                     </Grid>
                                     <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -350,9 +350,9 @@ const Swap = () => {
                                                 type: 'number',
                                                 placeholder: '0',
                                                 min: '0',
-                                                onChange: ((event) => {}),
+                                                onChange: ((event) => {setUserSlippageTolerance(Number(event.target.value))}),
                                                 disableUnderline: true,
-                                                value: "",
+                                                value: Number(allowedSlippage / 100),
                                                 endAdornment: <Typography component={"span"} variant={"subtitle1"}>%</Typography>,
                                             }}
                                         />
@@ -372,9 +372,9 @@ const Swap = () => {
                                                 type: 'number',
                                                 placeholder: '0',
                                                 min: '0',
-                                                onChange: ((event) => {}),
+                                                onChange: ((event) => {setUserDeadline(Number(event.target.value * 60))}),
                                                 disableUnderline: true,
-                                                value: "",
+                                                value: Number(deadline / 60),
                                                 endAdornment: <Typography component={"span"} variant={"subtitle1"}>min</Typography>,
                                             }}
                                         />
