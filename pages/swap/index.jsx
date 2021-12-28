@@ -283,8 +283,7 @@ const Swap = () => {
                                     height: "120px",
                                 }}>
                                     <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                                        <Image src={PayToReceive} onClick={() => handleExchangeToken()} alt='PayToReceive' width={"35px"} height={"35px"}/>
-                                        <Image src={ReceiveToPay} onClick={() => handleExchangeToken()} alt='ReceiveToPay' width={"35px"} height={"35px"}/>
+                                        <Image src={payToken.symbol > receiveToken.symbol ? PayToReceive : ReceiveToPay} onClick={() => handleExchangeToken()} alt='ReceiveToPay' width={"35px"} height={"35px"}/>
                                     </Stack>
                                 </Box>
                                 <FormControl variant={"standard"} fullWidth={true}>
@@ -327,8 +326,8 @@ const Swap = () => {
                                         <FormLabel title={"Slippage Tolerence"} description={""} required={false}/>
                                         <HtmlTooltip title={<React.Fragment>
                                             <Stack direction={"column"} justifyContent={"center"} alignItems={"start"}>
-                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D buy = 12%</Typography>
-                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D sell = 17%</Typography>
+                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D buy = {Number(allowedSlippage / 100)}%</Typography>
+                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D sell = {Number(allowedSlippage / 100)}%</Typography>
                                             </Stack>
                                         </React.Fragment>} placement={"top"}>
                                             <InfoOutlinedIcon sx={{color: "#7689B0"}}/>
