@@ -6,9 +6,8 @@ import LoopIcon from '@mui/icons-material/Loop';
 import {ETHER, JSBI, Price} from "cd3d-dex-libs-sdk";
 import BigNumber from 'bignumber.js'
 
-import {Container, Grid, Stack, Box, FormControl, InputLabel, InputAdornment, IconButton} from "@mui/material";
+import {Container, Grid, Stack, Box, FormControl, InputLabel, InputAdornment, IconButton, Tooltip, tooltipClasses} from "@mui/material";
 import ChartContainer from "../../components/CustomChart";
-import DownA from '../../public/assets/homepage/down-arrow.svg';
 import FormLabel from "../../components/Form/FormLabel";
 import FormAdvancedTextField from "../../components/Form/FormAdvancedTextField";
 import SwapEndAdornment from "../../components/Swap/SwapEndAdornment";
@@ -34,6 +33,11 @@ import styles from "../../styles/Dialog.module.css";
 import {wrappedCurrency} from "../../utils/wrappedCurrency";
 import {NETWORK_CHAIN_ID} from "../../connectors";
 import {ApprovalState, useApproveCallbackFromTrade} from "../../hooks/useApproveCallback";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import {LowPercentButton} from "../../components/Swap/swap_widgets";
+import ClearFix from "../../components/ClearFix/ClearFix";
+import ReceiveToPay from '../../public/assets/svgs/receive_to_pay.svg';
+import PayToReceive from '../../public/assets/svgs/pay_to_receive.svg';
 
 const SwapContainer = styled(Container)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -42,7 +46,25 @@ const SwapContainer = styled(Container)({
     backdropFilter: "blur(30px)",
     position: "relative",
     overflow: "hidden",
-})
+});
+
+const HtmlTooltip = styled(({className, ...props}) => (
+    <Tooltip {...props} classes={{popper: className}}/>
+))(({theme}) => ({
+    [`& .${tooltipClasses.tooltip}`]: {
+        maxWidth: 'none',
+        backgroundColor: '#3b4468',
+        color: '#BAC4D7',
+        padding: "5px 10px",
+        backdropFilter: "blur(10px)",
+        fontSize: theme.typography.pxToRem(12),
+        borderRadius: "15px",
+    },
+    '& .MuiTypography-subtitle1': {
+        color: '#BAC4D7',
+        fontSize: "12px",
+    }
+}));
 
 const Swap = () => {
     const [independentField, setIndependentField] = useState(Field.CURRENCY_A)
@@ -261,7 +283,8 @@ const Swap = () => {
                                     height: "120px",
                                 }}>
                                     <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                                        <Image src={DownA} onClick={() => handleExchangeToken()} alt='Picture of DownArrow' width={"30px"} height={"30px"}/>
+                                        <Image src={PayToReceive} onClick={() => handleExchangeToken()} alt='PayToReceive' width={"35px"} height={"35px"}/>
+                                        <Image src={ReceiveToPay} onClick={() => handleExchangeToken()} alt='ReceiveToPay' width={"35px"} height={"35px"}/>
                                     </Stack>
                                 </Box>
                                 <FormControl variant={"standard"} fullWidth={true}>
@@ -298,7 +321,66 @@ const Swap = () => {
                                         }}
                                     />
                                 </FormControl>
-                                <Box sx={{height: "80px"}}/>
+                                <ClearFix height={25}/>
+                                <InputLabel shrink htmlFor={""}>
+                                    <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} spacing={1}>
+                                        <FormLabel title={"Slippage Tolerence"} description={""} required={false}/>
+                                        <HtmlTooltip title={<React.Fragment>
+                                            <Stack direction={"column"} justifyContent={"center"} alignItems={"start"}>
+                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D buy = 12%</Typography>
+                                                <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D sell = 17%</Typography>
+                                            </Stack>
+                                        </React.Fragment>} placement={"top"}>
+                                            <InfoOutlinedIcon sx={{color: "#7689B0"}}/>
+                                        </HtmlTooltip>
+                                    </Stack>
+                                </InputLabel>
+                                <Grid container spacing={2} justifyContent={"center"} alignItems={"center"}>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} spacing={1}>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>0.1%</LowPercentButton>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>0.5%</LowPercentButton>
+                                            <LowPercentButton variant={"outlined"} size={"large"} onClick={() => {}}>1%</LowPercentButton>
+                                        </Stack>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <FormAdvancedTextField
+                                            id={"slip_percent"}
+                                            InputProps={{
+                                                type: 'number',
+                                                placeholder: '0',
+                                                min: '0',
+                                                onChange: ((event) => {}),
+                                                disableUnderline: true,
+                                                value: "",
+                                                endAdornment: <Typography component={"span"} variant={"subtitle1"}>%</Typography>,
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <ClearFix height={20}/>
+                                <Grid container spacing={2} justifyContent={"center"} alignItems={"center"}>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <InputLabel shrink htmlFor={"transaction_deadline"}>
+                                            <FormLabel title={"Transaction Deadline"} description={""} required={false}/>
+                                        </InputLabel>
+                                    </Grid>
+                                    <Grid item xs={12} sm={6} md={12} lg={6}>
+                                        <FormAdvancedTextField
+                                            id={"transaction_deadline"}
+                                            InputProps={{
+                                                type: 'number',
+                                                placeholder: '0',
+                                                min: '0',
+                                                onChange: ((event) => {}),
+                                                disableUnderline: true,
+                                                value: "",
+                                                endAdornment: <Typography component={"span"} variant={"subtitle1"}>min</Typography>,
+                                            }}
+                                        />
+                                    </Grid>
+                                </Grid>
+                                <ClearFix height={30}/>
                                 {
                                     !account ?
                                         <ConnectButton/>
@@ -315,14 +397,14 @@ const Swap = () => {
                                         <>
                                             {
                                                 !inputError && (approval !== ApprovalState.APPROVED) &&
-                                                    <Box>
-                                                        <FormSubmitBtn
-                                                            fullWidth={true}
-                                                            label={(approval === ApprovalState.PENDING ? 'Enabling' : 'Enable ')}
-                                                            disabled={approval === ApprovalState.PENDING}
-                                                            onSubmit={approveCallback}
-                                                        />
-                                                    </Box>
+                                                <Box>
+                                                    <FormSubmitBtn
+                                                        fullWidth={true}
+                                                        label={(approval === ApprovalState.PENDING ? 'Enabling' : 'Enable ')}
+                                                        disabled={approval === ApprovalState.PENDING}
+                                                        onSubmit={approveCallback}
+                                                    />
+                                                </Box>
                                             }
                                             <FormSubmitBtn
                                                 fullWidth={true}
@@ -358,6 +440,7 @@ const Swap = () => {
                         </SwapContainer>
                     </Grid>
                 </Grid>
+                <ClearFix height={100}/>
             </Stack>
         </Container>
 
