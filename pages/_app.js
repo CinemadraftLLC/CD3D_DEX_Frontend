@@ -15,6 +15,7 @@ import Header from "../components/Header";
 import Footer from "../components/footer";
 import React from "react";
 import {RefreshContextProvider} from "../contexts/RefreshContext";
+import ClearFix from "../components/ClearFix/ClearFix";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -66,7 +67,6 @@ function MyApp({Component, pageProps}) {
                                     <Box component={"div"} className={"main-container"}>
                                         <Component {...pageProps} />
                                     </Box>
-                                    <Box sx={{height: "63px"}}/>
                                     <Footer/>
                                 </Stack>
                             </Box>
