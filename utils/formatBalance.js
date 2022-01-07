@@ -70,3 +70,7 @@ export const formatLocalisedCompactNumber = (number) => {
 }
 
 export default formatLocalisedCompactNumber
+
+export const formatMoneyNumber = (number) => {
+    return new Intl.NumberFormat('en-US').format(number);
+}
