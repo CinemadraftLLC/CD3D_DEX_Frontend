@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from 'next/router';
 import ClearFix from "../../components/ClearFix/ClearFix";
 import {Box, Container, FormControl, Grid, InputAdornment} from "@mui/material";
 import TokenSalesSearchField from "../../components/TokenSales/TokenSalesSearchField";
@@ -7,6 +8,7 @@ import {TokenSalesButton, TokenSalesButtonGroup, TokenSalesSearchButton} from ".
 import TokenSalesItem from "../../components/TokenSales/TokenSalesItem";
 
 const TokenSales = () => {
+    const router = useRouter();
     const [filter, setFilter] = React.useState("presale"); //presale, sale, mine
     const handleFilterChange = (event, value) => {
         setFilter(value);
@@ -109,7 +111,7 @@ const TokenSales = () => {
                 <Grid container>
                     {
                         tokens.map(token => <Grid key={token.id} item xs={12} sm={12} md={6} xl={4}>
-                            <TokenSalesItem token={token} onClick={() => console.log("OnClick Token Sales Item")}/>
+                            <TokenSalesItem token={token} onClick={() => router.push('/token_sales/detail')}/>
                         </Grid>)
                     }
                 </Grid>
