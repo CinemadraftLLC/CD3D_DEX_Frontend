@@ -553,7 +553,7 @@ export const marketPlaceData = [
     id: "market_5",
     title: 'Create Token Sales',
     subTitle: 'Launch your tokens',
-    link: '#',
+    link: '/create_token_sales',
   },
   {
     id: "market_6",

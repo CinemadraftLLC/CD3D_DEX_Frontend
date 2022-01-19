@@ -12,27 +12,30 @@ const CustomTextField = styled((props) => (
 ))(({theme}) => ({
     '& .MuiFilledInput-root': {
         overflow: 'hidden',
-        borderRadius: "12px",
         color: "white",
         backgroundColor: 'rgba(0, 0, 0, 0.17)',
         backdropFilter: "blur(30px)",
-        transition: theme.transitions.create([
-            'border-color',
-            'background-color',
-            'box-shadow',
-        ]),
+        border: "1px solid #26164A !important",
+        borderRadius: "15px",
     },
     '.MuiFilledInput-input': {
-        padding: "20px 25px",
+        padding: "13px 30px",
         '&::placeholder': {
-            color: '#7689B0',
+            color: '#435475',
         },
     },
+    '.MuiFormHelperText-root': {
+        color: '#7689B0',
+        fontSize: "12px",
+    },
+    '.MuiSvgIcon-root' : {
+        color: "#435475",
+    }
 }));
 
-const TokenSalesSearchField = (props) => {
+const CreateTokenTextForm = (props) => {
     return (
         <CustomTextField {...props} />
     );
 }
-export default TokenSalesSearchField;
+export default CreateTokenTextForm;

@@ -1,14 +1,11 @@
 import {TokenSalesDetailButton, TokenSalesItemAvatar, TokenSalesItemBody, TokenSalesItemContainer, TokenSalesItemFooter, TokenSalesItemHeader, TokenSalesItemProgressBar} from "./token_sales_widget";
 import {Box, Divider, Stack, Typography} from "@mui/material";
 import Image from "next/image";
-import React, {useCallback} from "react";
+import React from "react";
 import TokenSalesStatusLabel from "./TokenSalesStatusLabel";
 import PersonIcon from '@mui/icons-material/Person';
 import {formatMoneyNumber} from "../../utils/formatBalance";
 import ClearFix from "../ClearFix/ClearFix";
-import {LowPercentButton} from "../Swap/swap_widgets";
-import {Field} from "../../constants";
-import {PercentButton} from "../Liquidity/liquidity_widget";
 
 export const getCodeName = (code) => {
     switch (code) {
