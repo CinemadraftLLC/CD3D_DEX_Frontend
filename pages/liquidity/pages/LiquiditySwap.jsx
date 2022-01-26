@@ -44,6 +44,11 @@ const LiquidityInfoBox = styled(Box)({
     }
 });
 
+const TotalValueTypography = styled(Typography)({
+    color: "#4CDC8F",
+    fontSize: "14px",
+});
+
 
 function LiquiditySwap() {
     const router = useRouter()
@@ -248,9 +253,14 @@ function LiquiditySwap() {
                     <FormAdvancedTextField
                         id={"liquidity_pay"}
                         helperText={
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                Balance : {balances[Field.CURRENCY_A]}
-                            </Typography>
+                            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    Balance : {balances[Field.CURRENCY_A]}
+                                </Typography>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    Value : $127.43
+                                </Typography>
+                            </Stack>
                         }
                         InputProps={{
                             type: 'number',
@@ -272,9 +282,14 @@ function LiquiditySwap() {
                     <FormAdvancedTextField
                         id={"liquidity_receive"}
                         helperText={
-                            <Typography variant='subtitle2' gutterBottom component='div'>
-                                Balance : {balances[Field.CURRENCY_B]}
-                            </Typography>
+                            <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    Balance : {balances[Field.CURRENCY_B]}
+                                </Typography>
+                                <Typography variant='subtitle2' gutterBottom component='div'>
+                                    Value : $54.29
+                                </Typography>
+                            </Stack>
                         }
                         InputProps={{
                             type: 'number',
@@ -288,6 +303,10 @@ function LiquiditySwap() {
                             </InputAdornment>,
                         }}
                     />
+                    <ClearFix height={20}/>
+                    <TotalValueTypography variant='subtitle2' gutterBottom component='span'>
+                        Total Value : $123.45
+                    </TotalValueTypography>
                     <ClearFix height={20}/>
                     <LiquidityInfoBox>
                         <Typography variant='subtitle1' gutterBottom component='span'>
