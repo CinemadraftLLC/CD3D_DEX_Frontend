@@ -133,7 +133,7 @@ export const newThirdRenderer = ({days, hours, minutes, seconds, completed}) => 
 export const newFourthRenderer = () => {
     return (
         <div className={styles.presaleCounterOver}>
-            <Typography variant='h6'>CD3D holders can stake their tokens for 1000%+ APR <Link target="_blank" underline={"none"} href={"https://bitly.com/"}>now!</Link></Typography> 
+            <Typography variant='h6'>CD3D holders can stake their tokens for 1000%+ APR <Link target="_blank" underline={"none"} href={"https://bit.ly/3AFxmv7"}>now!</Link></Typography> 
         </div>
     );
 }
