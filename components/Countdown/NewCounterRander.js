@@ -128,7 +128,7 @@ export const newThirdRenderer = ({days, hours, minutes, seconds, completed}) => 
         );
     }
 };
-
+//Back to old one
 
 export const newFourthRenderer = () => {
     return (
