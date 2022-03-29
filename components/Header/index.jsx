@@ -363,7 +363,11 @@ const Header = () => {
 								))}
 							/>
 
-							<Link href="/referral">REFERRAL</Link>
+							<a href="" className={styles.RefferalDisabled}>
+								REFERRAL
+							</a>
+							{/* <Link href="">REFERRAL</Link> */}
+
 							<CustomMenu
 								child1={
 									<Button
