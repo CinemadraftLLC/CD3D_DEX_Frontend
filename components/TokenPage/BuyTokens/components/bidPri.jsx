@@ -9,10 +9,10 @@ const BidPri = (props) => {
 		<Stack width={"100%"} direction={"column"}>
 			<Stack width={"100%"} direction={"row"}>
 				<Typography variant="subtitle2" gutterBottom component="p">
-					Amount in CD3D{" "}
+					Bid Price{" "}
 					<span style={{ color: "#7689B0" }}>
 						{" "}
-						(equals how many tokens I will get?){" "}
+						(How much do i think this is worth?){" "}
 					</span>
 				</Typography>
 			</Stack>

@@ -193,7 +193,7 @@ const BuyTokens = () => {
 				spacing={3}
 				className={styles.buyTokenInner}>
 				<Typography variant="h6">Buy Tokens</Typography>
-				{/* <BidPri /> */}
+				<BidPri />
 
 				<BidBUSD
 					value={formattedAmounts[Field.CURRENCY_A]}
