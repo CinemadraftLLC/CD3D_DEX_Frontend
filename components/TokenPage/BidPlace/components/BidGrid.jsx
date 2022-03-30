@@ -19,7 +19,7 @@ const BidGrid = () => {
 						MINIMUM BID
 					</Typography>
 					<Typography variant="h6" gutterBottom component="h6">
-						$0.01 BUSD/CD3D
+						$0.03 BUSD/CD3D
 					</Typography>
 				</div>
 			</div>
@@ -57,7 +57,7 @@ const BidGrid = () => {
 						MAXIMUM BUY
 					</Typography>
 					<Typography variant="h6" gutterBottom component="h6">
-						$200,000 BUSD
+						$15,000 BUSD
 					</Typography>
 				</div>
 			</div>

@@ -51,10 +51,10 @@ const Amount3D = (props) => {
 				</Typography>
 			</div>
 			<div className={styles.tokenPriceContainer}>
-				<Typography variant="subtitle2" gutterBottom component="div">
+				{/* <Typography variant="subtitle2" gutterBottom component="div">
 					1 CD3D = {rate} BUSD
 				</Typography>
-				<InvertIcon />
+				<InvertIcon /> */}
 			</div>
 		</Stack>
 	);

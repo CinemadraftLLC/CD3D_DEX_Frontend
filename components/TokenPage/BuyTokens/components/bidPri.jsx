@@ -2,9 +2,10 @@ import React from "react";
 import styles from "../../../../styles/buyToke.module.css";
 import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
+import { FormHelperText } from "@mui/material";
 
 const BidPri = (props) => {
-	const { value, handleChangeOnbitPrice } = props;
+	const { value, handleChangeOnbitPrice, errMsg } = props;
 	return (
 		<Stack width={"100%"} direction={"column"}>
 			<Stack width={"100%"} direction={"row"}>
@@ -28,6 +29,7 @@ const BidPri = (props) => {
 					BUSD/CD3D
 				</Typography>
 			</div>
+			{errMsg && <FormHelperText error>{errMsg}</FormHelperText>}
 		</Stack>
 	);
 };

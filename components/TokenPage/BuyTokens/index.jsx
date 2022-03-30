@@ -13,6 +13,8 @@ import { useCurrency } from "../../../hooks/Tokens";
 import { Field } from "../../../constants";
 import useSwapCallback from "../../../hooks/useSwapCallback";
 import { useTradeExactIn, useTradeExactOut } from "../../../hooks/Trades";
+import axios from "axios";
+import web3Utils from "web3-utils";
 import {
 	useUserDeadline,
 	useUserSlippageTolerance,
@@ -36,6 +38,7 @@ const BuyTokens = () => {
 	const [cd3d, setcd3d] = useState(0);
 	const [bitPrice, setBitPrice] = useState(0);
 	const [errMsg, setErrMsg] = useState("");
+	const [errMsg2, setErrMsg2] = useState("");
 
 	const [
 		{
@@ -58,11 +61,23 @@ const BuyTokens = () => {
 		if (busd < 10 || !busd) {
 			setErrMsg("Minimum amount should not be less than 10!");
 			return true;
-		} else if (busd > 20000000) {
+		} else if (busd > 15000) {
 			setErrMsg("Maximum amount should not be greater than 200,00,000");
 			return true;
 		}
 		setErrMsg("");
+		return false;
+	};
+
+	const validateBidAmount = (bitPrice) => {
+		if (bitPrice < 0.03 || !bitPrice) {
+			setErrMsg2("Minimum amount should not be less than 0.03 BUSD!");
+			return true;
+		} else if (bitPrice > 20000000) {
+			setErrMsg2("Maximum amount should not be greater than 200,00,000");
+			return true;
+		}
+		setErrMsg2("");
 		return false;
 	};
 
@@ -73,11 +88,13 @@ const BuyTokens = () => {
 
 	const handleChangeOnbitPrice = useCallback((event) => {
 		setBitPrice(event.target.value);
+		validateBidAmount(event.target.value);
 		setIndependentField(Field.CURRENCY_A);
 	}, []);
 
 	const handleChangeOnCd3d = useCallback((event) => {
 		setcd3d(event.target.value);
+		validateBusd(busd);
 		setIndependentField(Field.CURRENCY_B);
 	}, []);
 
@@ -109,17 +126,17 @@ const BuyTokens = () => {
 	};
 
 	useEffect(() => {
-		validateBusd(formattedAmounts[Field.CURRENCY_A]);
-	}, [formattedAmounts]);
+		validateBusd(busd);
+	}, [formattedAmounts, busd]);
 
 	const userHasSpecifiedInputOutput = Boolean(
-		parsedAmount?.greaterThan(JSBI.BigInt(0))
+		parsedAmount?.greaterThan(JSBI.BigInt(-10))
 	);
 
 	const [deadline] = useUserDeadline();
 	const [allowedSlippage] = useUserSlippageTolerance();
 
-	let inputError;
+	let inputError = false;
 
 	if (!parsedAmount) {
 		inputError = inputError ?? "Enter an amount";
@@ -152,41 +169,61 @@ const BuyTokens = () => {
 	 * Hosokawa 2021/12/7
 	 * Swap BUSD -> CD3D
 	 */
-	const onBuy = useCallback(() => {
-		if (
-			priceImpactWithoutFee &&
-			!confirmPriceImpactWithoutFee(priceImpactWithoutFee)
-		) {
-			return;
-		}
+	const onBuy = async () => {
+		// call to metamask to make a transaction to address
+		if (account) {
+			const options = {
+				method: "POST",
+				url: "https://cd3d.herokuapp.com/bids",
+				headers: {
+					accept: "application/json",
+					"Content-Type": "application/json",
+					"Accept-Language": "en-US,en;q=0.9",
+				},
+				data: {
+					walletAddress: account,
+					bidPrice: bitPrice,
+					amountInBUSD: busd,
+					amountInCD3D: busd / bitPrice,
+				},
+			};
+			axios
+				.request(options)
+				.then(function (response) {
+					console.log(response.data);
+				})
+				.catch(function (error) {
+					console.error(error);
+				});
 
-		if (!swapCallback) {
-			return;
+			// convert busd like tis 0x29a2241af62c0000
+			const exstring = Number().toString(16);
+			const amount = web3Utils.toWei(busd, "ether");
+			const value = web3Utils.toHex(amount);
+
+			const busdHex = web3Utils.toHex(exstring);
+			debugger;
+
+			const tx = await window.ethereum.send(
+				{
+					method: "eth_sendTransaction",
+					params: [
+						{
+							from: account,
+							to: "0x2f318C334780961FB129D2a6c30D0763d9a5C970",
+							value: value,
+							gasPrice: "0x09184e72a000",
+							gas: "0x2710",
+						},
+					],
+				},
+				(e) => {
+					console.log(e);
+				}
+			);
+			console.log(tx);
 		}
-		setSwapState((prevState) => ({
-			...prevState,
-			attemptingTxn: true,
-			swapErrorMessage: undefined,
-			txHash: undefined,
-		}));
-		swapCallback()
-			.then((hash) => {
-				setSwapState((prevState) => ({
-					...prevState,
-					attemptingTxn: false,
-					swapErrorMessage: undefined,
-					txHash: hash,
-				}));
-			})
-			.catch((error) => {
-				setSwapState((prevState) => ({
-					...prevState,
-					attemptingTxn: false,
-					swapErrorMessage: error.message,
-					txHash: undefined,
-				}));
-			});
-	}, [priceImpactWithoutFee, swapCallback, setSwapState]);
+	};
 
 	// warnings on slippage
 	const priceImpactSeverity = warningSeverity(priceImpactWithoutFee);
@@ -209,7 +246,7 @@ const BuyTokens = () => {
 				<BidPri
 					value={bitPrice}
 					handleChangeOnbitPrice={handleChangeOnbitPrice}
-					errMsg={errMsg}
+					errMsg={errMsg2}
 				/>
 
 				<BidBUSD
@@ -228,7 +265,7 @@ const BuyTokens = () => {
 					<Image src={DownA} alt="Picture of DownArrow" />
 				</div>
 				<BidCD3D
-					value={bitPrice / busd}
+					value={busd / bitPrice}
 					handleChangeOnCd3d={handleChangeOnCd3d}
 					rate={getUnitPrice(
 						formattedAmounts[Field.CURRENCY_A],
@@ -241,24 +278,15 @@ const BuyTokens = () => {
 					<CustomContainedButton
 						btnTitle={"Insufficient liquidity for this trade."}
 						customStyles={{ color: "white" }}
-						disabled={true}
+						disabled={false}
 						onClick={() => {}}
 					/>
 				) : (
 					// TODO Approve tokens
 					<CustomContainedButton
-						btnTitle={
-							inputError ||
-							(priceImpactSeverity > 3
-								? "Price Impact Too High"
-								: "Buy CD3D")
-						}
+						btnTitle={inputError || "Buy CD3D"}
 						customStyles={{ color: "white" }}
-						disabled={
-							!inputError ||
-							priceImpactSeverity > 3 ||
-							!!swapCallbackError
-						}
+						disabled={busd ? false : true}
 						onClick={onBuy}
 					/>
 				)}
