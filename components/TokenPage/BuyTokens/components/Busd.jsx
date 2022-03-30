@@ -48,9 +48,6 @@ const Busd = (props) => {
 				width={"100%"}
 				justifyContent={"space-between"}>
 				<Typography variant="subtitle2" gutterBottom component="p">
-					Approx $5.00
-				</Typography>
-				<Typography variant="subtitle2" gutterBottom component="p">
 					Min. Buy $10.00
 				</Typography>
 			</Stack>
