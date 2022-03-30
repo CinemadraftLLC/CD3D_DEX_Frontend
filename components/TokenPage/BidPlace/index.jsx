@@ -45,6 +45,8 @@ const BidPlace = () => {
 			width={"100%"}
 			height={"100%"}
 			minHeight={"743px"}
+			paddingBottom={"30px"}
+			marginBottom={"20px"}
 			pb={8}
 			px={4}
 			py={4}
