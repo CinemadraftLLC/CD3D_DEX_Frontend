@@ -34,6 +34,7 @@ const BuyTokens = () => {
 	const { account } = useActiveWeb3React();
 	const [busd, setBusd] = useState(0);
 	const [cd3d, setcd3d] = useState(0);
+	const [bitPrice, setBitPrice] = useState(0);
 	const [errMsg, setErrMsg] = useState("");
 
 	const [
@@ -67,6 +68,11 @@ const BuyTokens = () => {
 
 	const handleChangeOnBusd = useCallback((event) => {
 		setBusd(event.target.value);
+		setIndependentField(Field.CURRENCY_A);
+	}, []);
+
+	const handleChangeOnbitPrice = useCallback((event) => {
+		setBitPrice(event.target.value);
 		setIndependentField(Field.CURRENCY_A);
 	}, []);
 
@@ -193,23 +199,41 @@ const BuyTokens = () => {
 				spacing={3}
 				className={styles.buyTokenInner}>
 				<Typography variant="h6">Buy Tokens</Typography>
-				<BidPri />
+				{/* <input
+					type="number"
+					value={bitPrice}
+					placeholder="0"
+					// min="0"
+					onChange={handleChangeOnbitPrice}
+				/> */}
+				<BidPri
+					value={bitPrice}
+					handleChangeOnbitPrice={handleChangeOnbitPrice}
+					errMsg={errMsg}
+				/>
 
 				<BidBUSD
-				// value={formattedAmounts[Field.CURRENCY_A]}
-				// handleChangeOnBusd={handleChangeOnBusd}
-				// errMsg={errMsg}
+					value={busd}
+					handleChangeOnBusd={handleChangeOnBusd}
+					errMsg={errMsg}
 				/>
+				{/* <input
+					type="number"
+					value={busd}
+					placeholder="0"
+					// min="0"
+					onChange={handleChangeOnBusd}
+				/> */}
 				<div className={styles.downOuter}>
 					<Image src={DownA} alt="Picture of DownArrow" />
 				</div>
 				<BidCD3D
-				// value={formattedAmounts[Field.CURRENCY_B]}
-				// handleChangeOnCd3d={handleChangeOnCd3d}
-				// rate={getUnitPrice(
-				// 	formattedAmounts[Field.CURRENCY_A],
-				// 	formattedAmounts[Field.CURRENCY_B]
-				// )}
+					value={bitPrice / busd}
+					handleChangeOnCd3d={handleChangeOnCd3d}
+					rate={getUnitPrice(
+						formattedAmounts[Field.CURRENCY_A],
+						formattedAmounts[Field.CURRENCY_B]
+					)}
 				/>
 				{!account ? (
 					<ConnectButton />

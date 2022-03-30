@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import { Stack } from "@mui/material";
 
 const BidPri = (props) => {
-	const { bidPrice } = props;
+	const { value, handleChangeOnbitPrice } = props;
 	return (
 		<Stack width={"100%"} direction={"column"}>
 			<Stack width={"100%"} direction={"row"}>
@@ -17,7 +17,13 @@ const BidPri = (props) => {
 				</Typography>
 			</Stack>
 			<div className={styles.bidPriceInput}>
-				<input type="number" placeholder="0" min="0" />
+				<input
+					type="number"
+					placeholder="0"
+					min="0"
+					value={value}
+					onChange={(e) => handleChangeOnbitPrice(e)}
+				/>
 				<Typography variant="subtitle2" gutterBottom component="p">
 					BUSD/CD3D
 				</Typography>

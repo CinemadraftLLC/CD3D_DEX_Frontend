@@ -25,7 +25,7 @@ const Busd = (props) => {
 					value={value}
 					placeholder="0"
 					min="0"
-					// onChange={handleChangeOnBusd}
+					onChange={(e) => handleChangeOnBusd(e)}
 				/>
 				<Typography
 					variant="subtitle2"
