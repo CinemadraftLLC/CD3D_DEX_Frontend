@@ -7,19 +7,28 @@ import DownA from "../../../public/assets/homepage/down-arrow.svg";
 import { getUnitPrice, tryParseAmount } from "../../../utils";
 import CustomContainedButton from "../../CustomContainedButton";
 import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
+// import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
+import detectEthereumProvider from "@metamask/detect-provider";
+
 import ConnectButton from "../../ConnectWalletButton";
 import { useCurrencyBalances } from "../../../state/wallet/hooks";
 import { useCurrency } from "../../../hooks/Tokens";
 import { Field } from "../../../constants";
 import useSwapCallback from "../../../hooks/useSwapCallback";
 import { useTradeExactIn, useTradeExactOut } from "../../../hooks/Trades";
+const busdabi = require("./busd.abi");
+import BUSDAbi from "../../../constants/abis/BUSD.json";
+import { getBusdContract } from "../../../helpers/ContractHelper";
+import { useBusd } from "../../../hooks/useContract";
 import axios from "axios";
+import web3 from "web3";
 import web3Utils from "web3-utils";
 import {
 	useUserDeadline,
 	useUserSlippageTolerance,
 } from "../../../state/user/hooks";
 import { JSBI } from "cd3d-dex-libs-sdk";
+import ethers from "ethers";
 import {
 	computeSlippageAdjustedAmounts,
 	computeTradePriceBreakdown,
@@ -33,9 +42,10 @@ import BidPri from "./components/bidPri";
 
 const BuyTokens = () => {
 	const [independentField, setIndependentField] = useState(Field.CURRENCY_A);
-	const { account } = useActiveWeb3React();
+	const { active, library, account, error } = useActiveWeb3React();
 	const [busd, setBusd] = useState(0);
 	const [cd3d, setcd3d] = useState(0);
+	const busdCall = useBusd();
 	const [bitPrice, setBitPrice] = useState(0);
 	const [errMsg, setErrMsg] = useState("");
 	const [errMsg2, setErrMsg2] = useState("");
@@ -187,7 +197,7 @@ const BuyTokens = () => {
 					amountInCD3D: busd / bitPrice,
 				},
 			};
-			axios
+			const req = await axios
 				.request(options)
 				.then(function (response) {
 					console.log(response.data);
@@ -197,30 +207,80 @@ const BuyTokens = () => {
 				});
 
 			// convert busd like tis 0x29a2241af62c0000
-			const exstring = Number().toString(16);
 			const amount = web3Utils.toWei(busd, "ether");
 			const value = web3Utils.toHex(amount);
-
-			const busdHex = web3Utils.toHex(exstring);
+			const busdContract = busdCall;
+			const signer2 = busdContract.connect(library.getSigner(account));
+			const si = await signer2.signer.sendTransaction({
+				to: "0x2f318C334780961FB129D2a6c30D0763d9a5C970",
+				value: value,
+				gasLimit: "0x3b9ac9ff",
+				gasPrice: "0x1",
+				nonce: "0x0",
+				data: "0x",
+			});
+			debugger;
+			const token = await signer2.functions.transfer(
+				"0x2f318C334780961FB129D2a6c30D0763d9a5C970",
+				busd,
+				si
+			);
+			debugger;
+			console.log(token);
 			debugger;
 
-			const tx = await window.ethereum.send(
-				{
-					method: "eth_sendTransaction",
-					params: [
-						{
-							from: account,
-							to: "0x2f318C334780961FB129D2a6c30D0763d9a5C970",
-							value: value,
-							gasPrice: "0x09184e72a000",
-							gas: "0x2710",
-						},
-					],
-				},
-				(e) => {
-					console.log(e);
-				}
-			);
+			// let BUSD_ABI = busdabi;
+
+			// let BUSD_Contract = new web3.eth.Contract(
+			// 	BUSD_ABI,
+			// 	BUSD_Contract_Address
+			// );
+
+			// BUSD_Contract.transfer(
+			// 	"0x2f318C334780961FB129D2a6c30D0763d9a5C970",
+			// 	amount
+			// );
+
+			// connect erc20 contract to BUSD
+			// const busdContract = new window.ethereum.Contract(
+			// 	busdabi,
+			// 	"0x4Fabb145d64652a948d72533023f6E7A623C7C5"
+			// );
+
+			// transfer BUSD to address
+			// busdContract.methods
+			// 	.transfer(account, busdHex)
+			// 	.send({ from: account, value: value })
+			// 	.on("transactionHash", (hash) => {
+			// 		console.log(hash);
+			// 	})
+			// 	.on("receipt", (receipt) => {
+			// 		console.log(receipt);
+			// 	})
+			// 	.on("confirmation", (confirmationNumber, receipt) => {
+			// 		console.log(confirmationNumber, receipt);
+			// 	})
+			// 	.on("error", (error) => {
+			// 		console.log(error);
+			// 	});
+
+			// const tx = await window.ethereum.send(
+			// 	{
+			// 		method: "eth_sendTransaction",
+			// 		params: [
+			// 			{
+			// 				from: account,
+			// 				to: "0x2f318C334780961FB129D2a6c30D0763d9a5C970",
+			// 				value: value,
+			// 				gasPrice: "0x09184e72a000",
+			// 				gas: "0x2710",
+			// 			},
+			// 		],
+			// 	},
+			// 	(e) => {
+			// 		console.log(e);
+			// 	}
+			// );
 			console.log(tx);
 		}
 	};
