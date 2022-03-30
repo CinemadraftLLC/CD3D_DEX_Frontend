@@ -196,20 +196,20 @@ const BuyTokens = () => {
 				<BidPri />
 
 				<BidBUSD
-					value={formattedAmounts[Field.CURRENCY_A]}
-					handleChangeOnBusd={handleChangeOnBusd}
-					errMsg={errMsg}
+				// value={formattedAmounts[Field.CURRENCY_A]}
+				// handleChangeOnBusd={handleChangeOnBusd}
+				// errMsg={errMsg}
 				/>
 				<div className={styles.downOuter}>
 					<Image src={DownA} alt="Picture of DownArrow" />
 				</div>
 				<BidCD3D
-					value={formattedAmounts[Field.CURRENCY_B]}
-					handleChangeOnCd3d={handleChangeOnCd3d}
-					rate={getUnitPrice(
-						formattedAmounts[Field.CURRENCY_A],
-						formattedAmounts[Field.CURRENCY_B]
-					)}
+				// value={formattedAmounts[Field.CURRENCY_B]}
+				// handleChangeOnCd3d={handleChangeOnCd3d}
+				// rate={getUnitPrice(
+				// 	formattedAmounts[Field.CURRENCY_A],
+				// 	formattedAmounts[Field.CURRENCY_B]
+				// )}
 				/>
 				{!account ? (
 					<ConnectButton />

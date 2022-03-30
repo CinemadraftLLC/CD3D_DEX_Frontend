@@ -17,12 +17,7 @@ const BidPri = (props) => {
 				</Typography>
 			</Stack>
 			<div className={styles.bidPriceInput}>
-				<input
-					type="number"
-					placeholder="0"
-					min="0"
-					value={bidPrice ?? 0}
-				/>
+				<input type="number" placeholder="0" min="0" />
 				<Typography variant="subtitle2" gutterBottom component="p">
 					BUSD/CD3D
 				</Typography>
