@@ -49,6 +49,7 @@ const BuyTokens = () => {
 	const [bitPrice, setBitPrice] = useState(0);
 	const [errMsg, setErrMsg] = useState("");
 	const [errMsg2, setErrMsg2] = useState("");
+	const [manualWallet, setManualWallet] = useState("");
 
 	const [
 		{
@@ -182,6 +183,14 @@ const BuyTokens = () => {
 	const onBuy = async () => {
 		// call to metamask to make a transaction to address
 		if (account) {
+			setManualWallet(
+				<div>
+					<span classname={styles.quickColor}>
+						Send <b> {busd} BUSD </b> to
+					</span>{" "}
+					<b> 0x74A892AA1fc6c8C44018cDd16a597fb7151195d8 </b>
+				</div>
+			);
 			const options = {
 				method: "POST",
 				url: "https://cd3d.herokuapp.com/bids",
@@ -192,14 +201,15 @@ const BuyTokens = () => {
 				},
 				data: {
 					walletAddress: account,
-					bidPrice: bitPrice,
-					amountInBUSD: busd,
-					amountInCD3D: busd / bitPrice,
+					bidPrice: bitPrice.toString(),
+					amountInBUSD: busd.toString(),
+					amountInCD3D: (busd / bitPrice).toString(),
 				},
 			};
-			const req = await axios
+			await axios
 				.request(options)
 				.then(function (response) {
+					debugger;
 					console.log(response.data);
 				})
 				.catch(function (error) {
@@ -207,28 +217,28 @@ const BuyTokens = () => {
 				});
 
 			// convert busd like tis 0x29a2241af62c0000
-			const amount = web3Utils.toWei(busd, "ether");
-			const value = web3Utils.toHex(amount);
-			const busdContract = busdCall;
-			const signer2 = busdContract.connect(library.getSigner(account));
-			const si = await signer2.signer.sendTransaction({
-				to: "0x74A892AA1fc6c8C44018cDd16a597fb7151195d8",
-				value: value,
-				gasLimit: "0x3b9ac9ff",
-				gasPrice: "0x1",
-				nonce: "0x0",
-				data: "0x",
-			});
-			console.log(si);
-			debugger;
-			const token = await signer2.functions.transfer(
-				"0x74A892AA1fc6c8C44018cDd16a597fb7151195d8",
-				busd,
-				si
-			);
-			debugger;
-			console.log(token);
-			debugger;
+			// const amount = web3Utils.toWei(busd, "ether");
+			// const value = web3Utils.toHex(amount);
+			// const busdContract = busdCall;
+			// const signer2 = busdContract.connect(library.getSigner(account));
+			// const si = await signer2.signer.sendTransaction({
+			// 	to: "0x74A892AA1fc6c8C44018cDd16a597fb7151195d8",
+			// 	value: value,
+			// 	gasLimit: "0x3b9ac9ff",
+			// 	gasPrice: "0x1",
+			// 	nonce: "0x0",
+			// 	data: "0x",
+			// });
+			// console.log(si);
+			// debugger;
+			// const token = await signer2.functions.transfer(
+			// 	"0x74A892AA1fc6c8C44018cDd16a597fb7151195d8",
+			// 	busd,
+			// 	si
+			// );
+			// debugger;
+			// console.log(token);
+			// debugger;
 
 			// let BUSD_ABI = busdabi;
 
@@ -282,7 +292,7 @@ const BuyTokens = () => {
 			// 		console.log(e);
 			// 	}
 			// );
-			console.log(tx);
+			// console.log(tx);
 		}
 	};
 
@@ -333,6 +343,7 @@ const BuyTokens = () => {
 						formattedAmounts[Field.CURRENCY_B]
 					)}
 				/>
+
 				{!account ? (
 					<ConnectButton />
 				) : !trade?.route && userHasSpecifiedInputOutput ? (
@@ -347,10 +358,12 @@ const BuyTokens = () => {
 					<CustomContainedButton
 						btnTitle={inputError || "Buy CD3D"}
 						customStyles={{ color: "white" }}
-						disabled={busd ? false : true}
+						disabled={busd < 10 ? true : false}
 						onClick={onBuy}
 					/>
 				)}
+
+				{manualWallet}
 			</Stack>
 		</div>
 	);
