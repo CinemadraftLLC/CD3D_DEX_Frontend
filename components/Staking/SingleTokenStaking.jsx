@@ -83,11 +83,6 @@ const SingleTokenStaking = () => {
 						// onChange={handleNetworkChange}
 						displayEmpty
 						inputProps={{ "aria-label": "Without label" }}>
-						<SelectDialog
-							onClose={handleClose}
-							aria-labelledby="customized-dialog-title"
-							open={open}
-						/>
 						{/* <MenuItem selected value="">
 				              Standard Tokens
 				      	     </MenuItem>
@@ -95,6 +90,11 @@ const SingleTokenStaking = () => {
 				            <MenuItem value={"dev_net"}>Dev net</MenuItem>
 				            <MenuItem value={"local_net"}>Local net</MenuItem> */}
 					</Select>
+					<SelectDialog
+						onClose={handleClose}
+						aria-labelledby="customized-dialog-title"
+						open={open}
+					/>
 				</CreateTokenFormControl>
 			</Stack>
 
