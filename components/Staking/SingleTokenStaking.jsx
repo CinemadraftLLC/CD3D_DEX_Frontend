@@ -44,6 +44,7 @@ const useStyles = makeStyles({
 
 const SingleTokenStaking = () => {
 	const [dateValue, setDateValue] = useState(new Date());
+	const [endDateValue, setEndDateValue] = useState(new Date());
 	const [tokenType, setTokenType] = useState("");
 
 	const classes = useStyles();
@@ -88,11 +89,11 @@ const SingleTokenStaking = () => {
 							open={open}
 						/>
 						{/* <MenuItem selected value="">
-              Standard Tokens
-            </MenuItem>
-            <MenuItem value={"main_net"}>Main net</MenuItem>
-            <MenuItem value={"dev_net"}>Dev net</MenuItem>
-            <MenuItem value={"local_net"}>Local net</MenuItem> */}
+				              Standard Tokens
+				      	     </MenuItem>
+				            <MenuItem value={"main_net"}>Main net</MenuItem>
+				            <MenuItem value={"dev_net"}>Dev net</MenuItem>
+				            <MenuItem value={"local_net"}>Local net</MenuItem> */}
 					</Select>
 				</CreateTokenFormControl>
 			</Stack>
@@ -145,9 +146,9 @@ const SingleTokenStaking = () => {
 										{...props}
 									/>
 								)}
-								value={dateValue}
+								value={endDateValue}
 								onChange={(newValue) => {
-									setDateValue(newValue);
+									setEndDateValue(newValue);
 								}}
 							/>
 						</LocalizationProvider>
