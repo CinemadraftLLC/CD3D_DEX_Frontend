@@ -149,7 +149,7 @@ const StyledTableCell = styled(TableCell)({
 	},
 });
 
-const Stacking = () => {
+const Staking = () => {
 	const [showStaking, setShowStaking] = useState(false);
 	const [selectedStStaking, setSelectedStStaking] = useState(false);
 	const [selectedLpStaking, setSelectedLpStaking] = useState(false);
@@ -581,4 +581,4 @@ const Stacking = () => {
 		</Container>
 	);
 };
-export default Stacking;
+export default Staking;
