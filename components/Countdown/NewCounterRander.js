@@ -152,7 +152,7 @@ export const newFourthRenderer = () => {
 		"https://app.unifarm.co/";
 	return (
 		<div className={styles.presaleCounterOver}>
-			<a href={linkUrl} target="_blank">
+			<a href={linkUrl} target="_blank" style={{ margin: "10px, 0" }}>
 
 				<Typography variant="h6">
 					Stake CD3D for 250% APY at UniFarm today!
