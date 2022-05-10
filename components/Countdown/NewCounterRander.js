@@ -149,13 +149,13 @@ export const newThirdRenderer = ({
 
 export const newFourthRenderer = () => {
 	const linkUrl =
-		"https://cinemadraft.medium.com/the-premiere-cd3d-dex-debut-sale-event-8271ed873a68";
+		"https://app.unifarm.co/";
 	return (
 		<div className={styles.presaleCounterOver}>
 			<a href={linkUrl} target="_blank">
 
 				<Typography variant="h6">
-					The Premiere CD3D DEX Debut SALE starts 3.30.22
+					Stake CD3D for 250% APY at UniFarm today!
 				</Typography>
 			</a>
 		</div>
