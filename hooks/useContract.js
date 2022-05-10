@@ -11,7 +11,7 @@ import WETH_ABI from '../constants/abis/weth.json'
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
 
 import useActiveWeb3React from "./useActiveWeb3React";
-import {getBep20Contract, getMasterchefContract} from "../utils/contractHelpers";
+import {getBep20Contract, getMasterchefContract, getMiningFactoryContract} from "../utils/contractHelpers";
 
 export const usePresale = (library, account) => {
   const web3 = new Web3(library);
@@ -85,3 +85,9 @@ export const useMasterchef = () => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getMasterchefContract(library.getSigner()), [library])
 }
+
+export const useMiningFactoryContract = () => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getMiningFactoryContract(library.getSigner()), [library])
+}
+
