@@ -330,8 +330,8 @@ const Stacking = () => {
               <StakingForm
                 id={"reward_token"}
                 InputProps={{
-                  type: "number",
-                  placeholder: "0",
+                  type: "text",
+                  placeholder: "0xABCD..EF",
                   onChange: (value) => {},
                   disableUnderline: true,
                 }}
