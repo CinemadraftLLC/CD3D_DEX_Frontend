@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Chip,
@@ -34,6 +34,11 @@ import { ArrowDropDown } from "@mui/icons-material";
 import { useTokenBalance } from "../../state/wallet/hooks";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import RewardRecrod from "./rewardRecord";
+import moment from "moment";
+import useStaking from "../../hooks/useStaking";
+import { useBlockNumber } from "../../state/application/hooks";
+import useCurrentBlockTimestamp from "../../hooks/useCurrentBlockTimestamp";
+import { useApproveCallback } from "../../hooks/useApproveCallback";
 
 const StackingBannerContainer = styled(Container)(({ theme }) => ({
   height: "350px",
@@ -165,32 +170,44 @@ const MiningType = {
 };
 
 const RewardField = {
-  RADDRESS: 'rewardTokenAddress',
-  DREWARD: 'dailyReward',
-  TREWARD: 'totalReward',
-  PERBLCOK: 'perblock'
-}
+  RADDRESS: "rewardTokenAddress",
+  DREWARD: "dailyReward",
+  TREWARD: "totalReward",
+  PERBLCOK: "perblock",
+};
 
 const RewardPlaceholder = {
   rewardTokenAddress: "",
   dailyReward: 0,
   totalReward: 0,
-  perblock: 0
+  perblock: 0,
 };
 
 const Stacking = () => {
   const { account } = useActiveWeb3React();
   const [miningType, setMiningType] = useState(MiningType.SINGLE_STAKING);
   const [stakingTokenAddress, setStakingTokenAddress] = useState("");
-  const [startTime, setStartTime] = useState();
-  const [endTime, setEndTime] = useState();
+  const [startTime, setStartTime] = useState(
+    moment().add(1, "day").startOf("date")
+  );
+  const [endTime, setEndTime] = useState(
+    moment().add(1, "day").add(10, "days").startOf("dates")
+  );
+  const [duration, setDuration] = useState(10); // default 10 days
 
   const [rewardsInfo, setRewardsInfo] = useState([RewardPlaceholder]);
 
   const onRewardChange = (index, field, value) => {
     const reward = { ...rewardsInfo[index], [field]: value };
+    if (field === RewardField.DREWARD) {
+      reward[RewardField.TREWARD] = Number(value) * duration;
+    }
+    if (field === RewardField.TREWARD) {
+      reward[RewardField.DREWARD] = Number(value) / duration;
+    }
     const newReward = [...rewardsInfo];
     newReward[index] = reward;
+    console.log('updateReward')
     setRewardsInfo(newReward);
   };
 
@@ -199,10 +216,59 @@ const Stacking = () => {
   };
 
   const onRemoveReward = (index) => {
-    const newRewards = [...rewardsInfo]
-    if(newRewards.length > 1) {
-      newRewards.splice(index, 1)
+    const newRewards = [...rewardsInfo];
+    if (newRewards.length > 1) {
+      newRewards.splice(index, 1);
       setRewardsInfo(newRewards);
+    }
+  };
+
+  const onChangeDuration = (duration) => {
+    const endtime = moment(startTime).add(duration, "days");
+    setEndTime(endtime);
+    setRewardsInfo(
+      rewardsInfo.map((rinfo) => {
+        return { ...rinfo, dailyReward: rinfo.totalReward / duration };
+      })
+    );
+  };
+
+
+  useEffect(() => {
+    if (moment(startTime).isBefore(endTime)) {
+      const durationD = moment
+        .duration(moment(endTime).diff(startTime))
+        .asDays();
+      setDuration(durationD);
+      const durationS = moment
+        .duration(moment(endTime).diff(startTime))
+        .asSeconds();
+      const durationB = (durationS / 3).toFixed();
+    }
+  }, [startTime, endTime]);
+
+  const { deployStakingPool } = useStaking();
+
+  const blockNumber = useBlockNumber();
+  const blockTimeStamp = useCurrentBlockTimestamp();
+
+  const onCreatePool = () => {
+    if(!blockTimeStamp || !blockNumber || !stakingTokenAddress) return;
+
+    const valid = rewardsInfo.every(reward => {
+      const {dailyReward, perblock, rewardTokenAddress, totalReward} = reward
+      return Number(perblock) > 0 && rewardTokenAddress 
+    })
+
+    console.log(valid, rewardsInfo)
+
+    if(valid) {
+      const blockTime = moment.unix(blockTimeStamp.toNumber())
+      const startblock = blockNumber + startTime.diff(blockTime) / 3
+      const endblock = blockNumber + endTime.diff(blockTime) / 3
+      const rewardTokens = rewardsInfo.map(reward => reward.rewardTokenAddress)
+      const rewardPerBlock = rewardsInfo.map(reward => reward.perblock)
+      deployStakingPool(stakingTokenAddress, rewardTokens, rewardPerBlock, startblock, endblock)
     }
   };
 
@@ -396,6 +462,9 @@ const Stacking = () => {
             <DateTimePicker
               renderInput={(props) => <StakingForm {...props} />}
               value={startTime}
+              minDateTime={
+                new Date(moment().add(20, "minutes").toLocaleString())
+              }
               onChange={setStartTime}
             />
           </FormControl>
@@ -408,6 +477,9 @@ const Stacking = () => {
             <DateTimePicker
               renderInput={(props) => <StakingForm {...props} />}
               value={endTime}
+              minDateTime={
+                new Date(moment().add(30, "minutes").toLocaleString())
+              }
               onChange={setEndTime}
             />
           </FormControl>
@@ -423,9 +495,11 @@ const Stacking = () => {
               <RewardRecrod
                 infoIndex={infoIndex}
                 rinfo={rinfo}
+                duration={duration}
                 onNewReward={onNewReward}
                 onRemoveReward={onRemoveReward}
                 onRewardChange={onRewardChange}
+                onChangeDuration={onChangeDuration}
                 key={infoIndex}
               />
             );
@@ -440,7 +514,7 @@ const Stacking = () => {
               <FormSubmitBtn
                 label={"Create"}
                 fullWidth={true}
-                onSubmit={() => {}}
+                onSubmit={onCreatePool}
               />
             </Box>
           </Stack>

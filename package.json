@@ -60,6 +60,7 @@
     "lightweight-charts": "^3.7.0",
     "lodash": "^4.17.21",
     "mobile-device-detect": "^0.4.3",
+    "moment": "^2.29.3",
     "next": "11.1.2",
     "next-images": "^1.8.1",
     "prop-types": "^15.8.1",

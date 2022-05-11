@@ -16,7 +16,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import StakingForm from "../../components/Form/StakingForm";
 import AddIcon from "@mui/icons-material/Add";
@@ -25,6 +25,12 @@ import { useCurrency } from "../../hooks/Tokens";
 import { tryParseAmount } from "../../utils";
 import { useCurrencyBalance } from "../../state/wallet/hooks";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import { parseUnits } from "@ethersproject/units";
+import {
+  useApproveCallback,
+  ApprovalState,
+} from "../../hooks/useApproveCallback";
+import { getMiningFactoryAddress } from "../../utils/addressHelpers";
 
 const RewardLabel = styled(InputLabel)({
   transform: "translate(0, -3px) scale(1)",
@@ -37,14 +43,14 @@ const RewardLabel = styled(InputLabel)({
     color: "#BAC4D7",
     fontSize: "12px",
   },
-  overflow: "visible"
+  overflow: "visible",
 });
 
 const RewardChip = styled(Chip)({
   backgroundColor: "#800022",
   color: "#FFF1F5",
   borderRadius: "6px",
-  cursor: "pointer"
+  cursor: "pointer",
 });
 
 const RewardField = {
@@ -60,18 +66,46 @@ export default function RewardRecrod({
   onRewardChange,
   onNewReward,
   onRemoveReward,
+  duration,
+  onChangeDuration,
 }) {
   const { account } = useActiveWeb3React();
   const token = useCurrency(rinfo[RewardField.RADDRESS]);
   const balance = useCurrencyBalance(account, token);
-//   const total = tryParseAmount(rinfo[RewardField.TREWARD], token);
 
-  const onTotalRewardChange = (e) => {
-      const total = tryParseAmount(e.target.value, token)
-      if(total) {
-          
-      }
-  }
+  const [approvalState, approve] = useApproveCallback(
+    balance,
+    getMiningFactoryAddress()
+  );
+
+  const [inApprove, setInApprove] = useState(false);
+
+  useEffect(() => {
+    async function tryApprove() {
+      if (inApprove) return;
+      setInApprove(true);
+      await approve();
+      setTimeout(setInApprove, 15000, false);
+    }
+    if (approvalState === ApprovalState.NOT_APPROVED) {
+      tryApprove()
+    }
+  }, [approvalState, token, balance, inApprove]);
+
+  useEffect(() => {
+    console.log(token, rinfo);
+    if (!token || !rinfo) return;
+    if (!rinfo.dailyReward) return;
+    // console.log(parseUnits(String(rinfo.dailyReward), token.decimals).div(28800).toString())
+    // blocks per day 86400 / 3 = 28800
+    onRewardChange(
+      infoIndex,
+      "perblock",
+      parseUnits(String(rinfo.dailyReward), token.decimals)
+        .div(28800)
+        .toString()
+    );
+  }, [token, rinfo.dailyReward]);
 
   return (
     <Stack
@@ -111,8 +145,13 @@ export default function RewardRecrod({
           id={"campaign_period"}
           InputProps={{
             type: "number",
+            value: duration,
+            min: 1,
+            step: 1,
             placeholder: "0",
-            onChange: (value) => {},
+            onChange: (e) => {
+              onChangeDuration(e.target.value);
+            },
             disableUnderline: true,
           }}
         />
@@ -146,11 +185,30 @@ export default function RewardRecrod({
             <Typography variant={"subtitle1"} component={"label"}>
               Total Rewards&nbsp;
             </Typography>
-            <Stack direction={"row"} spacing={1} alignItems={"center"} overflow="visible">
-              <Typography variant={"subtitle2"} component={"label"}>
-                Available : {balance ? balance.toSignificant(2) : '-'}
-              </Typography>
-              <RewardChip size="small" label={"Max"} />
+            <Stack
+              direction={"row"}
+              spacing={1}
+              alignItems={"center"}
+              overflow="visible"
+            >
+              {balance && (
+                <>
+                  <Typography variant={"subtitle2"} component={"label"}>
+                    Available : {balance.toSignificant(2)}
+                  </Typography>
+                  <RewardChip
+                    onClick={() =>
+                      onRewardChange(
+                        infoIndex,
+                        "totalReward",
+                        balance.toExact()
+                      )
+                    }
+                    size="small"
+                    label={"Max"}
+                  />
+                </>
+              )}
             </Stack>
           </Stack>
         </RewardLabel>
