@@ -14,6 +14,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  TextField,
   Typography,
 } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
@@ -23,10 +24,16 @@ import Image from "next/image";
 import ClearFix from "../../components/ClearFix/ClearFix";
 import StakingForm from "../../components/Form/StakingForm";
 import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
 import FormSubmitBtn from "../../components/Form/FormSubmitBtn";
 
 import LpStakingIcon from "./lp_staking_icon";
 import StStakingIcon from "./st_staking_icon";
+import { DateTimePicker } from "@mui/lab";
+import { ArrowDropDown } from "@mui/icons-material";
+import { useTokenBalance } from "../../state/wallet/hooks";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
+import RewardRecrod from "./rewardRecord";
 
 const StackingBannerContainer = styled(Container)(({ theme }) => ({
   height: "350px",
@@ -157,8 +164,48 @@ const MiningType = {
   LP_STAKING: "LP_STAKING",
 };
 
+const RewardField = {
+  RADDRESS: 'rewardTokenAddress',
+  DREWARD: 'dailyReward',
+  TREWARD: 'totalReward',
+  PERBLCOK: 'perblock'
+}
+
+const RewardPlaceholder = {
+  rewardTokenAddress: "",
+  dailyReward: 0,
+  totalReward: 0,
+  perblock: 0
+};
+
 const Stacking = () => {
-  const [miningType, setMiningType] = useState("");
+  const { account } = useActiveWeb3React();
+  const [miningType, setMiningType] = useState(MiningType.SINGLE_STAKING);
+  const [stakingTokenAddress, setStakingTokenAddress] = useState("");
+  const [startTime, setStartTime] = useState();
+  const [endTime, setEndTime] = useState();
+
+  const [rewardsInfo, setRewardsInfo] = useState([RewardPlaceholder]);
+
+  const onRewardChange = (index, field, value) => {
+    const reward = { ...rewardsInfo[index], [field]: value };
+    const newReward = [...rewardsInfo];
+    newReward[index] = reward;
+    setRewardsInfo(newReward);
+  };
+
+  const onNewReward = () => {
+    setRewardsInfo([...rewardsInfo, RewardPlaceholder]);
+  };
+
+  const onRemoveReward = (index) => {
+    const newRewards = [...rewardsInfo]
+    if(newRewards.length > 1) {
+      newRewards.splice(index, 1)
+      setRewardsInfo(newRewards);
+    }
+  };
+
   return (
     <Container maxWidth={"xl"}>
       <StackingBannerContainer>
@@ -287,7 +334,10 @@ const Stacking = () => {
                   />
                 </Box>
                 <Stack direction={"column"} spacing={2}>
-                  <Typography variant={"subtitle1"} component={"span"} style={{
+                  <Typography
+                    variant={"subtitle1"}
+                    component={"span"}
+                    style={{
                       color:
                         miningType === MiningType.LP_STAKING
                           ? "red"
@@ -295,7 +345,8 @@ const Stacking = () => {
                       display: "flex",
                       justifyContent: "space-between",
                       alignItems: "center",
-                    }}>
+                    }}
+                  >
                     LP Staking
                     <CheckCircleIcon />
                   </Typography>
@@ -308,108 +359,78 @@ const Stacking = () => {
             </Grid>
           </Grid>
         </Stack>
+        <Stack
+          direction={{ xs: "column", sm: "column", md: "row" }}
+          spacing={1}
+          justifyContent={"start"}
+          alignItems={{ xs: "stretch", sm: "stretch", md: "end" }}
+          flexBasis={1}
+        >
+          <FormControl variant={"standard"} sx={{ flex: "3" }}>
+            <RewardLabel shrink htmlFor={"daily_reward"}>
+              <Typography variant={"subtitle1"} component={"label"}>
+                Single-Side Deposit
+              </Typography>
+            </RewardLabel>
+            <StakingForm
+              id={"reward_token"}
+              InputProps={{
+                type: "text",
+                placeholder: "Select Token or Provide Token Address",
+                onChange: (e) => {
+                  setStakingTokenAddress(e.target.value);
+                },
+                disableUnderline: true,
+                value: stakingTokenAddress,
+              }}
+            >
+              <ArrowDropDown />
+            </StakingForm>
+          </FormControl>
+          <FormControl variant={"standard"} sx={{ flex: "2" }}>
+            <RewardLabel shrink htmlFor={"daily_reward"}>
+              <Typography variant={"subtitle1"} component={"label"}>
+                Start Time
+              </Typography>
+            </RewardLabel>
+            <DateTimePicker
+              renderInput={(props) => <StakingForm {...props} />}
+              value={startTime}
+              onChange={setStartTime}
+            />
+          </FormControl>
+          <FormControl variant={"standard"} sx={{ flex: "2" }}>
+            <RewardLabel shrink htmlFor={"daily_reward"}>
+              <Typography variant={"subtitle1"} component={"label"}>
+                End Time
+              </Typography>
+            </RewardLabel>
+            <DateTimePicker
+              renderInput={(props) => <StakingForm {...props} />}
+              value={endTime}
+              onChange={setEndTime}
+            />
+          </FormControl>
+        </Stack>
       </MiningContainer>
       <RewardContainer>
         <Stack direction={"column"} spacing={4}>
           <Typography variant={"h3"} component={"h3"}>
             Add Reward Tokens:{" "}
           </Typography>
-          <Stack
-            direction={{ xs: "column", sm: "column", md: "row" }}
-            spacing={1}
-            justifyContent={"start"}
-            alignItems={{ xs: "stretch", sm: "stretch", md: "end" }}
-            flexBasis={1}
-          >
-            <FormControl variant={"standard"} sx={{ flex: "3" }}>
-              <RewardLabel shrink htmlFor={"daily_reward"}>
-                <Typography variant={"subtitle1"} component={"label"}>
-                  Reward Token
-                </Typography>
-              </RewardLabel>
-              <StakingForm
-                id={"reward_token"}
-                InputProps={{
-                  type: "text",
-                  placeholder: "0xABCD..EF",
-                  onChange: (value) => {},
-                  disableUnderline: true,
-                }}
+          {rewardsInfo.map((rinfo, infoIndex) => {
+            return (
+              <RewardRecrod
+                infoIndex={infoIndex}
+                rinfo={rinfo}
+                onNewReward={onNewReward}
+                onRemoveReward={onRemoveReward}
+                onRewardChange={onRewardChange}
+                key={infoIndex}
               />
-            </FormControl>
-            <FormControl variant={"standard"} sx={{ flex: "3" }}>
-              <RewardLabel shrink htmlFor={"daily_reward"}>
-                <Typography variant={"subtitle1"} component={"label"}>
-                  Campaign Period (Days)
-                </Typography>
-              </RewardLabel>
-              <StakingForm
-                id={"campaign_period"}
-                InputProps={{
-                  type: "number",
-                  placeholder: "0",
-                  onChange: (value) => {},
-                  disableUnderline: true,
-                }}
-              />
-            </FormControl>
-            <FormControl variant={"standard"} sx={{ flex: "2" }}>
-              <RewardLabel shrink htmlFor={"daily_reward"}>
-                <Typography variant={"subtitle1"} component={"label"}>
-                  Daily Rewards
-                </Typography>
-              </RewardLabel>
-              <StakingForm
-                id={"daily_reward"}
-                InputProps={{
-                  type: "number",
-                  placeholder: "0",
-                  onChange: (value) => {},
-                  disableUnderline: true,
-                }}
-              />
-            </FormControl>
-            <FormControl variant={"standard"} sx={{ flex: "5" }}>
-              <RewardLabel shrink htmlFor={"total_rewards"}>
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                >
-                  <Typography variant={"subtitle1"} component={"label"}>
-                    Total Rewards
-                  </Typography>
-                  <Stack direction={"row"} spacing={1} alignItems={"center"}>
-                    <Typography variant={"subtitle2"} component={"label"}>
-                      Available : -{" "}
-                    </Typography>
-                    <RewardChip size="small" label={"Max"} />
-                  </Stack>
-                </Stack>
-              </RewardLabel>
-              <StakingForm
-                id={"total_rewards"}
-                InputProps={{
-                  type: "number",
-                  placeholder: "0",
-                  onChange: (value) => {},
-                  disableUnderline: true,
-                }}
-              />
-            </FormControl>
-            <Stack
-              sx={{ height: "100%", paddingBottom: "3px" }}
-              direction={"column"}
-              justifyContent={"end"}
-              alignItems={"center"}
-            >
-              <Box>
-                <IconButton aria-label="add">
-                  <AddIcon />
-                </IconButton>
-              </Box>
-            </Stack>
-          </Stack>
+            );
+          })}
+
           <Stack
             direction={"row"}
             justifyContent={"center"}

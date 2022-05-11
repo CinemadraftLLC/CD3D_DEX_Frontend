@@ -41,6 +41,9 @@ const CustomTextField = styled((props) => (
         fontSize: "14px",
         marginLeft: "4px",
     },
+    '.MuiIconButton-root': {
+        color: '#ffffff !important'
+    }
 }));
 
 const StakingForm = (props) => {
