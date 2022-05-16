@@ -51,7 +51,7 @@ import {
 import { useCurrency, useToken } from "../../hooks/Tokens";
 import { tryParseAmount } from "../../utils";
 import { formatUnits } from "ethers/lib/utils";
-import { StakeModal } from "./modals";
+import StakeModal from "./modals";
 
 const StackingBannerContainer = styled(Container)(({ theme }) => ({
   height: "350px",

@@ -2,28 +2,18 @@ import {
   Box,
   Button,
   Chip,
-  Container,
   FormControl,
-  Grid,
   IconButton,
   InputLabel,
-  Paper,
   Stack,
-  Table,
-  TableBody,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { styled } from "@mui/material/styles";
 import StakingForm from "../../components/Form/StakingForm";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { useCurrency } from "../../hooks/Tokens";
-import { tryParseAmount } from "../../utils";
 import { useCurrencyBalance } from "../../state/wallet/hooks";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import { parseUnits } from "@ethersproject/units";
@@ -72,7 +62,7 @@ export default function RewardRecrod({
   onChangeDuration,
 }) {
   const { account } = useActiveWeb3React();
-  const token = useCurrency(rinfo[RewardField.RADDRESS]);
+  const token = useCurrency(rinfo?.[RewardField.RADDRESS]);
   const balance = useCurrencyBalance(account, token);
 
   const [approvalState, approve] = useApproveCallback(
@@ -81,6 +71,7 @@ export default function RewardRecrod({
   );
 
   useEffect(() => {
+    if(!rinfo) return;
     if (!token || !rinfo) return;
     if (!rinfo.dailyReward) return;
     // console.log(parseUnits(String(rinfo.dailyReward), token.decimals).div(28800).toString())
@@ -88,12 +79,13 @@ export default function RewardRecrod({
     onRewardChange(
       infoIndex,
       "perblock",
-      parseUnits(String(rinfo.dailyReward), token.decimals)
+      parseUnits(String(rinfo?.dailyReward), token.decimals)
         .div(28800)
         .toString()
     );
-  }, [token, rinfo.dailyReward]);
+  }, [token, rinfo?.dailyReward]);
 
+  if(!rinfo) return null;
   return (
     <Stack
       direction={{ xs: "column", sm: "column", md: "row" }}
@@ -116,9 +108,9 @@ export default function RewardRecrod({
             placeholder: "0xABCD..EF",
             disableUnderline: true,
             onChange: (e) => {
-              onRewardChange(infoIndex, "rewardTokenAddress", e.target.value);
+              onRewardChange(infoIndex, RewardField.RADDRESS, e.target.value);
             },
-            value: rinfo.rewardTokenAddress,
+            value: rinfo[RewardField.RADDRESS],
           }}
         />
       </FormControl>

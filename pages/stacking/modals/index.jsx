@@ -262,7 +262,7 @@ const ModalBody = ({ poolAddr }) => {
   );
 };
 
-export function StakeModal({ show, onDismiss, poolAddr }) {
+export default function StakeModal({ show, onDismiss, poolAddr }) {
   return (
     <Modal
       isOpen={show}

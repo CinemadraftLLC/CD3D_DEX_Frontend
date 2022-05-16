@@ -1,14 +1,14 @@
 import React from "react";
+import { Container, Stack } from "@mui/material";
+
 import {
-  buttonUnstyledClasses,
-  Container,
-  Stack,
+  TabUnstyled,
+  TabsUnstyled,
   TabPanelUnstyled,
   TabsListUnstyled,
-  TabsUnstyled,
-  TabUnstyled,
+  buttonUnstyledClasses,
   tabUnstyledClasses,
-} from "@mui/material";
+} from "@mui/base";
 import { styled } from "@mui/material/styles";
 import LiquidityRemove from "./pages/LiquidityRemove";
 import LiquiditySwap from "./pages/LiquiditySwap";

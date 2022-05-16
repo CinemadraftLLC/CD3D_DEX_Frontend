@@ -2,7 +2,6 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useMultipleContractSingleData, useSingleCallResult, useSingleContractMultipleData } from "../state/multicall/hooks";
 import useActiveWeb3React from "./useActiveWeb3React";
 import { useMineV3Contract, useMiningFactoryContract } from "./useContract";
-import { useMoralisQuery } from "react-moralis"
 import { ethers, constants } from "ethers";
 const { Zero } = constants
 
