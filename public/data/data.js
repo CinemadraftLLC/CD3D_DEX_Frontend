@@ -559,7 +559,7 @@ export const marketPlaceData = [
     id: "market_6",
     title: 'Staking',
     subTitle: 'Give APR for your token',
-    link: '/stacking',
+    link: '/staking',
   },
   {
     id: "market_7",
