@@ -1,6 +1,7 @@
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
 import { formatUnits } from 'ethers/lib/utils'
+import { useMemo } from 'react'
 import { BIG_TEN } from './bigNumber'
 
 /**

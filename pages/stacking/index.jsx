@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Chip,
@@ -16,6 +16,7 @@ import {
   TableRow,
   TextField,
   Typography,
+  Button,
 } from "@mui/material";
 import TableCell, { tableCellClasses } from "@mui/material/TableCell";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -35,10 +36,22 @@ import { useTokenBalance } from "../../state/wallet/hooks";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 import RewardRecrod from "./rewardRecord";
 import moment from "moment";
-import useStaking from "../../hooks/useStaking";
+import useStaking, {
+  usePool,
+  useStakingCallback,
+  useStakingRewardCallback,
+  useStakingWithdrawCallback,
+} from "../../hooks/useStaking";
 import { useBlockNumber } from "../../state/application/hooks";
 import useCurrentBlockTimestamp from "../../hooks/useCurrentBlockTimestamp";
-import { useApproveCallback } from "../../hooks/useApproveCallback";
+import {
+  useApproveCallback,
+  ApprovalState,
+} from "../../hooks/useApproveCallback";
+import { useCurrency, useToken } from "../../hooks/Tokens";
+import { tryParseAmount } from "../../utils";
+import { formatUnits } from "ethers/lib/utils";
+import { StakeModal } from "./modals";
 
 const StackingBannerContainer = styled(Container)(({ theme }) => ({
   height: "350px",
@@ -154,6 +167,7 @@ const StakingListContainer = styled(Container)({
 });
 
 const StyledTableCell = styled(TableCell)({
+  border: "none",
   [`&.${tableCellClasses.head}`]: {
     color: "#808498",
     border: "none",
@@ -161,6 +175,7 @@ const StyledTableCell = styled(TableCell)({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
+    color: "#eeeeee",
   },
 });
 
@@ -183,8 +198,131 @@ const RewardPlaceholder = {
   perblock: 0,
 };
 
+const BlockTimeStamp = ({ blockNumber }) => {
+  const curB = useBlockNumber();
+  const curT = useCurrentBlockTimestamp();
+
+  const blockTime = useMemo(() => {
+    if (curB && blockNumber && curT) {
+      const blockDiffS = (blockNumber - curB) * 3;
+      // console.log(moment.unix(curT.toNumber()).toLocaleString(), blockNumber)
+      const btime = moment.unix(curT.toNumber()).add(blockDiffS, "seconds");
+      return btime.toString();
+    }
+    return "";
+  }, [curB, curT, blockNumber]);
+
+  return <div>{blockTime}</div>;
+};
+
+const PoolRecord = ({ poolAddr, toggleModal, setModalInfo }) => {
+  const { rewardNum, stakeToken, totalSupply, poolDetails, balance } =
+    usePool(poolAddr);
+  const token = useCurrency(stakeToken);
+
+  const tSupply = formatUnits(totalSupply, token?.decimals ?? 18);
+  const [openAction, setOpenAction] = useState(false);
+
+  const [inputValue, setInputValue] = useState("");
+  const amount = tryParseAmount(inputValue, token);
+
+  const [approvalState, approve] = useApproveCallback(amount, poolAddr);
+
+  const deposit = useStakingCallback(poolAddr, amount);
+
+  const onDeposit = () => {
+    if (approvalState === ApprovalState.APPROVED) {
+      deposit();
+    }
+    if (approvalState === ApprovalState.NOT_APPROVED) {
+      approve();
+    }
+  };
+
+  const claim = useStakingRewardCallback(poolAddr);
+
+  const withdraw = useStakingWithdrawCallback(poolAddr, balance);
+
+  const onRowClick = () => {
+    setModalInfo({ poolAddr });
+    toggleModal();
+  };
+
+  const details = poolDetails.map((pd, index) => {
+    const {
+      rewardToken,
+      startBlock,
+      endBlock,
+      rewardVault,
+      rewardPerBlock,
+      accRewardPerShare,
+      lastRewardBlock,
+      workThroughReward,
+      lastFlagBlock,
+    } = pd;
+    const border =
+      index === poolDetails.length - 1 ? "1px solid #707070" : "none";
+    return (
+      <TableRow
+        key={rewardVault}
+        onClick={onRowClick}
+        style={{ borderBottom: border }}
+      >
+        <StyledTableCell align="center" style={{ border: "none" }}>
+          {index === 0 && token?.symbol}
+        </StyledTableCell>
+        <StyledTableCell align="center">{poolAddr}</StyledTableCell>
+        <StyledTableCell align="center">{tSupply ?? 0}</StyledTableCell>
+        <StyledTableCell align="center">
+          <BlockTimeStamp blockNumber={startBlock.toNumber()} />
+        </StyledTableCell>
+        <StyledTableCell align="center">
+          <BlockTimeStamp blockNumber={endBlock.toNumber()} />
+        </StyledTableCell>
+      </TableRow>
+    );
+  });
+
+  return (
+    <>
+      {details[0] ?? details[0]}
+      {openAction && (
+        <TableRow>
+          <td>
+            <StakingForm
+              placeholder="To Stake"
+              type="number"
+              value={inputValue}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+          </td>
+          <StyledTableCell align="center">
+            <Button variant="contained" onClick={onDeposit}>
+              Stake
+            </Button>
+          </StyledTableCell>
+          <td></td>
+          <StyledTableCell align="center">
+            <Button variant="contained" onClick={withdraw}>
+              UnStake
+            </Button>
+          </StyledTableCell>
+          <td>
+            <Button variant="contained" onClick={claim}>
+              Claim
+            </Button>
+          </td>
+        </TableRow>
+      )}
+    </>
+  );
+};
+
 const Stacking = () => {
   const { account } = useActiveWeb3React();
+
+  const [showStakeModal, setShowStakeModal] = useState(false);
+  const [modalInfo, setModalInfo] = useState({});
   const [miningType, setMiningType] = useState(MiningType.SINGLE_STAKING);
   const [stakingTokenAddress, setStakingTokenAddress] = useState("");
   const [startTime, setStartTime] = useState(
@@ -207,7 +345,7 @@ const Stacking = () => {
     }
     const newReward = [...rewardsInfo];
     newReward[index] = reward;
-    console.log('updateReward')
+    console.log("updateReward");
     setRewardsInfo(newReward);
   };
 
@@ -233,7 +371,6 @@ const Stacking = () => {
     );
   };
 
-
   useEffect(() => {
     if (moment(startTime).isBefore(endTime)) {
       const durationD = moment
@@ -247,29 +384,43 @@ const Stacking = () => {
     }
   }, [startTime, endTime]);
 
-  const { deployStakingPool } = useStaking();
+  const { deployStakingPool, pools } = useStaking();
 
   const blockNumber = useBlockNumber();
   const blockTimeStamp = useCurrentBlockTimestamp();
 
   const onCreatePool = () => {
-    if(!blockTimeStamp || !blockNumber || !stakingTokenAddress) return;
+    if (!blockTimeStamp || !blockNumber || !stakingTokenAddress) return;
 
-    const valid = rewardsInfo.every(reward => {
-      const {dailyReward, perblock, rewardTokenAddress, totalReward} = reward
-      return Number(perblock) > 0 && rewardTokenAddress 
-    })
+    const valid = rewardsInfo.every((reward) => {
+      const { dailyReward, perblock, rewardTokenAddress, totalReward } = reward;
+      return Number(perblock) > 0 && rewardTokenAddress;
+    });
 
-    console.log(valid, rewardsInfo)
-
-    if(valid) {
-      const blockTime = moment.unix(blockTimeStamp.toNumber())
-      const startblock = blockNumber + startTime.diff(blockTime) / 3
-      const endblock = blockNumber + endTime.diff(blockTime) / 3
-      const rewardTokens = rewardsInfo.map(reward => reward.rewardTokenAddress)
-      const rewardPerBlock = rewardsInfo.map(reward => reward.perblock)
-      deployStakingPool(stakingTokenAddress, rewardTokens, rewardPerBlock, startblock, endblock)
+    if (valid) {
+      const blockTime = moment.unix(blockTimeStamp.toNumber());
+      const startblock =
+        blockNumber +
+        moment.duration(moment(startTime).diff(blockTime)).asSeconds() / 3;
+      const endblock =
+        blockNumber +
+        moment.duration(moment(endTime).diff(blockTime)).asSeconds() / 3;
+      const rewardTokens = rewardsInfo.map(
+        (reward) => reward.rewardTokenAddress
+      );
+      const rewardPerBlock = rewardsInfo.map((reward) => reward.perblock);
+      deployStakingPool(
+        stakingTokenAddress,
+        rewardTokens,
+        rewardPerBlock,
+        startblock.toFixed(),
+        endblock.toFixed()
+      );
     }
+  };
+
+  const toggleModal = () => {
+    setShowStakeModal(!showStakeModal);
   };
 
   return (
@@ -463,7 +614,7 @@ const Stacking = () => {
               renderInput={(props) => <StakingForm {...props} />}
               value={startTime}
               minDateTime={
-                new Date(moment().add(20, "minutes").toLocaleString())
+                new Date(moment().add(10, "minutes").toLocaleString())
               }
               onChange={setStartTime}
             />
@@ -541,12 +692,14 @@ const Stacking = () => {
                       borderTopLeftRadius: "15px",
                     }}
                   >
-                    Staking Type
+                    Token
                   </StyledTableCell>
                   <StyledTableCell align="center">
                     Staking Address
                   </StyledTableCell>
-                  <StyledTableCell align="center">Token Staked</StyledTableCell>
+                  <StyledTableCell align="center">
+                    Tokens Staked
+                  </StyledTableCell>
                   <StyledTableCell align="center">Start Time</StyledTableCell>
                   <StyledTableCell
                     align="center"
@@ -560,6 +713,14 @@ const Stacking = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
+                {pools.map((pool) => (
+                  <PoolRecord
+                    key={pool}
+                    poolAddr={pool}
+                    toggleModal={toggleModal}
+                    setModalInfo={setModalInfo}
+                  />
+                ))}
                 {/*{rows.map((row) => (
                                     <StyledTableRow key={row.name}>
                                         <StyledTableCell component="th" scope="row">
@@ -594,7 +755,11 @@ const Stacking = () => {
           </Box>
         </Stack>
       </StakingListContainer>
-
+      <StakeModal
+        show={showStakeModal}
+        onDismiss={toggleModal}
+        poolAddr={modalInfo.poolAddr}
+      />
       <ClearFix height={100} />
     </Container>
   );

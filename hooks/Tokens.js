@@ -9,7 +9,8 @@ import { isAddress } from '../utils'
 
 import { useBytes32TokenContract, useTokenContract } from './useContract'
 import useActiveWeb3React from "./useActiveWeb3React";
-import {useSelectedTokenList} from "../state/lists/hooks";
+import { useSelectedTokenList } from "../state/lists/hooks";
+import { formatUnits } from 'ethers/lib/utils'
 
 export function useAllTokens() {
     const { chainId } = useActiveWeb3React()
@@ -22,15 +23,15 @@ export function useAllTokens() {
             userAddedTokens
                 // reduce into all ALL_TOKENS filtered by the current chain
                 .reduce(
-            (tokenMap, token) => {
-                tokenMap[token.address] = token
-                return tokenMap
-            },
-                // must make a copy because reduce modifies the map, and we do not
-                // want to make a copy in every iteration
-                { ...allTokens[chainId] }
+                    (tokenMap, token) => {
+                        tokenMap[token.address] = token
+                        return tokenMap
+                    },
+                    // must make a copy because reduce modifies the map, and we do not
+                    // want to make a copy in every iteration
+                    { ...allTokens[chainId] }
+                )
         )
-    )
     }, [chainId, userAddedTokens, allTokens])
 }
 
@@ -91,15 +92,12 @@ export function useToken(tokenAddress) {
     }, [
         address,
         chainId,
-        decimals.loading,
-        decimals.result,
-        symbol.loading,
-        symbol.result,
-        symbolBytes32.result,
+        decimals,
+        symbol,
+        symbolBytes32,
         token,
-        tokenName.loading,
-        tokenName.result,
-        tokenNameBytes32.result,
+        tokenName,
+        tokenNameBytes32,
     ])
 }
 
@@ -114,5 +112,15 @@ export function currencyId(currency) {
     if (currency instanceof Token) return currency.address
     throw new Error('invalid currency')
 }
+
+export const useformatedTokenBalance = (value, token, precision = 2) => {
+    return useMemo(() => {
+        if (value && token) {
+            return Number(formatUnits(value, token.decimals)).toFixed(precision)
+        }
+        return '0'
+    }, [value, token])
+}
+
 
 export default currencyId

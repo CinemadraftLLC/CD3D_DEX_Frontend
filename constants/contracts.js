@@ -93,6 +93,6 @@ export default {
     // },
     miningFactory: {
         56: '',
-        97: '0x41c842813FBc46585FBfdF484991a367fc2A3C71'
+        97: '0xce025D27e264541B24352D90F776b2aD00fEa876'
     }
 }

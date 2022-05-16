@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Chip,
   Container,
   FormControl,
@@ -31,6 +32,7 @@ import {
   ApprovalState,
 } from "../../hooks/useApproveCallback";
 import { getMiningFactoryAddress } from "../../utils/addressHelpers";
+import { CheckCircle } from "@mui/icons-material";
 
 const RewardLabel = styled(InputLabel)({
   transform: "translate(0, -3px) scale(1)",
@@ -78,22 +80,7 @@ export default function RewardRecrod({
     getMiningFactoryAddress()
   );
 
-  const [inApprove, setInApprove] = useState(false);
-
   useEffect(() => {
-    async function tryApprove() {
-      if (inApprove) return;
-      setInApprove(true);
-      await approve();
-      setTimeout(setInApprove, 15000, false);
-    }
-    if (approvalState === ApprovalState.NOT_APPROVED) {
-      tryApprove()
-    }
-  }, [approvalState, token, balance, inApprove]);
-
-  useEffect(() => {
-    console.log(token, rinfo);
     if (!token || !rinfo) return;
     if (!rinfo.dailyReward) return;
     // console.log(parseUnits(String(rinfo.dailyReward), token.decimals).div(28800).toString())
@@ -116,7 +103,7 @@ export default function RewardRecrod({
       flexBasis={1}
       key={infoIndex}
     >
-      <FormControl variant={"standard"} sx={{ flex: "3" }}>
+      <FormControl variant={"standard"} sx={{ flex: "2" }}>
         <RewardLabel shrink htmlFor={"daily_reward"}>
           <Typography variant={"subtitle1"} component={"label"}>
             Reward Token
@@ -135,7 +122,7 @@ export default function RewardRecrod({
           }}
         />
       </FormControl>
-      <FormControl variant={"standard"} sx={{ flex: "3" }}>
+      <FormControl variant={"standard"} sx={{ flex: "2" }}>
         <RewardLabel shrink htmlFor={"daily_reward"}>
           <Typography variant={"subtitle1"} component={"label"}>
             Campaign Period (Days)
@@ -175,7 +162,7 @@ export default function RewardRecrod({
           }}
         />
       </FormControl>
-      <FormControl variant={"standard"} sx={{ flex: "2" }}>
+      <FormControl variant={"standard"} sx={{ flex: "3" }}>
         <RewardLabel shrink htmlFor={"total_rewards"}>
           <Stack
             direction={"row"}
@@ -224,6 +211,20 @@ export default function RewardRecrod({
             disableUnderline: true,
           }}
         />
+        {approvalState === ApprovalState.APPROVED ? (
+          <Button
+            variant="outlined"
+            color="success"
+            className="approve-btn"
+            startIcon={<CheckCircle />}
+          >
+            Approved
+          </Button>
+        ) : approvalState === ApprovalState.NOT_APPROVED && (
+          <Button variant="outlined" color="error" className="approve-btn" onClick={approve}>
+            Approve
+          </Button>
+        )}
       </FormControl>
       <Stack
         sx={{ height: "100%", paddingBottom: "3px" }}
@@ -231,16 +232,19 @@ export default function RewardRecrod({
         justifyContent={"end"}
         alignItems={"end"}
       >
-        <Box onClick={onNewReward}>
-          <IconButton aria-label="add">
-            <AddIcon />
-          </IconButton>
-        </Box>
-        <Box onClick={() => onRemoveReward(infoIndex)}>
-          <IconButton aria-label="remove">
-            <RemoveIcon />
-          </IconButton>
-        </Box>
+        {infoIndex === 0 ? (
+          <Box onClick={onNewReward}>
+            <IconButton aria-label="add">
+              <AddIcon />
+            </IconButton>
+          </Box>
+        ) : (
+          <Box onClick={() => onRemoveReward(infoIndex)}>
+            <IconButton aria-label="remove">
+              <RemoveIcon />
+            </IconButton>
+          </Box>
+        )}
       </Stack>
     </Stack>
   );

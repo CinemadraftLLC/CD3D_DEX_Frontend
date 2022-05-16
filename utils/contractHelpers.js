@@ -66,8 +66,9 @@ import MultiCallAbi from '../constants/abis/Multicall.json'
 // import pancakeSquadAbi from '../constants/abis/pancakeSquad.json'
 // import erc721CollectionAbi from '../constants/abis/erc721collection.json'
 import MiningFactoryAbi from '../constants/abis/miningFactory.json'
+import MineV3Abi from '../constants/abis/minev3.json'
 
-import {PoolCategory, poolsConfig} from "../constants";
+import { PoolCategory, poolsConfig } from "../constants";
 import tokens from "../constants/tokens";
 
 const getContract = (abi, address, signer) => {
@@ -176,4 +177,8 @@ export const getMulticallContract = (signer) => {
 
 export const getMiningFactoryContract = (signer) => {
     return getContract(MiningFactoryAbi, getMiningFactoryAddress(), signer)
+}
+
+export const getMineV3Contract = (address, signer) => {
+    return getContract(MineV3Abi, address, signer)
 }

@@ -98,6 +98,7 @@ export function outdatedListeningKeys(
         const data = callResults[chainId][callKey]
         // no data, must fetch
         if (!data) return true
+        if (!data.data) return true
 
         const minDataBlockNumber = latestBlockNumber - (blocksPerFetch - 1)
 
@@ -159,7 +160,7 @@ export default function Updater() {
                 const { cancel, promise } = retry(() => fetchChunk(multicallContract, chunk, latestBlockNumber), {
                     n: Infinity,
                     minWait: 2500,
-                    maxWait: 3500,
+                    maxWait: 5500,
                 })
                 promise
                     .then(({ results: returnData, blockNumber: fetchBlockNumber }) => {
@@ -184,6 +185,7 @@ export default function Updater() {
                     })
                     .catch((error) => {
                         if (error instanceof CancelledError) {
+                            console.error(error)
                             console.error('Cancelled fetch for blockNumber', latestBlockNumber)
                             return
                         }
