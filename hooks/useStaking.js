@@ -62,7 +62,7 @@ export function useStakingWithdrawCallback(pool, amount) {
     const mineV3 = useMineV3Contract(pool)
     const withdrawCall = useCallback(async () => {
         if (!account || !mineV3 || !amount) return
-        await mineV3.withdraw(amount)
+        await mineV3.withdraw(amount.raw.toString())
     }, [account, mineV3, amount])
 
     return withdrawCall
