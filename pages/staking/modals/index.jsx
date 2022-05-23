@@ -139,7 +139,7 @@ const ModalBody = ({ poolAddr }) => {
 
   const claim = useStakingRewardCallback(poolAddr);
 
-  const withdraw = useStakingWithdrawCallback(poolAddr, balance);
+  const withdraw = useStakingWithdrawCallback(poolAddr, amount);
 
   const stakedAmount = useformatedTokenBalance(balance, token);
 
