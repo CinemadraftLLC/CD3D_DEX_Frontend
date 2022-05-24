@@ -2,7 +2,7 @@ import { MaxUint256 } from '@ethersproject/constants'
 import {TokenAmount, ETHER, ChainId, CurrencyAmount, WETH} from 'cd3d-dex-libs-sdk'
 import { useCallback, useMemo } from 'react'
 import { ROUTER_ADDRESS, Field } from '../constants'
-import { useTokenAllowance } from '../data/Allowances'
+import { useTokenAllowance, useTokenAllowanceString } from '../data/Allowances'
 import { useTransactionAdder, useHasPendingApproval } from '../state/transactions/hooks'
 import { computeSlippageAdjustedAmounts } from '../utils/prices'
 import { calculateGasMargin } from '../utils'
@@ -27,6 +27,7 @@ export function useApproveCallback(
     const { account } = useActiveWeb3React()
     const token = amountToApprove instanceof TokenAmount ? amountToApprove.token : ( amountToApprove instanceof CurrencyAmount && NETWORK_CHAIN_ID === ChainId.TESTNET ? WETH[ChainId.TESTNET]: undefined)
     const currentAllowance = useTokenAllowance(token, account ?? undefined, spender)
+    const currentAllowanceString = useTokenAllowanceString(token, account ?? undefined, spender)
     const pendingApproval = useHasPendingApproval(token?.address, spender)
 
     // check the current approval status
@@ -37,17 +38,18 @@ export function useApproveCallback(
         if (!currentAllowance) return ApprovalState.UNKNOWN
 
         // amountToApprove will be defined if currentAllowance is
-        return currentAllowance.lessThan(amountToApprove)
-            ? pendingApproval
-                ? ApprovalState.PENDING
-                : ApprovalState.NOT_APPROVED
+        // return currentAllowance.lessThan(amountToApprove)
+
+        // return ApprovalState.NOT_APPROVED
+        return currentAllowanceString === '0'
+            ?  ApprovalState.NOT_APPROVED
             : ApprovalState.APPROVED
     }, [amountToApprove, currentAllowance, pendingApproval, spender])
 
     const tokenContract = useTokenContract(token?.address)
     const addTransaction = useTransactionAdder()
 
-    const approve = useCallback(async () => {
+    const approve = useCallback(async (symbol) => {
         if (approvalState !== ApprovalState.NOT_APPROVED) {
             console.error('approve was called unnecessarily')
             return
@@ -84,12 +86,12 @@ export function useApproveCallback(
             .approve(spender, useExact ? amountToApprove.raw.toString() : MaxUint256, {
                 gasLimit: calculateGasMargin(estimatedGas),
             })
-            .then((response) => {
+            .then(async (response) => {
                 addTransaction(response, {
                     summary: `Approve ${amountToApprove.currency.symbol}`,
                     approval: { tokenAddress: token.address, spender },
                 })
-                showToast("success", "Approved!", "Remove Liquidity Approved");
+                showToast("success", "Approved!", symbol, "Approved");
             })
             .catch((error) => {
                 console.error('Failed to approve token', error);

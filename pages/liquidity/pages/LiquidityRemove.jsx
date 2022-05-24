@@ -230,8 +230,8 @@ const LiquidityRemove = () => {
         }
     }
 
-    console.log('pair', pair);
     const price = pair?.priceOf(tokenA);
+    // approveCallback()
     return (
         <Box sx={{width: "100%"}}>
             <LiquidityContainer ref={liquidityRemoveContainerRef}>
@@ -331,10 +331,10 @@ const LiquidityRemove = () => {
                     <ClearFix height={25}/>
                     { approval !== ApprovalState.APPROVED ?
                         <FormSubmitBtn
-                            label={approval === ApprovalState.PENDING?"Approving":"Approve"}
+                            label={approval === ApprovalState.PENDING? "Approving" : "Approve"}
                             disabled={approval !== ApprovalState.NOT_APPROVED}
                             fullWidth={true}
-                            onSubmit={approveCallback}
+                            onSubmit={() => approveCallback(`${currencyB?.symbol}/${currencyA?.symbol}`)}
                         /> :
                         <FormSubmitBtn
                             label={"Remove"}
