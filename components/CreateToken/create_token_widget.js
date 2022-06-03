@@ -101,6 +101,12 @@ export const CreateTokenFormLabel = styled(Typography)(({ theme }) => ({
 export const CreateTokenSpan = styled(Typography)(({ theme }) => ({
   color: "#EAFBF3",
   fontSize: "18px !important",
+  marginLeft: "40px !important",
+}));
+
+export const CreateTokenSpanTitle = styled(Typography)(({ theme }) => ({
+  color: "#EAFBF3",
+  fontSize: "18px !important",
 }));
 
 export const CreateTokenSecondLabel = styled(Typography)(({ theme }) => ({

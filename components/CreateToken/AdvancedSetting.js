@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CreateTokenBigLabel, CreateTokenFormControl, CreateTokenFormLabel, CreateTokenSelect, CreateTokenSmallLabel, CreateTokenSpan } from "./create_token_widget";
+import { CreateTokenBigLabel, CreateTokenFormControl, CreateTokenSpanTitle, CreateTokenFormLabel, CreateTokenSelect, CreateTokenSmallLabel, CreateTokenSpan } from "./create_token_widget";
 import { Box, FormControlLabel, Grid, Stack } from "@mui/material";
 import ClearFix from "../ClearFix/ClearFix";
 import CreateTokenTextForm from "../CreateTokenSales/CreateTokenTextForm";
@@ -17,7 +17,7 @@ function AdvancedSetting({ advancedSetting }) {
         <FormControlLabel control={<CreateTokenSelect />} label="Advanced Tokenomics" sx={{ color: "#EAFBF3" }} />
       </Stack>
       <ClearFix height={50} />
-      <CreateTokenSpan>Tax Wallet Settings</CreateTokenSpan>
+      <CreateTokenSpanTitle>Tax Wallet Settings</CreateTokenSpanTitle>
       <ClearFix height={50} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6}>
@@ -57,7 +57,7 @@ function AdvancedSetting({ advancedSetting }) {
         />
       </CreateTokenFormControl>
       <ClearFix height={50} />
-      <CreateTokenSpan>Buy Tax</CreateTokenSpan>
+      <CreateTokenSpanTitle>Buy Tax</CreateTokenSpanTitle>
       <ClearFix height={50} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6}>
@@ -113,7 +113,7 @@ function AdvancedSetting({ advancedSetting }) {
         </Grid>
       </Grid>
       <ClearFix height={50} />
-      <CreateTokenSpan>Sell Tax</CreateTokenSpan>
+      <CreateTokenSpanTitle>Sell Tax</CreateTokenSpanTitle>
       <ClearFix height={50} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6}>
@@ -170,28 +170,28 @@ function AdvancedSetting({ advancedSetting }) {
       <ClearFix height={70} />
       <CreateTokenSmallLabel color={"#75E4AA"}>Buy Fee</CreateTokenSmallLabel>
       <ClearFix height={30} />
-      <Stack direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+      <Stack direction={"row"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#75E4AA"}>5%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Fee</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>=</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#75E4AA"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Development</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#75E4AA"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Marketing</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#75E4AA"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Charity</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#75E4AA"}>2%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Liquidity</CreateTokenSmallLabel>
         </Stack>
@@ -199,28 +199,28 @@ function AdvancedSetting({ advancedSetting }) {
       <ClearFix height={70} />
       <CreateTokenSmallLabel color={"#FF0144"}>Sell Fee</CreateTokenSmallLabel>
       <ClearFix height={30} />
-      <Stack direction={"row"} justifyContent={"space-around"} alignItems={"center"}>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+      <Stack direction={"row"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#FF0144"}>6%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Fee</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>=</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#FF0144"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Development</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#FF0144"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Marketing</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#FF0144"}>1%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Charity</CreateTokenSmallLabel>
         </Stack>
         <CreateTokenSpan>+</CreateTokenSpan>
-        <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
+        <Stack direction={"column"} marginLeft={"40px"} justifyContent={"center"} alignItems={"center"}>
           <CreateTokenBigLabel color={"#FF0144"}>3%</CreateTokenBigLabel>
           <CreateTokenSmallLabel color={"transparent"}>Liquidity</CreateTokenSmallLabel>
         </Stack>
