@@ -55,6 +55,7 @@
     "date-fns": "^2.28.0",
     "devextreme": "^21.1.5",
     "devextreme-react": "^21.1.5",
+    "ethereum-unit-converter": "^0.0.17",
     "ethers": "^5.5.2",
     "html-entities": "^2.3.2",
     "lightweight-charts": "^3.7.0",
@@ -84,7 +85,8 @@
     "styled-components": "^5.3.1",
     "tiny-invariant": "^1.2.0",
     "web3": "^1.6.0",
-    "web3-core-helpers": "^1.6.0"
+    "web3-core-helpers": "^1.6.0",
+    "web3modal": "^1.9.7"
   },
   "devDependencies": {
     "babel-plugin-styled-components": "^2.0.2",

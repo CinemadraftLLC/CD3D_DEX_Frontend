@@ -4,13 +4,16 @@ import { FormControlLabel, FormGroup, Grid, MenuItem, Select, Stack, Switch } fr
 import ClearFix from "../ClearFix/ClearFix";
 import CreateTokenTextForm from "../CreateTokenSales/CreateTokenTextForm";
 import AdvancedSetting from "./AdvancedSetting";
+import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 
-const CreateTokenFormList = ({ submitTokenCreate }) => {
-  const [tokenType, setTokenType] = React.useState('');
+const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) => {
+  const [tokenType, setTokenType] = React.useState('standard');
   const [advancedSetting, setAdvancedSetting] = React.useState(false);
+  const { account } = useActiveWeb3React()
 
   const handleTokenTypeChange = (event) => {
     setTokenType(event.target.value);
+    getTokenType(event.target.value);
   }
 
   const handleAdvancedInfo = () => {
@@ -32,13 +35,15 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
       <CreateTokenFormControl>
         <Select
           value={tokenType}
-          onChange={handleTokenTypeChange}
+          onChange={(e) => handleTokenTypeChange(e)}
           displayEmpty
           inputProps={{ 'aria-label': 'Without label' }}
         >
-          <MenuItem value="">Standard Token</MenuItem>
-          <MenuItem value={'main_net'}>ERC20</MenuItem>
-          <MenuItem value={'dev_net'}>BEP20</MenuItem>
+          <MenuItem value="standard">Standard Token</MenuItem>
+          <MenuItem value={'antiBotStandard'}>Anti-Bot Standard Token</MenuItem>
+          <MenuItem value={'liquidityGenerator'}>Liquidity Generator Token</MenuItem>
+          <MenuItem value={'baby'}>Baby Token</MenuItem>
+          <MenuItem value={'buybackBaby'}>Buyback Baby Token</MenuItem>
         </Select>
       </CreateTokenFormControl>
       <ClearFix height={10} />
@@ -56,6 +61,7 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
               InputProps={{
                 disableUnderline: true,
               }}
+              onChange={(e) => inputChange(e, 0)}
             />
           </CreateTokenFormControl>
         </Grid>
@@ -70,6 +76,7 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
               InputProps={{
                 disableUnderline: true,
               }}
+              onChange={(e) => inputChange(e, 1)}
             />
           </CreateTokenFormControl>
         </Grid>
@@ -88,6 +95,7 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
                 type: "number",
                 disableUnderline: true,
               }}
+              onChange={(e) => inputChange(e, 2)}
             />
           </CreateTokenFormControl>
         </Grid>
@@ -103,6 +111,7 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
                 type: "number",
                 disableUnderline: true,
               }}
+              onChange={(e) => inputChange(e, 3)}
             />
           </CreateTokenFormControl>
         </Grid>
@@ -113,7 +122,7 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
       <CreateTokenFormControl>
         <CreateTokenTextForm
           InputProps={{
-            placeholder: "0x0000000000000000000000000000",
+            value: account,
             disableUnderline: true,
           }}
         />
@@ -122,7 +131,9 @@ const CreateTokenFormList = ({ submitTokenCreate }) => {
       <FormGroup>
         <FormControlLabel onChange={handleAdvancedInfo} control={<Switch color="success" size="small" />} label="Advanced Settings" sx={{ color: "#75E4AA" }} />
       </FormGroup>
+
       <AdvancedSetting advancedSetting={advancedSetting} />
+
       <ClearFix height={50} />
       <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
         <CreateTokenButton size={"large"} onClick={() => submitTokenCreate()}>Create Token</CreateTokenButton>

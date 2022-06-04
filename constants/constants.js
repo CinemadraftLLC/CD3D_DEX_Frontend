@@ -7,6 +7,7 @@ export const connectorsByName = {
 export const Addresses = {
   presale: {
     56: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB",
+    97: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB"
   },
   // presale: {
   //   56: "0x815bf098C634a23Fe9FA1Da8B4B0D255B80A90fB",
