@@ -1,5 +1,5 @@
 import React from "react";
-import { CreateTokenFormControl, CreateTokenFormLabel, CreateTokenHelperText, CreateTokenButton, CreateTokensContentContainer, CreateTokenSecondLabel } from "./create_token_widget";
+import { CreateTokenFormControl, CreateTokenFormLabel, CreateTokenHelperText, CreateTokenButton, CreateTokensContentContainer, CreateTokenSecondLabel, CreateTokenSelect } from "./create_token_widget";
 import { FormControlLabel, FormGroup, Grid, MenuItem, Select, Stack, Switch } from "@mui/material";
 import ClearFix from "../ClearFix/ClearFix";
 import CreateTokenTextForm from "../CreateTokenSales/CreateTokenTextForm";
@@ -9,6 +9,7 @@ import useActiveWeb3React from "../../hooks/useActiveWeb3React";
 const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) => {
   const [tokenType, setTokenType] = React.useState('standard');
   const [advancedSetting, setAdvancedSetting] = React.useState(false);
+  const [settingStep, setSettingStep] = React.useState(true)
   const { account } = useActiveWeb3React()
 
   const handleTokenTypeChange = (event) => {
@@ -131,8 +132,16 @@ const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) =
       <FormGroup>
         <FormControlLabel onChange={handleAdvancedInfo} control={<Switch color="success" size="small" />} label="Advanced Settings" sx={{ color: "#75E4AA" }} />
       </FormGroup>
-
-      <AdvancedSetting advancedSetting={advancedSetting} />
+      <ClearFix height={50} />
+      <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
+        <CreateTokenFormLabel>Features</CreateTokenFormLabel>
+        <FormControlLabel control={<CreateTokenSelect />} label="Burn" sx={{ color: "#EAFBF3" }} />
+        <FormControlLabel control={<CreateTokenSelect />} label="Mintable" sx={{ color: "#EAFBF3" }} />
+        <FormControlLabel checked={!settingStep ? "checked" : ""} onChange={() => setSettingStep(prev => !prev)} control={<CreateTokenSelect />} label="Deflation" sx={{ color: "#EAFBF3" }} />
+        <FormControlLabel checked={settingStep ? "checked" : ""} onChange={() => setSettingStep(prev => !prev)} control={<CreateTokenSelect />} label="Advanced Tokenomics" sx={{ color: "#EAFBF3" }} />
+      </Stack>
+      <ClearFix height={50} />
+      <AdvancedSetting advancedSetting={advancedSetting} settingStep={settingStep} />
 
       <ClearFix height={50} />
       <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>

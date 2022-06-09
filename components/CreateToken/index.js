@@ -6,7 +6,6 @@ import { Box, Grid } from "@mui/material";
 import converter from "ethereum-unit-converter";
 // import toast from "react-hot-toast";
 import { toast } from 'react-toastify'
-import PropTypes from 'prop-types';
 import { CreateTokensContainer, CreateTokenImage } from "./create_token_widget";
 import CreateTokenFormList from "./CreateTokenFormList";
 import { deployContract } from "../../utils/createTokenHelper";

@@ -1,3 +1,4 @@
+import converter from 'ethereum-unit-converter';
 import Web3 from 'web3'
 
 const contract_source_arr = {
@@ -9,6 +10,7 @@ const contract_source_arr = {
 }
 
 import Web3Modal from "web3modal";
+import { REACT_APP_SERVICE_FEE_RECEIVER } from '../constants/constants';
 
 const providerOptions = {
   /* See Provider Options Section */
@@ -82,7 +84,9 @@ export const deployContract = (tokenType, args, account) =>
       const bytecode = await readContractByteCode(tokenType)
       const contract_data = await readContractABI(tokenType)
 
-      args = [...args, process.env.REACT_APP_SERVICE_FEE_RECEIVER, process.env.REACT_APP_SERVICE_FEE]
+      const serviceFee = converter(process.env.REACT_APP_SERVICE_FEE, "ether", "wei")
+
+      args = [...args, REACT_APP_SERVICE_FEE_RECEIVER, serviceFee]
       console.log("args", args, account)
       const contract = new web3.eth.Contract(contract_data)
       contract
@@ -90,7 +94,7 @@ export const deployContract = (tokenType, args, account) =>
           data: bytecode,
           arguments: args,
         })
-        .send({ from: accounts[0], value: process.env.REACT_APP_SERVICE_FEE, gasLimit: 3000000 })
+        .send({ from: accounts[0], value: serviceFee, gasLimit: 3000000 })
         .then(async (deployment) => {
           return resolve(deployment.options.address)
         })

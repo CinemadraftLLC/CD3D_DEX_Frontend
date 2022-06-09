@@ -28,6 +28,8 @@ export const auctioningToken = "0x51a32114E3F759179B7EF6Aa41c8f5F1269D429D";
 
 export const biddingToken = "0x28BDc4Ac5447376cE4394f6bf98D4ACeF3789D2F";
 
+export const REACT_APP_SERVICE_FEE_RECEIVER = "0x3d20eeab5c4fa41eDd9bfD8A3963Ecb603F38eE0";
+
 export const orderCancellationEndDate = "1633612393";
 
 export const auctionEndDate = "1633612393";
