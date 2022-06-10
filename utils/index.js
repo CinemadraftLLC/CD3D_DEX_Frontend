@@ -1,14 +1,14 @@
-import {getAddress} from '@ethersproject/address'
-import {AddressZero} from '@ethersproject/constants'
-import {Contract} from "@ethersproject/contracts";
-import {BigNumber} from "@ethersproject/bignumber";
-import {abi as IUniswapV2Router02ABI} from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
-import {ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, TokenAmount} from 'cd3d-dex-libs-sdk'
+import { getAddress } from '@ethersproject/address'
+import { AddressZero } from '@ethersproject/constants'
+import { Contract } from "@ethersproject/contracts";
+import { BigNumber } from "@ethersproject/bignumber";
+import { abi as IUniswapV2Router02ABI } from '@uniswap/v2-periphery/build/IUniswapV2Router02.json'
+import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER, TokenAmount } from 'cd3d-dex-libs-sdk'
 
-import {getWeb3NoAccount} from "./web3";
-import {ROUTER_ADDRESS} from "../constants";
-import {parseUnits} from "@ethersproject/units";
-import {NETWORK_CHAIN_ID} from "../connectors";
+import { getWeb3NoAccount } from "./web3";
+import { ROUTER_ADDRESS } from "../constants";
+import { parseUnits } from "@ethersproject/units";
+import { NETWORK_CHAIN_ID } from "../connectors";
 
 export const toHex = (amount) => {
     return getWeb3NoAccount().utils.toHex(amount);
