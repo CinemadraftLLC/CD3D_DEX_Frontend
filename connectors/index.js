@@ -1,5 +1,5 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
-import {Web3Provider} from "@ethersproject/providers";
+import { Web3Provider } from "@ethersproject/providers";
 import NetworkConnector from "./NetworkConnector";
 
 

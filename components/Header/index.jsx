@@ -218,7 +218,7 @@ const Header = (props) => {
                             ))}
                         </HeaderMenu>
                     </Box>
-                    {account ? <WalletHeaderComponent
+                    {router.pathname !== '/' ? <WalletHeaderComponent
                         wallet={account}
                         busd={currencyBalances[1]?.toSignificant(6) ?? '-'}
                         cd3d={currencyBalances[0]?.toSignificant(12) ?? '-'}/> : <HeaderClient/>

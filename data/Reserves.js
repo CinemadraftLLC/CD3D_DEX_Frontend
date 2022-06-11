@@ -10,10 +10,10 @@ import useActiveWeb3React from "../hooks/useActiveWeb3React";
 const PAIR_INTERFACE = new Interface(IUniswapV2PairABI)
 
 export const PairState = {
-    LOADING : 1,
-    NOT_EXISTS : 2,
-    EXISTS : 3,
-    INVALID : 4
+    LOADING: 1,
+    NOT_EXISTS: 2,
+    EXISTS: 3,
+    INVALID: 4
 }
 
 export function usePairs(currencies) {

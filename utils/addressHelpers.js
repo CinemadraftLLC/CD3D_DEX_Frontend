@@ -72,3 +72,7 @@ export const getMulticallAddress = () => {
 // export const getPancakeSquadAddress = () => {
 //     return getAddress(addresses.pancakeSquad)
 // }
+
+export const getMiningFactoryAddress = () => {
+    return getAddress(addresses.miningFactory)
+}

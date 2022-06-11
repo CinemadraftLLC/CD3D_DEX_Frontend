@@ -1,21 +1,23 @@
-import {Provider} from 'react-redux'
-import {Web3ReactProvider} from "@web3-react/core";
-import {Web3Provider} from "@ethersproject/providers";
+import { Provider } from 'react-redux'
+import { Web3ReactProvider } from "@web3-react/core";
+import { Web3Provider } from "@ethersproject/providers";
 import Web3ReactManager from "../Web3Manager/Web3Manager";
 import ApplicationUpdater from '../state/application/updater'
 import ListsUpdater from '../state/lists/updater'
 import MulticallUpdater from '../state/multicall/updater'
 import "react-toastify/dist/ReactToastify.css";
-import {ToastContainer} from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import store from '../state'
 import "../styles/globals.css";
-import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {styled, Stack, CssBaseline, Box} from "@mui/material";
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { styled, Stack, CssBaseline, Box } from "@mui/material";
 import Header from "../components/Header";
 import Footer from "../components/footer";
 import React from "react";
-import {RefreshContextProvider} from "../contexts/RefreshContext";
+import { RefreshContextProvider } from "../contexts/RefreshContext";
 import ClearFix from "../components/ClearFix/ClearFix";
+import AdapterDateFns from "@mui/lab/AdapterDateFns";
+import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 function getLibrary(provider) {
     const library = new Web3Provider(provider);
@@ -34,9 +36,9 @@ const StyledToastContainer = styled(ToastContainer)({
     }
 })
 
-function MyApp({Component, pageProps}) {
+function MyApp({ Component, pageProps }) {
     const theme = createTheme();
-    const Offset = styled('div')(({theme}) => theme.mixins.toolbar);
+    const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
     return (
         <Web3ReactProvider getLibrary={getLibrary}>
             <StyledToastContainer
@@ -53,24 +55,26 @@ function MyApp({Component, pageProps}) {
             <Web3ReactManager>
                 <Provider store={store}>
                     <>
-                        <ListsUpdater/>
-                        <ApplicationUpdater/>
-                        <MulticallUpdater/>
+                        <ListsUpdater />
+                        <ApplicationUpdater />
+                        <MulticallUpdater />
                     </>
                     <ThemeProvider theme={theme}>
-                        <RefreshContextProvider>
-                            <CssBaseline/>
-                            <Box sx={{height: '100vh'}}>
-                                <Stack direction={"column"} sx={{width: "100%", height: "100%"}}>
-                                    <Header/>
-                                    <Offset/>
-                                    <Box component={"div"} className={"main-container"}>
-                                        <Component {...pageProps} />
-                                    </Box>
-                                    <Footer/>
-                                </Stack>
-                            </Box>
-                        </RefreshContextProvider>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <RefreshContextProvider>
+                                <CssBaseline />
+                                <Box sx={{ height: '100vh' }}>
+                                    <Stack direction={"column"} sx={{ width: "100%", height: "100%" }}>
+                                        <Header />
+                                        <Offset />
+                                        <Box component={"div"} className={"main-container"}>
+                                            <Component {...pageProps} />
+                                        </Box>
+                                        <Footer />
+                                    </Stack>
+                                </Box>
+                            </RefreshContextProvider>
+                        </LocalizationProvider>
                     </ThemeProvider>
                 </Provider>
             </Web3ReactManager>

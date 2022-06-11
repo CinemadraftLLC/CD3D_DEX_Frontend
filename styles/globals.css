@@ -99,3 +99,57 @@ input[type=number] {
     right: 0;
     z-index: 10;
 }
+
+
+.approve-btn {
+    position: absolute;
+    right: 5px;
+    bottom: 4px;
+    border-radius: 10px;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.pv-1 {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.space-between {
+    display: flex;
+    justify-content: space-between;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}

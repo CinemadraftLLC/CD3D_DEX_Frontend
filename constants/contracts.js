@@ -91,4 +91,8 @@ export default {
     //     56: '0x0a8901b0E25DEb55A87524f0cC164E9644020EBA',
     //     97: '0xfC0c3F11fDA72Cb9A56F28Ec8D44C0ae4B3ABF86',
     // },
+    miningFactory: {
+        56: '',
+        97: '0xce025D27e264541B24352D90F776b2aD00fEa876'
+    }
 }

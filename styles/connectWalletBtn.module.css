@@ -1,0 +1,24 @@
+.connectWalletBtn button {
+    background-color: #FF0144;
+    color: #FFFFFF;
+    border-radius: 12px;
+    padding: 5px 10px;
+    font-size: 14px;
+    text-transform: none;
+}
+
+.connectWalletBtn button:hover {
+    background-color: #FF0144;
+    box-shadow: rgba(255, 1, 69, 0.5) 0 3px 30px;
+}
+
+.connectWalletBtn button.loading{
+    background-color: #1D162D;
+    box-shadow: none;
+}
+
+.connectWalletBtn button.disabled{
+    background-color: #1D162D;
+    color: #FFFFFF55;
+}
+

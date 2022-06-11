@@ -550,6 +550,12 @@ export const marketPlaceData = [
     link: '/token_sales',
   },
   {
+    id: "market_7",
+    title: 'Create Token',
+    subTitle: 'Make your token',
+    link: '/create_token',
+  },
+  {
     id: "market_5",
     title: 'Create Token Sales',
     subTitle: 'Launch your tokens',
@@ -559,13 +565,7 @@ export const marketPlaceData = [
     id: "market_6",
     title: 'Staking',
     subTitle: 'Give APR for your token',
-    link: '/stacking',
-  },
-  {
-    id: "market_7",
-    title: 'Create Token',
-    subTitle: 'Make your token',
-    link: '#',
+    link: '/staking',
   }
 ];
 

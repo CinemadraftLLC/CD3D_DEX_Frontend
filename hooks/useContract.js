@@ -1,4 +1,4 @@
-import {getPresaleContract, getBusdContract, getContract} from "../helpers/ContractHelper";
+import { getPresaleContract, getBusdContract, getContract } from "../helpers/ContractHelper";
 import { useMemo } from "react";
 import Web3 from "web3";
 import { abi as IUniswapV2PairABI } from '@uniswap/v2-core/build/IUniswapV2Pair.json'
@@ -11,7 +11,7 @@ import WETH_ABI from '../constants/abis/weth.json'
 import { MULTICALL_ABI, MULTICALL_NETWORKS } from '../constants/multicall'
 
 import useActiveWeb3React from "./useActiveWeb3React";
-import {getBep20Contract, getMasterchefContract} from "../utils/contractHelpers";
+import { getBep20Contract, getMasterchefContract, getMiningFactoryContract, getMineV3Contract } from "../utils/contractHelpers";
 
 export const usePresale = (library, account) => {
   const web3 = new Web3(library);
@@ -85,3 +85,14 @@ export const useMasterchef = () => {
   const { library } = useActiveWeb3React()
   return useMemo(() => getMasterchefContract(library.getSigner()), [library])
 }
+
+export const useMiningFactoryContract = () => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getMiningFactoryContract(library.getSigner()), [library])
+}
+
+export const useMineV3Contract = (address) => {
+  const { library } = useActiveWeb3React()
+  return useMemo(() => getMineV3Contract(address, library.getSigner()), [address, library])
+}
+
