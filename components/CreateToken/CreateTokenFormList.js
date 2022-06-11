@@ -1,6 +1,6 @@
 import React from "react";
 import { CreateTokenFormControl, CreateTokenFormLabel, CreateTokenHelperText, CreateTokenButton, CreateTokensContentContainer, CreateTokenSecondLabel, CreateTokenSelect } from "./create_token_widget";
-import { FormControlLabel, FormGroup, Grid, MenuItem, Select, Stack, Switch } from "@mui/material";
+import { FormControlLabel, FormGroup, Grid, MenuItem, Select, Stack, Switch, Box } from "@mui/material";
 import ClearFix from "../ClearFix/ClearFix";
 import CreateTokenTextForm from "../CreateTokenSales/CreateTokenTextForm";
 import AdvancedSetting from "./AdvancedSetting";
@@ -10,6 +10,7 @@ const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) =
   const [tokenType, setTokenType] = React.useState('standard');
   const [advancedSetting, setAdvancedSetting] = React.useState(false);
   const [settingStep, setSettingStep] = React.useState(true)
+  const [burnable, setBurnable] = React.useState(false)
   const { account } = useActiveWeb3React()
 
   const handleTokenTypeChange = (event) => {
@@ -119,15 +120,6 @@ const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) =
       </Grid>
       <ClearFix height={20} />
       <CreateTokenFormLabel>Admin/Owner</CreateTokenFormLabel>
-      <ClearFix height={10} />
-      <CreateTokenFormControl>
-        <CreateTokenTextForm
-          InputProps={{
-            value: account,
-            disableUnderline: true,
-          }}
-        />
-      </CreateTokenFormControl>
       <ClearFix height={60} />
       <FormGroup>
         <FormControlLabel onChange={handleAdvancedInfo} control={<Switch color="success" size="small" />} label="Advanced Settings" sx={{ color: "#75E4AA" }} />
@@ -135,15 +127,28 @@ const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) =
       <ClearFix height={50} />
       <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
         <CreateTokenFormLabel>Features</CreateTokenFormLabel>
-        <FormControlLabel control={<CreateTokenSelect />} label="Burn" sx={{ color: "#EAFBF3" }} />
+        <FormControlLabel checked={burnable ? "checked" : ""} onChange={() => setBurnable(prev => !prev)} control={<CreateTokenSelect />} label="Burn" sx={{ color: "#EAFBF3" }} />
         <FormControlLabel control={<CreateTokenSelect />} label="Mintable" sx={{ color: "#EAFBF3" }} />
         <FormControlLabel checked={!settingStep ? "checked" : ""} onChange={() => setSettingStep(prev => !prev)} control={<CreateTokenSelect />} label="Deflation" sx={{ color: "#EAFBF3" }} />
         <FormControlLabel checked={settingStep ? "checked" : ""} onChange={() => setSettingStep(prev => !prev)} control={<CreateTokenSelect />} label="Advanced Tokenomics" sx={{ color: "#EAFBF3" }} />
       </Stack>
       <ClearFix height={50} />
-      <AdvancedSetting advancedSetting={advancedSetting} settingStep={settingStep} />
+      <Box hidden={!burnable}>
+        <CreateTokenFormLabel>Burn Fee</CreateTokenFormLabel>
+        <ClearFix height={20} />
+        <CreateTokenFormControl>
+          <CreateTokenTextForm
+            InputProps={{
+              disableUnderline: true,
+            }}
+          />
+        </CreateTokenFormControl>
+        <ClearFix height={60} />
+      </Box>
 
-      <ClearFix height={50} />
+      <AdvancedSetting advancedSetting={advancedSetting} settingStep={settingStep} />
+      <ClearFix height={30} />
+
       <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
         <CreateTokenButton size={"large"} onClick={() => submitTokenCreate()}>Create Token</CreateTokenButton>
       </Stack>
