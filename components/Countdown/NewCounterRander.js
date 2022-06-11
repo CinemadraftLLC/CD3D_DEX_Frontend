@@ -1,4 +1,4 @@
-import { Link, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import styles from '../../styles/counter.module.css';
 
 export const newRenderer = ({ hours, minutes, seconds, completed }) => {
@@ -99,9 +99,8 @@ export const newThirdRenderer = ({ days, hours, minutes, seconds, completed }) =
   if (completed) {
     return (
       <div className={styles.presaleCounterOver}>
-        <Link href="https://app.unifarm.co/" underline="none">
-          <Typography variant='h6'>Stake CD3D for 250% APY at UniFarm today!</Typography>
-        </Link>
+        <Typography variant='h6'>Thank you to all of our PinkSale investors for your support!</Typography>
+        
       </div>
     );
   } else {

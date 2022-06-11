@@ -20,66 +20,66 @@ import AdapterDateFns from "@mui/lab/AdapterDateFns";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 
 function getLibrary(provider) {
-  const library = new Web3Provider(provider);
-  library.pollingInterval = 8000;
-  return library;
+    const library = new Web3Provider(provider);
+    library.pollingInterval = 8000;
+    return library;
 }
 
 const StyledToastContainer = styled(ToastContainer)({
-  '& .Toastify__close-button': {
-    color: "#000000",
-    opacity: 1,
-  },
-  '& .Toastify__toast-icon': {
-    width: "32px",
-    marginInlineEnd: "15px",
-  }
+    '& .Toastify__close-button': {
+        color: "#000000",
+        opacity: 1,
+    },
+    '& .Toastify__toast-icon': {
+        width: "32px",
+        marginInlineEnd: "15px",
+    }
 })
 
 function MyApp({ Component, pageProps }) {
-  const theme = createTheme();
-  const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
-  return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <StyledToastContainer
-        position={"bottom-left"}
-        autoClose={5000}
-        limit={5}
-        hideProgressBar={true}
-        newestOnTop={true}
-        closeOnClick
-        rtl={false}
-        pauseOnHover
-        pauseOnFocusLoss
-      />
-      <Web3ReactManager>
-        <Provider store={store}>
-          <>
-            <ListsUpdater />
-            <ApplicationUpdater />
-            <MulticallUpdater />
-          </>
-          <ThemeProvider theme={theme}>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <RefreshContextProvider>
-                <CssBaseline />
-                <Box sx={{ height: '100vh' }}>
-                  <Stack direction={"column"} sx={{ width: "100%", height: "100%" }}>
-                    <Header />
-                    <Offset />
-                    <Box component={"div"} className={"main-container"}>
-                      <Component {...pageProps} />
-                    </Box>
-                    <Footer />
-                  </Stack>
-                </Box>
-              </RefreshContextProvider>
-            </LocalizationProvider>
-          </ThemeProvider>
-        </Provider>
-      </Web3ReactManager>
-    </Web3ReactProvider>
-  );
+    const theme = createTheme();
+    const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
+    return (
+        <Web3ReactProvider getLibrary={getLibrary}>
+            <StyledToastContainer
+                position={"bottom-left"}
+                autoClose={5000}
+                limit={5}
+                hideProgressBar={true}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnHover
+                pauseOnFocusLoss
+            />
+            <Web3ReactManager>
+                <Provider store={store}>
+                    <>
+                        <ListsUpdater />
+                        <ApplicationUpdater />
+                        <MulticallUpdater />
+                    </>
+                    <ThemeProvider theme={theme}>
+                        <LocalizationProvider dateAdapter={AdapterDateFns}>
+                            <RefreshContextProvider>
+                                <CssBaseline />
+                                <Box sx={{ height: '100vh' }}>
+                                    <Stack direction={"column"} sx={{ width: "100%", height: "100%" }}>
+                                        <Header />
+                                        <Offset />
+                                        <Box component={"div"} className={"main-container"}>
+                                            <Component {...pageProps} />
+                                        </Box>
+                                        <Footer />
+                                    </Stack>
+                                </Box>
+                            </RefreshContextProvider>
+                        </LocalizationProvider>
+                    </ThemeProvider>
+                </Provider>
+            </Web3ReactManager>
+        </Web3ReactProvider>
+    );
 }
 
 export default MyApp;
