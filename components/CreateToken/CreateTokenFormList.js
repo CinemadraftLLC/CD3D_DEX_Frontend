@@ -103,7 +103,7 @@ const CreateTokenFormList = ({ inputChange, getTokenType, submitTokenCreate }) =
         </Grid>
         <Grid item xs={12} sm={12} md={6}>
           <Stack direction={"row"} justifyContent={"start"}>
-            <CreateTokenFormLabel>Total Supply</CreateTokenFormLabel>
+            <CreateTokenFormLabel>Initial Supply</CreateTokenFormLabel>
             <CreateTokenSecondLabel>*</CreateTokenSecondLabel>
           </Stack>
           <ClearFix height={10} />
