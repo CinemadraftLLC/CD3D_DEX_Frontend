@@ -149,6 +149,7 @@ const Header = (props) => {
               aria-controls="basic-menu"
               aria-haspopup="true"
               href="https://cd3fi.com/"
+              target="_blank"
             >
               <Image src={CD3fiLogo} alt="logo" objectFit={"contain"} />
             </HeaderMenuLink>
@@ -214,7 +215,7 @@ const Header = (props) => {
                 <MenuItem key={item.id} onClick={() => {
                   setMoreMenu(null);
                 }}>
-                  <Link href={item.link}>
+                  <a target="_blank" href={item.link}>
                     <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{ width: "100%" }}>
                       <Stack>
                         <Typography component={"span"} variant={"subtitle1"} sx={{ paddingY: "14px" }}>{item.title}</Typography>
@@ -227,7 +228,7 @@ const Header = (props) => {
                         />
                       </Box>
                     </Stack>
-                  </Link>
+                  </a>
                 </MenuItem>
               ))}
             </HeaderMenu>
@@ -253,7 +254,7 @@ const Header = (props) => {
                 <MenuItem key={item.id} onClick={() => {
                   setMoreMenu(null);
                 }}>
-                  <Link href={item.link}>
+                  <a target="_blank" href={item.link}>
                     <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{ width: "100%" }}>
                       <Stack>
                         <Typography component={"span"} variant={"subtitle1"}>{item.title}</Typography>
@@ -267,7 +268,7 @@ const Header = (props) => {
                         />
                       </Box>
                     </Stack>
-                  </Link>
+                  </a>
                 </MenuItem>
               ))}
             </HeaderMenu>
