@@ -27,7 +27,7 @@ if (typeof window !== 'undefined') {
 
 
 
-const readContractABI = async (tokenType) =>
+const readContractABI = async () =>
   new Promise((resolve, reject) => {
     let contract_data
     let contract_source = contract_source_arr.standard
@@ -49,7 +49,7 @@ const readContractABI = async (tokenType) =>
       })
   })
 
-const readContractByteCode = async (tokenType) =>
+const readContractByteCode = async () =>
   new Promise((resolve, reject) => {
     let bytecode
     let contract_source = contract_source_arr.standard
@@ -71,7 +71,7 @@ const readContractByteCode = async (tokenType) =>
       })
   })
 
-export const deployContract = (tokenType, args, account) =>
+export const deployContract = (network, args, account) =>
   new Promise(async (resolve, reject) => {
     try {
 
@@ -81,8 +81,8 @@ export const deployContract = (tokenType, args, account) =>
       console.log("accounts", accounts)
 
 
-      const bytecode = await readContractByteCode(tokenType)
-      const contract_data = await readContractABI(tokenType)
+      const bytecode = await readContractByteCode()
+      const contract_data = await readContractABI()
 
       const serviceFee = converter(process.env.REACT_APP_SERVICE_FEE, "ether", "wei")
 

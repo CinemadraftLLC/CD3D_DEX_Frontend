@@ -1,7 +1,7 @@
-import {Box, Button, Checkbox, FormControl, FormHelperText, Radio, Select, styled, Tab, Typography} from "@mui/material";
-import {Timeline} from "@material-ui/lab";
+import { Box, Button, Checkbox, FormControl, FormHelperText, Radio, styled, Tab, Typography } from "@mui/material";
+import { Timeline } from "@material-ui/lab";
 
-export const CreateTokenSalesTab = styled(Tab)(({theme}) => ({
+export const CreateTokenSalesTab = styled(Tab)(({ theme }) => ({
     padding: "15px 30px",
     color: "#7689B0",
     backgroundColor: 'rgba(0, 0, 0, 0.17)',
@@ -23,12 +23,15 @@ export const CreateTokenSalesTab = styled(Tab)(({theme}) => ({
     '&.first': {
         borderRadius: "12px 0 0 12px",
     },
+    '&.middle': {
+        borderRadius: "0",
+    },
     '&.second': {
         borderRadius: "0 12px 12px 0",
     }
 }));
 
-export const CreateTokensTimeLineContainer = styled(Box)(({theme}) => ({
+export const CreateTokensTimeLineContainer = styled(Box)(({ theme }) => ({
     backgroundColor: 'rgba(0, 0, 0, 0.17)',
     borderRadius: "15px",
     margin: "5px",
@@ -36,7 +39,7 @@ export const CreateTokensTimeLineContainer = styled(Box)(({theme}) => ({
     position: "relative",
 }));
 
-export const CreateTokensContentContainer = styled(Box)(({theme}) => ({
+export const CreateTokensContentContainer = styled(Box)(({ theme }) => ({
     backgroundColor: 'rgba(0, 0, 0, 0.17)',
     borderRadius: "15px",
     margin: "5px",
@@ -44,7 +47,7 @@ export const CreateTokensContentContainer = styled(Box)(({theme}) => ({
     position: "relative",
 }));
 
-export const CreateTokenTimeLine = styled(Timeline)(({theme}) => ({
+export const CreateTokenTimeLine = styled(Timeline)(({ theme }) => ({
     '.MuiTimelineItem-missingOppositeContent:before': {
         content: "none",
     },
@@ -75,7 +78,7 @@ export const CreateTokenTimeLine = styled(Timeline)(({theme}) => ({
         justifyContent: "center",
         alignItems: "center",
         backgroundColor: "#7689B0",
-        '.MuiSvgIcon-root': {color: "#162752"},
+        '.MuiSvgIcon-root': { color: "#162752" },
         '&.completed': {
             backgroundColor: "#4CDC8F"
         }
@@ -103,7 +106,7 @@ export const CreateTokenTimeLine = styled(Timeline)(({theme}) => ({
     }
 }));
 
-export const CreateTokenNextButton = styled(Button)(({theme}) => ({
+export const CreateTokenNextButton = styled(Button)(({ theme }) => ({
     backgroundColor: "#FF0144",
     color: "#FFF1F5",
     borderColor: "#FF0144",
@@ -119,7 +122,7 @@ export const CreateTokenNextButton = styled(Button)(({theme}) => ({
     }
 }));
 
-export const CreateTokenBackButton = styled(Button)(({theme}) => ({
+export const CreateTokenBackButton = styled(Button)(({ theme }) => ({
     backgroundColor: "transparent",
     color: "#BAC4D7",
     borderColor: "#BAC4D7",
@@ -135,22 +138,22 @@ export const CreateTokenBackButton = styled(Button)(({theme}) => ({
     }
 }));
 
-export const CreateTokenFormLabel = styled(Typography)(({theme}) => ({
+export const CreateTokenFormLabel = styled(Typography)(({ theme }) => ({
     color: "#75E4AA",
     fontSize: "14px",
 }));
 
-export const CreateTokenSpan = styled(Typography)(({theme}) => ({
+export const CreateTokenSpan = styled(Typography)(({ theme }) => ({
     color: "#BAC4D7",
     fontSize: "14px",
 }));
 
-export const CreateTokenSecondLabel = styled(Typography)(({theme}) => ({
+export const CreateTokenSecondLabel = styled(Typography)(({ theme }) => ({
     color: "#FF0144",
     fontSize: "14px",
 }));
 
-export const CreateTokenFormControl = styled(FormControl)(({theme}) => ({
+export const CreateTokenFormControl = styled(FormControl)(({ theme }) => ({
     width: "100%",
     '.MuiSelect-select': {
         padding: "15px 30px",
@@ -170,7 +173,7 @@ export const CreateTokenFormControl = styled(FormControl)(({theme}) => ({
     },
 }));
 
-export const CreateTokenHelperText = styled(FormHelperText)(({theme}) => ({
+export const CreateTokenHelperText = styled(FormHelperText)(({ theme }) => ({
     color: "#7689B0",
     fontSize: "12px",
     '&.Mui-error': {
@@ -178,7 +181,7 @@ export const CreateTokenHelperText = styled(FormHelperText)(({theme}) => ({
     }
 }));
 
-export const CreateTokenSelect = styled(Checkbox)(({them}) => ({
+export const CreateTokenSelect = styled(Checkbox)(({ them }) => ({
     '.MuiSvgIcon-root': {
         color: "#EAFBF3",
     },
@@ -192,14 +195,14 @@ export const CreateTokenSelect = styled(Checkbox)(({them}) => ({
     }
 }));
 
-export const CreateTokenRadio = styled(Radio)(({theme}) => ({
+export const CreateTokenRadio = styled(Radio)(({ theme }) => ({
     color: "#EAFBF3",
     '&.Mui-checked': {
         color: "#EAFBF3",
     }
 }));
 
-export const CreateTokenDescription = styled(Typography)(({theme}) => ({
+export const CreateTokenDescription = styled(Typography)(({ theme }) => ({
     color: "#BAC4D7",
     fontSize: "12px !important",
     lineHeight: "28px !important",

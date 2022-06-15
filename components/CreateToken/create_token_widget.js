@@ -1,4 +1,4 @@
-import { Box, Button, Checkbox, FormControl, FormHelperText, Radio, styled, Tab, Typography } from "@mui/material";
+import { Box, Button, Checkbox, FormControl, FormHelperText, Radio, styled, Tab, Tooltip, Typography, tooltipClasses } from "@mui/material";
 import { Timeline } from "@material-ui/lab";
 
 
@@ -183,4 +183,21 @@ export const CreateTokenDescription = styled(Typography)(({ theme }) => ({
   padding: "0 40px"
 }))
 
+export const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+    backgroundColor: '#3b4468',
+    color: '#BAC4D7',
+    padding: "5px 10px",
+    backdropFilter: "blur(10px)",
+    fontSize: theme.typography.pxToRem(12),
+    borderRadius: "15px",
+  },
+  '& .MuiTypography-subtitle1': {
+    color: '#BAC4D7',
+    fontSize: "12px",
+  }
+}));
 

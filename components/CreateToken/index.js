@@ -16,13 +16,15 @@ import { showToast } from "../../utils/toast";
 const CreateTokenPage = () => {
   const { account } = useActiveWeb3React()
   const [args, setArgs] = React.useState([]);
-  const [tokenType, setTokenType] = React.useState("standard");
+  const [network, setNetwork] = React.useState("bsc")
 
   const inputChange = (e, i) => {
     const { value } = e.target;
     let val;
     if (i === 3) {
       val = converter(value, "ether", "wei");
+    } else if (value === "") {
+      val = null
     } else {
       val = value;
     }
@@ -39,15 +41,15 @@ const CreateTokenPage = () => {
         toast.warning("Must fill all parameters", { toastId: 1 });
         return
       }
-      await deployContract(tokenType, args, account);
+      await deployContract(network, args, account);
       toast.success("Token created successfully.", { toastId: 1 })
     } catch (error) {
       showToast("error", "Transaction Failed", error.message)
     }
   };
 
-  const getTokenType = (tokenType) => {
-    setTokenType(tokenType);
+  const getNetwork = (network) => {
+    setNetwork(network);
   }
   return (
     <Box role="tabpanel" id={"tab_panel_create_sale"} aria-labelledby={"Create Sale"} sx={{ width: '100%' }}>
@@ -61,7 +63,7 @@ const CreateTokenPage = () => {
         </Grid>
         <Grid item xs={12} sm={12} md={9}>
           <Box sx={{ width: '100%' }}>
-            <CreateTokenFormList inputChange={inputChange} getTokenType={getTokenType} submitTokenCreate={createToken} />
+            <CreateTokenFormList inputChange={inputChange} getNetwork={getNetwork} submitTokenCreate={createToken} />
           </Box>
           <ClearFix height={150} />
         </Grid>
