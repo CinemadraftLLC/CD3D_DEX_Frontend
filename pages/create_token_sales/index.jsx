@@ -26,8 +26,8 @@ const CreateTokenSales = () => {
                     <CreateTokenSalesTab id={"tab_create_sale"} className={"second"} label="Create Sale" aria-controls={"tab_panel_create_sale"} />
                 </Tabs>
                 <ClearFix height={30} />
-                <CreatePresalePage index={0} value={value} />
-                <CreateSalePage index={1} value={value} />
+                <CreatePresalePage index={1} value={value} />
+                <CreateSalePage index={2} value={value} />
             </Box>
         </Container>
     );
