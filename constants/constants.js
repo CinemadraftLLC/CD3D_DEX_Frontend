@@ -1,7 +1,8 @@
-import { injected } from "../connectors";
+import { injected, bscConnector } from "../connectors";
 import { toWei, toGwei } from "../utils";
 export const connectorsByName = {
-  Injected: injected
+  Injected: injected,
+  BSC: bscConnector
 };
 
 export const Addresses = {
@@ -23,6 +24,8 @@ export const TokenToBeAuctioned = 20000000;
 export const AmountExpected = 200000;
 
 export const Injected = "Injected";
+
+export const BSC = "BSC";
 
 export const auctioningToken = "0x51a32114E3F759179B7EF6Aa41c8f5F1269D429D";
 

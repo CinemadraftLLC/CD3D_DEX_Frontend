@@ -1,37 +1,37 @@
-import React, {useCallback, useState} from 'react';
-import {Box, InputAdornment, Stack} from "@mui/material";
+import React, { useCallback, useState } from 'react';
+import { Box, InputAdornment, Stack } from "@mui/material";
 import Image from 'next/image';
-import {useRouter} from "next/router";
-import {Link, Typography} from '@material-ui/core';
-import {styled} from "@mui/material/styles";
+import { useRouter } from "next/router";
+import { Link, Typography } from '@material-ui/core';
+import { styled } from "@mui/material/styles";
 
 import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
-import currencyId, {useCurrency} from "../../../hooks/Tokens";
-import {useCurrencyBalance} from "../../../state/wallet/hooks";
-import {useDerivedMintInfo, useMintActionHandlers, useMintState} from "../../../state/mint/hooks";
+import currencyId, { useCurrency } from "../../../hooks/Tokens";
+import { useCurrencyBalance } from "../../../state/wallet/hooks";
+import { useDerivedMintInfo, useMintActionHandlers, useMintState } from "../../../state/mint/hooks";
 import PlusIcon from '../../../public/assets/plusIcon.svg';
-import {Field, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST} from "../../../constants";
-import {useUserDeadline, useUserSlippageTolerance} from "../../../state/user/hooks";
-import {calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract} from "../../../utils";
-import {BigNumber} from '@ethersproject/bignumber'
-import {ETHER} from "cd3d-dex-libs-sdk";
-import {wrappedCurrency} from "../../../utils/wrappedCurrency";
-import {showToast} from "../../../utils/toast";
+import { Field, ONE_BIPS, ROUTER_ADDRESS, SWAP_TOKEN_LIST } from "../../../constants";
+import { useUserDeadline, useUserSlippageTolerance } from "../../../state/user/hooks";
+import { calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract } from "../../../utils";
+import { BigNumber } from '@ethersproject/bignumber'
+import { ETHER } from "cd3d-dex-libs-sdk";
+import { wrappedCurrency } from "../../../utils/wrappedCurrency";
+import { showToast } from "../../../utils/toast";
 import SwapEndAdornment from "../../../components/Swap/SwapEndAdornment";
 import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
 import ClearFix from "../../../components/ClearFix/ClearFix";
 import FormSubmitBtn from "../../../components/Form/FormSubmitBtn";
 import ConnectButton from "../../../components/ConnectWalletButton";
-import {TokenSelect} from "../../../components/Swap/TokenSelect";
-import {MinimalPositionCard} from "../../../components/PositionCard";
+import { TokenSelect } from "../../../components/Swap/TokenSelect";
+import { MinimalPositionCard } from "../../../components/PositionCard";
 import LiquiditySupplyDialog from "../../../components/Dialogs/LiquiditySupplyDialog";
 import LiquiditySubmittingTxDialog from "../../../components/Dialogs/LiquiditySubmittingTxDialog";
-import {ApprovalState, useApproveCallback} from "../../../hooks/useApproveCallback";
-import {PairState} from "../../../data/Reserves";
+import { ApprovalState, useApproveCallback } from "../../../hooks/useApproveCallback";
+import { PairState } from "../../../data/Reserves";
 import useTransactionDeadline from "../../../hooks/useTransactionDeadline";
-import {useTransactionAdder} from "../../../state/transactions/hooks";
+import { useTransactionAdder } from "../../../state/transactions/hooks";
 import tokens from "../../../constants/tokens";
-import {LiquidityContainer, LiquidityTitleBox} from "../../../components/Liquidity/liquidity_widget";
+import { LiquidityContainer, LiquidityTitleBox } from "../../../components/Liquidity/liquidity_widget";
 
 const LiquidityInfoBox = styled(Box)({
     '& .MuiTypography-subtitle1': {
@@ -52,16 +52,16 @@ const TotalValueTypography = styled(Typography)({
 
 function LiquiditySwap() {
     const router = useRouter()
-    const {addresses} = router.query;
+    const { addresses } = router.query;
 
-    const {account, chainId, library} = useActiveWeb3React();
+    const { account, chainId, library } = useActiveWeb3React();
 
     const liquidityContainerRef = React.useRef(null);
     const [tokenSelect, setTokenSelect] = useState(0);
 
     // Add Liquidity States
     const [showConfirmModal, setShowConfirmModal] = useState(false);
-    const [{attemptingTxn, txErrorMessage, txHash}, setLiquidityState] = useState({
+    const [{ attemptingTxn, txErrorMessage, txHash }, setLiquidityState] = useState({
         attemptingTxn: false,
         txErrorMessage: undefined,
         txHash: undefined,
@@ -82,7 +82,7 @@ function LiquiditySwap() {
     }
 
     // mint state
-    const {independentField, typedValue, otherTypedValue} = useMintState();
+    const { independentField, typedValue, otherTypedValue } = useMintState();
     const {
         dependentField,
         currencies,
@@ -97,7 +97,7 @@ function LiquiditySwap() {
         error,
     } = useDerivedMintInfo(currencyA, currencyB);
 
-    const {onFieldAInput, onFieldBInput} = useMintActionHandlers(noLiquidity);
+    const { onFieldAInput, onFieldBInput } = useMintActionHandlers(noLiquidity);
 
     // check whether the user has approved the router on the tokens
     const [approvalA, approveACallback] = useApproveCallback(parsedAmounts[Field.CURRENCY_A], ROUTER_ADDRESS)
@@ -125,7 +125,7 @@ function LiquiditySwap() {
         if (!chainId || !library || !account) return
         const router = getRouterContract(chainId, library, account)
 
-        const {[Field.CURRENCY_A]: parsedAmountA, [Field.CURRENCY_B]: parsedAmountB} = parsedAmounts
+        const { [Field.CURRENCY_A]: parsedAmountA, [Field.CURRENCY_B]: parsedAmountB } = parsedAmounts
         if (!parsedAmountA || !parsedAmountB) {
             return
         }
@@ -170,36 +170,35 @@ function LiquiditySwap() {
             ]
         }
 
-        setLiquidityState(prevState => ({...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined}));
+        setLiquidityState(prevState => ({ ...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined }));
         // const aa = await estimate(...args, value ? { value } : {})
         console.log('args', args);
-        await estimate(...args, value ? {value} : {})
+        await estimate(...args, value ? { value } : {})
             .then((estimatedGasLimit) =>
                 method(...args, {
-                    ...(value ? {value} : {}),
+                    ...(value ? { value } : {}),
                     gasLimit: calculateGasMargin(estimatedGasLimit),
                 }).then(async (response) => {
                     console.log('response', response);
                     await response.wait();
-                    setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash}));
+                    setLiquidityState(prevState => ({ ...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash }));
 
-                    onFieldAInput({target: {value: ''}});
+                    onFieldAInput({ target: { value: '' } });
                     addTransaction(response, {
-                        summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-                            currencies[Field.CURRENCY_A]?.symbol
-                        } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
+                        summary: `Add ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencies[Field.CURRENCY_A]?.symbol
+                            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencies[Field.CURRENCY_B]?.symbol}`,
                     });
 
                     showToast("success", "Transaction Receipt", "Your transaction was succeed.",
                         (<Link target={"_blank"} href={getBscScanLink(response.hash, 'transaction')}>
-                            <Typography variant="subtitle2" sx={{color: "#CC0136", fontSize: "14px", fontWeight: "bold", textAlign: "center"}}>
+                            <Typography variant="subtitle2" sx={{ color: "#CC0136", fontSize: "14px", fontWeight: "bold", textAlign: "center" }}>
                                 View on Binance
                             </Typography>
                         </Link>));
                 })
             )
             .catch((e) => {
-                setLiquidityState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined}));
+                setLiquidityState(prevState => ({ ...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined }));
                 showToast("error", "Transaction Failed", e?.message ?? '');
 
                 // we only care if the error is something _other_ than the user rejected the tx
@@ -227,15 +226,15 @@ function LiquiditySwap() {
     }, [tokenSelect, currencyIdA, currencyIdB, setTokenSelect]);
 
     return (
-        <Box sx={{width: "100%"}}>
+        <Box sx={{ width: "100%" }}>
             <LiquidityContainer ref={liquidityContainerRef}>
                 <LiquidityTitleBox>
                     <Typography component={"span"} variant={"subtitle1"}>Create Liquidity</Typography>
                     {
                         noLiquidity ?
                             <Box>
-                                <Typography component={"span"} variant={"subtitle2"}>You are the first liquidity provider.</Typography><br/>
-                                <Typography component={"span"} variant={"subtitle2"}>The ratio of tokens you add will set the price of this pool.</Typography><br/>
+                                <Typography component={"span"} variant={"subtitle2"}>You are the first liquidity provider.</Typography><br />
+                                <Typography component={"span"} variant={"subtitle2"}>The ratio of tokens you add will set the price of this pool.</Typography><br />
                                 <Typography component={"span"} variant={"subtitle2"}>Once you are happy with the rate click supply to review.</Typography>
                             </Box>
                             :
@@ -249,7 +248,7 @@ function LiquiditySwap() {
                     justifyContent={"center"}
                     spacing={1}
                 >
-                    <ClearFix height={15}/>
+                    <ClearFix height={15} />
                     <FormAdvancedTextField
                         id={"liquidity_pay"}
                         helperText={
@@ -270,15 +269,15 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_A],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => onFieldAInput({target: {value: balances[Field.CURRENCY_A]}})}/>
+                                <SwapEndAdornment value={currencyA} onClick={() => setTokenSelect(Field.CURRENCY_A)} onMaxClick={() => onFieldAInput({ target: { value: balances[Field.CURRENCY_A] } })} />
                             </InputAdornment>,
                         }}
                     />
-                    <ClearFix height={20}/>
-                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                        <Image src={PlusIcon} alt='Picture of DownArrow'/>
+                    <ClearFix height={20} />
+                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{ height: "100%" }}>
+                        <Image src={PlusIcon} alt='Picture of DownArrow' />
                     </Stack>
-                    <ClearFix height={20}/>
+                    <ClearFix height={20} />
                     <FormAdvancedTextField
                         id={"liquidity_receive"}
                         helperText={
@@ -299,22 +298,22 @@ function LiquiditySwap() {
                             disableUnderline: true,
                             value: formattedAmounts[Field.CURRENCY_B],
                             endAdornment: <InputAdornment position="end">
-                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => onFieldBInput({target: {value: balances[Field.CURRENCY_B]}})}/>
+                                <SwapEndAdornment value={currencyB} onClick={() => setTokenSelect(Field.CURRENCY_B)} onMaxClick={() => onFieldBInput({ target: { value: balances[Field.CURRENCY_B] } })} />
                             </InputAdornment>,
                         }}
                     />
-                    <ClearFix height={20}/>
+                    <ClearFix height={20} />
                     <TotalValueTypography variant='subtitle2' gutterBottom component='span'>
                         Total Value : $123.45
                     </TotalValueTypography>
-                    <ClearFix height={20}/>
+                    <ClearFix height={20} />
                     <LiquidityInfoBox>
                         <Typography variant='subtitle1' gutterBottom component='span'>
                             {
                                 noLiquidity ? 'Initial prices and pool share' : 'Prices and pool share'
                             }
                         </Typography>
-                        <ClearFix height={15}/>
+                        <ClearFix height={15} />
                         <Stack direction={"row"} justifyContent={"space-between"}>
                             <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
                                 <Typography variant='subtitle2' gutterBottom component='span'>
@@ -342,10 +341,10 @@ function LiquiditySwap() {
                             </Stack>
                         </Stack>
                     </LiquidityInfoBox>
-                    <ClearFix height={20}/>
+                    <ClearFix height={20} />
                     {
                         !account ?
-                            <ConnectButton/>
+                            <ConnectButton />
                             :
                             // TODO Approve tokens
                             <>
@@ -393,7 +392,7 @@ function LiquiditySwap() {
                 />
             </LiquidityContainer>
             {pair && !noLiquidity && pairState !== PairState.INVALID ?
-                <MinimalPositionCard pair={pair}/> : null
+                <MinimalPositionCard pair={pair} /> : null
             }
             <ClearFix height={100} />
             <LiquiditySupplyDialog

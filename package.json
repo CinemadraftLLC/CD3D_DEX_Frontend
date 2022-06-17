@@ -13,6 +13,7 @@
     "node_modules/(?!(lightweight-charts|fancy-canvas)/)"
   ],
   "dependencies": {
+    "@binance-chain/bsc-connector": "^1.0.0",
     "@devexpress/dx-core": "^2.7.6",
     "@devexpress/dx-react-chart": "^2.7.6",
     "@devexpress/dx-react-chart-material-ui": "^2.7.6",

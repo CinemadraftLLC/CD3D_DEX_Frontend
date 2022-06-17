@@ -6,6 +6,7 @@ import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
 import useAuth from '../../../hooks/useAuth'
 import { ConnectorName } from "../../../constants";
 import styles from "../../../styles/connectWalletBtn.module.css";
+import { WalletModal } from "../../WalletModal";
 
 const WalletHeaderItem = styled(Box)({
     height: "35px",
@@ -33,12 +34,21 @@ const WalletHeaderComponent = (props) => {
     const { account } = useActiveWeb3React();
     const { login, logout } = useAuth()
 
-    const handleConnectClick = () => {
-        login(ConnectorName);
-    }
+    const [open, setOpen] = React.useState(false);
+    const [selectedValue, setSelectedValue] = React.useState("");
+
+    const handleClickOpen = () => {
+        setOpen(true);
+    };
+
+    const handleClose = (value) => {
+        setOpen(false);
+        setSelectedValue(value);
+    };
+
 
     const handleDisconnectClick = () => {
-        logout(ConnectorName);
+        logout(selectedValue);
     }
 
     return (<>{
@@ -58,9 +68,14 @@ const WalletHeaderComponent = (props) => {
                 </WalletHeaderItem>
             </Stack>) :
             <div className={styles.connectWalletBtn}>
-                <Button variant="text" onClick={handleConnectClick}>
+                <Button variant="text" onClick={handleClickOpen}>
                     Connect Wallet
                 </Button>
+                <WalletModal
+                    selectedValue={selectedValue}
+                    open={open}
+                    onClose={handleClose}
+                />
             </div>
     }</>
     );

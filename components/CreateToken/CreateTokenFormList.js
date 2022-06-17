@@ -52,7 +52,11 @@ const CreateTokenFormList = ({ inputChange, getNetwork, submitTokenCreate }) => 
         </Select>
       </CreateTokenFormControl>
       <ClearFix height={10} />
-      <CreateTokenHelperText error={true}>Fee : 0.5 BNB or 5900 CD3D</CreateTokenHelperText>
+      <CreateTokenFormLabel>Choose your fee*</CreateTokenFormLabel>
+      <ClearFix height={10} />
+      <FormControlLabel control={<CreateTokenSelect />} label="0.5 BNB" sx={{ color: "#FF0144" }} />
+      <ClearFix height={-10} />
+      <FormControlLabel control={<CreateTokenSelect />} label="5900 CD3D" sx={{ color: "#FF0144" }} />
       <ClearFix height={35} />
       <Grid container spacing={2}>
         <Grid item xs={12} sm={12} md={6}>
