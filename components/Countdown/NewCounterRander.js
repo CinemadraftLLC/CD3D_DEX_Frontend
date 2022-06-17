@@ -99,9 +99,9 @@ export const newThirdRenderer = ({ days, hours, minutes, seconds, completed }) =
   if (completed) {
     return (
       <div className={styles.presaleCounterOver}>
-        <Link href="https://app.unifarm.co/" underline="none">
+        <a target="_blank" href="https://app.unifarm.co/" underline="none">
           <Typography variant='h6'>Stake CD3D for 250% APY at UniFarm today!</Typography>
-        </Link>
+        </a>
       </div>
     );
   } else {

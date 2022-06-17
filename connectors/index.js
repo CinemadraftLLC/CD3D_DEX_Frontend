@@ -1,6 +1,7 @@
 import { InjectedConnector } from "@web3-react/injected-connector";
 import { Web3Provider } from "@ethersproject/providers";
 import NetworkConnector from "./NetworkConnector";
+import { BscConnector } from '@binance-chain/bsc-connector'
 
 
 const NETWORK_URL = process.env.REACT_APP_NETWORK_URL
@@ -10,6 +11,8 @@ export const NETWORK_CHAIN_ID = parseInt(process.env.REACT_APP_CHAIN_ID ?? '56')
 export const injected = new InjectedConnector({
   supportedChainIds: [97, 56],
 });
+
+export const bscConnector = new BscConnector({ supportedChainIds: [97, 56] })
 
 if (typeof NETWORK_URL === 'undefined') {
   throw new Error(`REACT_APP_NETWORK_URL must be a defined environment variable`)
