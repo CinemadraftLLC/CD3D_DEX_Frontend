@@ -1,6 +1,6 @@
 import React from "react";
 import ClearFix from "../../components/ClearFix/ClearFix";
-import {Box, Container, Divider, Grid, Stack, Typography} from "@mui/material";
+import { Box, Container, Divider, Grid, Stack, Typography } from "@mui/material";
 import {
     TokenSalesBackButton,
     TokenSalesDescription,
@@ -16,69 +16,70 @@ import {
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import Image from "next/image";
 import TokenSalesStatusLabel from "../../components/TokenSales/TokenSalesStatusLabel";
-import {TokenSalesDetailButton, TokenSalesItemProgressBar} from "../../components/TokenSales/token_sales_widget";
-import {useRouter} from "next/router";
+import { TokenSalesDetailButton, TokenSalesItemProgressBar } from "../../components/TokenSales/token_sales_widget";
+import { useRouter } from "next/router";
+import TokenSaleModal from "../../components/TokenSales/TokenSaleModal";
 
 const TokenSaleDetail = () => {
     const router = useRouter();
     return (
         <Container maxWidth={'xl'}>
-            <ClearFix height={20}/>
-            <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} sx={{paddingLeft: "8px", paddingRight: "8px"}}>
-                <TokenSalesBackButton variant={'outlined'} startIcon={<ChevronLeftIcon/>} onClick={() => router.back()}>
+            <ClearFix height={20} />
+            <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} sx={{ paddingLeft: "8px", paddingRight: "8px" }}>
+                <TokenSalesBackButton variant={'outlined'} startIcon={<ChevronLeftIcon />} onClick={() => router.back()}>
                     Back to Presale
                 </TokenSalesBackButton>
             </Stack>
-            <ClearFix height={20}/>
+            <ClearFix height={20} />
             <Box component={"div"}>
                 <Grid container>
                     <Grid item xs={12} sm={12} md={3}>
                         <TokenSalesTokenInfo>
                             <Stack direction={"column"} spacing={1}>
-                                <Box component={"div"} sx={{paddingLeft: "20px", paddingRight: "20px"}}>
+                                <Box component={"div"} sx={{ paddingLeft: "20px", paddingRight: "20px" }}>
                                     <Stack direction={"column"} spacing={1}>
                                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-                                            <Image src={'/assets/images/dogegotchi-token.png'} alt={''} height={'40px'} width={'40px'} objectFit={"contain"}/>
-                                            <TokenSalesStatusLabel status={"canceled"}/>
+                                            <Image src={'/assets/images/dogegotchi-token.png'} alt={''} height={'40px'} width={'40px'} objectFit={"contain"} />
+                                            <TokenSalesStatusLabel status={"canceled"} />
                                         </Stack>
-                                        <ClearFix height={10}/>
+                                        <ClearFix height={10} />
                                         <Typography component={"h2"} variant={"h2"}>DogeGotchi</Typography>
-                                        <ClearFix height={5}/>
+                                        <ClearFix height={5} />
                                         <Stack direction={"row"} justifyContent={"start"} alignItems={"center"} spacing={2}>
                                             <Box component={"div"}>
-                                                <Image src={'/assets/icons/email-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"}/>
+                                                <Image src={'/assets/icons/email-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"} />
                                             </Box>
                                             <Box component={"div"}>
-                                                <Image src={'/assets/icons/twitter-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"}/>
+                                                <Image src={'/assets/icons/twitter-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"} />
                                             </Box>
                                             <Box component={"div"}>
-                                                <Image src={'/assets/icons/facebook-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"}/>
+                                                <Image src={'/assets/icons/facebook-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"} />
                                             </Box>
                                             <Box component={"div"}>
-                                                <Image src={'/assets/icons/telegram-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"}/>
+                                                <Image src={'/assets/icons/telegram-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"} />
                                             </Box>
                                             <Box component={"div"}>
-                                                <Image src={'/assets/icons/discord-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"}/>
+                                                <Image src={'/assets/icons/discord-icon.png'} alt={''} height={'20px'} width={'20px'} objectFit={"contain"} />
                                             </Box>
                                         </Stack>
-                                        <ClearFix height={20}/>
+                                        <ClearFix height={20} />
                                         <Typography component={"span"} variant={"subtitle1"}>
                                             GOTCHI is a decentralized experiment, 100% community driven. It allows community members to hold Billions or even Trillions of them.
                                         </Typography>
-                                        <ClearFix height={20}/>
+                                        <ClearFix height={20} />
                                         <Typography component={"span"} variant={"subtitle1"}>
                                             We burnt 50% of the total supply and the remaining 50% was sent to Vitalik Buterin. Lets make him more wealthier…
                                         </Typography>
-                                        <ClearFix height={20}/>
+                                        <ClearFix height={20} />
                                         <Typography component={"span"} variant={"subtitle1"}>
                                             Initial liquidity is 100% locked as well.
                                         </Typography>
                                     </Stack>
                                 </Box>
-                                <ClearFix height={20}/>
-                                <Divider/>
-                                <ClearFix height={20}/>
-                                <Box component={"div"} sx={{paddingLeft: "20px", paddingRight: "20px"}}>
+                                <ClearFix height={20} />
+                                <Divider />
+                                <ClearFix height={20} />
+                                <Box component={"div"} sx={{ paddingLeft: "20px", paddingRight: "20px" }}>
                                     <Stack direction={"column"} spacing={1}>
                                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                             <Typography component={"h3"} variant={"h3"}>
@@ -88,8 +89,8 @@ const TokenSaleDetail = () => {
                                                 Progress (40.00%)
                                             </Typography>
                                         </Stack>
-                                        <ClearFix height={20}/>
-                                        <TokenSalesItemProgressBar variant="determinate" value={40}/>
+                                        <ClearFix height={20} />
+                                        <TokenSalesItemProgressBar variant="determinate" value={40} />
                                         <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
                                             <Typography component={"span"} variant={"subtitle1"}>0 BUSD</Typography>
                                             <Typography component={"span"} variant={"subtitle1"}>100 BUSD</Typography>
@@ -158,10 +159,11 @@ const TokenSaleDetail = () => {
                                         Pool Actions
                                     </Typography>
                                     <Stack direction={"row"} justifyContent={"end"} alignItems={"center"} spacing={1}>
-                                        <TokenSalesDetailOutlineButton variant={"outlined"} size={"large"} onClick={() => {
+                                        <TokenSalesDetailOutlineButton variant={"text"} size={"large"} onClick={() => {
                                         }}>
-                                            List of Contributors
+                                            Cancel Sale
                                         </TokenSalesDetailOutlineButton>
+                                        <TokenSaleModal />
                                         <TokenSalesDetailFilledButton variant={"filled"} size={"large"} onClick={() => {
                                         }}>
                                             Add to Whitelist
@@ -269,7 +271,7 @@ const TokenSaleDetail = () => {
                                     </Stack>
                                 </Stack>
                             </TokenSalesTokenMainInfo>
-                            <ClearFix height={20}/>
+                            <ClearFix height={20} />
                             <TokenSalesDescription component={"span"} variant={"subtitle1"}>
                                 Disclaimer : The information provided shall not in any way constitute a recommendation as to whether you should invest in any product discussed. We accept no liability for any loss occasioned to any person acting or refraining from action as a result of any material
                                 provided or published. © 2021 by CD3D Team!
@@ -278,7 +280,7 @@ const TokenSaleDetail = () => {
                     </Grid>
                 </Grid>
             </Box>
-            <ClearFix height={150}/>
+            <ClearFix height={150} />
         </Container>
     );
 }

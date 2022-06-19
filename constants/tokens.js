@@ -1,5 +1,5 @@
-import {ChainId, Token} from 'cd3d-dex-libs-sdk'
-import {serializeToken} from "../utils/tokenHelpers";
+import { ChainId, Token } from 'cd3d-dex-libs-sdk'
+import { serializeToken } from "../utils/tokenHelpers";
 
 const { MAINNET, TESTNET } = ChainId
 
@@ -79,14 +79,6 @@ export const testnetTokens = {
         'CD3D',
         'CD3D',
         'https://cd3d-silk.vercel.app/',
-    ),
-    syrup: new Token(
-        TESTNET,
-        '0x9da438fAF36A67E3C36CFda7C49D6DBc6A930F94',
-        18,
-        'SYRUP',
-        'SyrupBar Token',
-        'https://cd3d-silk.vercel.app/',
     )
 }
 
@@ -106,7 +98,7 @@ const tokens = () => {
 export const serializeTokens = () => {
     const unserializedTokens = tokens()
     return Object.keys(unserializedTokens).reduce((accum, key) => {
-        return {...accum, [key]: serializeToken(unserializedTokens[key])}
+        return { ...accum, [key]: serializeToken(unserializedTokens[key]) }
     }, {})
 }
 

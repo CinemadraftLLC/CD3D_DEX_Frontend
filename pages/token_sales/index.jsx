@@ -1,10 +1,10 @@
 import React from "react";
 import { useRouter } from 'next/router';
 import ClearFix from "../../components/ClearFix/ClearFix";
-import {Box, Container, FormControl, Grid, InputAdornment} from "@mui/material";
+import { Box, Container, FormControl, Grid, InputAdornment } from "@mui/material";
 import TokenSalesSearchField from "../../components/TokenSales/TokenSalesSearchField";
 import SearchIcon from '@mui/icons-material/Search';
-import {TokenSalesButton, TokenSalesButtonGroup, TokenSalesSearchButton} from "../../components/TokenSales/token_sales_widget";
+import { TokenSalesButton, TokenSalesButtonGroup, TokenSalesSearchButton } from "../../components/TokenSales/token_sales_widget";
 import TokenSalesItem from "../../components/TokenSales/TokenSalesItem";
 
 const TokenSales = () => {
@@ -77,20 +77,20 @@ const TokenSales = () => {
     ];
     return (
         <Container maxWidth={'xl'}>
-            <ClearFix height={20}/>
+            <ClearFix height={20} />
             <Box component={"div"} textAlign={"center"}>
                 <TokenSalesButtonGroup
                     value={filter}
                     exclusive
                     onChange={handleFilterChange}
                 >
-                    <TokenSalesButton sx={{borderRadius: "12px 0 0 12px"}} value="presale">Presale</TokenSalesButton>
+                    <TokenSalesButton sx={{ borderRadius: "12px 0 0 12px" }} value="presale">Presale</TokenSalesButton>
                     <TokenSalesButton value="sale">Sale</TokenSalesButton>
-                    <TokenSalesButton sx={{borderRadius: "0 12px 12px 0"}} value="mine">Mine</TokenSalesButton>
+                    <TokenSalesButton sx={{ borderRadius: "0 12px 12px 0" }} value="mine">Mine</TokenSalesButton>
                 </TokenSalesButtonGroup>
             </Box>
-            <ClearFix height={50}/>
-            <Box component={"div"} sx={{marginLeft: "5px", marginRight: "5px"}}>
+            <ClearFix height={50} />
+            <Box component={"div"} sx={{ marginLeft: "5px", marginRight: "5px" }}>
                 <FormControl variant={"standard"} fullWidth={true}>
                     <TokenSalesSearchField
                         id={"token_sales_search"}
@@ -99,24 +99,24 @@ const TokenSales = () => {
                             disableUnderline: true,
                             endAdornment: <InputAdornment position={"end"}>
                                 <TokenSalesSearchButton aria-label="search">
-                                    <SearchIcon/>
+                                    <SearchIcon />
                                 </TokenSalesSearchButton>
                             </InputAdornment>
                         }}
                     />
                 </FormControl>
             </Box>
-            <ClearFix height={50}/>
+            <ClearFix height={50} />
             <Box component={"div"}>
                 <Grid container>
                     {
                         tokens.map(token => <Grid key={token.id} item xs={12} sm={12} md={6} xl={4}>
-                            <TokenSalesItem token={token} onClick={() => router.push('/token_sales/detail')}/>
+                            <TokenSalesItem token={token} onClick={() => router.push('/token_sales/detail')} />
                         </Grid>)
                     }
                 </Grid>
             </Box>
-            <ClearFix height={100}/>
+            <ClearFix height={100} />
         </Container>
     );
 }
