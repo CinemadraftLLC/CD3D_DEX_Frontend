@@ -32,7 +32,7 @@ const WalletHeaderItem = styled(Box)({
 const WalletHeaderComponent = (props) => {
     const { wallet, busd, cd3d } = props
     const { account } = useActiveWeb3React();
-    const { login, logout } = useAuth()
+    const { logout } = useAuth()
 
     const [open, setOpen] = React.useState(false);
     const [selectedValue, setSelectedValue] = React.useState("");

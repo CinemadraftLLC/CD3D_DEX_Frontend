@@ -1,6 +1,6 @@
-import {ChainId, Currency, JSBI, Percent, Token, WETH} from 'cd3d-dex-libs-sdk'
-import {mainnetTokens, testnetTokens} from "./tokens";
-import {BIG_TEN} from "../utils/bigNumber";
+import { ChainId, Currency, JSBI, Percent, Token, WETH } from 'cd3d-dex-libs-sdk'
+import { mainnetTokens, testnetTokens } from "./tokens";
+import { BIG_TEN } from "../utils/bigNumber";
 
 export const ROUTER_ADDRESS = '0x98f86FE4b5C782CA7c0Fa012446056ddDce1C313'
 
@@ -115,7 +115,7 @@ export const Field = {
 export const MIN_SWAP_PRICE = 10;
 export const SWAP_TOKEN_LIST = {
     [ChainId.MAINNET]: [Currency.ETHER, mainnetTokens.cd3d, mainnetTokens.busd],
-    [ChainId.TESTNET]: [Currency.ETHER, testnetTokens.cd3d, testnetTokens.busd],
+    [ChainId.TESTNET]: [Currency.ETHER, ...Object.values(testnetTokens)],
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////
