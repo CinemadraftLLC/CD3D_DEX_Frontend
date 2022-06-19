@@ -18,6 +18,7 @@ import Image from "next/image";
 import TokenSalesStatusLabel from "../../components/TokenSales/TokenSalesStatusLabel";
 import { TokenSalesDetailButton, TokenSalesItemProgressBar } from "../../components/TokenSales/token_sales_widget";
 import { useRouter } from "next/router";
+import TokenSaleModal from "../../components/TokenSales/TokenSaleModal";
 
 const TokenSaleDetail = () => {
     const router = useRouter();
@@ -162,10 +163,7 @@ const TokenSaleDetail = () => {
                                         }}>
                                             Cancel Sale
                                         </TokenSalesDetailOutlineButton>
-                                        <TokenSalesDetailOutlineButton variant={"outlined"} size={"large"} onClick={() => {
-                                        }}>
-                                            List of Contributors
-                                        </TokenSalesDetailOutlineButton>
+                                        <TokenSaleModal />
                                         <TokenSalesDetailFilledButton variant={"filled"} size={"large"} onClick={() => {
                                         }}>
                                             Add to Whitelist
