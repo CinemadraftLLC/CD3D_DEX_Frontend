@@ -159,10 +159,6 @@ const TokenSaleDetail = () => {
                                         Pool Actions
                                     </Typography>
                                     <Stack direction={"row"} justifyContent={"end"} alignItems={"center"} spacing={1}>
-                                        <TokenSalesDetailOutlineButton variant={"text"} size={"large"} onClick={() => {
-                                        }}>
-                                            Cancel Sale
-                                        </TokenSalesDetailOutlineButton>
                                         <TokenSaleModal />
                                         <TokenSalesDetailFilledButton variant={"filled"} size={"large"} onClick={() => {
                                         }}>

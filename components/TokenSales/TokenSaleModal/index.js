@@ -1,23 +1,29 @@
 import * as React from 'react';
-import Button from '@mui/material/Button';
-import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import SearchIcon from '@mui/icons-material/Search';
 import DialogTitle from '@mui/material/DialogTitle';
-import { TokenSalesDetailOutlineButton } from '../token_sales_detail_widget';
+import { TokenSalesDetailFilledButton, TokenSalesDetailOutlineButton } from '../token_sales_detail_widget';
 import { TokenSaleModalLayout } from './modal_widget';
 import TokenSalesSearchField from '../TokenSalesSearchField';
 import { TokenSalesSearchButton } from '../token_sales_widget';
-import { InputAdornment } from '@mui/material';
+import { Box, InputAdornment, Stack } from '@mui/material';
+import DataTable from './table';
 
 export default function TokenSaleModal() {
   const [open, setOpen] = React.useState(false);
-  const [scroll, setScroll] = React.useState('paper');
+  const [searchAddress, setSearchAddress] = React.useState()
+  const [address, setAddress] = React.useState()
 
-  const handleClickOpen = (scrollType) => () => {
+  const handleAddressSearch = (e) => {
+    setAddress(e.target.value)
+  }
+
+  const clickSearchButton = () => {
+    setSearchAddress(address)
+  }
+
+  const handleClickOpen = () => () => {
     setOpen(true);
-    setScroll(scrollType);
   };
 
   const handleClose = () => {
@@ -36,50 +42,37 @@ export default function TokenSaleModal() {
 
   return (
     <div>
-      <TokenSalesDetailOutlineButton variant={"outlined"} size={"large"} onClick={handleClickOpen('paper')}>
+      <TokenSalesDetailOutlineButton variant={"outlined"} size={"large"} onClick={handleClickOpen()}>
         List of Contributors
       </TokenSalesDetailOutlineButton>
       <TokenSaleModalLayout
         open={open}
         onClose={handleClose}
-        scroll={scroll}
+        scroll={"body"}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Subscribe</DialogTitle>
+        <DialogTitle sx={{ color: '#75E4AA' }} id="scroll-dialog-title">Contributors</DialogTitle>
         <TokenSalesSearchField
           id={"token_sales_search"}
-          style={{ padding: "20px" }}
+          style={{ padding: "0 20px" }}
+          onChange={(e) => handleAddressSearch(e)}
           InputProps={{
             placeholder: "Search address",
             disableUnderline: true,
             endAdornment: <InputAdornment position={"end"}>
-              <TokenSalesSearchButton aria-label="search">
+              <TokenSalesSearchButton onClick={clickSearchButton} aria-label="search">
                 <SearchIcon />
               </TokenSalesSearchButton>
             </InputAdornment>
           }}
         />
-        <DialogContent dividers={scroll === 'paper'}>
-          <DialogContentText
-            id="scroll-dialog-description"
-            ref={descriptionElementRef}
-            tabIndex={-1}
-          >
-            {[...new Array(50)]
-              .map(
-                () => `Cras mattis consectetur purus sit amet fermentum.
-Cras justo odio, dapibus ac facilisis in, egestas eget quam.
-Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-Praesent commodo cursus magna, vel scelerisque nisl consectetur et.`,
-              )
-              .join('\n')}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>Cancel</Button>
-          <Button onClick={handleClose}>Subscribe</Button>
-        </DialogActions>
+        <Box>
+          <DataTable searchAddress={searchAddress} />
+        </Box>
+        <Stack >
+          <TokenSalesDetailFilledButton sx={{ margin: "auto", marginBottom: "20px" }} onClick={handleClose}>Export as .CSV</TokenSalesDetailFilledButton>
+        </Stack>
       </TokenSaleModalLayout>
     </div>
   );

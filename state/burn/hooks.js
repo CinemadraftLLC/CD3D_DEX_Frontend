@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { useTokenBalances } from '../wallet/hooks'
 import { typeInput } from './actions'
-import {Field} from "../../constants";
+import { Field } from "../../constants";
 import useTotalSupply from "../../data/TotalSupply";
-import {tryParseAmount} from "../../utils";
-import {usePair} from "../../data/Reserves";
+import { tryParseAmount } from "../../utils";
+import { usePair } from "../../data/Reserves";
 import useActiveWeb3React from "../../hooks/useActiveWeb3React";
-import {wrappedCurrency} from "../../utils/wrappedCurrency";
+import { wrappedCurrency } from "../../utils/wrappedCurrency";
 
-export function useBurnState(){
+export function useBurnState() {
     return useSelector((state) => state.burn)
 }
 
@@ -41,20 +41,20 @@ export function useDerivedBurnInfo(
     const totalSupply = useTotalSupply(pair?.liquidityToken)
     const liquidityValueA =
         pair &&
-        totalSupply &&
-        userLiquidity &&
-        tokenA &&
-        // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-        JSBI.greaterThanOrEqual(totalSupply.raw, userLiquidity.raw)
+            totalSupply &&
+            userLiquidity &&
+            tokenA &&
+            // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+            JSBI.greaterThanOrEqual(totalSupply.raw, userLiquidity.raw)
             ? new TokenAmount(tokenA, pair.getLiquidityValue(tokenA, totalSupply, userLiquidity, false).raw)
             : undefined
     const liquidityValueB =
         pair &&
-        totalSupply &&
-        userLiquidity &&
-        tokenB &&
-        // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
-        JSBI.greaterThanOrEqual(totalSupply.raw, userLiquidity.raw)
+            totalSupply &&
+            userLiquidity &&
+            tokenB &&
+            // this condition is a short-circuit in the case where useTokenBalance updates sooner than useTotalSupply
+            JSBI.greaterThanOrEqual(totalSupply.raw, userLiquidity.raw)
             ? new TokenAmount(tokenB, pair.getLiquidityValue(tokenB, totalSupply, userLiquidity, false).raw)
             : undefined
     const liquidityValues = {
@@ -113,7 +113,7 @@ export function useDerivedBurnInfo(
     return { pair, parsedAmounts, error }
 }
 
-export function useBurnActionHandlers(){
+export function useBurnActionHandlers() {
     const dispatch = useDispatch()
 
     const onUserInput = useCallback(

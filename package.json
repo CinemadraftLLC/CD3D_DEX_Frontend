@@ -37,6 +37,7 @@
     "@mui/material": "^5.0.0",
     "@mui/styled-engine-sc": "^5.0.0",
     "@mui/styles": "^5.0.0",
+    "@mui/x-data-grid": "^5.12.2",
     "@mui/x-date-pickers": "^5.0.0-alpha.2",
     "@react-hook/resize-observer": "^1.2.4",
     "@reduxjs/toolkit": "^1.6.2",
