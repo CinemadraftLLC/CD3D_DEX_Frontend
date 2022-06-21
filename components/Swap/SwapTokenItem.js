@@ -29,21 +29,6 @@ const SwapTokenItem = (props) => {
         return result;
     }
 
-    const getDescription = (val) => {
-        let result = "CD3D";
-        switch (val?.symbol?.toLowerCase()) {
-            case "bnb":
-                result = "Binance";
-                break;
-            case "busd":
-                result = "Binance USD";
-                break;
-            case "cd3d":
-                result = "CD3D";
-                break;
-        }
-        return result;
-    }
     return (
         <Stack className={`${styles.tokenItem} ${disabled ? styles.deactive : styles.active}`} direction={"row"} alignItems={"center"} justifyContent={"space-between"} onClick={() => onClickHandle()}>
             <Stack direction={"row"} alignItems={"center"} justifyContent={"start"}>
