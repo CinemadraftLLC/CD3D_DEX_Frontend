@@ -40,6 +40,7 @@ export default function Home() {
         <DexSection />
         <SocialSection />
         <MerchSection />
+
         <FaqSection />
         <SeenSection />
       </div>
