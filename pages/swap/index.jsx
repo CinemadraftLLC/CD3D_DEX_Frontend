@@ -337,9 +337,9 @@ const Swap = () => {
                 <Stack direction={"row"} container spacing={2} justifyContent={"center"} alignItems={"center"}>
                   <Grid item xs={12} sm={6} md={12} lg={6}>
                     <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} spacing={1}>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(0.1) }}>0.1%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(0.5) }}>0.5%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(1) }}>1%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(2) }}>2%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(12) }}>12%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(17) }}>17%</LowPercentButton>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={6} md={12} lg={6}>

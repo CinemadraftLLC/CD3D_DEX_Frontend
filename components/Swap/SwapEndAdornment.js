@@ -1,9 +1,9 @@
 import React from "react";
-import {Typography} from "@material-ui/core";
-import {Box, Chip, Stack} from "@mui/material";
+import { Typography } from "@material-ui/core";
+import { Box, Chip, Stack } from "@mui/material";
 import Image from "next/image";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import {styled} from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 
 const SwapMaxChip = styled(Chip)({
     backgroundColor: "#800022",
@@ -16,7 +16,7 @@ const SwapMaxChip = styled(Chip)({
 });
 
 const SwapEndAdornment = (props) => {
-    const {value, onClick, onMaxClick} = props;
+    const { value, onClick, onMaxClick } = props;
 
     const getImage = (val) => {
         let result = "/assets/images/cd3d.png";
@@ -30,20 +30,23 @@ const SwapEndAdornment = (props) => {
             case "cd3d":
                 result = "/assets/images/cd3d.png";
                 break;
+            case "wbnb":
+                result = "https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png";
+                break;
         }
         return result;
     }
 
     return (
-        <Stack direction={"row"} alignItems={"center"} style={{cursor: "pointer"}}>
-            <SwapMaxChip size="small" label={"Max"} onClick={() => onMaxClick()}/>
-            <Box sx={{minWidth: "42px"}} onClick={() => onClick()}>
+        <Stack direction={"row"} alignItems={"center"} style={{ cursor: "pointer" }}>
+            <SwapMaxChip size="small" label={"Max"} onClick={() => onMaxClick()} />
+            <Box sx={{ minWidth: "42px" }} onClick={() => onClick()}>
                 <Typography component={'span'} variant="subtitle1">{value?.symbol}</Typography>
             </Box>
-            <Box sx={{width: "22px", height: "22px", marginLeft: "7px"}} onClick={() => onClick()}>
-                <Image src={getImage(value)} width={22} height={22} objectFit={"contain"}/>
+            <Box sx={{ width: "22px", height: "22px", marginLeft: "7px" }} onClick={() => onClick()}>
+                <img src={getImage(value)} width={22} height={22} objectFit={"contain"} />
             </Box>
-            <ArrowDropDownIcon fontSize={"small"} sx={{color: "white"}} onClick={() => onClick()}/>
+            <ArrowDropDownIcon fontSize={"small"} sx={{ color: "white" }} onClick={() => onClick()} />
         </Stack>
     );
 

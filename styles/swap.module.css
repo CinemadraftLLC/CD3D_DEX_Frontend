@@ -28,8 +28,7 @@
     /* background-color: yellow; */
 }
 
-.rightContainer {
-}
+.rightContainer {}
 
 .tabContainer {
     background: #1d162d;
@@ -80,10 +79,8 @@
 }
 
 .tokenItem.deactive {
+    display: none;
     cursor: not-allowed;
     opacity: 0.3;
 
 }
-
-
-
