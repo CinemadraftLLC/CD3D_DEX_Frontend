@@ -6,7 +6,7 @@ export const LowPercentButton = styled(Button)({
     color: "#FF0144",
     borderColor: "#CC0136",
     borderRadius: "12px",
-    fontSize: "14px",
+    fontSize: "1rem",
     '&:hover': {
         backgroundColor: "#E5234A",
         borderColor: "#CC0136",
