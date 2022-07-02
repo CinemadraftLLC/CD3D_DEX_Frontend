@@ -1,14 +1,32 @@
 import React, { useCallback } from "react"
-import { Stack, Typography } from "@mui/material"
+import { Stack, Typography, Chip } from "@mui/material"
+import { styled } from "@mui/material/styles"
 import styles from "../../styles/swap.module.css"
 import Image from "next/image"
 
-const SwapTokenItem = (props) => {
+const SwapMaxChip = styled(Chip)({
+  backgroundColor: "#800022",
+  color: "#FFF1F5",
+  borderRadius: "6px",
+  marginRight: "7px",
+  "&:hover": {
+    backgroundColor: "#E5234A",
+  },
+})
+
+const SwapTokenItemImport = (props) => {
   const { value, onChange, disabled } = props
 
   const onClickHandle = useCallback(() => {
     onChange(value)
   })
+
+  const onAddClick = () => {
+    const tokens = JSON.parse(localStorage.getItem("tokens")) || []
+    tokens.push(value)
+    console.log("Tokens -->", tokens)
+    localStorage.setItem("tokens", JSON.stringify(tokens))
+  }
 
   const getImage = (val) => {
     switch (val?.symbol?.toLowerCase()) {
@@ -49,8 +67,9 @@ const SwapTokenItem = (props) => {
       <Typography className={styles.typography2} component={"span"}>
         {value?.name}
       </Typography>
+      <SwapMaxChip size="small" label={"Add"} onClick={onAddClick} />
     </Stack>
   )
 }
 
-export default SwapTokenItem
+export default SwapTokenItemImport

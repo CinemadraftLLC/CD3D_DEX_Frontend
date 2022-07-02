@@ -337,9 +337,9 @@ const Swap = () => {
                 <Stack direction={"row"} container spacing={2} justifyContent={"center"} alignItems={"center"}>
                   <Grid item xs={12} sm={6} md={12} lg={6}>
                     <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} spacing={1}>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(2*100) }}>2%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(12*100) }}>12%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(17*100) }}>17%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(2 * 100) }}>2%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(12 * 100) }}>12%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(17 * 100) }}>17%</LowPercentButton>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -349,7 +349,7 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: "0",
-                        onChange: ((event) => { setUserSlippageTolerance( parseInt(event.target.value)*100 ) }),
+                        onChange: ((event) => { setUserSlippageTolerance(parseInt(event.target.value) * 100) }),
                         disableUnderline: true,
                         value: allowedSlippage / 100,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>%</Typography>,
@@ -371,7 +371,7 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: '0',
-                        onChange: ((event) => { setUserDeadline( parseInt( event.target.value)*60 ) }),
+                        onChange: ((event) => { setUserDeadline(parseInt(event.target.value) * 60) }),
                         disableUnderline: true,
                         value: deadline / 60,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>min</Typography>,

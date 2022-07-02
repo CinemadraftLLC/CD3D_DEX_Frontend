@@ -5,20 +5,20 @@ import Invert from '../invertIcon';
 import CustomTab from '../CustomTab';
 import { chartTabs } from '../../public/data/data';
 import dynamic from 'next/dynamic';
-import {formatExecutionPrice} from "../../utils/prices";
-import {BIG_ONE} from "../../utils/bigNumber";
+import { formatExecutionPrice } from "../../utils/prices";
+import { BIG_ONE } from "../../utils/bigNumber";
 const Chart = dynamic(() => import('./chart'), {
   ssr: false,
 });
 
-function ChartContainer({payCurrency, receiveCurrency, farm}) {
+function ChartContainer({ payCurrency, receiveCurrency, farm }) {
   const [activeTab, setActiveTab] = useState('24');
 
   const handleOnChange = (item) => {
     setActiveTab(item);
   };
 
-  const price = (farm.token.symbol === payCurrency.symbol)?farm.tokenPriceVsQuote.toNumber():BIG_ONE.div(farm.tokenPriceVsQuote).toNumber();
+  const price = 0;
 
   return (
     <div className={styles.container}>
@@ -39,7 +39,7 @@ function ChartContainer({payCurrency, receiveCurrency, farm}) {
                 <div className={styles.titleInActive}>/{receiveCurrency.symbol}</div>
               </div>
             </div>
-            <div style={{marginTop:"5px"}}>
+            <div style={{ marginTop: "5px" }}>
               <Invert />
             </div>
           </div>
