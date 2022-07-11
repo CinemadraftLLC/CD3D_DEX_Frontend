@@ -1,32 +1,32 @@
-import React, {useCallback, useMemo, useState} from 'react';
-import {Box, Stack, Typography, Grid} from "@mui/material";
-import {styled} from "@mui/material/styles";
+import React, { useCallback, useMemo, useState } from 'react';
+import { Box, Stack, Typography, Grid } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import { splitSignature } from '@ethersproject/bytes'
-import {ETHER, Percent} from "cd3d-dex-libs-sdk";
+import { ETHER, Percent } from "cd3d-dex-libs-sdk";
 import Image from "next/image";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import ClearFix from "../../../components/ClearFix/ClearFix";
 import FormAdvancedTextField from "../../../components/Form/FormAdvancedTextField";
 import ArrowDown from '../../../public/assets/svgs/arrow_down.svg';
 import FormSubmitBtn from "../../../components/Form/FormSubmitBtn";
 import useActiveWeb3React from "../../../hooks/useActiveWeb3React";
 import tokens from "../../../constants/tokens";
-import {wrappedCurrency} from "../../../utils/wrappedCurrency";
-import {useCurrency} from "../../../hooks/Tokens";
-import {useBurnActionHandlers, useBurnState, useDerivedBurnInfo} from "../../../state/burn/hooks";
-import {Field, ROUTER_ADDRESS} from "../../../constants";
-import {useGasPrice, useUserSlippageTolerance} from "../../../state/user/hooks";
-import {usePairContract} from "../../../hooks/useContract";
-import {ApprovalState, useApproveCallback} from "../../../hooks/useApproveCallback";
+import { wrappedCurrency } from "../../../utils/wrappedCurrency";
+import { useCurrency } from "../../../hooks/Tokens";
+import { useBurnActionHandlers, useBurnState, useDerivedBurnInfo } from "../../../state/burn/hooks";
+import { Field, ROUTER_ADDRESS } from "../../../constants";
+import { useGasPrice, useUserSlippageTolerance } from "../../../state/user/hooks";
+import { usePairContract } from "../../../hooks/useContract";
+import { ApprovalState, useApproveCallback } from "../../../hooks/useApproveCallback";
 import useDebouncedChangeHandler from "../../../utils/useDebouncedChangeHandler";
 import useTransactionDeadline from "../../../hooks/useTransactionDeadline";
-import {calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract} from "../../../utils";
+import { calculateGasMargin, calculateSlippageAmount, getBscScanLink, getRouterContract } from "../../../utils";
 import BigNumber from "bignumber.js";
-import {addTransaction} from "../../../state/transactions/actions";
+import { addTransaction } from "../../../state/transactions/actions";
 import LiquiditySubmittingTxDialog from "../../../components/Dialogs/LiquiditySubmittingTxDialog";
-import {showToast} from "../../../utils/toast";
-import {Link} from "@material-ui/core";
-import {LiquidityContainer, LiquidityLabel, LiquidityTitleBox, MaxButton, PercentButton, ReceiveContainer} from "../../../components/Liquidity/liquidity_widget";
+import { showToast } from "../../../utils/toast";
+import { Link } from "@material-ui/core";
+import { LiquidityContainer, LiquidityLabel, LiquidityTitleBox, MaxButton, PercentButton, ReceiveContainer } from "../../../components/Liquidity/liquidity_widget";
 
 const LiquidityPost = styled(Box)({
     backgroundColor: 'rgba(0, 0, 0, 0.15)',
@@ -48,12 +48,12 @@ const LiquidityPost = styled(Box)({
 
 const LiquidityRemove = () => {
     const router = useRouter()
-    const {addresses} = router.query;
+    const { addresses } = router.query;
 
-    const {account, chainId, library} = useActiveWeb3React();
+    const { account, chainId, library } = useActiveWeb3React();
 
     const liquidityRemoveContainerRef = React.useRef(null);
-    const [{attemptingTxn, txErrorMessage, txHash}, setLiquidityRemoveState] = useState({
+    const [{ attemptingTxn, txErrorMessage, txHash }, setLiquidityRemoveState] = useState({
         attemptingTxn: false,
         txErrorMessage: undefined,
         txHash: undefined,
@@ -97,6 +97,12 @@ const LiquidityRemove = () => {
         Number.parseInt(parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0)),
         liquidityPercentChangeCallback,
     );
+    const [innerLiquidityshow, setInnerLiquidityShow] = useState(0)
+
+    const [, setInnerLiquidity] = useDebouncedChangeHandler(
+        Number.parseFloat(parsedAmounts[Field.LIQUIDITY]),
+        onLiquidityInput,
+    );
 
     const { independentField, typedValue } = useBurnState();
     const deadline = useTransactionDeadline();
@@ -109,7 +115,7 @@ const LiquidityRemove = () => {
                 ? '<1'
                 : parsedAmounts[Field.LIQUIDITY_PERCENT].toFixed(0),
         [Field.LIQUIDITY]:
-            independentField === Field.LIQUIDITY ? typedValue : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
+            independentField === Field.LIQUIDITY ? innerLiquidityshow : parsedAmounts[Field.LIQUIDITY]?.toSignificant(6) ?? '',
         [Field.CURRENCY_A]:
             independentField === Field.CURRENCY_A ? typedValue : parsedAmounts[Field.CURRENCY_A]?.toSignificant(6) ?? '',
         [Field.CURRENCY_B]:
@@ -198,31 +204,30 @@ const LiquidityRemove = () => {
             const methodName = methodNames[indexOfSuccessfulEstimation]
             const safeGasEstimate = safeGasEstimates[indexOfSuccessfulEstimation]
 
-            setLiquidityRemoveState(prevState => ({...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined}));
+            setLiquidityRemoveState(prevState => ({ ...prevState, attemptingTxn: true, txErrorMessage: false, txHash: undefined }));
             await router[methodName](...args, {
                 gasLimit: safeGasEstimate,
                 gasPrice,
             })
                 .then(async (response) => {
                     await response.wait();
-                    setLiquidityRemoveState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash}));
+                    setLiquidityRemoveState(prevState => ({ ...prevState, attemptingTxn: false, txErrorMessage: false, txHash: response.hash }));
 
                     setInnerLiquidityPercentage(0);
                     addTransaction(response, {
-                        summary: `Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${
-                            currencyA?.symbol
-                        } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}`,
+                        summary: `Remove ${parsedAmounts[Field.CURRENCY_A]?.toSignificant(3)} ${currencyA?.symbol
+                            } and ${parsedAmounts[Field.CURRENCY_B]?.toSignificant(3)} ${currencyB?.symbol}`,
                     })
 
                     showToast("success", "Transaction Receipt", "Your transaction was succeed.",
                         (<Link target={"_blank"} href={getBscScanLink(response.hash, 'transaction')}>
-                            <Typography variant="subtitle2" sx={{color: "#CC0136", fontSize: "14px", fontWeight: "bold", textAlign: "center"}}>
+                            <Typography variant="subtitle2" sx={{ color: "#CC0136", fontSize: "14px", fontWeight: "bold", textAlign: "center" }}>
                                 View on Binance
                             </Typography>
                         </Link>));
                 })
                 .catch((err) => {
-                    setLiquidityRemoveState(prevState => ({...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined}));
+                    setLiquidityRemoveState(prevState => ({ ...prevState, attemptingTxn: false, txErrorMessage: e?.message, txHash: undefined }));
                     showToast("error", "Transaction Failed", e?.message ?? '');
                     // we only care if the error is something _other_ than the user rejected the tx
                     console.error(err)
@@ -233,7 +238,7 @@ const LiquidityRemove = () => {
     const price = pair?.priceOf(tokenA);
     // approveCallback()
     return (
-        <Box sx={{width: "100%"}}>
+        <Box sx={{ width: "100%" }}>
             <LiquidityContainer ref={liquidityRemoveContainerRef}>
                 <LiquidityTitleBox>
                     <Typography component={"span"} variant={"subtitle1"}>Remove Liquidity</Typography>
@@ -248,10 +253,22 @@ const LiquidityRemove = () => {
                     justifyContent={"center"}
                     spacing={1}
                 >
-                    <ClearFix height={15}/>
+                    <ClearFix height={15} />
                     <LiquidityLabel shrink htmlFor={"daily_reward"}>
                         <Typography variant={"subtitle1"} component={"label"}>Amount to Remove</Typography>
                     </LiquidityLabel>
+                    <FormAdvancedTextField
+                        id={"amount_remove_value"}
+                        InputProps={{
+                            type: 'number',
+                            placeholder: '0',
+                            min: '0',
+                            onChange: ((event) => { setInnerLiquidity(event.target.value); setInnerLiquidityShow(event.target.value) }),
+                            disableUnderline: true,
+                            value: formattedAmounts[Field.LIQUIDITY],
+                            endAdornment: <Typography component={"span"} variant={"subtitle1"}>{currencyA?.symbol}/{currencyB?.symbol}</Typography>,
+                        }}
+                    />
                     <FormAdvancedTextField
                         id={"amount_remove"}
                         InputProps={{
@@ -269,7 +286,7 @@ const LiquidityRemove = () => {
                         justifyContent={"start"}
                         alignItems={"center"}
                         spacing={1}
-                        sx={{marginTop: "5px", padding: "0 10px"}}
+                        sx={{ marginTop: "5px", padding: "0 10px" }}
                     >
                         <PercentButton variant={"outlined"} size={"large"} onClick={() => onUserInput(Field.LIQUIDITY_PERCENT, '25')}>
                             25%
@@ -284,11 +301,11 @@ const LiquidityRemove = () => {
                             Max
                         </MaxButton>
                     </Stack>
-                    <ClearFix height={30}/>
-                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{height: "100%"}}>
-                        <Image src={ArrowDown} alt='Picture of DownArrow'/>
+                    <ClearFix height={30} />
+                    <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} sx={{ height: "100%" }}>
+                        <Image src={ArrowDown} alt='Picture of DownArrow' />
                     </Stack>
-                    <ClearFix height={30}/>
+                    <ClearFix height={30} />
                     <LiquidityLabel shrink>
                         <Typography variant={"subtitle1"} component={"label"}>You will receive</Typography>
                     </LiquidityLabel>
@@ -305,7 +322,7 @@ const LiquidityRemove = () => {
                                 <Typography variant={"subtitle1"} component={"span"}>{formattedAmounts[Field.CURRENCY_A] || '-'}</Typography>
                                 <Stack direction={"row"} justifyContent={"center"} alignItems={"center"} spacing={1}>
                                     <Typography variant={"subtitle2"} component={"span"}>{currencyA?.symbol}</Typography>
-                                    <Image src={"/assets/images/busd.png"} width={22} height={22} objectFit={"contain"}/>
+                                    <Image src={"/assets/images/busd.png"} width={22} height={22} objectFit={"contain"} />
                                 </Stack>
                             </Stack>
                         </ReceiveContainer>
@@ -316,22 +333,22 @@ const LiquidityRemove = () => {
                                 <Typography variant={"subtitle1"} component={"span"}>{formattedAmounts[Field.CURRENCY_B] || '-'}</Typography>
                                 <Stack direction={"row"} justifyContent={"center"} alignItems={"center"}>
                                     <Typography variant={"subtitle2"} component={"span"}>{currencyB?.symbol}</Typography>
-                                    <Image src={"/assets/images/cd3d.png"} width={22} height={22} objectFit={"contain"}/>
+                                    <Image src={"/assets/images/cd3d.png"} width={22} height={22} objectFit={"contain"} />
                                 </Stack>
                             </Stack>
                         </ReceiveContainer>
                     </Stack>
-                    <ClearFix height={25}/>
+                    <ClearFix height={25} />
                     <Stack
                         direction={"row"} justifyContent={"space-between"} alignItems={"center"}
                     >
-                        <Typography variant={"subtitle1"} component={"span"} style={{color: "#FFFFFF", fontSize: "14px", fontWeight: "normal"}}>Current Rate</Typography>
-                        <Typography variant={"subtitle1"} component={"span"} style={{color: "#FFFFFF", fontSize: "14px", fontWeight: "normal"}}>{price?.toSignificant(6)??'-'} {currencyB?.symbol}/{currencyA?.symbol}</Typography>
+                        <Typography variant={"subtitle1"} component={"span"} style={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "normal" }}>Current Rate</Typography>
+                        <Typography variant={"subtitle1"} component={"span"} style={{ color: "#FFFFFF", fontSize: "14px", fontWeight: "normal" }}>{price?.toSignificant(6) ?? '-'} {currencyB?.symbol}/{currencyA?.symbol}</Typography>
                     </Stack>
-                    <ClearFix height={25}/>
-                    { approval !== ApprovalState.APPROVED ?
+                    <ClearFix height={25} />
+                    {approval !== ApprovalState.APPROVED ?
                         <FormSubmitBtn
-                            label={approval === ApprovalState.PENDING? "Approving" : "Approve"}
+                            label={approval === ApprovalState.PENDING ? "Approving" : "Approve"}
                             disabled={approval !== ApprovalState.NOT_APPROVED}
                             fullWidth={true}
                             onSubmit={() => approveCallback(`${currencyB?.symbol}/${currencyA?.symbol}`)}
@@ -345,14 +362,14 @@ const LiquidityRemove = () => {
                     }
                 </Stack>
             </LiquidityContainer>
-            <ClearFix height={15}/>
+            <ClearFix height={15} />
             <LiquidityPost>
                 <Typography component={"span"} variant={"subtitle1"}>
                     Add liquidity to earn 0.17% of all trades on this trading pair, relative to your portion of the pool. You may claim your real-time accrued
                     fees added to the pool by withdrawing your liquidity.
                 </Typography>
             </LiquidityPost>
-            <ClearFix height={100}/>
+            <ClearFix height={100} />
             <LiquiditySubmittingTxDialog
                 show={attemptingTxn || !!txHash || !!txErrorMessage}
                 txHash={txHash}

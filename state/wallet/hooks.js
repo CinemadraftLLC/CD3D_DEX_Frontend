@@ -63,9 +63,6 @@ export function useTokenBalancesWithLoadingIndicator(address, tokens) {
     [validatedTokens]
   )
 
-  console.log("validatedTokenAddresses  -->", validatedTokenAddresses)
-  debugger
-
   const balances = useMultipleContractSingleData(
     validatedTokenAddresses,
     ERC20_INTERFACE,

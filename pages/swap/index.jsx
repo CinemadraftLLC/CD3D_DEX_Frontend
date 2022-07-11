@@ -349,9 +349,9 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: "0",
-                        onChange: ((event) => { setUserSlippageTolerance(parseInt(event.target.value) * 100) }),
+                        onChange: ((event) => { setUserSlippageTolerance(parseFloat(event.target.value) * 100) }),
                         disableUnderline: true,
-                        value: allowedSlippage / 100,
+                        value: allowedSlippage / 100.0,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>%</Typography>,
                       }}
                     />
@@ -371,7 +371,7 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: '0',
-                        onChange: ((event) => { setUserDeadline(parseInt(event.target.value) * 60) }),
+                        onChange: ((event) => { setUserDeadline(parseFloat(event.target.value) * 60) }),
                         disableUnderline: true,
                         value: deadline / 60,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>min</Typography>,

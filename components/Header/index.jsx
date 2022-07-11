@@ -29,6 +29,10 @@ const HeaderMenuLink = styled(Button)({
   '&:hover': {
     backgroundColor: "transparent",
     color: "#A0EDC4",
+  },
+  '&:active': {
+    backgroundColor: "transparent",
+    color: "#A0EDC4",
   }
 })
 
@@ -106,10 +110,10 @@ const Header = (props) => {
           router.push("/");
         }} />
         <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{ flexGrow: 1, marginLeft: "20px", display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-          <MenuIcon style={{transform:expandedMenu?"rotate(-90deg)": "none" ,cursor:"pointer"}} onClick={ () => {setExpandedMenu(!expandedMenu)}}/>
-          </Stack>
+          <MenuIcon style={{ transform: expandedMenu ? "rotate(-90deg)" : "none", cursor: "pointer" }} onClick={() => { setExpandedMenu(!expandedMenu) }} />
+        </Stack>
         <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} sx={{ flexGrow: 1, marginLeft: "50px", display: { xs: 'none', sm: 'none', md: 'flex' } }}>
-          {expandedMenu?<Box sx={{ flexGrow: 1 }}>
+          {expandedMenu ? <Box sx={{ flexGrow: 1 }}>
             <HeaderMenuLink
               aria-controls="basic-menu"
               aria-haspopup="true"
@@ -278,62 +282,68 @@ const Header = (props) => {
               ))}
             </HeaderMenu>
           </Box> :
-          <Box sx={{ flexGrow: 1 }}>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/swap");
-              }} 
-            >
-              TRADE 
-            </HeaderMenuLink>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/liquidity");
-              }} 
-            >
-              LIQUIDITY
-            </HeaderMenuLink>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/farming");
-              }} 
-            >
-              FARMING
-            </HeaderMenuLink>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/token_sales");
-              }} 
-            >
-              TOKEN SALES
-            </HeaderMenuLink>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/create_token_sales");
-              }} 
-            >
-              CREATE TOKEN SALES
-            </HeaderMenuLink>
-            <HeaderMenuLink
-              aria-controls="basic-menu"
-              aria-haspopup="true"
-              onClick={() => {
-                router.push("/staking");
-              }} 
-            >
-              STAKING
-            </HeaderMenuLink>
-          </Box>}
+            <Box sx={{ flexGrow: 1 }}>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                style={{ color: router.pathname.includes("/swap") ? "#A0EDC4" : "#EAFBF3" }}
+                onClick={() => {
+                  router.push("/swap");
+                }}
+              >
+                TRADE
+              </HeaderMenuLink>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                onClick={() => {
+                  router.push("/liquidity");
+                }}
+                style={{ color: router.pathname.includes("/liquidity") ? "#A0EDC4" : "#EAFBF3" }}
+              >
+                LIQUIDITY
+              </HeaderMenuLink>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                onClick={() => {
+                  router.push("/farming");
+                }}
+                style={{ color: router.pathname.includes("/farming") ? "#A0EDC4" : "#EAFBF3" }}
+              >
+                FARMING
+              </HeaderMenuLink>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                onClick={() => {
+                  router.push("/token_sales");
+                }}
+                style={{ color: router.pathname.includes("/token_sales") ? "#A0EDC4" : "#EAFBF3" }}
+              >
+                TOKEN SALES
+              </HeaderMenuLink>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                onClick={() => {
+                  router.push("/create_token_sales");
+                }}
+                style={{ color: router.pathname.includes("/create_token_sales") ? "#A0EDC4" : "#EAFBF3" }}
+              >
+                CREATE TOKEN SALES
+              </HeaderMenuLink>
+              <HeaderMenuLink
+                aria-controls="basic-menu"
+                aria-haspopup="true"
+                onClick={() => {
+                  router.push("/staking");
+                }}
+                style={{ color: router.pathname.includes("/staking") ? "#A0EDC4" : "#EAFBF3" }}
+              >
+                STAKING
+              </HeaderMenuLink>
+            </Box>}
           {router.pathname !== '/' ? <WalletHeaderComponent
             wallet={account}
             busd={currencyBalances[1]?.toSignificant(6) ?? '-'}
@@ -342,7 +352,7 @@ const Header = (props) => {
         </Stack>
         <DrawerComponent />
       </Toolbar>
-    </AppBar>
+    </AppBar >
   );
 };
 

@@ -39,7 +39,7 @@ const SwapTokenItemImport = (props) => {
       case "wbnb":
         return "https://pancakeswap.finance/images/tokens/0xbb4CdB9CBd36B01bD1cBaEBF2De08d9173bc095c.png"
       default:
-        return `https://assets-cdn.trustwallet.com/blockchains/smartchain/assets/${val?.address}/logo.png`
+        return `/assets/images/unknown.svg`
     }
   }
 
