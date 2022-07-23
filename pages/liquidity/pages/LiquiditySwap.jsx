@@ -71,7 +71,9 @@ function LiquiditySwap() {
     const currencyIdB = (addresses && addresses[1]) ? addresses[1] : tokens.cd3d.address;
 
     const currencyA = useCurrency(currencyIdA);
+    console.log("Currency ID A-->", currencyA)
     const currencyB = useCurrency(currencyIdB);
+    console.log("Currency ID B -->", currencyA)
 
     const currencyABalance = useCurrencyBalance(account ?? undefined, currencyA ?? undefined);
     const currencyBBalance = useCurrencyBalance(account ?? undefined, currencyB ?? undefined);
@@ -320,7 +322,7 @@ function LiquiditySwap() {
                                     {price?.toSignificant(6) ?? '-'}
                                 </Typography>
                                 <Typography variant='subtitle2' gutterBottom component='span'>
-                                    {currencyA.symbol} per {currencyB.symbol}
+                                    {currencyA?.symbol} per {currencyB?.symbol}
                                 </Typography>
                             </Stack>
                             <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
@@ -328,7 +330,7 @@ function LiquiditySwap() {
                                     {price?.invert()?.toSignificant(6) ?? '-'}
                                 </Typography>
                                 <Typography variant='subtitle2' gutterBottom component='div'>
-                                    {currencyB.symbol} per {currencyA.symbol}
+                                    {currencyB?.symbol} per {currencyA?.symbol}
                                 </Typography>
                             </Stack>
                             <Stack direction={"column"} justifyContent={"center"} alignItems={"center"}>
@@ -388,7 +390,7 @@ function LiquiditySwap() {
                     onClose={() => setTokenSelect(0)}
                     onSelect={tokenChangeHandler}
                     tokenList={SWAP_TOKEN_LIST}
-                    disabledTokens={tokenSelect === Field.CURRENCY_A ? [currencyB.symbol] : [currencyA.symbol]}
+                    disabledTokens={tokenSelect === Field.CURRENCY_A ? [currencyB?.symbol] : [currencyA?.symbol]}
                 />
             </LiquidityContainer>
             {pair && !noLiquidity && pairState !== PairState.INVALID ?

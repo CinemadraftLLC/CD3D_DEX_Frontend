@@ -326,8 +326,8 @@ const Swap = () => {
                     <FormLabel title={"Slippage Tolerance"} description={""} required={false} />
                     <HtmlTooltip title={<React.Fragment>
                       <Stack direction={"column"} justifyContent={"center"} alignItems={"start"}>
-                        <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D buy = {Number(allowedSlippage / 100)}%</Typography>
-                        <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D sell = {Number(allowedSlippage / 100)}%</Typography>
+                        <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D buy = 12%</Typography>
+                        <Typography variant={"subtitle1"} component={"span"}>Estimated min slippage for CD3D sell = 17%</Typography>
                       </Stack>
                     </React.Fragment>} placement={"top"}>
                       <InfoOutlinedIcon sx={{ color: "#7689B0" }} />
@@ -337,9 +337,9 @@ const Swap = () => {
                 <Stack direction={"row"} container spacing={2} justifyContent={"center"} alignItems={"center"}>
                   <Grid item xs={12} sm={6} md={12} lg={6}>
                     <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"} spacing={1}>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(2) }}>2%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(12) }}>12%</LowPercentButton>
-                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(17) }}>17%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(2 * 100) }}>2%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(12 * 100) }}>12%</LowPercentButton>
+                      <LowPercentButton variant={"outlined"} size={"large"} onClick={() => { setUserSlippageTolerance(17 * 100) }}>17%</LowPercentButton>
                     </Stack>
                   </Grid>
                   <Grid item xs={12} sm={6} md={12} lg={6}>
@@ -349,9 +349,9 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: "0",
-                        onChange: ((event) => { setUserSlippageTolerance(event.target.value) }),
+                        onChange: ((event) => { setUserSlippageTolerance(parseFloat(event.target.value) * 100) }),
                         disableUnderline: true,
-                        value: allowedSlippage,
+                        value: allowedSlippage / 100.0,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>%</Typography>,
                       }}
                     />
@@ -371,9 +371,9 @@ const Swap = () => {
                         type: 'number',
                         placeholder: '0.0',
                         min: '0',
-                        onChange: ((event) => { setUserDeadline(event.target.value) }),
+                        onChange: ((event) => { setUserDeadline(parseFloat(event.target.value) * 60) }),
                         disableUnderline: true,
-                        value: deadline,
+                        value: deadline / 60,
                         endAdornment: <Typography component={"span"} variant={"subtitle1"}>min</Typography>,
                       }}
                     />
