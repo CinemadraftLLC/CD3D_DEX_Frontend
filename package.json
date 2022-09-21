@@ -76,7 +76,7 @@
     "react-redux": "^7.2.6",
     "react-slick": "^0.28.1",
     "react-toastify": "^8.0.3",
-    "recharts": "^2.1.4",
+    "recharts": "2.1.2",
     "redux-localstorage-simple": "^2.3.1",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.1",
